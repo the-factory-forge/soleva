@@ -313,7 +313,7 @@
     "data_title": "Dati raccolti",
     "data_body": "I dati scambiati via email (nome, email, organizzazione, messaggio) sono utilizzati esclusivamente per rispondere alla tua richiesta.",
     "analytics_title": "Misurazione del pubblico",
-    "analytics_body": "Utilizziamo Google Analytics 4 in modalità consenso. Nessun dato di analisi viene raccolto prima del tuo consenso esplicito.",
+    "analytics_body": "Utilizziamo Google Analytics 4 in modalità consenso. Nessun dato di analisi viene raccolto prima del tuo consenso esplicito. I dati possono essere trasferiti ed elaborati negli Stati Uniti.",
     "cookies_title": "Cookie",
     "cookies_body": "Puoi modificare in qualsiasi momento la tua scelta sui cookie tramite il link nel piè di pagina.",
     "rights_title": "I tuoi diritti",
@@ -349,10 +349,18 @@
     "newsletter_button": "Iscriviti"
   },
   "cookies": {
-    "message": "Utilizziamo i cookie per misurare il pubblico del sito. Puoi accettare o rifiutare. Nessun dato viene raccolto senza il tuo consenso.",
-    "accept": "Accetta",
-    "decline": "Rifiuta",
-    "learn_more": "Scopri di più"
+    "text": "Utilizziamo i cookie per migliorare la tua esperienza e analizzare il traffico del sito.",
+    "acceptAll": "Accetta tutto",
+    "acceptSelection": "Accetta selezione",
+    "reject": "Rifiuta",
+    "privacyLink": "Informativa sulla privacy",
+    "manage": "Gestione cookie",
+    "necessaryTitle": "Necessari",
+    "necessaryDescription": "Necessari per il corretto funzionamento del sito.",
+    "analyticsTitle": "Statistiche",
+    "analyticsDescription": "Google Analytics ci aiuta a capire come i visitatori interagiscono con il sito (dati trasferiti negli Stati Uniti).",
+    "marketingTitle": "Marketing",
+    "marketingDescription": "Google Ads misura le conversioni e personalizza la pubblicità (dati trasferiti negli Stati Uniti)."
   },
   "not_found": {
     "title": "Questa strada non è ancora sulla nostra mappa solare.",

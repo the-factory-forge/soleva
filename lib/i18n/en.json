@@ -313,7 +313,7 @@
     "data_title": "Data collected",
     "data_body": "Data exchanged via email (name, email, organization, message) is used solely to respond to your request.",
     "analytics_title": "Audience measurement",
-    "analytics_body": "We use Google Analytics 4 in consent mode. No analytics data is collected before your explicit consent.",
+    "analytics_body": "We use Google Analytics 4 in consent mode. No analytics data is collected before your explicit consent. Data may be transferred to and processed in the United States.",
     "cookies_title": "Cookies",
     "cookies_body": "You can change your cookie choice at any time via the link in the footer.",
     "rights_title": "Your rights",
@@ -349,10 +349,18 @@
     "newsletter_button": "Subscribe"
   },
   "cookies": {
-    "message": "We use cookies to measure site audience. You can accept or decline. No data is collected without your consent.",
-    "accept": "Accept",
-    "decline": "Decline",
-    "learn_more": "Learn more"
+    "text": "We use cookies to improve your experience and analyze site traffic.",
+    "acceptAll": "Accept all",
+    "acceptSelection": "Accept selection",
+    "reject": "Reject",
+    "privacyLink": "Privacy policy",
+    "manage": "Cookie settings",
+    "necessaryTitle": "Necessary",
+    "necessaryDescription": "Required for the website to function properly.",
+    "analyticsTitle": "Statistics",
+    "analyticsDescription": "Google Analytics helps us understand how visitors interact with the site (data transferred to the United States).",
+    "marketingTitle": "Marketing",
+    "marketingDescription": "Google Ads measures conversions and personalizes advertising (data transferred to the United States)."
   },
   "not_found": {
     "title": "This road isn't on our solar map yet.",

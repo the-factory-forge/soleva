@@ -313,7 +313,7 @@
     "data_title": "Données collectées",
     "data_body": "Les données échangées par email (nom, email, organisation, message) sont utilisées uniquement pour répondre à votre demande.",
     "analytics_title": "Mesure d'audience",
-    "analytics_body": "Nous utilisons Google Analytics 4 en mode consentement. Aucune donnée d'analyse n'est collectée avant votre consentement explicite.",
+    "analytics_body": "Nous utilisons Google Analytics 4 en mode consentement. Aucune donnée d'analyse n'est collectée avant votre consentement explicite. Les données peuvent être transférées et traitées aux États-Unis.",
     "cookies_title": "Cookies",
     "cookies_body": "Vous pouvez à tout moment modifier votre choix concernant les cookies via le lien en pied de page.",
     "rights_title": "Vos droits",
@@ -349,10 +349,18 @@
     "newsletter_button": "S'inscrire"
   },
   "cookies": {
-    "message": "Nous utilisons des cookies pour mesurer l'audience du site. Vous pouvez accepter ou refuser. Aucune donnée n'est collectée sans votre consentement.",
-    "accept": "Accepter",
-    "decline": "Refuser",
-    "learn_more": "En savoir plus"
+    "text": "Nous utilisons des cookies pour améliorer votre expérience et analyser le trafic du site.",
+    "acceptAll": "Tout accepter",
+    "acceptSelection": "Accepter la sélection",
+    "reject": "Refuser",
+    "privacyLink": "Politique de confidentialité",
+    "manage": "Gestion des cookies",
+    "necessaryTitle": "Nécessaires",
+    "necessaryDescription": "Requis pour le bon fonctionnement du site Web.",
+    "analyticsTitle": "Statistiques",
+    "analyticsDescription": "Google Analytics nous aide à comprendre comment les visiteurs interagissent avec le site (données transférées aux États-Unis).",
+    "marketingTitle": "Marketing",
+    "marketingDescription": "Google Ads mesure les conversions et personnalise la publicité (données transférées aux États-Unis)."
   },
   "not_found": {
     "title": "Cette route n'est pas encore sur notre carte solaire.",

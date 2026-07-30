@@ -9,6 +9,7 @@ import { SITE_URL, SITE_NAME, SITE } from "@/lib/constants"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { CookieBanner } from "@/components/layout/cookie-banner"
+import { ConsentInit } from "@/components/layout/consent-init"
 import { OrganizationJsonLd } from "@/components/seo/json-ld"
 
 const montserrat = Montserrat({
@@ -96,6 +97,7 @@ export default async function LocaleLayout({
         <main id="main-content">{children}</main>
         <Footer locale={locale as Locale} dict={dict} />
         <CookieBanner locale={locale as Locale} dict={dict} />
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <ConsentInit />}
         <OrganizationJsonLd locale={locale as Locale} />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />

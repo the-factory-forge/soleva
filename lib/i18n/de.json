@@ -313,7 +313,7 @@
     "data_title": "Erhobene Daten",
     "data_body": "Die per E-Mail ausgetauschten Daten (Name, E-Mail, Organisation, Nachricht) werden ausschliesslich zur Beantwortung Ihrer Anfrage verwendet.",
     "analytics_title": "Reichweitenmessung",
-    "analytics_body": "Wir verwenden Google Analytics 4 im Consent-Modus. Vor Ihrer ausdrücklichen Zustimmung werden keine Analysedaten erhoben.",
+    "analytics_body": "Wir verwenden Google Analytics 4 im Consent-Modus. Vor Ihrer ausdrücklichen Zustimmung werden keine Analysedaten erhoben. Daten können in die USA übertragen und dort verarbeitet werden.",
     "cookies_title": "Cookies",
     "cookies_body": "Sie können Ihre Cookie-Wahl jederzeit über den Link in der Fusszeile ändern.",
     "rights_title": "Ihre Rechte",
@@ -349,10 +349,18 @@
     "newsletter_button": "Anmelden"
   },
   "cookies": {
-    "message": "Wir verwenden Cookies zur Reichweitenmessung. Sie können zustimmen oder ablehnen. Ohne Ihre Zustimmung werden keine Daten erhoben.",
-    "accept": "Zustimmen",
-    "decline": "Ablehnen",
-    "learn_more": "Mehr erfahren"
+    "text": "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern und den Website-Traffic zu analysieren.",
+    "acceptAll": "Alle akzeptieren",
+    "acceptSelection": "Auswahl akzeptieren",
+    "reject": "Ablehnen",
+    "privacyLink": "Datenschutzrichtlinie",
+    "manage": "Cookie-Einstellungen",
+    "necessaryTitle": "Notwendig",
+    "necessaryDescription": "Erforderlich für die ordnungsgemässe Funktion der Website.",
+    "analyticsTitle": "Statistiken",
+    "analyticsDescription": "Google Analytics hilft uns zu verstehen, wie Besucher die Website nutzen (Datenübertragung in die USA).",
+    "marketingTitle": "Marketing",
+    "marketingDescription": "Google Ads misst Konversionen und personalisiert Werbung (Datenübertragung in die USA)."
   },
   "not_found": {
     "title": "Diese Strasse ist noch nicht auf unserer Solarkarte.",
