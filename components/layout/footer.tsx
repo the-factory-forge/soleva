@@ -114,8 +114,14 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             href={THE_CORNER.factoriesUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-secondary"
+            className="inline-flex items-center gap-1.5 hover:text-secondary"
           >
+            <img
+              src={THE_CORNER.logoUrl}
+              alt=""
+              className="h-4 w-4"
+              aria-hidden="true"
+            />
             {dict.footer.produced_by}
           </a>
         </div>
