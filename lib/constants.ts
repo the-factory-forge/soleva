@@ -31,8 +31,7 @@ export const CONTACT = {
 export const SOCIALS = {
   instagram: "https://instagram.com/soleva_solar_van",
   facebook: "https://facebook.com/solevavan",
-  // TODO: Replace with the actual LinkedIn company URL.
-  linkedin: "https://ch.linkedin.com/company/soleva",
+  // TODO: LinkedIn page does not exist (company/soleva redirects to another company). Add real URL when client provides it.
   youtube: "https://youtube.com/channel/UCmw0pPduN1XgIyguDNtcv0w",
 } as const
 
