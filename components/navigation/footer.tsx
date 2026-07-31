@@ -22,8 +22,35 @@ export interface NewsletterProps {
   action?: string
 }
 
+/**
+ * Footer usage recipes:
+ *
+ * 1. Logo + dark footer (BBX, Soleva, Laveria, Osteoptimum)
+ *    brand.logo, variant="dark", colors: { headings: "primary", icons: "primary" }
+ *    (requires a --dark token in globals.css; keep "accent" default if
+ *    --primary is dark and would blend into the footer background)
+ *
+ * 2. No logo + tagline (Café des Promeneurs)
+ *    brand.name + tagline, hideMonogram: true,
+ *    colors: { brandName: "primary" }, className: "bg-secondary/60"
+ *
+ * 3. Light default (factory-template)
+ *    No colors required — headings default to text-primary (readable on
+ *    all theme presets). Do NOT default to text-secondary: in shadcn
+ *    presets, --secondary is a surface color nearly invisible on light
+ *    backgrounds (medical, corporate, hospitality).
+ */
 export interface FooterProps {
-  brand: { name: string; description: string; logo?: string; initial?: string }
+  brand: {
+    name: string
+    description: string
+    tagline?: string
+    logo?: string
+    initial?: string
+    hideMonogram?: boolean
+    /** @deprecated Use colors.brandName instead. */
+    brandColor?: "primary" | "foreground"
+  }
   columns: FooterColumn[]
   contact: {
     title?: string
@@ -44,7 +71,16 @@ export interface FooterProps {
   manageCookiesLabel?: string
   manageCookiesEvent?: string
   variant?: "default" | "dark"
-  accentColor?: "accent" | "primary" | "secondary"
+  /** Column headings color. */
+  accentColor?: "accent" | "primary" | "secondary" | "foreground"
+  /** Contact icon color. */
+  iconColor?: "accent" | "primary" | "secondary" | "foreground"
+  /** Grouped color overrides (preferred over accentColor/iconColor/brandColor). */
+  colors?: {
+    headings?: "accent" | "primary" | "secondary" | "foreground"
+    icons?: "accent" | "primary" | "secondary" | "foreground"
+    brandName?: "primary" | "foreground"
+  }
   className?: string
 }
 
@@ -60,6 +96,8 @@ export function Footer({
   manageCookiesEvent = "manage-cookies",
   variant = "default",
   accentColor,
+  iconColor,
+  colors,
   className,
 }: FooterProps) {
   const dark = variant === "dark"
@@ -68,19 +106,31 @@ export function Footer({
     ? "bg-dark text-dark-foreground"
     : "border-t border-border bg-muted/50"
 
-  const accentClass =
-    accentColor === "primary"
+  const colorClass = (color: "accent" | "primary" | "secondary" | "foreground" | undefined) =>
+    color === "primary"
       ? "text-primary"
-      : accentColor === "secondary"
+      : color === "secondary"
         ? "text-secondary"
-        : dark
-          ? "text-accent"
-          : "text-primary"
+        : color === "foreground"
+          ? "text-foreground"
+          : dark
+            ? "text-accent"
+            : "text-primary"
 
-  const brandName = dark ? "text-dark-foreground" : "text-foreground"
+  const headingsColor = colors?.headings ?? accentColor
+  const iconsColor = colors?.icons ?? iconColor
+  const brandNameColor = colors?.brandName ?? brand.brandColor
+  const accentClass = colorClass(headingsColor)
+
+  const brandName =
+    brandNameColor === "primary"
+      ? "text-primary"
+      : dark
+        ? "text-dark-foreground"
+        : "text-foreground"
   const description = dark ? "text-dark-foreground/70" : "text-muted-foreground"
   const heading = accentClass
-  const icon = accentClass
+  const icon = iconsColor ? colorClass(iconsColor) : accentClass
   const link = dark
     ? "text-dark-foreground/70 transition-colors hover:text-secondary"
     : "text-muted-foreground transition-colors hover:text-primary"
@@ -113,13 +163,23 @@ export function Footer({
                   unoptimized
                   className="h-12 w-auto rounded-lg object-contain"
                 />
-              ) : (
+              ) : brand.hideMonogram ? null : (
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-bold text-primary-foreground">
                   {brand.initial ?? brand.name.charAt(0)}
                 </span>
               )}
-              <span className={cn("text-lg font-bold", brandName)}>{brand.name}</span>
+              <span className={cn("font-heading text-lg font-bold", brandName)}>{brand.name}</span>
             </div>
+            {brand.tagline && (
+              <p
+                className={cn(
+                  "text-xs font-medium uppercase tracking-[0.18em]",
+                  dark ? "text-dark-foreground/60" : "text-foreground/60",
+                )}
+              >
+                {brand.tagline}
+              </p>
+            )}
             <p className={cn("text-sm leading-relaxed", description)}>
               {brand.description}
             </p>
@@ -144,7 +204,7 @@ export function Footer({
             )}
             {newsletter && (
               <form action={newsletter.action} method="post" className="pt-2">
-                <h3 className={cn("mb-3 text-sm font-semibold uppercase tracking-wide", heading)}>
+                <h3 className={cn("mb-3 font-heading text-sm font-semibold uppercase tracking-wide", heading)}>
                   {newsletter.title}
                 </h3>
                 <div className="flex max-w-xs gap-2">
@@ -173,7 +233,7 @@ export function Footer({
           {/* Navigation columns */}
           {columns.map((col) => (
             <div key={col.title}>
-              <h3 className={cn("mb-4 text-sm font-semibold uppercase tracking-wide", heading)}>
+              <h3 className={cn("mb-4 font-heading text-sm font-semibold uppercase tracking-wide", heading)}>
                 {col.title}
               </h3>
               <ul className="space-y-2.5">
@@ -190,7 +250,7 @@ export function Footer({
 
           {/* Contact column */}
           <div>
-            <h3 className={cn("mb-4 text-sm font-semibold uppercase tracking-wide", heading)}>
+            <h3 className={cn("mb-4 font-heading text-sm font-semibold uppercase tracking-wide", heading)}>
               {contact.title}
             </h3>
             <ul className="space-y-3">
