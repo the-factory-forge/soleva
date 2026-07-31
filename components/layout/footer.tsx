@@ -33,6 +33,7 @@ export interface FooterProps {
   attribution?: { text: string; href: string; logo?: string }
   manageCookiesLabel?: string
   manageCookiesEvent?: string
+  variant?: "default" | "dark"
   className?: string
 }
 
@@ -45,10 +46,32 @@ export function Footer({
   attribution,
   manageCookiesLabel,
   manageCookiesEvent = "manage-cookies",
+  variant = "default",
   className,
 }: FooterProps) {
+  const dark = variant === "dark"
+
+  const root = dark
+    ? "bg-dark text-dark-foreground"
+    : "border-t border-border bg-muted/50"
+
+  const brandName = dark ? "text-dark-foreground" : "text-foreground"
+  const description = dark ? "text-dark-foreground/70" : "text-muted-foreground"
+  const heading = dark ? "text-dark-foreground/90" : "text-foreground"
+  const link = dark
+    ? "text-dark-foreground/70 transition-colors hover:text-secondary"
+    : "text-muted-foreground transition-colors hover:text-primary"
+  const socialIcon = dark
+    ? "text-dark-foreground/80 transition-colors hover:text-secondary"
+    : "text-muted-foreground transition-colors hover:text-primary"
+  const bottomBorder = dark ? "border-dark-foreground/10" : "border-border"
+  const bottomText = dark ? "text-dark-foreground/60" : "text-muted-foreground"
+  const bottomLink = dark
+    ? "transition-colors hover:text-secondary"
+    : "transition-colors hover:text-primary"
+
   return (
-    <footer className={cn("border-t border-border bg-muted/50", className)}>
+    <footer className={cn(root, className)}>
       <div className="container-premium py-16 md:py-20">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand column */}
@@ -61,13 +84,13 @@ export function Footer({
                   {brand.initial ?? brand.name.charAt(0)}
                 </span>
               )}
-              <span className="text-lg font-bold text-foreground">{brand.name}</span>
+              <span className={cn("text-lg font-bold", brandName)}>{brand.name}</span>
             </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className={cn("text-sm leading-relaxed", description)}>
               {brand.description}
             </p>
             {contact.hours && (
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
+              <div className={cn("flex items-start gap-2 text-sm", description)}>
                 <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                 <span>{contact.hours}</span>
               </div>
@@ -82,7 +105,7 @@ export function Footer({
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted-foreground transition-colors hover:text-primary"
+                      className={cn(socialIcon, dark && "flex h-9 w-9 items-center justify-center rounded-full bg-dark-foreground/10")}
                       aria-label={social.platform}
                     >
                       <Icon className="h-5 w-5" />
@@ -96,17 +119,14 @@ export function Footer({
           {/* Navigation columns */}
           {columns.map((col) => (
             <div key={col.title}>
-              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-foreground">
+              <h3 className={cn("mb-4 text-sm font-semibold uppercase tracking-wide", heading)}>
                 {col.title}
               </h3>
               <ul className="space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      {link.label}
+                {col.links.map((linkItem) => (
+                  <li key={linkItem.href}>
+                    <Link href={linkItem.href} className={cn("text-sm", link)}>
+                      {linkItem.label}
                     </Link>
                   </li>
                 ))}
@@ -116,7 +136,7 @@ export function Footer({
 
           {/* Contact column */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-foreground">
+            <h3 className={cn("mb-4 text-sm font-semibold uppercase tracking-wide", heading)}>
               {contact.title}
             </h3>
             <ul className="space-y-3">
@@ -127,13 +147,13 @@ export function Footer({
                       href={contact.mapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-start gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className={cn("flex items-start gap-2 text-sm", link)}
                     >
                       <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                       {contact.address}
                     </a>
                   ) : (
-                    <span className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <span className={cn("flex items-start gap-2 text-sm", description)}>
                       <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                       {contact.address}
                     </span>
@@ -144,7 +164,7 @@ export function Footer({
                 <li>
                   <a
                     href={`tel:${contact.phone.replace(/\s/g, "")}`}
-                    className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className={cn("flex items-center gap-2 text-sm", link)}
                   >
                     <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
                     {contact.phone}
@@ -155,7 +175,7 @@ export function Footer({
                 <li>
                   <a
                     href={`mailto:${contact.email}`}
-                    className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className={cn("flex items-center gap-2 text-sm", link)}
                   >
                     <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
                     {contact.email}
@@ -168,15 +188,15 @@ export function Footer({
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-border">
-        <div className="container-premium flex flex-col items-center justify-between gap-3 py-5 text-xs text-muted-foreground sm:flex-row">
+      <div className={cn("border-t", bottomBorder)}>
+        <div className={cn("container-premium flex flex-col items-center justify-between gap-3 py-5 text-xs sm:flex-row", bottomText)}>
           <span>{legal.copyright}</span>
           {attribution && (
             <a
               href={attribution.href}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
+              className={cn("inline-flex items-center gap-1.5", bottomLink)}
             >
               {attribution.logo && (
                 <img src={attribution.logo} alt="" className="h-4 w-4" aria-hidden="true" />
@@ -185,20 +205,20 @@ export function Footer({
             </a>
           )}
           <nav className="flex gap-4">
-            {legal.links.map((link) => (
+            {legal.links.map((linkItem) => (
               <Link
-                key={link.href}
-                href={link.href}
-                className="transition-colors hover:text-primary"
+                key={linkItem.href}
+                href={linkItem.href}
+                className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-secondary")}
               >
-                {link.label}
+                {linkItem.label}
               </Link>
             ))}
             {manageCookiesLabel && (
               <ManageCookiesButton
                 label={manageCookiesLabel}
                 manageEvent={manageCookiesEvent}
-                className="transition-colors hover:text-primary"
+                className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-secondary")}
               />
             )}
           </nav>

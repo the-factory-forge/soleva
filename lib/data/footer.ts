@@ -2,8 +2,9 @@ import { type Locale } from "@/lib/i18n/config"
 import type { Dictionary } from "@/lib/i18n"
 import { withLocale } from "@/lib/navigation"
 import { CONTACT, SOCIALS, SITE_NAME, THE_CORNER } from "@/lib/constants"
+import type { FooterProps } from "@/components/layout/footer"
 
-export function getFooterProps(locale: Locale, dict: Dictionary) {
+export function getFooterProps(locale: Locale, dict: Dictionary): FooterProps {
   const year = new Date().getFullYear()
 
   return {
@@ -54,5 +55,6 @@ export function getFooterProps(locale: Locale, dict: Dictionary) {
       logo: THE_CORNER.logoUrl,
     },
     manageCookiesEvent: "soleva:open-cookie-settings",
+    variant: "dark",
   }
 }
