@@ -54,5 +54,6 @@ export function getFooterProps(locale: Locale, dict: Dictionary) {
     },
     manageCookiesEvent: "soleva:open-cookie-settings",
     variant: "dark",
+    accentColor: "primary",
   })
 }
