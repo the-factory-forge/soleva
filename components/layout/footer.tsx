@@ -192,43 +192,48 @@ export function Footer({
 
       {/* Bottom bar */}
       <div className={cn("border-t", bottomBorder)}>
-        <div className={cn("container-premium flex flex-col items-center justify-between gap-3 py-5 text-xs sm:flex-row", bottomText)}>
-          <span>{legal.copyright}</span>
-          {attribution && (
-            <a
-              href={attribution.href}
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className={cn("inline-flex items-center gap-1.5", bottomLink)}
-            >
-              {attribution.logo && (
-                <img src={attribution.logo} alt="" className="h-4 w-4" aria-hidden="true" />
+        <div className="container-premium flex flex-col gap-6 py-8">
+          <div className={cn("flex flex-col items-center justify-between gap-3 text-xs sm:flex-row", bottomText)}>
+            <span>{legal.copyright}</span>
+            <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+              {legal.links.map((linkItem) => (
+                <Link
+                  key={linkItem.href}
+                  href={linkItem.href}
+                  className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-secondary")}
+                >
+                  {linkItem.label}
+                </Link>
+              ))}
+              {manageCookiesLabel && (
+                <ManageCookiesButton
+                  label={manageCookiesLabel}
+                  manageEvent={manageCookiesEvent}
+                  className={cn(
+                    "text-xs",
+                    bottomLink,
+                    dark && "text-dark-foreground/70 hover:text-secondary",
+                  )}
+                />
               )}
-              {attribution.text}
-            </a>
-          )}
-          <nav className="flex gap-4">
-            {legal.links.map((linkItem) => (
-              <Link
-                key={linkItem.href}
-                href={linkItem.href}
-                className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-secondary")}
+            </nav>
+          </div>
+
+          {attribution && (
+            <div className={cn("flex justify-center text-xs", bottomText)}>
+              <a
+                href={attribution.href}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className={cn("inline-flex items-center gap-1.5", bottomLink)}
               >
-                {linkItem.label}
-              </Link>
-            ))}
-            {manageCookiesLabel && (
-              <ManageCookiesButton
-                label={manageCookiesLabel}
-                manageEvent={manageCookiesEvent}
-                className={cn(
-                  "text-xs",
-                  bottomLink,
-                  dark && "text-dark-foreground/70 hover:text-secondary",
+                {attribution.logo && (
+                  <img src={attribution.logo} alt="" className="h-4 w-4" aria-hidden="true" />
                 )}
-              />
-            )}
-          </nav>
+                {attribution.text}
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </footer>
