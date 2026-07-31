@@ -225,15 +225,3 @@ export function CookieBanner({
     </div>
   )
 }
-
-export function ManageCookiesButton({ label }: { label: string }) {
-  return (
-    <button
-      type="button"
-      className="text-left text-dark-foreground/70 hover:text-secondary"
-      onClick={() => window.dispatchEvent(new Event(OPEN_EVENT))}
-    >
-      {label}
-    </button>
-  )
-}
