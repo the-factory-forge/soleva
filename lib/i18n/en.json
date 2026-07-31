@@ -321,7 +321,7 @@
     "retention_title": "Data retention",
     "retention_body": "Google Analytics data is automatically deleted by Google after 14 months (default retention period of Google Analytics). Contact data (email) is kept for the duration of our relationship and, as a contact register, for as long as the association exists. You can request its deletion at any time.",
     "rights_title": "Your rights",
-    "rights_body": "You have the right to access, modify, delete, and port your personal data, as well as the right to withdraw your consent at any time. Contact us at info@soleva.org.",
+    "rights_body": "You have the right to access, modify, delete, and port your personal data, as well as the right to withdraw your consent at any time. Contact us at info@soleva.org. Aggregated browsing data (Google Analytics) does not allow identifying an individual person.",
     "updatedAt": "2026-07-31"
   },
   "breadcrumb": {

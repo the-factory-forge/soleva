@@ -321,7 +321,7 @@
     "retention_title": "Durée de conservation",
     "retention_body": "Les données Google Analytics sont automatiquement supprimées par Google après 14 mois (durée de conservation par défaut de Google Analytics). Les données de contact (email) sont conservées pendant la durée de notre relation et, à titre de registre de contacts, aussi longtemps que l'association existe. Vous pouvez demander leur suppression à tout moment.",
     "rights_title": "Vos droits",
-    "rights_body": "Vous disposez d'un droit d'accès, de modification, de suppression et de portabilité de vos données personnelles, ainsi que du droit de retirer votre consentement à tout moment. Contactez-nous à info@soleva.org.",
+    "rights_body": "Vous disposez d'un droit d'accès, de modification, de suppression et de portabilité de vos données personnelles, ainsi que du droit de retirer votre consentement à tout moment. Contactez-nous à info@soleva.org. Les données de navigation agrégées (Google Analytics) ne permettent pas d'identifier une personne individuelle.",
     "updatedAt": "2026-07-31"
   },
   "breadcrumb": {
