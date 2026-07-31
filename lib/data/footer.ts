@@ -14,18 +14,20 @@ export function getFooterProps(locale: Locale, dict: Dictionary) {
       {
         title: dict.footer.explore,
         links: [
-          { label: dict.footer.van, href: withLocale(locale, "/le-van") },
-          { label: dict.nav.impact, href: withLocale(locale, "/impact") },
+          { label: dict.nav.about, href: withLocale(locale, "/a-propos") },
           { label: dict.nav.voyage, href: withLocale(locale, "/voyage") },
           { label: dict.nav.support, href: withLocale(locale, "/soutenir") },
+          { label: dict.nav.faq, href: withLocale(locale, "/faq") },
+          { label: dict.nav.contact, href: withLocale(locale, "/contact") },
         ],
       },
       {
-        title: dict.footer.project,
+        title: dict.footer.van,
         links: [
-          { label: dict.nav.about, href: withLocale(locale, "/a-propos") },
-          { label: dict.nav.faq, href: withLocale(locale, "/faq") },
-          { label: dict.nav.contact, href: withLocale(locale, "/contact") },
+          { label: dict.nav.conversion, href: withLocale(locale, "/le-van/conversion-electrique") },
+          { label: dict.nav.solaire, href: withLocale(locale, "/le-van/systeme-solaire") },
+          { label: dict.nav.habitat, href: withLocale(locale, "/habitat") },
+          { label: dict.nav.impact, href: withLocale(locale, "/impact") },
         ],
       },
     ],
