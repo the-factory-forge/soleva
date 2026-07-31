@@ -32,6 +32,7 @@ export interface FooterOptions {
   newsletter?: FooterProps["newsletter"]
   manageCookiesEvent?: string
   variant?: "default" | "dark"
+  accentColor?: "accent" | "primary" | "secondary"
   className?: string
 }
 
@@ -63,6 +64,7 @@ export function getFooterProps(options: FooterOptions): FooterProps {
     newsletter,
     manageCookiesEvent = "manage-cookies",
     variant = "default",
+    accentColor,
     className,
   } = options
 
@@ -82,6 +84,7 @@ export function getFooterProps(options: FooterOptions): FooterProps {
     newsletter,
     manageCookiesEvent,
     variant,
+    accentColor,
     className,
   }
 }

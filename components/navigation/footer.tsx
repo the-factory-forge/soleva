@@ -44,6 +44,7 @@ export interface FooterProps {
   manageCookiesLabel?: string
   manageCookiesEvent?: string
   variant?: "default" | "dark"
+  accentColor?: "accent" | "primary" | "secondary"
   className?: string
 }
 
@@ -58,6 +59,7 @@ export function Footer({
   manageCookiesLabel,
   manageCookiesEvent = "manage-cookies",
   variant = "default",
+  accentColor,
   className,
 }: FooterProps) {
   const dark = variant === "dark"
@@ -66,10 +68,19 @@ export function Footer({
     ? "bg-dark text-dark-foreground"
     : "border-t border-border bg-muted/50"
 
+  const accentClass =
+    accentColor === "primary"
+      ? "text-primary"
+      : accentColor === "secondary"
+        ? "text-secondary"
+        : dark
+          ? "text-accent"
+          : "text-secondary"
+
   const brandName = dark ? "text-dark-foreground" : "text-foreground"
   const description = dark ? "text-dark-foreground/70" : "text-muted-foreground"
-  const heading = dark ? "text-accent" : "text-secondary"
-  const icon = dark ? "text-accent" : "text-secondary"
+  const heading = accentClass
+  const icon = accentClass
   const link = dark
     ? "text-dark-foreground/70 transition-colors hover:text-secondary"
     : "text-muted-foreground transition-colors hover:text-primary"
