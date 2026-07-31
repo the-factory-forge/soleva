@@ -96,7 +96,7 @@ export default async function LocaleLayout({
         <Navbar locale={locale as Locale} dict={dict} />
         <main id="main-content">{children}</main>
         <Footer locale={locale as Locale} dict={dict} />
-        <CookieBanner locale={locale as Locale} dict={dict} />
+        <CookieBanner locale={locale as Locale} dict={dict} showMarketing={true} />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <ConsentInit />}
         <OrganizationJsonLd locale={locale as Locale} />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
