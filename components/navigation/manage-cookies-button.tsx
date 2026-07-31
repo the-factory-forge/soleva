@@ -5,12 +5,14 @@ import { cn } from "@/lib/utils"
 export interface ManageCookiesButtonProps {
   label: string
   manageEvent?: string
+  size?: "xs" | "sm"
   className?: string
 }
 
 export function ManageCookiesButton({
   label,
   manageEvent = "manage-cookies",
+  size = "sm",
   className,
 }: ManageCookiesButtonProps) {
   return (
@@ -18,7 +20,8 @@ export function ManageCookiesButton({
       type="button"
       onClick={() => window.dispatchEvent(new Event(manageEvent))}
       className={cn(
-        "text-sm text-muted-foreground transition-colors hover:text-primary",
+        size === "xs" ? "text-xs" : "text-sm",
+        "text-muted-foreground transition-colors hover:text-primary",
         className,
       )}
     >

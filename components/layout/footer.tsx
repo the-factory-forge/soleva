@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Mail, MapPin, Phone, Clock } from "lucide-react"
 import { type SocialPlatform, socialIconMap } from "@/components/ui/social-icons"
@@ -14,6 +15,13 @@ export interface FooterColumn {
   links: { label: string; href: string }[]
 }
 
+export interface NewsletterProps {
+  title: string
+  placeholder: string
+  buttonLabel: string
+  action?: string
+}
+
 export interface FooterProps {
   brand: { name: string; description: string; logo?: string; initial?: string }
   columns: FooterColumn[]
@@ -24,6 +32,7 @@ export interface FooterProps {
     email?: string
     mapsUrl?: string
     hours?: string
+    hoursLabel?: string
   }
   socials?: SocialLink[]
   legal: {
@@ -31,6 +40,7 @@ export interface FooterProps {
     copyright: string
   }
   attribution?: { text: string; href: string; logo?: string }
+  newsletter?: NewsletterProps
   manageCookiesLabel?: string
   manageCookiesEvent?: string
   variant?: "default" | "dark"
@@ -44,6 +54,7 @@ export function Footer({
   socials,
   legal,
   attribution,
+  newsletter,
   manageCookiesLabel,
   manageCookiesEvent = "manage-cookies",
   variant = "default",
@@ -71,17 +82,28 @@ export function Footer({
     ? "transition-colors hover:text-secondary"
     : "transition-colors hover:text-primary"
 
+  const inputClass = dark
+    ? "border-dark-foreground/20 bg-dark-foreground/10 text-dark-foreground placeholder:text-dark-foreground/50"
+    : "border-border bg-background text-foreground placeholder:text-muted-foreground"
+
   return (
     <footer className={cn(root, className)}>
       <div className="container-premium py-16 md:py-20">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-10 lg:grid-cols-4">
           {/* Brand column */}
-          <div className="space-y-4">
+          <div className="col-span-2 space-y-4 lg:col-span-1">
             <div className="flex items-center gap-2">
               {brand.logo ? (
-                <img src={brand.logo} alt={brand.name} className="h-10 w-auto rounded-lg" />
+                <Image
+                  src={brand.logo}
+                  alt={brand.name}
+                  width={160}
+                  height={40}
+                  unoptimized
+                  className="h-10 w-auto rounded-lg object-contain"
+                />
               ) : (
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-bold text-primary-foreground">
                   {brand.initial ?? brand.name.charAt(0)}
                 </span>
               )}
@@ -108,6 +130,32 @@ export function Footer({
                   )
                 })}
               </div>
+            )}
+            {newsletter && (
+              <form action={newsletter.action} method="post" className="pt-2">
+                <h3 className={cn("mb-3 text-sm font-semibold uppercase tracking-wide", heading)}>
+                  {newsletter.title}
+                </h3>
+                <div className="flex max-w-xs gap-2">
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder={newsletter.placeholder}
+                    aria-label={newsletter.placeholder}
+                    className={cn(
+                      "h-10 min-w-0 flex-1 rounded-lg border px-3 text-sm outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/40",
+                      inputClass,
+                    )}
+                  />
+                  <button
+                    type="submit"
+                    className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground outline-none transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-primary/40"
+                  >
+                    {newsletter.buttonLabel}
+                  </button>
+                </div>
+              </form>
             )}
           </div>
 
@@ -177,11 +225,15 @@ export function Footer({
                   </a>
                 </li>
               )}
-              {contact.hours && (
+              {(contact.hours || contact.hoursLabel) && (
                 <li>
                   <span className={cn("flex items-center gap-2 text-sm", description)}>
                     <Clock className={cn("h-4 w-4 shrink-0", icon)} aria-hidden="true" />
-                    {contact.hours}
+                    {contact.hoursLabel && (
+                      <span className="font-medium">{contact.hoursLabel}</span>
+                    )}
+                    {contact.hoursLabel && contact.hours && <span> : </span>}
+                    {contact.hours && <span>{contact.hours}</span>}
                   </span>
                 </li>
               )}
@@ -209,8 +261,8 @@ export function Footer({
                 <ManageCookiesButton
                   label={manageCookiesLabel}
                   manageEvent={manageCookiesEvent}
+                  size="xs"
                   className={cn(
-                    "text-xs",
                     bottomLink,
                     dark && "text-dark-foreground/70 hover:text-secondary",
                   )}
@@ -228,7 +280,15 @@ export function Footer({
                 className={cn("inline-flex items-center gap-1.5", bottomLink)}
               >
                 {attribution.logo && (
-                  <img src={attribution.logo} alt="" className="h-4 w-4" aria-hidden="true" />
+                  <Image
+                    src={attribution.logo}
+                    alt=""
+                    width={16}
+                    height={16}
+                    unoptimized
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                  />
                 )}
                 {attribution.text}
               </a>
