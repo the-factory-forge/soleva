@@ -21,6 +21,7 @@ export interface FooterOptions {
     title?: string
     address?: string
     phone?: string
+    phoneLabel?: string
     email?: string
     mapsUrl?: string
     hours?: string

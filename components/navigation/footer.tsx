@@ -56,10 +56,13 @@ export interface FooterProps {
     title?: string
     address?: string
     phone?: string
+    phoneLabel?: string
     email?: string
     mapsUrl?: string
     hours?: string
     hoursLabel?: string
+    /** Structured opening hours — days left, hours right, one row each. */
+    hoursRows?: { days: string; hours: string }[]
   }
   socials?: SocialLink[]
   legal: {
@@ -282,6 +285,14 @@ export function Footer({
                   >
                     <Phone className={cn("h-4 w-4 shrink-0", icon)} aria-hidden="true" />
                     {contact.phone}
+                    {contact.phoneLabel && (
+                      <>
+                        <span aria-hidden="true"> · </span>
+                        <span className="text-xs font-semibold uppercase text-primary">
+                          {contact.phoneLabel}
+                        </span>
+                      </>
+                    )}
                   </a>
                 </li>
               )}
@@ -298,13 +309,15 @@ export function Footer({
               )}
               {(contact.hours || contact.hoursLabel) && (
                 <li>
-                  <span className={cn("flex items-center gap-2 text-sm", description)}>
-                    <Clock className={cn("h-4 w-4 shrink-0", icon)} aria-hidden="true" />
-                    {contact.hoursLabel && (
-                      <span className="font-medium">{contact.hoursLabel}</span>
-                    )}
-                    {contact.hoursLabel && contact.hours && <span> : </span>}
-                    {contact.hours && <span>{contact.hours}</span>}
+                  <span className={cn("flex items-start gap-2 text-sm", description)}>
+                    <Clock className={cn("mt-0.5 h-4 w-4 shrink-0", icon)} aria-hidden="true" />
+                    <span className="whitespace-pre-line">
+                      {contact.hoursLabel && (
+                        <span className="font-medium">{contact.hoursLabel}</span>
+                      )}
+                      {contact.hoursLabel && contact.hours && <span> : </span>}
+                      {contact.hours && <span>{contact.hours}</span>}
+                    </span>
                   </span>
                 </li>
               )}
