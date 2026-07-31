@@ -111,7 +111,6 @@ export default async function ContactPage({
                   <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
                     <a href={SOCIALS.instagram} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-primary">Instagram</a>
                     <a href={SOCIALS.facebook} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-primary">Facebook</a>
-                    <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-primary">LinkedIn</a>
                     <a href={SOCIALS.youtube} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-primary">YouTube</a>
                   </div>
                 </div>

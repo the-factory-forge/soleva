@@ -30,7 +30,7 @@ export function OrganizationJsonLd({ locale }: { locale: Locale }) {
         addressCountry: "CH",
       },
     },
-    sameAs: [SOCIALS.instagram, SOCIALS.facebook, SOCIALS.linkedin, SOCIALS.youtube],
+    sameAs: [SOCIALS.instagram, SOCIALS.facebook, SOCIALS.youtube],
   }
 
   return (
