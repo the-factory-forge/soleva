@@ -75,7 +75,7 @@ export function Footer({
         ? "text-secondary"
         : dark
           ? "text-accent"
-          : "text-secondary"
+          : "text-primary"
 
   const brandName = dark ? "text-dark-foreground" : "text-foreground"
   const description = dark ? "text-dark-foreground/70" : "text-muted-foreground"
