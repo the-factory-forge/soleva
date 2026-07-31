@@ -57,7 +57,8 @@ export function Footer({
 
   const brandName = dark ? "text-dark-foreground" : "text-foreground"
   const description = dark ? "text-dark-foreground/70" : "text-muted-foreground"
-  const heading = dark ? "text-dark-foreground/90" : "text-foreground"
+  const heading = dark ? "text-accent" : "text-secondary"
+  const icon = dark ? "text-accent" : "text-secondary"
   const link = dark
     ? "text-dark-foreground/70 transition-colors hover:text-secondary"
     : "text-muted-foreground transition-colors hover:text-primary"
@@ -78,7 +79,7 @@ export function Footer({
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               {brand.logo ? (
-                <img src={brand.logo} alt={brand.name} className="h-8 w-auto" />
+                <img src={brand.logo} alt={brand.name} className="h-10 w-auto rounded-lg" />
               ) : (
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
                   {brand.initial ?? brand.name.charAt(0)}
@@ -89,12 +90,6 @@ export function Footer({
             <p className={cn("text-sm leading-relaxed", description)}>
               {brand.description}
             </p>
-            {contact.hours && (
-              <div className={cn("flex items-start gap-2 text-sm", description)}>
-                <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>{contact.hours}</span>
-              </div>
-            )}
             {socials && socials.length > 0 && (
               <div className="flex gap-3 pt-2">
                 {socials.map((social) => {
@@ -149,12 +144,12 @@ export function Footer({
                       rel="noopener noreferrer"
                       className={cn("flex items-start gap-2 text-sm", link)}
                     >
-                      <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                      <MapPin className={cn("mt-0.5 h-4 w-4 shrink-0", icon)} aria-hidden="true" />
                       {contact.address}
                     </a>
                   ) : (
                     <span className={cn("flex items-start gap-2 text-sm", description)}>
-                      <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                      <MapPin className={cn("mt-0.5 h-4 w-4 shrink-0", icon)} aria-hidden="true" />
                       {contact.address}
                     </span>
                   )}
@@ -166,7 +161,7 @@ export function Footer({
                     href={`tel:${contact.phone.replace(/\s/g, "")}`}
                     className={cn("flex items-center gap-2 text-sm", link)}
                   >
-                    <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+                    <Phone className={cn("h-4 w-4 shrink-0", icon)} aria-hidden="true" />
                     {contact.phone}
                   </a>
                 </li>
@@ -177,9 +172,17 @@ export function Footer({
                     href={`mailto:${contact.email}`}
                     className={cn("flex items-center gap-2 text-sm", link)}
                   >
-                    <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+                    <Mail className={cn("h-4 w-4 shrink-0", icon)} aria-hidden="true" />
                     {contact.email}
                   </a>
+                </li>
+              )}
+              {contact.hours && (
+                <li>
+                  <span className={cn("flex items-center gap-2 text-sm", description)}>
+                    <Clock className={cn("h-4 w-4 shrink-0", icon)} aria-hidden="true" />
+                    {contact.hours}
+                  </span>
                 </li>
               )}
             </ul>
