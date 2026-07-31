@@ -1,6 +1,17 @@
 import type { SVGProps } from "react"
 
+export type SocialPlatform = "instagram" | "facebook" | "linkedin" | "youtube"
+
 type IconProps = SVGProps<SVGSVGElement>
+
+export type { IconProps }
+
+export const socialIconMap: Record<SocialPlatform, React.ComponentType<SVGProps<SVGSVGElement>>> = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  linkedin: LinkedinIcon,
+  youtube: YoutubeIcon,
+}
 
 export function InstagramIcon(props: IconProps) {
   return (

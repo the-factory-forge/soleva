@@ -8,6 +8,7 @@ import { getDictionary, ogLocales } from "@/lib/i18n"
 import { SITE_URL, SITE_NAME, SITE } from "@/lib/constants"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
+import { getFooterProps } from "@/lib/data/footer"
 import { CookieBanner } from "@/components/layout/cookie-banner"
 import { ConsentInit } from "@/components/layout/consent-init"
 import { OrganizationJsonLd } from "@/components/seo/json-ld"
@@ -95,7 +96,10 @@ export default async function LocaleLayout({
         </a>
         <Navbar locale={locale as Locale} dict={dict} />
         <main id="main-content">{children}</main>
-        <Footer locale={locale as Locale} dict={dict} />
+        <Footer
+          {...getFooterProps(locale as Locale, dict)}
+          manageCookiesLabel={dict.footer.manage_cookies}
+        />
         <CookieBanner locale={locale as Locale} dict={dict} showMarketing={true} />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <ConsentInit />}
         <OrganizationJsonLd locale={locale as Locale} />
