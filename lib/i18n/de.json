@@ -310,15 +310,19 @@
   "privacy": {
     "title": "Datenschutzerklärung",
     "intro": "Diese Erklärung beschreibt, wie Soleva mit Ihren persönlichen Daten umgeht, gemäss dem Schweizer DSG und der europäischen DSGVO.",
-    "data_title": "Erhobene Daten",
-    "data_body": "Die per E-Mail ausgetauschten Daten (Name, E-Mail, Organisation, Nachricht) werden ausschliesslich zur Beantwortung Ihrer Anfrage verwendet.",
+    "controller_title": "Verantwortlicher",
+    "controller_body": "Verein Soleva\nRue de Lausanne 64\n1020 Renens VD\nSchweiz\nE-Mail: info@soleva.org",
+    "data_title": "Datenerhebung",
+    "data_body": "Wir erheben nur Daten, die für den Betrieb der Website erforderlich sind, und mit Ihrer Einwilligung Nutzungsstatistiken über Google Analytics (Google LLC, USA).",
+    "purposes_title": "Zwecke",
+    "purposes_body": "Ihre Daten werden verwendet, um die Website zu betreiben, Ihre Kontakt- und Spendenanfragen zu beantworten und unsere Dienstleistungen zu verbessern. Marketingzwecke werden nur mit separater Einwilligung verfolgt.",
     "analytics_title": "Reichweitenmessung",
     "analytics_body": "Wir verwenden Google Analytics 4 im Consent-Modus. Vor Ihrer ausdrücklichen Zustimmung werden keine Analysedaten erhoben. Daten können in die USA übertragen und dort verarbeitet werden.",
-    "cookies_title": "Cookies",
-    "cookies_body": "Sie können Ihre Cookie-Wahl jederzeit über den Link in der Fusszeile ändern.",
+    "retention_title": "Aufbewahrungsdauer",
+    "retention_body": "Google-Analytics-Daten werden von Google nach 14 Monaten automatisch gelöscht (Standard-Aufbewahrungsfrist von Google Analytics). Kontaktdaten (E-Mail) werden während der Dauer unserer Beziehung und als Kontaktregister so lange aufbewahrt, wie der Verein besteht. Sie können deren Löschung jederzeit verlangen.",
     "rights_title": "Ihre Rechte",
-    "rights_body": "Sie haben das Recht auf Zugang, Berichtigung und Löschung Ihrer Daten. Kontaktieren Sie uns unter info@soleva.org.",
-    "todo": "Vollständiger Datenschutztext vom Kunden zu validieren."
+    "rights_body": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Übertragbarkeit Ihrer personenbezogenen Daten sowie das Recht, Ihre Einwilligung jederzeit zu widerrufen. Kontaktieren Sie uns unter info@soleva.org.",
+    "updatedAt": "2026-07-31"
   },
   "breadcrumb": {
     "home": "Start",

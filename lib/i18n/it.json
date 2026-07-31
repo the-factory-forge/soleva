@@ -310,15 +310,19 @@
   "privacy": {
     "title": "Informativa sulla privacy",
     "intro": "Questa informativa descrive come Soleva tratta i tuoi dati personali, in conformità con la LPD svizzera e il GDPR europeo.",
+    "controller_title": "Titolare del trattamento",
+    "controller_body": "Associazione Soleva\nRue de Lausanne 64\n1020 Renens VD\nSvizzera\nEmail: info@soleva.org",
     "data_title": "Dati raccolti",
-    "data_body": "I dati scambiati via email (nome, email, organizzazione, messaggio) sono utilizzati esclusivamente per rispondere alla tua richiesta.",
-    "analytics_title": "Misurazione del pubblico",
-    "analytics_body": "Utilizziamo Google Analytics 4 in modalità consenso. Nessun dato di analisi viene raccolto prima del tuo consenso esplicito. I dati possono essere trasferiti ed elaborati negli Stati Uniti.",
-    "cookies_title": "Cookie",
-    "cookies_body": "Puoi modificare in qualsiasi momento la tua scelta sui cookie tramite il link nel piè di pagina.",
-    "rights_title": "I tuoi diritti",
-    "rights_body": "Hai il diritto di accedere, rettificare ed eliminare i tuoi dati. Contattaci a info@soleva.org.",
-    "todo": "Testo completo sulla privacy da validare dal cliente."
+    "data_body": "Raccogliamo solo i dati necessari al funzionamento del sito e, con il vostro consenso, statistiche di utilizzo tramite Google Analytics (Google LLC, USA).",
+    "purposes_title": "Finalità",
+    "purposes_body": "I vostri dati vengono utilizzati per gestire il sito, rispondere alle vostre richieste di contatto e donazione e migliorare i nostri servizi. Le finalità di marketing sono perseguite solo con un consenso separato.",
+    "analytics_title": "Misurazione dell'audience",
+    "analytics_body": "Utilizziamo Google Analytics 4 in modalità consenso. Nessun dato di analisi viene raccolto prima del vostro consenso esplicito. I dati possono essere trasferiti ed elaborati negli Stati Uniti.",
+    "retention_title": "Durata di conservazione",
+    "retention_body": "I dati di Google Analytics vengono eliminati automaticamente da Google dopo 14 mesi (periodo di conservazione predefinito di Google Analytics). I dati di contatto (email) vengono conservati per la durata del nostro rapporto e, come registro di contatti, per tutto il tempo di esistenza dell'associazione. Potete richiederne la cancellazione in qualsiasi momento.",
+    "rights_title": "I vostri diritti",
+    "rights_body": "Avete diritto di accesso, modifica, cancellazione e portabilità dei vostri dati personali, nonché il diritto di revocare il vostro consenso in qualsiasi momento. Contattateci a info@soleva.org.",
+    "updatedAt": "2026-07-31"
   },
   "breadcrumb": {
     "home": "Home",

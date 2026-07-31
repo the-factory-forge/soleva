@@ -33,9 +33,11 @@ export default async function PrivacyPage({
   const p = dict.privacy
 
   const sections = [
+    { title: p.controller_title, body: p.controller_body },
     { title: p.data_title, body: p.data_body },
+    { title: p.purposes_title, body: p.purposes_body },
     { title: p.analytics_title, body: p.analytics_body },
-    { title: p.cookies_title, body: p.cookies_body },
+    { title: p.retention_title, body: p.retention_body },
     { title: p.rights_title, body: p.rights_body },
   ]
 
@@ -55,12 +57,12 @@ export default async function PrivacyPage({
             {sections.map((s) => (
               <div key={s.title}>
                 <h2 className="font-heading text-xl font-bold">{s.title}</h2>
-                <p className="mt-2 leading-relaxed text-muted-foreground">{s.body}</p>
+                <p className="mt-2 whitespace-pre-line leading-relaxed text-muted-foreground">
+                  {s.body}
+                </p>
               </div>
             ))}
-            <p className="rounded-2xl border border-dashed border-border bg-muted p-4 text-sm text-muted-foreground">
-              {p.todo}
-            </p>
+            <p className="text-sm text-muted-foreground">{p.updatedAt}</p>
           </div>
         </div>
       </section>

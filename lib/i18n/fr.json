@@ -310,15 +310,19 @@
   "privacy": {
     "title": "Politique de confidentialité",
     "intro": "Cette politique décrit comment Soleva traite vos données personnelles, conformément à la LPD suisse et au RGPD européen.",
+    "controller_title": "Responsable du traitement",
+    "controller_body": "Association Soleva\nRue de Lausanne 64\n1020 Renens VD\nSuisse\nEmail : info@soleva.org",
     "data_title": "Données collectées",
-    "data_body": "Les données échangées par email (nom, email, organisation, message) sont utilisées uniquement pour répondre à votre demande.",
+    "data_body": "Nous collectons uniquement les données nécessaires au bon fonctionnement du site et, avec votre consentement, des statistiques d'utilisation via Google Analytics (Google LLC, USA).",
+    "purposes_title": "Finalités",
+    "purposes_body": "Vos données sont utilisées pour faire fonctionner le site, répondre à vos demandes de contact et de don, et améliorer nos services. Les finalités marketing ne sont poursuivies qu'avec un consentement séparé.",
     "analytics_title": "Mesure d'audience",
     "analytics_body": "Nous utilisons Google Analytics 4 en mode consentement. Aucune donnée d'analyse n'est collectée avant votre consentement explicite. Les données peuvent être transférées et traitées aux États-Unis.",
-    "cookies_title": "Cookies",
-    "cookies_body": "Vous pouvez à tout moment modifier votre choix concernant les cookies via le lien en pied de page.",
+    "retention_title": "Durée de conservation",
+    "retention_body": "Les données Google Analytics sont automatiquement supprimées par Google après 14 mois (durée de conservation par défaut de Google Analytics). Les données de contact (email) sont conservées pendant la durée de notre relation et, à titre de registre de contacts, aussi longtemps que l'association existe. Vous pouvez demander leur suppression à tout moment.",
     "rights_title": "Vos droits",
-    "rights_body": "Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Contactez-nous à info@soleva.org.",
-    "todo": "Texte de confidentialité complet à valider par le client."
+    "rights_body": "Vous disposez d'un droit d'accès, de modification, de suppression et de portabilité de vos données personnelles, ainsi que du droit de retirer votre consentement à tout moment. Contactez-nous à info@soleva.org.",
+    "updatedAt": "2026-07-31"
   },
   "breadcrumb": {
     "home": "Accueil",

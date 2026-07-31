@@ -310,15 +310,19 @@
   "privacy": {
     "title": "Privacy policy",
     "intro": "This policy describes how Soleva handles your personal data, in accordance with the Swiss FADP and the European GDPR.",
+    "controller_title": "Data controller",
+    "controller_body": "Association Soleva\nRue de Lausanne 64\n1020 Renens VD\nSwitzerland\nEmail: info@soleva.org",
     "data_title": "Data collected",
-    "data_body": "Data exchanged via email (name, email, organization, message) is used solely to respond to your request.",
+    "data_body": "We only collect data necessary for the proper functioning of the site and, with your consent, usage statistics via Google Analytics (Google LLC, USA).",
+    "purposes_title": "Purposes",
+    "purposes_body": "Your data is used to operate the website, respond to your contact and donation requests, and improve our services. Marketing purposes are only pursued with separate consent.",
     "analytics_title": "Audience measurement",
     "analytics_body": "We use Google Analytics 4 in consent mode. No analytics data is collected before your explicit consent. Data may be transferred to and processed in the United States.",
-    "cookies_title": "Cookies",
-    "cookies_body": "You can change your cookie choice at any time via the link in the footer.",
+    "retention_title": "Data retention",
+    "retention_body": "Google Analytics data is automatically deleted by Google after 14 months (default retention period of Google Analytics). Contact data (email) is kept for the duration of our relationship and, as a contact register, for as long as the association exists. You can request its deletion at any time.",
     "rights_title": "Your rights",
-    "rights_body": "You have the right to access, rectify and delete your data. Contact us at info@soleva.org.",
-    "todo": "Full privacy text to be validated by the client."
+    "rights_body": "You have the right to access, modify, delete, and port your personal data, as well as the right to withdraw your consent at any time. Contact us at info@soleva.org.",
+    "updatedAt": "2026-07-31"
   },
   "breadcrumb": {
     "home": "Home",
