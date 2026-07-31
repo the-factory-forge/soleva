@@ -111,7 +111,7 @@ export function Footer({
                   width={160}
                   height={40}
                   unoptimized
-                  className="h-10 w-auto rounded-lg object-contain"
+                  className="h-12 w-auto rounded-lg object-contain"
                 />
               ) : (
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-bold text-primary-foreground">
