@@ -218,7 +218,11 @@ export function Footer({
               <ManageCookiesButton
                 label={manageCookiesLabel}
                 manageEvent={manageCookiesEvent}
-                className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-secondary")}
+                className={cn(
+                  "text-xs",
+                  bottomLink,
+                  dark && "text-dark-foreground/70 hover:text-secondary",
+                )}
               />
             )}
           </nav>
