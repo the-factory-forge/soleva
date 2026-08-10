@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:alpine
+    hostname: ${DATABASE_HOST:-localhost}
+    ports:
+      - "${DATABASE_PORT:-5432}:${DATABASE_PORT:-5432}"
+    volumes:
+      - postgres_data_factory_template:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=${DATABASE_USER:-postgres}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-password}
+      - POSTGRES_DB=${DATABASE_NAME:-factory_template}
+
+volumes:
+  postgres_data_factory_template:

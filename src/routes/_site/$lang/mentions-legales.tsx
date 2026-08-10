@@ -1,0 +1,71 @@
+import { createFileRoute } from "@tanstack/react-router";
+
+import { PageHero } from "@/components/layout/page-hero";
+import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { getDictionary } from "@/lib/i18n";
+import { localeFromPathname } from "@/lib/i18n/pathname";
+import { withLocale } from "@/lib/navigation";
+import { buildMetadata } from "@/lib/seo/build-metadata";
+import { metadataToHead } from "@/lib/seo/head";
+
+export const Route = createFileRoute("/_site/$lang/mentions-legales")({
+  loader: async ({ location }) => {
+    const locale = localeFromPathname(location.pathname);
+    const dict = await getDictionary(locale);
+    return { locale, dict };
+  },
+  head: ({ loaderData }) =>
+    metadataToHead(
+      buildMetadata({
+        locale: loaderData.locale,
+        title: `${ loaderData.dict.meta.legal.title } | ${SITE_NAME}`,
+        description: loaderData.dict.meta.legal.description,
+        path: "/mentions-legales",
+        siteUrl: SITE_URL,
+        siteName: SITE_NAME,
+        noIndex: true,
+      }),
+    ),
+  component: LegalPage,
+});
+
+function LegalPage() {
+  const { locale, dict } = Route.useLoaderData();
+  const lg = dict.legal;
+
+  const sections = [
+    { title: lg.editor_title, body: lg.editor_body },
+    { title: lg.form_title, body: lg.form_body },
+    { title: lg.hosting_title, body: lg.hosting_body },
+    { title: lg.credits_title, body: lg.credits_body },
+  ];
+
+  return (
+    <>
+      <PageHero
+        locale={locale}
+        homeLabel={dict.breadcrumb.home}
+        crumbs={[
+          { label: dict.breadcrumb.legal, href: "/mentions-legales" },
+        ]}
+        title={lg.title}
+      />
+
+      <section className="bg-background">
+        <div className="container-premium section-padding">
+          <div className="mx-auto flex max-w-3xl flex-col gap-8">
+            {sections.map((s) => (
+              <div key={s.title}>
+                <h2 className="font-heading text-xl font-bold">{s.title}</h2>
+                <p className="mt-2 leading-relaxed text-muted-foreground">{s.body}</p>
+              </div>
+            ))}
+            <p className="rounded-2xl border border-dashed border-border bg-muted p-4 text-sm text-muted-foreground">
+              {lg.todo}
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

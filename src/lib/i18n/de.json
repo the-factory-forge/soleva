@@ -1,0 +1,404 @@
+{
+  "meta": {
+    "home": {
+      "title": "Soleva - Der solar-elektrische Van aus der Schweiz",
+      "description": "Soleva verwandelt einen alten Van in einen solarbetriebenen Elektro-Camper. Ein Schweizer Demonstrator für nachhaltige Mobilität, Retrofit und Solarenergie."
+    },
+    "van": {
+      "title": "Der Solar-Van - Umbau, Energie und Wohnraum",
+      "description": "Entdecken Sie die technischen Säulen von Soleva: Elektroumbau, Solarsystem an Bord und CO₂-armer mobiler Wohnraum."
+    },
+    "conversion": {
+      "title": "Elektroumbau - Retrofit des Peugeot J9",
+      "description": "Umbau eines alten Diesel-Vans in ein 100% elektrisches Fahrzeug: Motor, aufbereitete Batterien und Strassenzulassung in der Schweiz."
+    },
+    "solaire": {
+      "title": "Solarsystem an Bord - CSEM- & EPFL-Module",
+      "description": "Ein ausfahrbares Photovoltaikdach mit 1'350 W, entwickelt mit dem CSEM und dem EPFL PV-Lab, um die Energie der Reise zu erzeugen."
+    },
+    "habitat": {
+      "title": "CO₂-armer mobiler Wohnraum - Leben an Bord",
+      "description": "Ein komfortabler, schlichter Wohnraum aus recycelten, lokalen und nachhaltigen Materialien, um die Auswirkungen des Reisens zu verringern."
+    },
+    "impact": {
+      "title": "Umweltauswirkung - nachhaltige Mobilität",
+      "description": "Die Wirkung des Projekts Soleva: CO₂-Reduktion, Kreislaufwirtschaft, Retrofit statt Neufahrzeug und Solarenergie."
+    },
+    "voyage": {
+      "title": "Die Reise - Schweizer Solartour",
+      "description": "Begleiten Sie Solevas Demonstration durch die Schweiz, ihre Stationen, Events und laden Sie den Van zu Ihrer Veranstaltung ein."
+    },
+    "support": {
+      "title": "Soleva unterstützen - spenden, sponsern, mithelfen",
+      "description": "Unterstützen Sie Soleva mit einer Spende, einem Sponsoring oder als Freiwillige. Entdecken Sie unsere erfolgreiche Crowdfunding-Kampagne mit 147%."
+    },
+    "about": {
+      "title": "Über uns - der Verein Soleva",
+      "description": "Die Geschichte, Mission, Vision und das Team von Soleva, ein Projekt Schweizer Ingenieure für solare und nachhaltige Mobilität."
+    },
+    "contact": {
+      "title": "Kontakt - an Soleva schreiben",
+      "description": "Eine Frage, eine Idee oder eine Event-Einladung? Erreichen Sie das Soleva-Team über das Formular oder unter info@soleva.org."
+    },
+    "faq": {
+      "title": "FAQ - häufige Fragen zu Soleva",
+      "description": "Alle Antworten zum Projekt Soleva: der Van, die Solartechnologie, die Unterstützung und der Datenschutz."
+    },
+    "legal": {
+      "title": "Impressum",
+      "description": "Impressum des Vereins Soleva."
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "description": "Wie Soleva mit Ihren persönlichen Daten umgeht (DSG / DSGVO)."
+    }
+  },
+  "nav": {
+    "home": "Start",
+    "van": "Der Van",
+    "conversion": "Elektroumbau",
+    "solaire": "Solarsystem",
+    "habitat": "Wohnraum",
+    "impact": "Wirkung",
+    "voyage": "Die Reise",
+    "support": "Unterstützen",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "faq": "FAQ",
+    "language": "Sprache",
+    "menu": "Menü",
+    "close": "Schliessen"
+  },
+  "common": {
+    "contact_us": "Kontaktieren Sie uns",
+    "discover_van": "Den Van entdecken",
+    "learn_more": "Mehr erfahren",
+    "back_to_top": "Nach oben",
+    "back_home": "Zurück zur Startseite",
+    "support_project": "Projekt unterstützen",
+    "all_pillars": "Alle Säulen"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Solare Mobilität - Schweiz",
+      "title": "Der solar-elektrische Van",
+      "subtitle": "Soleva verwandelt einen alten Van in einen solarbetriebenen Elektro-Camper. Ein Schweizer Demonstrator für eine neue Art des Reisens, weniger Umweltbelastung und eine greifbare Energiewende.",
+      "primary_cta": "Kontaktieren Sie uns",
+      "secondary_cta": "Den Van entdecken"
+    },
+    "figures": {
+      "title": "Das Projekt in Zahlen",
+      "subtitle": "Konkrete Daten, die die Geschichte von Soleva erzählen.",
+      "disclaimer": "Geschätzte technische Werte, derzeit in Validierung.",
+      "founded": "Gründungsjahr",
+      "autonomy": "Geschätzte Reichweite",
+      "carbon": "CO₂-Reduktion vs. Diesel",
+      "crowdfunding": "Crowdfunding erreicht",
+      "volunteers": "Mobilisierte Freiwillige",
+      "communes": "Besuchte Gemeinden"
+    },
+    "problem": {
+      "eyebrow": "Warum Soleva",
+      "title": "Das Reisen muss sich ändern.",
+      "body": "Verbrennungsfahrzeuge verbrauchen fossile Brennstoffe, erzeugen Emissionen und erfordern eine bedeutende industrielle Produktion. Soleva erkundet einen anderen Weg: ein bestehendes Fahrzeug wiederverwenden, es elektrifizieren, seine Energie lokal mit Solarkraft erzeugen und diese Erkenntnisse mit der Öffentlichkeit teilen."
+    },
+    "pillars": {
+      "title": "Drei technische Säulen",
+      "subtitle": "Ein vollständiger Demonstrator, vom Motor bis zum Wohnraum.",
+      "conversion_title": "Elektro-Retrofit",
+      "conversion_desc": "Die Lebensdauer eines alten Fahrzeugs verlängern, indem der Verbrennungsmotor durch einen elektrischen Antriebsstrang ersetzt wird.",
+      "solar_title": "Solarenergie an Bord",
+      "solar_desc": "Die Energie der Reise direkt aus der Sonne erzeugen, mit einem innovativen ausfahrbaren Photovoltaikdach.",
+      "habitat_title": "CO₂-armer Wohnraum",
+      "habitat_desc": "Ein komfortabler, schlichter Wohnraum, der die Auswirkungen des Reisens verringert."
+    },
+    "press": {
+      "title": "Soleva in den Medien",
+      "subtitle": "Berichterstattung in der Westschweiz und national."
+    },
+    "new_start": {
+      "title": "Neuanfang",
+      "body": "Trotz des Brandes, der die Werkstatt verwüstete und Sunny, den ersten Solar-Van, zerstörte, geht das Soleva-Abenteuer weiter. Die Sicherheitssysteme des Vans funktionierten einwandfrei und bewiesen die Zuverlässigkeit des Konzepts. Nachdem das Team tausende Menschen während der Schweiz-Tour inspiriert hat, weigert es sich, diesen Traum sterben zu lassen. Ein neuer Solar-Van ist in Vorbereitung, getragen von der Leidenschaft des Teams und der Unterstützung der Gemeinschaft.",
+      "subtitle": "Unterstützen Sie den neuen Van",
+      "cta": "Das Projekt unterstützen"
+    },
+    "partners": {
+      "title": "Unsere Partner",
+      "subtitle": "Technische, institutionelle und akademische Partner, die das Projekt ermöglichen.",
+      "technical": "Technische Partner",
+      "institutional": "Institutionelle Unterstützung",
+      "awards": "Auszeichnungen"
+    },
+    "documentary": {
+      "title": "L'aventure Soleva - der Dokumentarfilm",
+      "subtitle": "Premiere am 4. Oktober 2024 an der Esplanade de Montbenon, Lausanne"
+    },
+    "cta": {
+      "title": "Möchten Sie mehr über Soleva erfahren?",
+      "body": "Eine Frage, eine Event-Einladung oder der Wunsch, das Projekt zu unterstützen? Schreiben Sie uns.",
+      "button": "Kontaktieren Sie uns"
+    }
+  },
+  "van": {
+    "hero": {
+      "eyebrow": "Der Solar-Van",
+      "title": "Der Solar-Van",
+      "subtitle": "Drei technische Säulen machen Soleva zu einem Demonstrator nachhaltiger Mobilität: der Elektroumbau, das Solarsystem an Bord und der CO₂-arme Wohnraum."
+    },
+    "explore": "Diese Säule entdecken"
+  },
+  "service_detail": {
+    "features_title": "Wesentliche Merkmale",
+    "process_title": "Unser Vorgehen",
+    "faq_title": "Häufige Fragen",
+    "related_title": "Die anderen Säulen",
+    "cta_title": "Eine Frage zum Van?",
+    "cta_body": "Unser Team beantwortet gerne Ihre technischen Fragen oder stellt Ihnen das Projekt vor.",
+    "disclaimer": "Die technischen Angaben sind geschätzt und derzeit in Validierung."
+  },
+  "impact": {
+    "hero": {
+      "eyebrow": "Unsere Wirkung",
+      "title": "Eine konkrete Umweltwirkung",
+      "subtitle": "Soleva ist nicht nur ein Fahrzeug: Es ist ein Beweis, dass Mobilität schlichter, kreislauforientiert und von der Sonne angetrieben sein kann."
+    },
+    "disclaimer": "Alle Wirkungsschätzungen müssen vor der Veröffentlichung von Soleva validiert werden.",
+    "cards": {
+      "carbon_title": "Emissionsreduktion",
+      "carbon_desc": "Durch den Umbau eines bestehenden Fahrzeugs und den Solarbetrieb strebt das Projekt rund 80% weniger Emissionen an als ein neuer Diesel-Camper.",
+      "circular_title": "Kreislaufwirtschaft",
+      "circular_desc": "Der Retrofit verlängert die Lebensdauer eines Fahrzeugs von 1987, statt ein neues zu bauen, und vermeidet so die Auswirkungen der industriellen Produktion.",
+      "solar_title": "Lokale, erneuerbare Energie",
+      "solar_desc": "Die Energie der Reise wird dank der Photovoltaikmodule an Bord direkt von der Sonne erzeugt.",
+      "awareness_title": "Sensibilisierung",
+      "awareness_desc": "Über die Technik hinaus teilt Soleva seine Erkenntnisse mit der Öffentlichkeit, Schulen und Institutionen."
+    }
+  },
+  "voyage": {
+    "hero": {
+      "eyebrow": "Die Reise",
+      "title": "Eine Schweizer Solartour",
+      "subtitle": "Soleva reist durch die Schweiz, um solare Mobilität zu demonstrieren und die Öffentlichkeit, Schulen und Partner zu treffen."
+    },
+    "tour_title": "Die Demonstration auf der Strasse",
+    "tour_body": "Der Van hat mehr als 100 Gemeinden in der ganzen Schweiz besucht, von Lausanne bis Zürich, über Davos, Lugano und Sion. An jeder Station teilt das Team die Technologie und das Abenteuer des Projekts.",
+    "invite_title": "Soleva zu Ihrer Veranstaltung einladen",
+    "invite_body": "Festival, Messe, Schule, Unternehmen oder Gemeinde: Soleva kann den Van und sein Projekt vorstellen. Kontaktieren Sie uns, um die Möglichkeiten gemeinsam zu prüfen.",
+    "invite_cta": "Soleva einladen",
+    "stops_title": "Einige Stationen",
+    "events_title": "Vergangene Veranstaltungen",
+    "events_cta": "Haben Sie eine Veranstaltung im Sinn? Laden Sie Soleva ein!",
+    "polar_title": "Verfolgen Sie die Reise live",
+    "polar_body": "Verfolgen Sie die Soleva-Tour in Echtzeit über Polar Steps."
+  },
+  "support": {
+    "hero": {
+      "eyebrow": "Unterstützen",
+      "title": "Soleva unterstützen",
+      "subtitle": "Soleva kommt dank einer Gemeinschaft von Freiwilligen, Partnern, Sponsoren und Spendern voran. Ihre Unterstützung hilft, das Fahrzeug zu entwickeln, Events zu organisieren, Erkenntnisse zu dokumentieren und neue Lösungen für nachhaltige Mobilität zu inspirieren."
+    },
+    "ways": {
+      "donate_title": "Spenden",
+      "donate_desc": "Jeder Beitrag finanziert direkt die Entwicklung des Vans, die Materialien und die Sensibilisierungsevents.",
+      "donate_cta": "Für eine Spende kontaktieren",
+      "sponsor_title": "Sponsor werden",
+      "sponsor_desc": "Gewinnen Sie Sichtbarkeit auf dem Van, bei Events, auf der Website und in den sozialen Medien. Partnerschaftspakete sind verfügbar.",
+      "sponsor_cta": "Über ein Sponsoring sprechen",
+      "volunteer_title": "Freiwillige werden",
+      "volunteer_desc": "Treten Sie dem Team bei und bringen Sie Ihre Fähigkeiten ein, ob technisch, kreativ oder organisatorisch.",
+      "volunteer_cta": "Dem Team beitreten",
+      "share_title": "Das Projekt teilen",
+      "share_desc": "Folgen Sie Soleva in den sozialen Medien und teilen Sie das Projekt, um seine Wirkung zu verstärken.",
+      "share_cta": "Teilen"
+    },
+    "crowdfunding": {
+      "title": "Ein erfolgreiches Crowdfunding",
+      "body": "2022 übertraf Solevas Kampagne auf Wemakeit ihr Ziel, getragen von einer treuen Gemeinschaft.",
+      "goal": "Ziel",
+      "raised": "Gesammelt",
+      "percent": "Erreicht",
+      "backers": "Unterstützer",
+      "link": "Kampagne ansehen",
+      "todo": "Spendenlink und steuerliche Absetzbarkeit mit Soleva zu bestätigen."
+    },
+    "iban": {
+      "title": "Spenden",
+      "body": "Spenden bleiben unerlässlich, um die Entwicklung des neuen Solar-Vans zu finanzieren.",
+      "account_holder": "Kontoinhaber",
+      "address": "Adresse",
+      "iban_label": "IBAN",
+      "bic_label": "BIC/SWIFT",
+      "bank_label": "Bank",
+      "description_label": "Verwendungszweck",
+      "description_value": "Spende an das Soleva-Projekt"
+    },
+    "sponsor_tiers_title": "Sponsoring-Pakete",
+    "sponsor_tiers_subtitle": "Drei Möglichkeiten, das Soleva-Projekt zu unterstützen und Sichtbarkeit zu gewinnen.",
+    "sponsor_cta": "Sponsoring besprechen",
+    "sponsor_features": "Vorteile"
+  },
+  "about": {
+    "hero": {
+      "eyebrow": "Über uns",
+      "title": "Das Abenteuer Soleva",
+      "subtitle": "Ein Projekt, geboren aus der Leidenschaft für Natur und Technik, getragen von einem Team Schweizer Ingenieure."
+    },
+    "mission_title": "Unsere Mission",
+    "mission_body": "Solare Elektromobilität und nachhaltiges Reisen fördern, indem ein altes Fahrzeug in einen mit Photovoltaik betriebenen Elektro-Van umgewandelt wird.",
+    "vision_title": "Unsere Vision",
+    "vision_body": "Die Gesellschaft zu einem nachhaltigeren Wandel in Mobilität, Energie, Reisen und Fahrzeugdesign inspirieren.",
+    "story_title": "Unsere Geschichte",
+    "story_body": "Soleva begann 2021, als Curdin Wüthrich, Physikabsolvent der EPFL, und vier Freunde - alle begeistert von Natur und Nachhaltigkeit - eine Herausforderung annahmen: einen alten Diesel-Van von 1987 in einen 100% solarbetriebenen Elektro-Camper umzubauen. Die Idee entstand aus ihrer gemeinsamen Erfahrung als Naturfotografen, die in Fahrzeugen mit fossilem Brennstoff reisten und sich gleichzeitig für die Umwelt einsetzten.",
+    "timeline_title": "Wichtige Meilensteine",
+    "team_title": "Das Team",
+    "team_subtitle": "Ein Team von Ingenieuren und Begeisterten, unterstützt von Dutzenden Freiwilligen.",
+    "members_title": "Mitglieder",
+    "members_subtitle": "Ein Team von Ingenieuren und Enthusiasten, unterstützt von Dutzenden Freiwilligen.",
+    "mentors_title": "Mentoren und externe Berater",
+    "press_title": "Soleva in den Medien",
+    "press_subtitle": "Nationale Medienberichterstattung in der Schweiz und darüber hinaus."
+  },
+  "contact": {
+    "hero": {
+      "eyebrow": "Kontakt",
+      "title": "Kontaktieren Sie uns",
+      "subtitle": "Eine Frage, eine Idee, ein Partnerschaftsvorschlag oder eine Event-Einladung? Schreiben Sie uns direkt an info@soleva.org."
+    },
+    "emailCTA": {
+      "title": "Kontaktieren Sie uns per E-Mail",
+      "description": "Schreiben Sie uns direkt über Ihre E-Mail-App. Ein Klick öffnet Ihr E-Mail-Programm mit unserer vorausgefüllten Adresse.",
+      "button": "E-Mail öffnen"
+    },
+    "info": {
+      "title": "Kontaktdaten",
+      "email_label": "E-Mail",
+      "location_label": "Standort",
+      "follow_label": "Folgen Sie uns"
+    }
+  },
+  "faq": {
+    "hero": {
+      "eyebrow": "FAQ",
+      "title": "Häufige Fragen",
+      "subtitle": "Alles, was Sie über das Projekt, den Van, die Technologie und die Unterstützung wissen müssen."
+    },
+    "categories": {
+      "project": "Das Projekt",
+      "van": "Der Van",
+      "support": "Unterstützung",
+      "technology": "Technologie",
+      "privacy": "Datenschutz"
+    },
+    "cta": {
+      "title": "Finden Sie Ihre Antwort nicht?",
+      "body": "Schreiben Sie uns, wir helfen Ihnen gerne.",
+      "button": "Kontaktieren Sie uns"
+    }
+  },
+  "legal": {
+    "title": "Impressum",
+    "editor_title": "Herausgeber der Website",
+    "editor_body": "ASSOCIATION SOLEVA, Rue de Lausanne 64, 1020 Renens VD, Schweiz. E-Mail: info@soleva.org. Telefon: +41 77 420 74 40.",
+    "form_title": "Rechtsform",
+    "form_body": "Verein.",
+    "hosting_title": "Hosting",
+    "hosting_body": "The Corner Factory SA - VPS Server Infomaniak, Schweiz.",
+    "credits_title": "Konzeption und Entwicklung",
+    "credits_body": "The Corner Factory.",
+    "todo": "UID-Nummer vom Kunden zu bestätigen."
+  },
+  "privacy": {
+    "title": "Datenschutzerklärung",
+    "intro": "Diese Erklärung beschreibt, wie Soleva mit Ihren persönlichen Daten umgeht, gemäss dem Schweizer DSG und der europäischen DSGVO.",
+    "controller_title": "Verantwortlicher",
+    "controller_body": "Verein Soleva\nRue de Lausanne 64\n1020 Renens VD\nSchweiz\nE-Mail: info@soleva.org",
+    "data_title": "Datenerhebung",
+    "data_body": "Wir erheben nur Daten, die für den Betrieb der Website erforderlich sind, und mit Ihrer Einwilligung Nutzungsstatistiken über Google Analytics (Google LLC, USA).",
+    "purposes_title": "Zwecke",
+    "purposes_body": "Ihre Daten werden verwendet, um die Website zu betreiben, Ihre Kontakt- und Spendenanfragen zu beantworten und unsere Dienstleistungen zu verbessern. Marketingzwecke werden nur mit separater Einwilligung verfolgt.",
+    "analytics_title": "Reichweitenmessung",
+    "analytics_body": "Wir verwenden Google Analytics 4 im Consent-Modus. Vor Ihrer ausdrücklichen Zustimmung werden keine Analysedaten erhoben. Daten können in die USA übertragen und dort verarbeitet werden.",
+    "retention_title": "Aufbewahrungsdauer",
+    "retention_body": "Google-Analytics-Daten werden von Google nach 14 Monaten automatisch gelöscht (Standard-Aufbewahrungsfrist von Google Analytics). Kontaktdaten (E-Mail) werden während der Dauer unserer Beziehung und als Kontaktregister so lange aufbewahrt, wie der Verein besteht. Sie können deren Löschung jederzeit verlangen.",
+    "rights_title": "Ihre Rechte",
+    "rights_body": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Übertragbarkeit Ihrer personenbezogenen Daten sowie das Recht, Ihre Einwilligung jederzeit zu widerrufen. Kontaktieren Sie uns unter info@soleva.org. Aggregierte Navigationsdaten (Google Analytics) erlauben keine Identifizierung einer einzelnen Person.",
+    "updatedAt": "2026-07-31"
+  },
+  "breadcrumb": {
+    "home": "Start",
+    "van": "Der Van",
+    "impact": "Wirkung",
+    "voyage": "Die Reise",
+    "support": "Unterstützen",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "faq": "FAQ",
+    "legal": "Impressum",
+    "privacy": "Datenschutz",
+    "habitat": "Wohnraum"
+  },
+  "footer": {
+    "description": "Soleva verwandelt einen alten Van in einen solarbetriebenen Elektro-Camper. Ein Schweizer Demonstrator für nachhaltige Mobilität.",
+    "explore": "Entdecken",
+    "van": "Der Solar-Van",
+    "project": "Das Projekt",
+    "contact": "Kontakt",
+    "follow": "Folgen Sie uns",
+    "legal_links": "Informationen",
+    "rights": "Alle Rechte vorbehalten.",
+    "produced_by": "Produziert von The Corner Factory",
+    "manage_cookies": "Cookies verwalten",
+    "newsletter_title": "Newsletter",
+    "newsletter_placeholder": "Ihre E-Mail",
+    "newsletter_button": "Anmelden"
+  },
+  "cookies": {
+    "text": "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern und den Website-Traffic zu analysieren.",
+    "acceptAll": "Alle akzeptieren",
+    "acceptSelection": "Auswahl akzeptieren",
+    "reject": "Ablehnen",
+    "privacyLink": "Datenschutzrichtlinie",
+    "manage": "Cookie-Einstellungen",
+    "necessaryTitle": "Notwendig",
+    "necessaryDescription": "Erforderlich für die ordnungsgemässe Funktion der Website.",
+    "analyticsTitle": "Statistiken",
+    "analyticsDescription": "Google Analytics hilft uns zu verstehen, wie Besucher die Website nutzen (Datenübertragung in die USA).",
+    "marketingTitle": "Marketing",
+    "marketingDescription": "Werbetools (z.B. Google Ads) messen Konversionen und personalisieren Werbung, nur mit Ihrer Einwilligung (Datenuebertragung in die USA)."
+  },
+  "not_found": {
+    "title": "Diese Strasse ist noch nicht auf unserer Solarkarte.",
+    "subtitle": "Keine Sorge - wir finden den Weg zurück zur Sonne.",
+    "button": "Zurück zur Startseite"
+  },
+  "a11y": {
+    "skipToContent": "Zum Hauptinhalt springen"
+  },
+  "auth": {
+    "welcomeBack": "Willkommen zuruck",
+    "welcomeSubtitle": "Melden Sie sich bei Ihrem Konto an",
+    "signupTitle": "Konto erstellen",
+    "signupSubtitle": "Erstellen Sie Ihr Konto",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "name": "Name",
+    "signIn": "Anmelden",
+    "signingIn": "Anmeldung...",
+    "signUp": "Registrieren",
+    "signingUp": "Konto wird erstellt...",
+    "orDivider": "Oder",
+    "dontHaveAccount": "Noch kein Konto?",
+    "signUpLink": "Registrieren",
+    "alreadyHaveAccount": "Bereits ein Konto?",
+    "loginLink": "Anmelden",
+    "backHome": "Zuruck zur Startseite",
+    "signOut": "Abmelden",
+    "appWelcome": "Willkommen",
+    "signedInAs": "Sie sind angemeldet als",
+    "appIntro": "Dies ist der authentifizierte Bereich des Templates. Intranet-Funktionen (Mitarbeiter, Rollen, Dashboards) folgen in einer spateren Phase - bis dahin kann unter den _auth/app-Routen eigener Inhalt hinzugefugt werden.",
+    "dashboard": "Dashboard",
+    "loginError": "Beim Anmelden ist ein Fehler aufgetreten.",
+    "signupError": "Beim Registrieren ist ein Fehler aufgetreten.",
+    "passwordsMismatch": "Die Passworter stimmen nicht uberein."
+  }
+}

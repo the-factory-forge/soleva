@@ -1,0 +1,404 @@
+{
+  "meta": {
+    "home": {
+      "title": "Soleva - The Swiss solar electric van",
+      "description": "Soleva converts an old van into a solar-powered electric camper. A Swiss demonstrator of sustainable mobility, retrofit and solar energy."
+    },
+    "van": {
+      "title": "The solar van - conversion, energy and habitat",
+      "description": "Discover Soleva's technical pillars: electric conversion, on-board solar system and low-carbon mobile habitat."
+    },
+    "conversion": {
+      "title": "Electric conversion - retrofitting the Peugeot J9",
+      "description": "Retrofitting an old diesel van into a 100% electric vehicle: motor, refurbished batteries and Swiss road certification."
+    },
+    "solaire": {
+      "title": "On-board solar system - CSEM & EPFL panels",
+      "description": "A 1,350 W deployable photovoltaic roof developed with CSEM and the EPFL PV-Lab to produce the energy of the journey."
+    },
+    "habitat": {
+      "title": "Low-carbon mobile habitat - life on board",
+      "description": "A comfortable, sober living space designed with recycled, local and durable materials to reduce the impact of travel."
+    },
+    "impact": {
+      "title": "Environmental impact - sustainable mobility",
+      "description": "The impact of the Soleva project: CO₂ reduction, circular economy, retrofit instead of a new vehicle and solar energy."
+    },
+    "voyage": {
+      "title": "The journey - Swiss solar tour",
+      "description": "Follow Soleva's demonstration across Switzerland, its stops, its events, and invite the van to your own event."
+    },
+    "support": {
+      "title": "Support Soleva - donate, sponsor, volunteer",
+      "description": "Support Soleva through a donation, sponsorship or volunteering. Discover our successful crowdfunding campaign at 147%."
+    },
+    "about": {
+      "title": "About - the Soleva association",
+      "description": "The story, mission, vision and team of Soleva, a Swiss engineers' project for solar and sustainable mobility."
+    },
+    "contact": {
+      "title": "Contact - write to Soleva",
+      "description": "A question, an idea or an event invitation? Reach the Soleva team through the form or at info@soleva.org."
+    },
+    "faq": {
+      "title": "FAQ - frequently asked questions about Soleva",
+      "description": "All the answers about the Soleva project: the van, solar technology, support and privacy."
+    },
+    "legal": {
+      "title": "Legal notice",
+      "description": "Legal notice of the Soleva association."
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "description": "How Soleva handles your personal data (FADP / GDPR)."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "van": "The van",
+    "conversion": "Electric conversion",
+    "solaire": "Solar system",
+    "habitat": "Habitat",
+    "impact": "Impact",
+    "voyage": "The journey",
+    "support": "Support",
+    "about": "About",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "language": "Language",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "common": {
+    "contact_us": "Contact us",
+    "discover_van": "Discover the van",
+    "learn_more": "Learn more",
+    "back_to_top": "Back to top",
+    "back_home": "Back to homepage",
+    "support_project": "Support the project",
+    "all_pillars": "All pillars"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Solar mobility - Switzerland",
+      "title": "The solar electric van",
+      "subtitle": "Soleva converts an old van into a solar-powered electric camper. A Swiss demonstrator for a new way of traveling, reducing environmental impact, and making the energy transition tangible.",
+      "primary_cta": "Contact us",
+      "secondary_cta": "Discover the van"
+    },
+    "figures": {
+      "title": "The project in figures",
+      "subtitle": "Concrete data that tells the Soleva story.",
+      "disclaimer": "Estimated technical figures, currently being validated.",
+      "founded": "Year founded",
+      "autonomy": "Estimated range",
+      "carbon": "CO₂ reduction vs diesel",
+      "crowdfunding": "Crowdfunding reached",
+      "volunteers": "Volunteers mobilized",
+      "communes": "Towns visited"
+    },
+    "problem": {
+      "eyebrow": "Why Soleva",
+      "title": "Travel has to change.",
+      "body": "Combustion vehicles consume fossil fuels, generate emissions and require significant industrial production. Soleva explores another path: reusing an existing vehicle, converting it to electric, producing its energy locally through solar power and sharing these learnings with the public."
+    },
+    "pillars": {
+      "title": "Three technical pillars",
+      "subtitle": "A complete demonstrator, from the motor to the habitat.",
+      "conversion_title": "Electric retrofit",
+      "conversion_desc": "Extending the life of an old vehicle by replacing the combustion engine with an electric powertrain.",
+      "solar_title": "On-board solar energy",
+      "solar_desc": "Producing the energy of the journey directly from the sun, with an innovative deployable photovoltaic roof.",
+      "habitat_title": "Low-carbon habitat",
+      "habitat_desc": "A comfortable, sober living space designed to reduce the impact of travel."
+    },
+    "press": {
+      "title": "Soleva in the media",
+      "subtitle": "Coverage across French-speaking Switzerland and nationally."
+    },
+    "new_start": {
+      "title": "A new beginning",
+      "body": "Despite the fire that ravaged the workshop and took Sunny, the first solar van, the Soleva adventure continues. The van's safety systems worked perfectly, proving the reliability of the design. After inspiring thousands of people during the Swiss tour, the team refuses to let this dream die. A new solar van is in preparation, driven by the team's passion and the community's support.",
+      "subtitle": "Support the new van",
+      "cta": "Support the project"
+    },
+    "partners": {
+      "title": "Our partners",
+      "subtitle": "Technical, institutional and academic partners making the project possible.",
+      "technical": "Technical partners",
+      "institutional": "Institutional support",
+      "awards": "Awards and recognition"
+    },
+    "documentary": {
+      "title": "L'aventure Soleva - the documentary",
+      "subtitle": "Premiere on October 4, 2024 at Esplanade de Montbenon, Lausanne"
+    },
+    "cta": {
+      "title": "Want to learn more about Soleva?",
+      "body": "A question, an event invitation or a wish to support the project? Write to us.",
+      "button": "Contact us"
+    }
+  },
+  "van": {
+    "hero": {
+      "eyebrow": "The solar van",
+      "title": "The solar van",
+      "subtitle": "Three technical pillars combine to make Soleva a demonstrator of sustainable mobility: electric conversion, the on-board solar system and the low-carbon habitat."
+    },
+    "explore": "Explore this pillar"
+  },
+  "service_detail": {
+    "features_title": "Key characteristics",
+    "process_title": "Our approach",
+    "faq_title": "Frequently asked questions",
+    "related_title": "The other pillars",
+    "cta_title": "A question about the van?",
+    "cta_body": "Our team will be happy to answer your technical questions or present the project.",
+    "disclaimer": "Technical specifications are estimated and currently being validated."
+  },
+  "impact": {
+    "hero": {
+      "eyebrow": "Our impact",
+      "title": "A concrete environmental impact",
+      "subtitle": "Soleva is not just a vehicle: it is a demonstration that mobility can be more sober, circular and powered by the sun."
+    },
+    "disclaimer": "All impact estimates must be validated by Soleva before publication.",
+    "cards": {
+      "carbon_title": "Emissions reduction",
+      "carbon_desc": "By converting an existing vehicle and powering it with solar energy, the project aims for around 80% lower emissions compared to a new diesel campervan.",
+      "circular_title": "Circular economy",
+      "circular_desc": "The retrofit extends the life of a 1987 vehicle rather than building a new one, avoiding the impact of industrial production.",
+      "solar_title": "Local, renewable energy",
+      "solar_desc": "The energy of the journey is produced directly by the sun thanks to the on-board photovoltaic panels.",
+      "awareness_title": "Raising awareness",
+      "awareness_desc": "Beyond the technology, Soleva shares its learnings with the public, schools and institutions."
+    }
+  },
+  "voyage": {
+    "hero": {
+      "eyebrow": "The journey",
+      "title": "A Swiss solar tour",
+      "subtitle": "Soleva travels across Switzerland to demonstrate solar mobility and meet the public, schools and partners."
+    },
+    "tour_title": "The demonstration on the road",
+    "tour_body": "The van visited more than 100 towns across Switzerland, from Lausanne to Zurich, through Davos, Lugano and Sion. At each stop, the team shares the technology and the adventure of the project.",
+    "invite_title": "Invite Soleva to your event",
+    "invite_body": "Festival, trade fair, school, company or municipality: Soleva can come and present the van and its project. Contact us to explore the possibilities together.",
+    "invite_cta": "Invite Soleva",
+    "stops_title": "A few stops",
+    "events_title": "Past events",
+    "events_cta": "Have an event in mind? Invite Soleva!",
+    "polar_title": "Follow the journey live",
+    "polar_body": "Track Soleva's tour in real time via Polar Steps."
+  },
+  "support": {
+    "hero": {
+      "eyebrow": "Support",
+      "title": "Support Soleva",
+      "subtitle": "Soleva advances thanks to a community of volunteers, partners, sponsors and donors. Your support helps develop the vehicle, organize events, document learnings and inspire new solutions for sustainable mobility."
+    },
+    "ways": {
+      "donate_title": "Make a donation",
+      "donate_desc": "Every contribution directly funds the development of the van, materials and awareness events.",
+      "donate_cta": "Contact us to donate",
+      "sponsor_title": "Become a sponsor",
+      "sponsor_desc": "Gain visibility on the van, at events, on the website and social media. Partnership packages are available.",
+      "sponsor_cta": "Discuss a sponsorship",
+      "volunteer_title": "Become a volunteer",
+      "volunteer_desc": "Join the team and contribute your skills, whether technical, creative or organizational.",
+      "volunteer_cta": "Join the team",
+      "share_title": "Share the project",
+      "share_desc": "Follow Soleva on social media and share the project around you to amplify its impact.",
+      "share_cta": "Share"
+    },
+    "crowdfunding": {
+      "title": "A successful crowdfunding",
+      "body": "In 2022, Soleva's campaign on Wemakeit exceeded its goal, driven by a loyal community.",
+      "goal": "Goal",
+      "raised": "Raised",
+      "percent": "Reached",
+      "backers": "Backers",
+      "link": "View the campaign",
+      "todo": "Donation link and tax deductibility to be confirmed with Soleva."
+    },
+    "iban": {
+      "title": "Make a donation",
+      "body": "Donations remain essential to fund the development of the new solar van.",
+      "account_holder": "Account holder",
+      "address": "Address",
+      "iban_label": "IBAN",
+      "bic_label": "BIC/SWIFT",
+      "bank_label": "Bank",
+      "description_label": "Reference",
+      "description_value": "Donation to the Soleva project"
+    },
+    "sponsor_tiers_title": "Sponsorship packages",
+    "sponsor_tiers_subtitle": "Three ways to partner with the Soleva project and gain visibility.",
+    "sponsor_cta": "Discuss sponsorship",
+    "sponsor_features": "Benefits"
+  },
+  "about": {
+    "hero": {
+      "eyebrow": "About",
+      "title": "The Soleva adventure",
+      "subtitle": "A project born from a passion for nature and engineering, driven by a team of Swiss engineers."
+    },
+    "mission_title": "Our mission",
+    "mission_body": "Promote solar electric mobility and sustainable travel by transforming an old vehicle into an electric van powered by photovoltaic solar energy.",
+    "vision_title": "Our vision",
+    "vision_body": "Inspire society towards a more sustainable transition in mobility, energy, travel and vehicle design.",
+    "story_title": "Our story",
+    "story_body": "Soleva started in 2021 when Curdin Wüthrich, a physics graduate from EPFL, and four friends - all passionate about nature and sustainability - decided to tackle a challenge: convert an old 1987 diesel van into a 100% solar-powered electric camper. The idea came from their shared experience as nature photographers, traveling in fossil-fuel vans while advocating for the environment.",
+    "timeline_title": "Key milestones",
+    "team_title": "The team",
+    "team_subtitle": "A team of engineers and enthusiasts, supported by dozens of volunteers.",
+    "members_title": "Members",
+    "members_subtitle": "A team of engineers and enthusiasts, supported by dozens of volunteers.",
+    "mentors_title": "Mentors and external advisors",
+    "press_title": "Soleva in the media",
+    "press_subtitle": "National media coverage in Switzerland and beyond."
+  },
+  "contact": {
+    "hero": {
+      "eyebrow": "Contact",
+      "title": "Contact us",
+      "subtitle": "A question, an idea, a partnership proposal or an event invitation? Write to us directly at info@soleva.org."
+    },
+    "emailCTA": {
+      "title": "Contact us by email",
+      "description": "Write to us directly via your email app. One click opens your email client with our address pre-filled.",
+      "button": "Open email"
+    },
+    "info": {
+      "title": "Contact details",
+      "email_label": "Email",
+      "location_label": "Location",
+      "follow_label": "Follow us"
+    }
+  },
+  "faq": {
+    "hero": {
+      "eyebrow": "FAQ",
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know about the project, the van, the technology and support."
+    },
+    "categories": {
+      "project": "The project",
+      "van": "The van",
+      "support": "Support",
+      "technology": "Technology",
+      "privacy": "Privacy"
+    },
+    "cta": {
+      "title": "Can't find your answer?",
+      "body": "Write to us, we'll be happy to help.",
+      "button": "Contact us"
+    }
+  },
+  "legal": {
+    "title": "Legal notice",
+    "editor_title": "Site editor",
+    "editor_body": "ASSOCIATION SOLEVA, Rue de Lausanne 64, 1020 Renens VD, Switzerland. Email: info@soleva.org. Phone: +41 77 420 74 40.",
+    "form_title": "Legal form",
+    "form_body": "Association.",
+    "hosting_title": "Hosting",
+    "hosting_body": "The Corner Factory SA - VPS Server Infomaniak, Switzerland.",
+    "credits_title": "Design and development",
+    "credits_body": "The Corner Factory.",
+    "todo": "UID number to be confirmed by the client."
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "intro": "This policy describes how Soleva handles your personal data, in accordance with the Swiss FADP and the European GDPR.",
+    "controller_title": "Data controller",
+    "controller_body": "Association Soleva\nRue de Lausanne 64\n1020 Renens VD\nSwitzerland\nEmail: info@soleva.org",
+    "data_title": "Data collected",
+    "data_body": "We only collect data necessary for the proper functioning of the site and, with your consent, usage statistics via Google Analytics (Google LLC, USA).",
+    "purposes_title": "Purposes",
+    "purposes_body": "Your data is used to operate the website, respond to your contact and donation requests, and improve our services. Marketing purposes are only pursued with separate consent.",
+    "analytics_title": "Audience measurement",
+    "analytics_body": "We use Google Analytics 4 in consent mode. No analytics data is collected before your explicit consent. Data may be transferred to and processed in the United States.",
+    "retention_title": "Data retention",
+    "retention_body": "Google Analytics data is automatically deleted by Google after 14 months (default retention period of Google Analytics). Contact data (email) is kept for the duration of our relationship and, as a contact register, for as long as the association exists. You can request its deletion at any time.",
+    "rights_title": "Your rights",
+    "rights_body": "You have the right to access, modify, delete, and port your personal data, as well as the right to withdraw your consent at any time. Contact us at info@soleva.org. Aggregated browsing data (Google Analytics) does not allow identifying an individual person.",
+    "updatedAt": "2026-07-31"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "van": "The van",
+    "impact": "Impact",
+    "voyage": "The journey",
+    "support": "Support",
+    "about": "About",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "legal": "Legal notice",
+    "privacy": "Privacy",
+    "habitat": "Habitat"
+  },
+  "footer": {
+    "description": "Soleva converts an old van into a solar-powered electric camper. A Swiss demonstrator of sustainable mobility.",
+    "explore": "Explore",
+    "van": "The solar van",
+    "project": "The project",
+    "contact": "Contact",
+    "follow": "Follow us",
+    "legal_links": "Information",
+    "rights": "All rights reserved.",
+    "produced_by": "Produced by The Corner Factory",
+    "manage_cookies": "Manage cookies",
+    "newsletter_title": "Newsletter",
+    "newsletter_placeholder": "Your email",
+    "newsletter_button": "Subscribe"
+  },
+  "cookies": {
+    "text": "We use cookies to improve your experience and analyze site traffic.",
+    "acceptAll": "Accept all",
+    "acceptSelection": "Accept selection",
+    "reject": "Reject",
+    "privacyLink": "Privacy policy",
+    "manage": "Cookie settings",
+    "necessaryTitle": "Necessary",
+    "necessaryDescription": "Required for the website to function properly.",
+    "analyticsTitle": "Statistics",
+    "analyticsDescription": "Google Analytics helps us understand how visitors interact with the site (data transferred to the United States).",
+    "marketingTitle": "Marketing",
+    "marketingDescription": "Marketing tools (e.g. Google Ads) measure conversions and personalize advertising, only with your consent (data transferred to the United States)."
+  },
+  "not_found": {
+    "title": "This road isn't on our solar map yet.",
+    "subtitle": "Don't worry - we'll find our way back to the sun.",
+    "button": "Back to homepage"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "welcomeSubtitle": "Sign in to your account",
+    "signupTitle": "Sign up",
+    "signupSubtitle": "Create your account",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "signIn": "Sign in",
+    "signingIn": "Signing in...",
+    "signUp": "Sign up",
+    "signingUp": "Creating account...",
+    "orDivider": "Or",
+    "dontHaveAccount": "Don't have an account?",
+    "signUpLink": "Sign up",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "Log in",
+    "backHome": "Back to home",
+    "signOut": "Sign out",
+    "appWelcome": "Welcome",
+    "signedInAs": "You are signed in as",
+    "appIntro": "This is the authenticated area of the template. Intranet features (employees, roles, dashboards) arrive in a later phase - for now, custom content can be added under the _auth/app routes.",
+    "dashboard": "Dashboard",
+    "loginError": "An error occurred while signing in.",
+    "signupError": "An error occurred while signing up.",
+    "passwordsMismatch": "Passwords do not match."
+  }
+}

@@ -1,0 +1,20 @@
+# Env source: one .env file (dockploy environment editor) feeds BOTH:
+#   - build.args   : VITE_* (inlined by Vite at build time)
+#   - env_file     : the full block (runtime: DB, auth, OAuth, ...)
+
+services:
+  app:
+    container_name: ${CONTAINER_NAME:-factory-template}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_BASE_URL: ${VITE_BASE_URL}
+        VITE_GA_MEASUREMENT_ID: ${VITE_GA_MEASUREMENT_ID:-}
+        VITE_GOOGLE_ADS_ID: ${VITE_GOOGLE_ADS_ID:-}
+    env_file: .env
+    deploy:
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first

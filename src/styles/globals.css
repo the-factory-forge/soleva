@@ -1,0 +1,195 @@
+/* Imported from src/styles.css - do not import tailwindcss here. */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), 'Montserrat Fallback', sans-serif;
+  --font-sans: var(--font-montserrat), 'Montserrat Fallback', sans-serif;
+  --font-eyebrow: var(--font-montserrat), 'Montserrat Fallback', sans-serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback', monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-electric: var(--electric);
+  --color-electric-foreground: var(--electric-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-dark: var(--dark);
+  --color-dark-foreground: var(--dark-foreground);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+:root {
+  /* Solar orange - sun, energy, the Soleva brand */
+  --primary: #ff803e;
+  --primary-foreground: #ffffff;
+
+  /* Deep teal - trust, technology, contrast to the warm sun */
+  --secondary: #005f60;
+  --secondary-foreground: #ffffff;
+
+  /* Teal accent - technology, EV, innovation */
+  --electric: #005f60;
+  --electric-foreground: #ffffff;
+
+  /* Backgrounds */
+  --background: #ffffff;
+  --foreground: #1f2a2a;
+
+  --card: #ffffff;
+  --card-foreground: #1f2a2a;
+  --popover: #ffffff;
+  --popover-foreground: #1f2a2a;
+
+  /* Warm white / muted surfaces */
+  --muted: #eef4f3;
+  --muted-foreground: #5a6b6a;
+  --accent: #fff4ec;
+  --accent-foreground: #005f60;
+
+  /* Deep teal - footer / dark sections */
+  --dark: #043b3c;
+  --dark-foreground: #fdf6f0;
+
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #ff803e;
+
+  --radius: 0.75rem;
+
+  /* Replaces the CSS variables next/font injects in the v0: the Tailwind
+     font utilities reference these at runtime (no dynamic font provider). */
+  --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-geist-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@keyframes enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)
+      scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), var(--tw-enter-scale, 1))
+      rotate(var(--tw-enter-rotate, 0));
+  }
+}
+
+@keyframes exit {
+  to {
+    opacity: var(--tw-exit-opacity, 1);
+    transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0)
+      scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), var(--tw-exit-scale, 1))
+      rotate(var(--tw-exit-rotate, 0));
+  }
+}
+
+@utility animate-in {
+  animation-name: enter;
+  animation-duration: 150ms;
+  --tw-enter-opacity: initial;
+  --tw-enter-scale: initial;
+  --tw-enter-rotate: initial;
+  --tw-enter-translate-x: initial;
+  --tw-enter-translate-y: initial;
+}
+
+@utility animate-out {
+  animation-name: exit;
+  animation-duration: 150ms;
+  --tw-exit-opacity: initial;
+  --tw-exit-scale: initial;
+  --tw-exit-rotate: initial;
+  --tw-exit-translate-x: initial;
+  --tw-exit-translate-y: initial;
+}
+
+@utility fade-in-0 {
+  --tw-enter-opacity: 0;
+}
+@utility fade-out-0 {
+  --tw-exit-opacity: 0;
+}
+@utility fade-in {
+  --tw-enter-opacity: 0;
+}
+@utility zoom-in-95 {
+  --tw-enter-scale: 0.95;
+}
+@utility zoom-out-95 {
+  --tw-exit-scale: 0.95;
+}
+@utility slide-in-from-top {
+  --tw-enter-translate-y: -100%;
+}
+@utility slide-in-from-bottom {
+  --tw-enter-translate-y: 100%;
+}
+@utility slide-in-from-bottom-4 {
+  --tw-enter-translate-y: 1rem;
+}
+@utility slide-in-from-left {
+  --tw-enter-translate-x: -100%;
+}
+@utility slide-in-from-right {
+  --tw-enter-translate-x: 100%;
+}
+@utility slide-out-to-top {
+  --tw-exit-translate-y: -100%;
+}
+@utility slide-out-to-bottom {
+  --tw-exit-translate-y: 100%;
+}
+@utility slide-out-to-left {
+  --tw-exit-translate-x: -100%;
+}
+@utility slide-out-to-right {
+  --tw-exit-translate-x: 100%;
+}
+
+@utility container-premium {
+  @apply mx-auto max-w-7xl px-5 sm:px-8 lg:px-12;
+}
+
+@utility section-padding {
+  @apply py-20 md:py-28 lg:py-36;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+  }
+}

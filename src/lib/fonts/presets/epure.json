@@ -1,0 +1,7 @@
+{
+  "id": "epure",
+  "label": "System Clean",
+  "mood": "epure",
+  "fontSans": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+  "fontHeading": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+}

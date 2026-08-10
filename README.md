@@ -1,33 +1,39 @@
-# v0-soleva
+# Soleva
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+Website of **Soleva** - ASSOCIATION SOLEVA (Renens VD, Suisse). Soleva transforms an
+old van into a solar-powered electric camper: a Swiss demonstrator of sustainable
+mobility, retrofit and solar energy.
 
-## Built with v0
+Built from [The Corner Factory](https://github.com/the-corner-inc/factory-template)
+site template (TanStack Start). Migrated from the v0 Next site (process validation,
+Phase 3.16 of the factory roadmap).
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+## Stack
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_JM29wvQUiiXeWarx5bpEs47ixLP5)
+- TanStack Start (Vite+ / Nitro / React Compiler)
+- Tailwind CSS v4 + registry components from
+  [react-factories](https://github.com/the-corner-inc/react-factories)
+- Custom i18n dicts (fr/en/de/it) in `src/lib/i18n/`
+- GEO layer: JSON-LD, dynamic robots.txt/sitemap, llms.txt, `/api/data.json`
+- Auth/DB optional (Better Auth + Drizzle/Postgres) - off by default (showcase mode)
 
-## Getting Started
+## Dev
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```sh
+pnpm install
+pnpm dev          # http://localhost:3000
+vpr check         # lint + type-check
+vpr build && pnpm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Site content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/lib/site/constants.ts` - identity, contact, socials
+- `src/lib/site/services.ts` - the 3 pillars (conversion, solar, habitat)
+- `src/lib/site/pricing.ts` - sponsor tiers
+- `src/lib/i18n/{fr,en,de,it}.json` - all copy
 
-## Learn More
+## Deploy
 
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+dockploy (VPS): compose app-only pattern, one database `factory_soleva` if login
+is ever enabled. See the factory-template README "Deployment" for details.

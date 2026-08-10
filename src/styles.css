@@ -1,0 +1,29 @@
+@import "tailwindcss" source("./");
+
+@import "tw-animate-css";
+
+/* Fonts - Google via @fontsource (Montserrat, the Soleva brand face) */
+@import "@fontsource/montserrat/400.css";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+
+/* Soleva design system (tokens, utilities) */
+@import "./styles/globals.css";
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+}
