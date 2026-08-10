@@ -22,8 +22,6 @@ interface AppShellProps {
   navbarProps: Parameters<typeof Navbar>[0];
   locale: Locale;
   dict: Dictionary;
-  /** Navbar controls (theme/font switchers) - shown in the top navbar. */
-  controls?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -37,7 +35,6 @@ export function AppShell({
   navbarProps,
   locale,
   dict,
-  controls,
   children,
 }: AppShellProps) {
   const queryClient = useQueryClient();
@@ -75,7 +72,6 @@ export function AppShell({
         locales={[...locales]}
         localeNames={localeNames}
         localeShort={localeShort}
-        controls={controls}
       />
 
       <div className="flex flex-1">

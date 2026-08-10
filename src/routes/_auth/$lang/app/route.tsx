@@ -1,10 +1,8 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/auth/app-shell";
-import { FontSwitcher } from "@/components/navigation/font-switcher";
-import { ThemeSwitcher } from "@/components/navigation/theme-switcher";
 import { $getUser } from "@/lib/auth/functions";
-import { getDictionary, t } from "@/lib/i18n";
+import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { SITE_NAME } from "@/lib/site/constants";
 import { getNavbarProps } from "@/lib/site/navigation";
@@ -30,20 +28,12 @@ function AppLayout() {
   const { locale, dict } = Route.useLoaderData();
   const navbarProps = getNavbarProps(locale, dict);
 
-  const controls = (
-    <>
-      <ThemeSwitcher ariaLabel={t(dict, "common.theme")} />
-      <FontSwitcher ariaLabel={t(dict, "common.fonts")} />
-    </>
-  );
-
   return (
     <AppShell
       siteName={SITE_NAME}
       navbarProps={navbarProps}
       locale={locale}
       dict={dict}
-      controls={controls}
     >
       <Outlet />
     </AppShell>
