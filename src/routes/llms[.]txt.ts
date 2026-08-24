@@ -20,8 +20,7 @@ export const Route = createFileRoute("/llms.txt")({
           "",
           "## Pages",
           ...STATIC_PATHS.map(
-            (path) =>
-              `- [${path === "" ? "Home" : path}](${SITE_URL}/${defaultLocale}${path})`,
+            (path) => `- [${path === "" ? "Home" : path}](${SITE_URL}/${defaultLocale}${path})`,
           ),
           "",
           "## Services",
