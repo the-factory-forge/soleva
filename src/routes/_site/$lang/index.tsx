@@ -8,8 +8,8 @@ import { HomeProblem } from "@/components/home/home-problem";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
-import { Link } from "@/components/ui/link";
 import { Lightbox } from "@/components/ui/lightbox";
+import { Link } from "@/components/ui/link";
 import { Reveal } from "@/components/ui/reveal";
 import { IMAGES, PARTNER_LOGOS, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { partnerCategories } from "@/lib/data/partners";
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/_site/$lang/")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.home.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.home.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.home.description,
         path: "/",
         siteUrl: SITE_URL,
@@ -98,9 +98,7 @@ function HomePage() {
                   className="mt-6"
                   size="lg"
                   render={
-                    <Link href={withLocale(locale, "/soutenir")}>
-                      {dict.home.new_start.cta}
-                    </Link>
+                    <Link href={withLocale(locale, "/soutenir")}>{dict.home.new_start.cta}</Link>
                   }
                 />
               </div>
@@ -113,7 +111,7 @@ function HomePage() {
       <section className="bg-background">
         <div className="container-premium section-padding">
           <Reveal>
-            <h2 className="font-heading text-center text-2xl font-bold sm:text-3xl">
+            <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">
               {dict.home.partners.title}
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center leading-relaxed text-muted-foreground">
@@ -124,7 +122,7 @@ function HomePage() {
           <div className="mt-12 space-y-10">
             {/* Partenaires techniques */}
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
                 {dict.home.partners.technical}
               </h3>
               <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -144,9 +142,7 @@ function HomePage() {
                               sizes="112px"
                             />
                           </div>
-                          <span className="text-sm font-semibold text-foreground">
-                            {item.name}
-                          </span>
+                          <span className="text-sm font-semibold text-foreground">{item.name}</span>
                         </div>
                       </Reveal>
                     );
@@ -156,7 +152,7 @@ function HomePage() {
 
             {/* Soutiens institutionnels */}
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
                 {dict.home.partners.institutional}
               </h3>
               <div className="mt-4 grid grid-cols-2 gap-4">
@@ -188,7 +184,7 @@ function HomePage() {
 
             {/* Prix */}
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
                 {dict.home.partners.awards}
               </h3>
               <div className="mt-4">

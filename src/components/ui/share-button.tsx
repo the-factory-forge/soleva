@@ -1,33 +1,33 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import { Share2, Check } from "lucide-react"
+import { Share2, Check } from "lucide-react";
+import { useState, useRef } from "react";
 
 export function ShareButton({ label }: { label: string }) {
-  const [copied, setCopied] = useState(false)
-  const sharing = useRef(false)
+  const [copied, setCopied] = useState(false);
+  const sharing = useRef(false);
 
   const handleShare = async () => {
-    if (sharing.current) return
-    sharing.current = true
+    if (sharing.current) return;
+    sharing.current = true;
 
-    const url = window.location.origin
-    const text = "Découvrez Soleva - le van électrique solaire suisse"
+    const url = window.location.origin;
+    const text = "Découvrez Soleva - le van électrique solaire suisse";
 
     try {
       if (navigator.share) {
-        await navigator.share({ title: "Soleva", text, url })
+        await navigator.share({ title: "Soleva", text, url });
       } else {
-        await navigator.clipboard.writeText(`${text} : ${url}`)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
+        await navigator.clipboard.writeText(`${text} : ${url}`);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
       }
     } catch {
       // user cancelled or error - ignore
     } finally {
-      sharing.current = false
+      sharing.current = false;
     }
-  }
+  };
 
   return (
     <button
@@ -46,5 +46,5 @@ export function ShareButton({ label }: { label: string }) {
         </>
       )}
     </button>
-  )
+  );
 }

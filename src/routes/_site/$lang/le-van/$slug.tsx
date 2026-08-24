@@ -9,8 +9,8 @@ import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
 import { Reveal } from "@/components/ui/reveal";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
-import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
 import { habitatContent } from "@/lib/data/habitat";
+import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
     return metadataToHead(
       buildMetadata({
         locale,
-        title: `${ content.title } | ${SITE_NAME}`,
+        title: `${content.title} | ${SITE_NAME}`,
         description: content.shortDescription,
         path: `/le-van/${service.slug}`,
         siteUrl: SITE_URL,
@@ -113,7 +113,9 @@ function ServiceDetailPage() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <Icon className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">{content.title}</h2>
+                <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">
+                  {content.title}
+                </h2>
                 <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
                   {content.fullDescription}
                 </p>
@@ -186,7 +188,12 @@ function ServiceDetailPage() {
                 <details className="group rounded-2xl border border-border bg-card p-5">
                   <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                     {faq.question}
-                    <span className="ml-4 text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                    <span
+                      className="ml-4 text-primary transition-transform group-open:rotate-45"
+                      aria-hidden="true"
+                    >
+                      +
+                    </span>
                   </summary>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{faq.answer}</p>
                 </details>
@@ -197,9 +204,7 @@ function ServiceDetailPage() {
       </section>
 
       {/* Related */}
-      {related.length > 0 && (
-        <PillarSuggestions locale={locale} dict={dict} items={related} />
-      )}
+      {related.length > 0 && <PillarSuggestions locale={locale} dict={dict} items={related} />}
 
       <p className="container-premium pb-6 text-center text-xs text-muted-foreground">
         {dict.service_detail.disclaimer}

@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
 
 import { PageHero } from "@/components/layout/page-hero";
-import { TourMap } from "@/components/voyage/tour-map";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
@@ -10,6 +9,7 @@ import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { TourMap } from "@/components/voyage/tour-map";
 import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { POLAR_STEPS_URL, pastEvents } from "@/lib/data/events";
 import { getDictionary } from "@/lib/i18n";
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/_site/$lang/voyage")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.voyage.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.voyage.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.voyage.description,
         path: "/voyage",
         siteUrl: SITE_URL,
@@ -152,7 +152,8 @@ function VoyagePage() {
               >
                 Polar Steps
               </a>
-              . L'application mobile permet de suivre la position du van en temps réel pendant le tour.
+              . L'application mobile permet de suivre la position du van en temps réel pendant le
+              tour.
             </p>
           </div>
         </div>

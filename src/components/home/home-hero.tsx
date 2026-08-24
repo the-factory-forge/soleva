@@ -1,10 +1,11 @@
-import { ArrowRight, Sun } from "lucide-react"
-import { type Locale } from "@/lib/i18n/config"
-import type { Dictionary } from "@/lib/i18n"
-import { Link } from "@/components/ui/link"
-import { Button } from "@/components/ui/button"
-import { IMAGES } from "@/lib/constants"
-import { withLocale } from "@/lib/navigation"
+import { ArrowRight, Sun } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
+import { IMAGES } from "@/lib/constants";
+import type { Dictionary } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n/config";
+import { withLocale } from "@/lib/navigation";
 
 export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
@@ -30,7 +31,7 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
             <Sun className="h-4 w-4" aria-hidden="true" />
             {dict.home.hero.eyebrow}
           </p>
-          <h1 className="mt-6 text-balance font-heading text-4xl font-extrabold leading-[1.05] sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 font-heading text-4xl leading-[1.05] font-extrabold text-balance sm:text-5xl lg:text-6xl">
             {dict.home.hero.title}
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-dark-foreground/80">
@@ -40,7 +41,12 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
             <Button
               size="lg"
               className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-              render={<Link href={withLocale(locale, "/contact")} className="inline-flex items-center gap-2" />}
+              render={
+                <Link
+                  href={withLocale(locale, "/contact")}
+                  className="inline-flex items-center gap-2"
+                />
+              }
             >
               {dict.home.hero.primary_cta}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -57,5 +63,5 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
         </div>
       </div>
     </section>
-  )
+  );
 }

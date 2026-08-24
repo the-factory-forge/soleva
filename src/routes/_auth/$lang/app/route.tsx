@@ -29,12 +29,7 @@ function AppLayout() {
   const navbarProps = getNavbarProps(locale, dict);
 
   return (
-    <AppShell
-      siteName={SITE_NAME}
-      navbarProps={navbarProps}
-      locale={locale}
-      dict={dict}
-    >
+    <AppShell siteName={SITE_NAME} navbarProps={navbarProps} locale={locale} dict={dict}>
       <Outlet />
     </AppShell>
   );

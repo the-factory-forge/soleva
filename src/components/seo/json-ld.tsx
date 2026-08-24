@@ -1,14 +1,8 @@
-import type { Locale } from "@/lib/i18n/config"
-import type { Dictionary } from "@/lib/i18n"
-import { SITE_URL, SITE_NAME, CONTACT, SOCIALS } from "@/lib/constants"
+import { SITE_URL, SITE_NAME, CONTACT, SOCIALS } from "@/lib/constants";
+import type { Dictionary } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n/config";
 
-export function OrganizationJsonLd({
-  locale,
-  dict,
-}: {
-  locale: Locale
-  dict: Dictionary
-}) {
+export function OrganizationJsonLd({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const data = {
     "@context": "https://schema.org",
     "@type": "NGO",
@@ -36,21 +30,14 @@ export function OrganizationJsonLd({
       },
     },
     sameAs: [SOCIALS.instagram, SOCIALS.facebook, SOCIALS.youtube],
-  }
+  };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  )
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+  );
 }
 
-export function FaqJsonLd({
-  items,
-}: {
-  items: { question: string; answer: string }[]
-}) {
+export function FaqJsonLd({ items }: { items: { question: string; answer: string }[] }) {
   const data = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -59,20 +46,13 @@ export function FaqJsonLd({
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
-  }
+  };
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  )
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+  );
 }
 
-export function BreadcrumbJsonLd({
-  items,
-}: {
-  items: { name: string; url: string }[]
-}) {
+export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string }[] }) {
   const data = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -82,11 +62,8 @@ export function BreadcrumbJsonLd({
       name: item.name,
       item: item.url,
     })),
-  }
+  };
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  )
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+  );
 }

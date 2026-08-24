@@ -1,20 +1,21 @@
-"use client"
+"use client";
 
-import { useState, useCallback, useEffect } from "react"
-import { Image } from "@/components/ui/image"
-import { X } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { X } from "lucide-react";
+import { useState, useCallback, useEffect } from "react";
+
+import { Image } from "@/components/ui/image";
+import { cn } from "@/lib/utils";
 
 type LightboxProps = {
-  src: string
-  alt: string
-  width?: number
-  height?: number
-  fill?: boolean
-  sizes?: string
-  className?: string
-  children?: React.ReactNode
-}
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  fill?: boolean;
+  sizes?: string;
+  className?: string;
+  children?: React.ReactNode;
+};
 
 export function Lightbox({
   src,
@@ -26,22 +27,22 @@ export function Lightbox({
   className,
   children,
 }: LightboxProps) {
-  const [open, setOpen] = useState(false)
-  const openModal = useCallback(() => setOpen(true), [])
-  const closeModal = useCallback(() => setOpen(false), [])
+  const [open, setOpen] = useState(false);
+  const openModal = useCallback(() => setOpen(true), []);
+  const closeModal = useCallback(() => setOpen(false), []);
 
   useEffect(() => {
-    if (!open) return
+    if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeModal()
-    }
-    document.addEventListener("keydown", onKey)
-    document.body.style.overflow = "hidden"
+      if (e.key === "Escape") closeModal();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
     return () => {
-      document.removeEventListener("keydown", onKey)
-      document.body.style.overflow = ""
-    }
-  }, [open, closeModal])
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, closeModal]);
 
   return (
     <>
@@ -96,5 +97,5 @@ export function Lightbox({
         </div>
       )}
     </>
-  )
+  );
 }

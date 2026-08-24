@@ -6,7 +6,14 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Reveal } from "@/components/ui/reveal";
-import { IMAGES, MENTOR_PHOTOS, PRESS_LOGOS, SITE_NAME, SITE_URL, TEAM_PHOTOS } from "@/lib/constants";
+import {
+  IMAGES,
+  MENTOR_PHOTOS,
+  PRESS_LOGOS,
+  SITE_NAME,
+  SITE_URL,
+  TEAM_PHOTOS,
+} from "@/lib/constants";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
@@ -92,15 +99,63 @@ const MENTORS = [
 ];
 
 const PRESS_ITEMS = [
-  { media: "RTS 19h30", type: "TV nationale", date: "23.06.2024", lang: "FR", logo: PRESS_LOGOS["RTS 19h30"] },
-  { media: "SRF Schweiz Aktuell", type: "TV nationale", date: "29.08.2024", lang: "DE", logo: PRESS_LOGOS["SRF Schweiz Aktuell"] },
-  { media: "RSI Telegiornale", type: "TV nationale", date: "13.07.2024", lang: "IT", logo: PRESS_LOGOS["RSI Telegiornale"] },
-  { media: "24Heures", type: "Presse écrite", date: "12.06.2024", lang: "FR", logo: PRESS_LOGOS["24Heures"] },
-  { media: "Télé Vaud-Fribourg", type: "TV régionale", date: "06.04.2022", lang: "FR", logo: PRESS_LOGOS["Télé Vaud-Fribourg"] },
-  { media: "RTS Radio Matinale", type: "Radio nationale", date: "24.06.2022", lang: "FR", logo: PRESS_LOGOS["RTS Radio Matinale"] },
-  { media: "Rouge FM", type: "Radio", date: "30.06.2022", lang: "FR", logo: PRESS_LOGOS["Rouge FM"] },
+  {
+    media: "RTS 19h30",
+    type: "TV nationale",
+    date: "23.06.2024",
+    lang: "FR",
+    logo: PRESS_LOGOS["RTS 19h30"],
+  },
+  {
+    media: "SRF Schweiz Aktuell",
+    type: "TV nationale",
+    date: "29.08.2024",
+    lang: "DE",
+    logo: PRESS_LOGOS["SRF Schweiz Aktuell"],
+  },
+  {
+    media: "RSI Telegiornale",
+    type: "TV nationale",
+    date: "13.07.2024",
+    lang: "IT",
+    logo: PRESS_LOGOS["RSI Telegiornale"],
+  },
+  {
+    media: "24Heures",
+    type: "Presse écrite",
+    date: "12.06.2024",
+    lang: "FR",
+    logo: PRESS_LOGOS["24Heures"],
+  },
+  {
+    media: "Télé Vaud-Fribourg",
+    type: "TV régionale",
+    date: "06.04.2022",
+    lang: "FR",
+    logo: PRESS_LOGOS["Télé Vaud-Fribourg"],
+  },
+  {
+    media: "RTS Radio Matinale",
+    type: "Radio nationale",
+    date: "24.06.2022",
+    lang: "FR",
+    logo: PRESS_LOGOS["RTS Radio Matinale"],
+  },
+  {
+    media: "Rouge FM",
+    type: "Radio",
+    date: "30.06.2022",
+    lang: "FR",
+    logo: PRESS_LOGOS["Rouge FM"],
+  },
   { media: "LFM", type: "Radio", date: "06.03.2022", lang: "FR", logo: PRESS_LOGOS["LFM"] },
-  { media: "La Côte", type: "Presse écrite", date: "01.03.2022", lang: "FR", logo: PRESS_LOGOS["La Côte"] },
+  {
+    media: "La Côte",
+    type: "Presse écrite",
+    date: "01.03.2022",
+    lang: "FR",
+    logo: PRESS_LOGOS["La Côte"],
+  },
 ];
 
 export const Route = createFileRoute("/_site/$lang/a-propos")({
@@ -113,7 +168,7 @@ export const Route = createFileRoute("/_site/$lang/a-propos")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.about.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.about.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.about.description,
         path: "/a-propos",
         siteUrl: SITE_URL,
@@ -187,7 +242,9 @@ function AboutPage() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <Sparkles className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">{a.story_title}</h2>
+                <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">
+                  {a.story_title}
+                </h2>
                 <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{a.story_body}</p>
               </div>
             </Reveal>
@@ -219,7 +276,9 @@ function AboutPage() {
       <section className="bg-muted">
         <div className="container-premium section-padding">
           <Reveal>
-            <h2 className="font-heading text-center text-2xl font-bold sm:text-3xl">{a.team_title}</h2>
+            <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">
+              {a.team_title}
+            </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center leading-relaxed text-muted-foreground">
               {a.members_subtitle}
             </p>
@@ -238,9 +297,14 @@ function AboutPage() {
                     />
                   </div>
                   <h3 className="mt-4 font-heading text-lg font-semibold">{member.name}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{member.role}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {member.role}
+                  </p>
                   {member.email && (
-                    <a href={`mailto:${member.email}`} className="mt-2 text-xs text-primary hover:underline">
+                    <a
+                      href={`mailto:${member.email}`}
+                      className="mt-2 text-xs text-primary hover:underline"
+                    >
                       {member.email}
                     </a>
                   )}
@@ -255,7 +319,9 @@ function AboutPage() {
       <section className="bg-background">
         <div className="container-premium section-padding">
           <Reveal>
-            <h2 className="font-heading text-center text-2xl font-bold sm:text-3xl">{a.mentors_title}</h2>
+            <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">
+              {a.mentors_title}
+            </h2>
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {MENTORS.map((mentor, i) => (
@@ -271,7 +337,9 @@ function AboutPage() {
                     />
                   </div>
                   <h3 className="mt-3 font-heading text-base font-semibold">{mentor.name}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{mentor.role}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {mentor.role}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -283,7 +351,9 @@ function AboutPage() {
       <section className="bg-muted">
         <div className="container-premium section-padding">
           <Reveal>
-            <h2 className="font-heading text-center text-2xl font-bold sm:text-3xl">{a.press_title}</h2>
+            <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">
+              {a.press_title}
+            </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center leading-relaxed text-muted-foreground">
               {a.press_subtitle}
             </p>
@@ -303,7 +373,9 @@ function AboutPage() {
                   </div>
                   <span className="font-heading text-xs font-bold">{item.media}</span>
                   <span className="text-xs text-muted-foreground">{item.type}</span>
-                  <span className="text-xs text-muted-foreground/70">{item.date} · {item.lang}</span>
+                  <span className="text-xs text-muted-foreground/70">
+                    {item.date} · {item.lang}
+                  </span>
                 </div>
               </Reveal>
             ))}

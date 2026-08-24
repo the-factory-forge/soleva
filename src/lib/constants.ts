@@ -1,11 +1,11 @@
 // src/lib/constants.ts - adapted to Soleva
 // IMPORTANT: Many values below are placeholders pending client validation.
 
-export const SITE_URL = "https://soleva.the-corner.io"
-export const SITE_NAME = "Soleva"
+export const SITE_URL = "https://soleva.the-corner.io";
+export const SITE_NAME = "Soleva";
 
 // CTAs point to the internal /contact page. No external booking URL.
-export const CTA_DESTINATION = "/contact"
+export const CTA_DESTINATION = "/contact";
 
 export const CONTACT = {
   businessName: "Soleva",
@@ -26,24 +26,24 @@ export const CONTACT = {
   },
   legalForm: "Association",
   IDE: "",
-} as const
+} as const;
 
 export const SOCIALS = {
   instagram: "https://instagram.com/soleva_solar_van",
   facebook: "https://facebook.com/solevavan",
   // TODO: LinkedIn page does not exist (company/soleva redirects to another company). Add real URL when client provides it.
   youtube: "https://youtube.com/channel/UCmw0pPduN1XgIyguDNtcv0w",
-} as const
+} as const;
 
 export const THE_CORNER = {
   factoriesUrl: "https://the-corner.io/portfolio/factories",
   logoUrl: "https://assets.the-corner.io/logos/the_corner-icon.png",
-} as const
+} as const;
 
 export const SITE = {
   // TODO: Client must provide a favicon. Using The Corner placeholder for now.
   faviconUrl: "https://assets.the-corner.io/logos/the_corner-icon.png",
-} as const
+} as const;
 
 // All images served locally (migrated from Megaphone CDN - June 2026).
 export const IMAGES = {
@@ -63,7 +63,7 @@ export const IMAGES = {
   impact: "/images/impact.webp",
   support: "/images/workshop.webp",
   newVanDesign: "/images/new-van-design.webp",
-} as const
+} as const;
 
 // Partner logos
 export const PARTNER_LOGOS = {
@@ -74,7 +74,7 @@ export const PARTNER_LOGOS = {
   cantonVaud: "/images/logos/canton-vaud.webp",
   sil: "/images/logos/sil.webp",
   energyLab: "/images/logos/energy-lab.webp",
-} as const
+} as const;
 
 // Team member photos
 export const TEAM_PHOTOS: Record<string, string> = {
@@ -87,7 +87,7 @@ export const TEAM_PHOTOS: Record<string, string> = {
   "Lucanaël Kopf": "/images/team/lucanael.webp",
   "Roman Schmitz": "/images/team/roman.webp",
   "Nicola Offeddu": "/images/team/nicola.webp",
-}
+};
 
 // Mentor photos
 export const MENTOR_PHOTOS: Record<string, string> = {
@@ -95,7 +95,7 @@ export const MENTOR_PHOTOS: Record<string, string> = {
   "André Hodder": "/images/mentors/andre-hodder.webp",
   "Louis Palmer": "/images/mentors/louis-palmer.webp",
   "Prof. Dr. Werner Stednitz": "/images/mentors/werner-stednitz.webp",
-}
+};
 
 // Press/media logos
 export const PRESS_LOGOS: Record<string, string> = {
@@ -106,9 +106,9 @@ export const PRESS_LOGOS: Record<string, string> = {
   "Télé Vaud-Fribourg": "/images/press/tele-vaud-fribourg.webp",
   "RTS Radio Matinale": "/images/press/rts-radio.webp",
   "Rouge FM": "/images/press/rouge-fm.webp",
-  "LFM": "/images/press/lfm.webp",
+  LFM: "/images/press/lfm.webp",
   "La Côte": "/images/press/la-cote.webp",
-}
+};
 
 // Key figures - TODO: ALL technical figures MUST be validated by Soleva.
 export const KEY_FIGURES = {
@@ -127,10 +127,10 @@ export const KEY_FIGURES = {
   communesVisited: "100+",
   vehicleOrigin: "Peugeot J9, 1987",
   solarPower: "1 350 W",
-} as const
+} as const;
 
 // TODO: Client must provide GA4 Measurement ID via NEXT_PUBLIC_GA_MEASUREMENT_ID.
-export const COOKIE_CONSENT_KEY = "soleva-cookie-consent"
+export const COOKIE_CONSENT_KEY = "soleva-cookie-consent";
 
 export const DONATION = {
   beneficiary: "ASSOCIATION SOLEVA",
@@ -141,9 +141,9 @@ export const DONATION = {
   bic: "BCVLCH2LXXX",
   bank: "Banque Cantonale Vaudoise",
   reference: "Donation au projet Soleva",
-} as const
+} as const;
 
 export const HOSTING = {
   provider: "The Corner Factory SA",
   server: "Serveur VPS Infomaniak, Suisse",
-} as const
+} as const;

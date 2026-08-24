@@ -1,55 +1,50 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Menu, ChevronDown } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Link } from "@/components/ui/link"
-import { Image } from "@/components/ui/image"
-import { usePathname } from "@/components/ui/use-location"
-import { Button } from "@/components/ui/button"
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetTitle,
-  SheetClose,
-} from "@/components/ui/sheet"
+import { Menu, ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { type Locale, locales, localeNames, localeShort } from "@/lib/i18n/config"
-import type { Dictionary } from "@/lib/i18n"
-import { mainNav, withLocale } from "@/lib/navigation"
+} from "@/components/ui/dropdown-menu";
+import { Image } from "@/components/ui/image";
+import { Link } from "@/components/ui/link";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
+import { usePathname } from "@/components/ui/use-location";
+import type { Dictionary } from "@/lib/i18n";
+import { type Locale, locales, localeNames, localeShort } from "@/lib/i18n/config";
+import { mainNav, withLocale } from "@/lib/navigation";
+import { cn } from "@/lib/utils";
 
 export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
-  const pathname = usePathname()
-  const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Strip the current locale prefix to build switcher links that preserve the path.
-  const pathWithoutLocale = pathname.replace(new RegExp(`^/(${locales.join("|")})`), "") || "/"
+  const pathWithoutLocale = pathname.replace(new RegExp(`^/(${locales.join("|")})`), "") || "/";
 
   const isActive = (href: string) => {
-    const full = withLocale(locale, href)
-    if (href === "/") return pathname === full
-    return pathname === full || pathname.startsWith(full + "/")
-  }
+    const full = withLocale(locale, href);
+    if (href === "/") return pathname === full;
+    return pathname === full || pathname.startsWith(full + "/");
+  };
 
-  const navLabel = (key: string) => (dict.nav as Record<string, string>)[key] ?? key
+  const navLabel = (key: string) => (dict.nav as Record<string, string>)[key] ?? key;
 
   // Over the dark hero the bar is transparent → use light text; once scrolled onto
   // the white background → use dark text.
-  const onLight = scrolled
+  const onLight = scrolled;
 
   return (
     <header
@@ -61,11 +56,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       )}
     >
       <nav className="container-premium flex h-16 items-center justify-between gap-4 md:h-20">
-        <Link
-          href={withLocale(locale, "/")}
-          className="flex items-center"
-          aria-label="Soleva"
-        >
+        <Link href={withLocale(locale, "/")} className="flex items-center" aria-label="Soleva">
           <Image
             src="/images/soleva-logo.webp"
             alt="Soleva - The Solar Electric Van"
@@ -79,7 +70,8 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         {/* Desktop nav */}
         <ul className="hidden items-center gap-1 lg:flex">
           {mainNav.map((item) => {
-            const parentActive = isActive(item.href) || item.children?.some((c) => isActive(c.href))
+            const parentActive =
+              isActive(item.href) || item.children?.some((c) => isActive(c.href));
 
             if (item.children) {
               return (
@@ -101,7 +93,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                       aria-hidden="true"
                     />
                   </Link>
-                  <div className="invisible absolute left-0 top-full z-50 min-w-60 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                  <div className="invisible absolute top-full left-0 z-50 min-w-60 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
                     <ul className="flex flex-col gap-0.5 rounded-xl border border-border bg-background p-2 shadow-lg">
                       {item.children.map((child) => (
                         <li key={child.key}>
@@ -121,7 +113,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                     </ul>
                   </div>
                 </li>
-              )
+              );
             }
 
             return (
@@ -140,7 +132,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                   {navLabel(item.key)}
                 </Link>
               </li>
-            )
+            );
           })}
         </ul>
 
@@ -263,5 +255,5 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </div>
       </nav>
     </header>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export function SectionHeading({
   eyebrow,
@@ -8,12 +8,12 @@ export function SectionHeading({
   className,
   inverted = false,
 }: {
-  eyebrow?: string
-  title: string
-  subtitle?: string
-  align?: "center" | "left"
-  className?: string
-  inverted?: boolean
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  align?: "center" | "left";
+  className?: string;
+  inverted?: boolean;
 }) {
   return (
     <div
@@ -26,7 +26,7 @@ export function SectionHeading({
       {eyebrow ? (
         <p
           className={cn(
-            "mb-3 text-sm font-semibold uppercase tracking-[0.18em]",
+            "mb-3 text-sm font-semibold tracking-[0.18em] uppercase",
             inverted ? "text-secondary" : "text-primary",
           )}
         >
@@ -35,7 +35,7 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          "text-pretty font-heading text-3xl font-extrabold leading-tight sm:text-4xl md:text-[2.75rem]",
+          "font-heading text-3xl leading-tight font-extrabold text-pretty sm:text-4xl md:text-[2.75rem]",
           inverted ? "text-dark-foreground" : "text-foreground",
         )}
       >
@@ -52,5 +52,5 @@ export function SectionHeading({
         </p>
       ) : null}
     </div>
-  )
+  );
 }

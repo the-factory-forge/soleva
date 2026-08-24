@@ -30,13 +30,7 @@ interface AppShellProps {
  * on the left. Used for the dashboard AND for site pages while signed in
  * (tc-website AuthenticatedShell pattern).
  */
-export function AppShell({
-  siteName,
-  navbarProps,
-  locale,
-  dict,
-  children,
-}: AppShellProps) {
+export function AppShell({ siteName, navbarProps, locale, dict, children }: AppShellProps) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);

@@ -28,7 +28,7 @@ export const Route = createFileRoute("/_site/$lang/soutenir")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.support.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.support.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.support.description,
         path: "/soutenir",
         siteUrl: SITE_URL,
@@ -43,10 +43,34 @@ function SupportPage() {
   const t = dict.support;
 
   const ways = [
-    { icon: Heart, title: t.ways.donate_title, desc: t.ways.donate_desc, cta: t.ways.donate_cta, href: "#donation" },
-    { icon: Handshake, title: t.ways.sponsor_title, desc: t.ways.sponsor_desc, cta: t.ways.sponsor_cta, href: "#sponsorship" },
-    { icon: Users, title: t.ways.volunteer_title, desc: t.ways.volunteer_desc, cta: t.ways.volunteer_cta, href: "/contact" },
-    { icon: Share2, title: t.ways.share_title, desc: t.ways.share_desc, cta: t.ways.share_cta, href: null },
+    {
+      icon: Heart,
+      title: t.ways.donate_title,
+      desc: t.ways.donate_desc,
+      cta: t.ways.donate_cta,
+      href: "#donation",
+    },
+    {
+      icon: Handshake,
+      title: t.ways.sponsor_title,
+      desc: t.ways.sponsor_desc,
+      cta: t.ways.sponsor_cta,
+      href: "#sponsorship",
+    },
+    {
+      icon: Users,
+      title: t.ways.volunteer_title,
+      desc: t.ways.volunteer_desc,
+      cta: t.ways.volunteer_cta,
+      href: "/contact",
+    },
+    {
+      icon: Share2,
+      title: t.ways.share_title,
+      desc: t.ways.share_desc,
+      cta: t.ways.share_cta,
+      href: null,
+    },
   ];
 
   const cf = t.crowdfunding;
@@ -74,7 +98,9 @@ function SupportPage() {
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/15 text-secondary">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
-                    <h2 className="mt-5 font-heading text-xl font-bold text-foreground">{way.title}</h2>
+                    <h2 className="mt-5 font-heading text-xl font-bold text-foreground">
+                      {way.title}
+                    </h2>
                     <p className="mt-3 flex-1 text-base leading-relaxed text-muted-foreground">
                       {way.desc}
                     </p>
@@ -116,16 +142,21 @@ function SupportPage() {
               return (
                 <Reveal key={tier.key} delay={i * 0.08}>
                   <div className={`flex h-full flex-col rounded-3xl border ${colors[i]} p-8`}>
-                    <div className={`inline-flex self-start rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${badges[i]}`}>
+                    <div
+                      className={`inline-flex self-start rounded-full px-3 py-1 text-xs font-bold tracking-wider uppercase ${badges[i]}`}
+                    >
                       {tier.key}
                     </div>
                     <p className="mt-4 font-heading text-3xl font-extrabold">{tier.price}</p>
-                    <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
+                    <p className="mt-1 text-xs tracking-wide text-muted-foreground uppercase">
                       {t.sponsor_features}
                     </p>
                     <ul className="mt-6 flex-1 space-y-3">
                       {tier.features[locale].map((f, j) => (
-                        <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <li
+                          key={j}
+                          className="flex items-start gap-2 text-sm text-muted-foreground"
+                        >
                           <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" />
                           {f}
                         </li>
@@ -173,7 +204,7 @@ function SupportPage() {
               }
             />
           </div>
-          <p className="mx-auto mt-8 max-w-2xl text-center text-sm italic text-dark-foreground/60">
+          <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-dark-foreground/60 italic">
             {cf.todo}
           </p>
         </div>
@@ -184,37 +215,57 @@ function SupportPage() {
         <div className="container-premium section-padding">
           <div className="mx-auto max-w-2xl">
             <Reveal>
-              <h2 className="font-heading text-center text-2xl font-bold sm:text-3xl">{t.iban.title}</h2>
-              <p className="mt-3 text-center leading-relaxed text-muted-foreground">{t.iban.body}</p>
+              <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">
+                {t.iban.title}
+              </h2>
+              <p className="mt-3 text-center leading-relaxed text-muted-foreground">
+                {t.iban.body}
+              </p>
             </Reveal>
             <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_auto]">
               <div className="rounded-3xl border border-border bg-card p-8">
                 <dl className="grid gap-4">
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
-                    <dt className="text-sm font-semibold text-muted-foreground">{t.iban.account_holder}</dt>
+                    <dt className="text-sm font-semibold text-muted-foreground">
+                      {t.iban.account_holder}
+                    </dt>
                     <dd className="text-sm text-foreground">{DONATION.beneficiary}</dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
-                    <dt className="text-sm font-semibold text-muted-foreground">{t.iban.address}</dt>
-                    <dd className="text-sm text-foreground">{DONATION.addressLine1}, {DONATION.addressLine2}</dd>
+                    <dt className="text-sm font-semibold text-muted-foreground">
+                      {t.iban.address}
+                    </dt>
+                    <dd className="text-sm text-foreground">
+                      {DONATION.addressLine1}, {DONATION.addressLine2}
+                    </dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
-                    <dt className="text-sm font-semibold text-muted-foreground">{t.iban.iban_label}</dt>
+                    <dt className="text-sm font-semibold text-muted-foreground">
+                      {t.iban.iban_label}
+                    </dt>
                     <dd className="flex items-center gap-2">
-                      <span className="font-mono text-sm text-foreground">{DONATION.ibanFormatted}</span>
+                      <span className="font-mono text-sm text-foreground">
+                        {DONATION.ibanFormatted}
+                      </span>
                       <CopyIbanButton iban={DONATION.iban} />
                     </dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
-                    <dt className="text-sm font-semibold text-muted-foreground">{t.iban.bic_label}</dt>
+                    <dt className="text-sm font-semibold text-muted-foreground">
+                      {t.iban.bic_label}
+                    </dt>
                     <dd className="font-mono text-sm text-foreground">{DONATION.bic}</dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
-                    <dt className="text-sm font-semibold text-muted-foreground">{t.iban.bank_label}</dt>
+                    <dt className="text-sm font-semibold text-muted-foreground">
+                      {t.iban.bank_label}
+                    </dt>
                     <dd className="text-sm text-foreground">{DONATION.bank}</dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
-                    <dt className="text-sm font-semibold text-muted-foreground">{t.iban.description_label}</dt>
+                    <dt className="text-sm font-semibold text-muted-foreground">
+                      {t.iban.description_label}
+                    </dt>
                     <dd className="font-mono text-sm text-foreground">{DONATION.reference}</dd>
                   </div>
                 </dl>

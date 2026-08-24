@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Copy, Check } from "lucide-react"
+import { Copy, Check } from "lucide-react";
+import { useState } from "react";
 
 export function CopyIbanButton({ iban }: { iban: string }) {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(iban.replace(/\s/g, ""))
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+    await navigator.clipboard.writeText(iban.replace(/\s/g, ""));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <button
@@ -29,5 +29,5 @@ export function CopyIbanButton({ iban }: { iban: string }) {
         </>
       )}
     </button>
-  )
+  );
 }

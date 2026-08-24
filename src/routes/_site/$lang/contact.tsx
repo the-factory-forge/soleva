@@ -3,13 +3,13 @@ import { Mail, MapPin, Share2 } from "lucide-react";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { CONTACT, SOCIALS, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_site/$lang/contact")({
   loader: async ({ location }) => {
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/_site/$lang/contact")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.contact.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.contact.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.contact.description,
         path: "/contact",
         siteUrl: SITE_URL,
@@ -56,9 +56,7 @@ function ContactPage() {
               <h2 className="mt-5 font-heading text-2xl font-bold text-foreground">
                 {t.emailCTA.title}
               </h2>
-              <p className="mt-3 max-w-md text-muted-foreground">
-                {t.emailCTA.description}
-              </p>
+              <p className="mt-3 max-w-md text-muted-foreground">{t.emailCTA.description}</p>
               <a
                 href={`mailto:${CONTACT.email}`}
                 className={cn(buttonVariants({ size: "lg" }), "mt-6 gap-2")}
@@ -92,7 +90,7 @@ function ContactPage() {
                 </span>
                 <div>
                   <p className="text-sm font-medium text-foreground">{t.info.location_label}</p>
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+                  <p className="text-sm leading-relaxed whitespace-pre-line text-muted-foreground">
                     {CONTACT.address.street}
                     {"\n"}
                     {CONTACT.address.zip} {CONTACT.address.city}
@@ -109,9 +107,30 @@ function ContactPage() {
                 <div>
                   <p className="text-sm font-medium text-foreground">{t.info.follow_label}</p>
                   <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
-                    <a href={SOCIALS.instagram} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-primary">Instagram</a>
-                    <a href={SOCIALS.facebook} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-primary">Facebook</a>
-                    <a href={SOCIALS.youtube} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-primary">YouTube</a>
+                    <a
+                      href={SOCIALS.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      Instagram
+                    </a>
+                    <a
+                      href={SOCIALS.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      Facebook
+                    </a>
+                    <a
+                      href={SOCIALS.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      YouTube
+                    </a>
                   </div>
                 </div>
               </div>
@@ -127,7 +146,6 @@ function ContactPage() {
                   title={t.info.location_label}
                 />
               </div>
-
             </aside>
           </div>
         </div>

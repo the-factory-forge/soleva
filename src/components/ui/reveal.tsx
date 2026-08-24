@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { motion } from "motion/react"
-import type { ReactNode } from "react"
+import { motion } from "motion/react";
+import type { ReactNode } from "react";
 
 export function Reveal({
   children,
   delay = 0,
   className,
 }: {
-  children: ReactNode
-  delay?: number
-  className?: string
+  children: ReactNode;
+  delay?: number;
+  className?: string;
 }) {
   return (
     <motion.div
@@ -22,5 +22,5 @@ export function Reveal({
     >
       {children}
     </motion.div>
-  )
+  );
 }

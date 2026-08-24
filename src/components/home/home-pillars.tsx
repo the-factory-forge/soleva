@@ -1,12 +1,13 @@
-import { Image } from "@/components/ui/image"
-import { Zap, Sun, Home, ArrowRight } from "lucide-react"
-import { type Locale } from "@/lib/i18n/config"
-import type { Dictionary } from "@/lib/i18n"
-import { Link } from "@/components/ui/link"
-import { IMAGES } from "@/lib/constants"
-import { SectionHeading } from "@/components/ui/section-heading"
-import { Reveal } from "@/components/ui/reveal"
-import { withLocale } from "@/lib/navigation"
+import { Zap, Sun, Home, ArrowRight } from "lucide-react";
+
+import { Image } from "@/components/ui/image";
+import { Link } from "@/components/ui/link";
+import { Reveal } from "@/components/ui/reveal";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { IMAGES } from "@/lib/constants";
+import type { Dictionary } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n/config";
+import { withLocale } from "@/lib/navigation";
 
 export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const pillars = [
@@ -31,7 +32,7 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
       href: "/habitat",
       image: IMAGES.habitat,
     },
-  ]
+  ];
 
   return (
     <section className="bg-accent">
@@ -61,7 +62,10 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
                   <p className="mt-3 flex-1 text-muted-foreground">{pillar.desc}</p>
                   <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                     {dict.common.learn_more}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                    <ArrowRight
+                      className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
                   </span>
                 </div>
               </Link>
@@ -70,5 +74,5 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
         </div>
       </div>
     </section>
-  )
+  );
 }

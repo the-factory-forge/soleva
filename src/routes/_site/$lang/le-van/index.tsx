@@ -26,7 +26,7 @@ export const Route = createFileRoute("/_site/$lang/le-van/")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.van.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.van.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.van.description,
         path: "/le-van",
         siteUrl: SITE_URL,
@@ -85,8 +85,14 @@ function VanPage() {
                       </p>
                       <ul className="mt-6 flex flex-col gap-2">
                         {content.features.slice(0, 4).map((feature) => (
-                          <li key={feature} className="flex items-start gap-3 text-sm text-foreground/80">
-                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" aria-hidden="true" />
+                          <li
+                            key={feature}
+                            className="flex items-start gap-3 text-sm text-foreground/80"
+                          >
+                            <span
+                              className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary"
+                              aria-hidden="true"
+                            />
                             {feature}
                           </li>
                         ))}
@@ -125,7 +131,7 @@ function VanPage() {
                 />
               </div>
               <div className="flex flex-col justify-center p-8 sm:p-10">
-                <span className="text-sm font-semibold uppercase tracking-wider text-secondary">
+                <span className="text-sm font-semibold tracking-wider text-secondary uppercase">
                   {habitatContent[locale].hero.eyebrow}
                 </span>
                 <h2 className="mt-3 font-heading text-2xl font-bold sm:text-3xl">
@@ -136,7 +142,10 @@ function VanPage() {
                 </p>
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary">
                   {dict.common.learn_more}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
                 </span>
               </div>
             </Link>

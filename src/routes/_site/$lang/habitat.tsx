@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Check } from "lucide-react";
 
-import { Breadcrumb } from "@/components/layout/breadcrumb";
 import { HabitatHero } from "@/components/habitat/habitat-hero";
+import { Breadcrumb } from "@/components/layout/breadcrumb";
 import { FaqJsonLd } from "@/components/seo/json-ld";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
-import { Reveal } from "@/components/ui/reveal";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
+import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/_site/$lang/habitat")({
     return metadataToHead(
       buildMetadata({
         locale,
-        title: `${ c.meta.title } | ${SITE_NAME}`,
+        title: `${c.meta.title} | ${SITE_NAME}`,
         description: c.meta.description,
         path: "/habitat",
         siteUrl: SITE_URL,
@@ -73,7 +73,12 @@ function HabitatPage() {
       <section className="bg-muted">
         <div className="container-premium section-padding">
           <Reveal>
-            <SectionHeading eyebrow={c.concept.eyebrow} title={c.concept.title} subtitle={c.concept.intro} align="left" />
+            <SectionHeading
+              eyebrow={c.concept.eyebrow}
+              title={c.concept.title}
+              subtitle={c.concept.intro}
+              align="left"
+            />
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {c.concept.points.map((point, i) => {
@@ -85,7 +90,9 @@ function HabitatPage() {
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h3 className="mt-5 font-heading text-lg font-bold">{point.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{point.body}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {point.body}
+                    </p>
                   </div>
                 </Reveal>
               );
@@ -93,13 +100,7 @@ function HabitatPage() {
           </div>
           <Lightbox src={IMAGES.habitatHero} alt="">
             <div className="relative mt-12 aspect-[16/9] overflow-hidden rounded-3xl lg:aspect-[21/9]">
-              <Image
-                src={IMAGES.habitatHero}
-                alt=""
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
+              <Image src={IMAGES.habitatHero} alt="" fill sizes="100vw" className="object-cover" />
             </div>
           </Lightbox>
         </div>
@@ -138,7 +139,10 @@ function HabitatPage() {
                 />
                 <ul className="mt-8 grid gap-3 sm:grid-cols-2">
                   {c.sustainability.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-dark-foreground/85">
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-sm leading-relaxed text-dark-foreground/85"
+                    >
                       <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/25 text-secondary">
                         <Check className="h-4 w-4" aria-hidden="true" />
                       </span>
@@ -173,8 +177,12 @@ function HabitatPage() {
                           <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/15 text-secondary">
                             <Icon className="h-5 w-5" aria-hidden="true" />
                           </span>
-                          <h3 className="mt-4 font-heading text-base font-semibold">{point.title}</h3>
-                          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{point.body}</p>
+                          <h3 className="mt-4 font-heading text-base font-semibold">
+                            {point.title}
+                          </h3>
+                          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                            {point.body}
+                          </p>
                         </div>
                       </Reveal>
                     );
@@ -213,10 +221,12 @@ function HabitatPage() {
             {c.technical.specs.map((spec, i) => (
               <Reveal key={spec.label} delay={i * 0.05}>
                 <div className="flex flex-col rounded-2xl border border-border bg-card p-6 text-center">
-                  <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  <dt className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
                     {spec.label}
                   </dt>
-                  <dd className="mt-2 font-heading text-xl font-bold text-foreground">{spec.value}</dd>
+                  <dd className="mt-2 font-heading text-xl font-bold text-foreground">
+                    {spec.value}
+                  </dd>
                 </div>
               </Reveal>
             ))}
@@ -236,7 +246,12 @@ function HabitatPage() {
                 <details className="group rounded-2xl border border-border bg-card p-5">
                   <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                     {faq.question}
-                    <span className="ml-4 text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                    <span
+                      className="ml-4 text-primary transition-transform group-open:rotate-45"
+                      aria-hidden="true"
+                    >
+                      +
+                    </span>
                   </summary>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{faq.answer}</p>
                 </details>
@@ -253,7 +268,7 @@ function HabitatPage() {
         </div>
         <div className="container-premium section-padding">
           <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-            <h2 className="text-balance font-heading text-3xl font-extrabold leading-tight sm:text-4xl">
+            <h2 className="font-heading text-3xl leading-tight font-extrabold text-balance sm:text-4xl">
               {c.cta.title}
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-primary-foreground/85">{c.cta.body}</p>
@@ -288,7 +303,8 @@ function HabitatPage() {
             href: "/le-van/conversion-electrique",
             icon: getServiceBySlug("conversion-electrique")!.icon,
             title: getServiceBySlug("conversion-electrique")!.content[locale].title,
-            description: getServiceBySlug("conversion-electrique")!.content[locale].shortDescription,
+            description:
+              getServiceBySlug("conversion-electrique")!.content[locale].shortDescription,
           },
           {
             href: "/le-van/systeme-solaire",
@@ -298,7 +314,6 @@ function HabitatPage() {
           },
         ]}
       />
-
     </>
   );
 }

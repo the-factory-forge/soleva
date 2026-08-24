@@ -23,7 +23,7 @@ export const Route = createFileRoute("/_site/$lang/faq")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.faq.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.faq.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.faq.description,
         path: "/faq",
         siteUrl: SITE_URL,

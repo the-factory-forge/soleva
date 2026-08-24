@@ -10,10 +10,10 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
-import { env as clientEnv } from "@/env/client";
 import { Toaster } from "@/components/ui/toast";
-import { defaultLocale, isLocale } from "@/lib/i18n/config";
+import { env as clientEnv } from "@/env/client";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
 
 import appCss from "@/styles.css?url";
 

@@ -1,11 +1,11 @@
-import type { Locale } from "@/lib/i18n/config"
+import type { Locale } from "@/lib/i18n/config";
 
 export type Milestone = {
-  year: string
-  title: Record<Locale, string>
-  description: Record<Locale, string>
-  status: "done" | "current" | "upcoming"
-}
+  year: string;
+  title: Record<Locale, string>;
+  description: Record<Locale, string>;
+  status: "done" | "current" | "upcoming";
+};
 
 export const milestones: Milestone[] = [
   {
@@ -35,9 +35,9 @@ export const milestones: Milestone[] = [
     },
     description: {
       fr: "CHF 29'583 récoltés via Wemakeit (147%, 130 contributeurs). Début de la construction du premier prototype « Sunny ».",
-      en: "CHF 29,583 raised via Wemakeit (147%, 130 backers). Construction of the first prototype \"Sunny\" begins.",
+      en: 'CHF 29,583 raised via Wemakeit (147%, 130 backers). Construction of the first prototype "Sunny" begins.',
       de: "CHF 29'583 gesammelt über Wemakeit (147%, 130 Unterstützer). Baubeginn des ersten Prototyps « Sunny ».",
-      it: "CHF 29'583 raccolti via Wemakeit (147%, 130 sostenitori). Inizio della costruzione del primo prototipo \"Sunny\".",
+      it: 'CHF 29\'583 raccolti via Wemakeit (147%, 130 sostenitori). Inizio della costruzione del primo prototipo "Sunny".',
     },
   },
   {
@@ -83,9 +83,9 @@ export const milestones: Milestone[] = [
     },
     description: {
       fr: "Première du documentaire « L'aventure Soleva » à Lausanne. « Coup de cœur » Vanlife Expo Grenoble. Energy Lab Winner 2022.",
-      en: "Premiere of the documentary \"L'aventure Soleva\" in Lausanne. \"Coup de cœur\" Vanlife Expo Grenoble. Energy Lab Winner 2022.",
+      en: 'Premiere of the documentary "L\'aventure Soleva" in Lausanne. "Coup de cœur" Vanlife Expo Grenoble. Energy Lab Winner 2022.',
       de: "Premiere des Dokumentarfilms « L'aventure Soleva » in Lausanne. « Coup de cœur » Vanlife Expo Grenoble. Energy Lab Winner 2022.",
-      it: "Prima del documentario \"L'aventure Soleva\" a Losanna. \"Coup de cœur\" Vanlife Expo Grenoble. Energy Lab Winner 2022.",
+      it: 'Prima del documentario "L\'aventure Soleva" a Losanna. "Coup de cœur" Vanlife Expo Grenoble. Energy Lab Winner 2022.',
     },
   },
   {
@@ -120,4 +120,4 @@ export const milestones: Milestone[] = [
       it: "Un nuovo van solare è in preparazione, sostenuto dalla comunità e dai partner.",
     },
   },
-]
+];

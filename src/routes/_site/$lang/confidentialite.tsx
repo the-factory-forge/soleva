@@ -18,7 +18,7 @@ export const Route = createFileRoute("/_site/$lang/confidentialite")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.privacy.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.privacy.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.privacy.description,
         path: "/confidentialite",
         siteUrl: SITE_URL,
@@ -47,9 +47,7 @@ function PrivacyPage() {
       <PageHero
         locale={locale}
         homeLabel={dict.breadcrumb.home}
-        crumbs={[
-          { label: dict.breadcrumb.privacy, href: "/confidentialite" },
-        ]}
+        crumbs={[{ label: dict.breadcrumb.privacy, href: "/confidentialite" }]}
         title={p.title}
         subtitle={p.intro}
       />
@@ -60,7 +58,7 @@ function PrivacyPage() {
             {sections.map((s) => (
               <div key={s.title}>
                 <h2 className="font-heading text-xl font-bold">{s.title}</h2>
-                <p className="mt-2 whitespace-pre-line leading-relaxed text-muted-foreground">
+                <p className="mt-2 leading-relaxed whitespace-pre-line text-muted-foreground">
                   {s.body}
                 </p>
               </div>

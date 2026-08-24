@@ -1,15 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GraduationCap, Home, Leaf, Recycle, Sun } from "lucide-react";
-import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
-import { getServiceBySlug } from "@/lib/data/services";
-import { habitatContent } from "@/lib/data/habitat";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
+import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { habitatContent } from "@/lib/data/habitat";
+import { getServiceBySlug } from "@/lib/data/services";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/_site/$lang/impact")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.impact.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.impact.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.impact.description,
         path: "/impact",
         siteUrl: SITE_URL,
@@ -82,7 +82,7 @@ function ImpactPage() {
             })}
           </div>
 
-          <p className="mx-auto mt-12 max-w-3xl text-center text-sm italic text-muted-foreground">
+          <p className="mx-auto mt-12 max-w-3xl text-center text-sm text-muted-foreground italic">
             {t.disclaimer}
           </p>
         </div>
@@ -90,7 +90,13 @@ function ImpactPage() {
 
       <section className="relative isolate overflow-hidden bg-dark text-dark-foreground">
         <div className="absolute inset-0 -z-10">
-          <Image src={IMAGES.journey} alt="" fill sizes="100vw" className="object-cover opacity-25" />
+          <Image
+            src={IMAGES.journey}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover opacity-25"
+          />
           <div className="absolute inset-0 bg-dark/80" />
         </div>
         <div className="container-premium section-padding">
@@ -98,7 +104,7 @@ function ImpactPage() {
         </div>
       </section>
 
-            <PillarSuggestions
+      <PillarSuggestions
         locale={locale}
         dict={dict}
         items={[
@@ -117,7 +123,7 @@ function ImpactPage() {
         ]}
       />
 
-<CtaBand
+      <CtaBand
         locale={locale}
         title={dict.home.cta.title}
         body={dict.home.cta.body}

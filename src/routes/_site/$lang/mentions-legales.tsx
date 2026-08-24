@@ -18,7 +18,7 @@ export const Route = createFileRoute("/_site/$lang/mentions-legales")({
     metadataToHead(
       buildMetadata({
         locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.legal.title } | ${SITE_NAME}`,
+        title: `${loaderData.dict.meta.legal.title} | ${SITE_NAME}`,
         description: loaderData.dict.meta.legal.description,
         path: "/mentions-legales",
         siteUrl: SITE_URL,
@@ -45,9 +45,7 @@ function LegalPage() {
       <PageHero
         locale={locale}
         homeLabel={dict.breadcrumb.home}
-        crumbs={[
-          { label: dict.breadcrumb.legal, href: "/mentions-legales" },
-        ]}
+        crumbs={[{ label: dict.breadcrumb.legal, href: "/mentions-legales" }]}
         title={lg.title}
       />
 

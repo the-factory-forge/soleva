@@ -16,7 +16,10 @@ export const Route = createFileRoute("/sitemap.xml")({
           for (const path of STATIC_PATHS) {
             const full = `${SITE_URL}/${locale}${path}`;
             const alternates = locales
-              .map((alt) => `<xhtml:link rel="alternate" hreflang="${alt}" href="${SITE_URL}/${alt}${path}"/>`)
+              .map(
+                (alt) =>
+                  `<xhtml:link rel="alternate" hreflang="${alt}" href="${SITE_URL}/${alt}${path}"/>`,
+              )
               .join("");
             urls.push(
               `<url><loc>${full}</loc><lastmod>${now}</lastmod><changefreq>${
@@ -28,7 +31,10 @@ export const Route = createFileRoute("/sitemap.xml")({
             const path = `/le-van/${service.slug}`;
             const full = `${SITE_URL}/${locale}${path}`;
             const alternates = locales
-              .map((alt) => `<xhtml:link rel="alternate" hreflang="${alt}" href="${SITE_URL}/${alt}${path}"/>`)
+              .map(
+                (alt) =>
+                  `<xhtml:link rel="alternate" hreflang="${alt}" href="${SITE_URL}/${alt}${path}"/>`,
+              )
               .join("");
             urls.push(
               `<url><loc>${full}</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>${alternates}</url>`,
