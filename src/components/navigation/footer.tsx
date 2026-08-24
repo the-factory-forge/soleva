@@ -160,7 +160,7 @@ export function Footer({
                 <Image
                   src={brand.logo}
                   alt={brand.name}
-                  width={160}
+                  width={98}
                   height={40}
                   unoptimized
                   className="h-10 w-auto rounded-lg object-contain"

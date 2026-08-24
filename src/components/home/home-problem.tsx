@@ -1,7 +1,7 @@
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Reveal } from "@/components/ui/reveal";
-import { IMAGES } from "@/lib/constants";
+import { IMAGES, srcSetFor } from "@/lib/constants";
 import type { Dictionary } from "@/lib/i18n";
 import { type Locale } from "@/lib/i18n/config";
 
@@ -17,6 +17,7 @@ export function HomeProblem({ dict }: { locale: Locale; dict: Dictionary }) {
                   src={IMAGES.journey || "/placeholder.svg"}
                   alt=""
                   fill
+                  srcSet={srcSetFor(IMAGES.journey)}
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                 />

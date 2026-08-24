@@ -4,7 +4,7 @@ import { Image } from "@/components/ui/image";
 import { Link } from "@/components/ui/link";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { IMAGES } from "@/lib/constants";
+import { IMAGES, srcSetFor } from "@/lib/constants";
 import type { Dictionary } from "@/lib/i18n";
 import { type Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/navigation";
@@ -50,6 +50,7 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
                     src={pillar.image || "/placeholder.svg"}
                     alt=""
                     fill
+                    srcSet={srcSetFor(pillar.image)}
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />

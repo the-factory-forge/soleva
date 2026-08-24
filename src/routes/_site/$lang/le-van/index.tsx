@@ -7,7 +7,7 @@ import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
 import { Reveal } from "@/components/ui/reveal";
-import { IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { IMAGES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { services } from "@/lib/data/services";
 import { getDictionary } from "@/lib/i18n";
@@ -67,6 +67,7 @@ function VanPage() {
                             src={service.heroImage || "/placeholder.svg"}
                             alt=""
                             fill
+                            srcSet={srcSetFor(service.heroImage)}
                             sizes="(max-width: 1024px) 100vw, 50vw"
                             className="object-cover"
                           />
@@ -126,6 +127,7 @@ function VanPage() {
                   src={IMAGES.habitatHero || "/placeholder.svg"}
                   alt=""
                   fill
+                  srcSet={srcSetFor(IMAGES.habitatHero)}
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />

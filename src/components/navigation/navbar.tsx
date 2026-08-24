@@ -60,8 +60,8 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           <Image
             src="/images/soleva-logo.webp"
             alt="Soleva - The Solar Electric Van"
-            width={651}
-            height={281}
+            width={300}
+            height={123}
             priority
             className="h-11 w-auto md:h-14"
           />

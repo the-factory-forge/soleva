@@ -8,7 +8,7 @@ import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
 import { Reveal } from "@/components/ui/reveal";
-import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
 import { getDictionary } from "@/lib/i18n";
@@ -101,6 +101,7 @@ function ServiceDetailPage() {
                     src={service.heroImage || "/placeholder.svg"}
                     alt=""
                     fill
+                    srcSet={srcSetFor(service.heroImage)}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                     priority

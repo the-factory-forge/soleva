@@ -6,6 +6,7 @@ import { useState, useCallback, useEffect } from "react";
 
 import { Image } from "#/components/ui/image";
 import { cn } from "#/lib/utils";
+import { srcSetFor } from "@/lib/constants";
 
 export interface LightboxProps {
   src: string;
@@ -68,6 +69,7 @@ export function Lightbox({
             width={!fill ? width : undefined}
             height={!fill ? height : undefined}
             sizes={sizes}
+            srcSet={srcSetFor(src)}
             className="object-cover transition-transform duration-500 group-hover/lightbox:scale-105"
           />
         )}

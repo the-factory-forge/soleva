@@ -11,7 +11,7 @@ import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
 import { Reveal } from "@/components/ui/reveal";
-import { IMAGES, PARTNER_LOGOS, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { IMAGES, PARTNER_LOGOS, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { partnerCategories } from "@/lib/data/partners";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
@@ -76,6 +76,7 @@ function HomePage() {
                     src={IMAGES.workshop}
                     alt=""
                     fill
+                    srcSet={srcSetFor(IMAGES.workshop)}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />

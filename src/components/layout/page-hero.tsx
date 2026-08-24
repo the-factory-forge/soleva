@@ -1,5 +1,6 @@
 import { Breadcrumb, type Crumb } from "@/components/layout/breadcrumb";
 import { Image } from "@/components/ui/image";
+import { srcSetFor } from "@/lib/constants";
 import { type Locale } from "@/lib/i18n/config";
 
 export function PageHero({
@@ -28,6 +29,7 @@ export function PageHero({
             alt=""
             fill
             priority
+            srcSet={srcSetFor(image)}
             sizes="100vw"
             className="object-cover"
           />

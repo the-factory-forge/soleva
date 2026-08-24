@@ -9,7 +9,7 @@ import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getServiceBySlug } from "@/lib/data/services";
 import { getDictionary } from "@/lib/i18n";
@@ -100,7 +100,14 @@ function HabitatPage() {
           </div>
           <Lightbox src={IMAGES.habitatHero} alt="">
             <div className="relative mt-12 aspect-[16/9] overflow-hidden rounded-3xl lg:aspect-[21/9]">
-              <Image src={IMAGES.habitatHero} alt="" fill sizes="100vw" className="object-cover" />
+              <Image
+                src={IMAGES.habitatHero}
+                alt=""
+                fill
+                srcSet={srcSetFor(IMAGES.habitatHero)}
+                sizes="100vw"
+                className="object-cover"
+              />
             </div>
           </Lightbox>
         </div>
@@ -118,6 +125,7 @@ function HabitatPage() {
                       src={IMAGES.habitatFeatures}
                       alt={c.sustainability.imageCaption}
                       fill
+                      srcSet={srcSetFor(IMAGES.habitatFeatures)}
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover"
                     />
@@ -197,6 +205,7 @@ function HabitatPage() {
                     src={IMAGES.habitatInterior}
                     alt=""
                     fill
+                    srcSet={srcSetFor(IMAGES.habitatInterior)}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
@@ -264,7 +273,14 @@ function HabitatPage() {
       {/* Final CTA */}
       <section className="relative isolate overflow-hidden bg-primary text-primary-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="absolute inset-0 -z-10 opacity-20">
-          <Image src={IMAGES.habitatHero} alt="" fill sizes="100vw" className="object-cover" />
+          <Image
+            src={IMAGES.habitatHero}
+            alt=""
+            fill
+            srcSet={srcSetFor(IMAGES.habitatHero)}
+            sizes="100vw"
+            className="object-cover"
+          />
         </div>
         <div className="container-premium section-padding">
           <div className="mx-auto flex max-w-3xl flex-col items-center text-center">

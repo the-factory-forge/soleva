@@ -10,7 +10,7 @@ import { Link } from "@/components/ui/link";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ShareButton } from "@/components/ui/share-button";
-import { DONATION, IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { DONATION, IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { sponsorTiers } from "@/lib/data/sponsor-tiers";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
@@ -280,6 +280,8 @@ function SupportPage() {
                 <Lightbox src="/images/qr-code.webp" alt="QR Code pour don bancaire Soleva">
                   <img
                     src="/images/qr-code.webp"
+                    srcSet="/images/qr-code-480.webp 480w, /images/qr-code-800.webp 800w, /images/qr-code.webp 937w"
+                    sizes="180px"
                     alt="QR Code pour don bancaire Soleva"
                     width={180}
                     height={180}

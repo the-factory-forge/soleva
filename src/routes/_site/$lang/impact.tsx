@@ -7,7 +7,7 @@ import { Image } from "@/components/ui/image";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { IMAGES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getServiceBySlug } from "@/lib/data/services";
 import { getDictionary } from "@/lib/i18n";
@@ -94,6 +94,7 @@ function ImpactPage() {
             src={IMAGES.journey}
             alt=""
             fill
+            srcSet={srcSetFor(IMAGES.journey)}
             sizes="100vw"
             className="object-cover opacity-25"
           />

@@ -12,6 +12,7 @@ import {
   PRESS_LOGOS,
   SITE_NAME,
   SITE_URL,
+  srcSetFor,
   TEAM_PHOTOS,
 } from "@/lib/constants";
 import { getDictionary } from "@/lib/i18n";
@@ -231,6 +232,7 @@ function AboutPage() {
                     src={IMAGES.workshop || "/placeholder.svg"}
                     alt=""
                     fill
+                    srcSet={srcSetFor(IMAGES.workshop)}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
@@ -262,6 +264,8 @@ function AboutPage() {
             <Lightbox src="/images/timeline.webp" alt="Roadmap Soleva">
               <Image
                 src="/images/timeline.webp"
+                srcSet="/images/timeline-480.webp 480w, /images/timeline-800.webp 800w, /images/timeline.webp 2010w"
+                sizes="100vw"
                 alt="Roadmap Soleva"
                 width={1200}
                 height={600}
