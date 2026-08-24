@@ -57,6 +57,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      {
+        rel: "preload",
+        href: "/assets/montserrat-latin-400-normal-BLhwKU8k.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
       { rel: "icon", href: "https://assets.the-corner.io/logos/the_corner-icon.png" },
       { rel: "apple-touch-icon", href: "https://assets.the-corner.io/logos/the_corner-icon.png" },
     ],
