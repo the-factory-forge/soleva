@@ -1,10 +1,10 @@
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 
-import { ManageCookiesButton } from "@/components/navigation/manage-cookies-button";
-import { Image } from "@/components/ui/image";
-import { Link } from "@/components/ui/link";
-import { type SocialPlatform, socialIconMap } from "@/components/ui/social-icons";
-import { cn } from "@/lib/utils";
+import { ManageCookiesButton } from "#/components/navigation/manage-cookies-button";
+import { Image } from "#/components/ui/image";
+import { Link } from "#/components/ui/link";
+import { type SocialPlatform, socialIconMap } from "#/components/ui/social-icons";
+import { cn } from "#/lib/utils";
 
 export interface SocialLink {
   platform: SocialPlatform;
@@ -36,7 +36,7 @@ export interface NewsletterProps {
  *    colors: { brandName: "primary" }, className: "bg-secondary/60"
  *
  * 3. Light default (factory-template)
- *    No colors required - headings default to text-primary (readable on
+ *    No colors required — headings default to text-primary (readable on
  *    all theme presets). Do NOT default to text-secondary: in shadcn
  *    presets, --secondary is a surface color nearly invisible on light
  *    backgrounds (medical, corporate, hospitality).
@@ -62,7 +62,7 @@ export interface FooterProps {
     mapsUrl?: string;
     hours?: string;
     hoursLabel?: string;
-    /** Structured opening hours - days left, hours right, one row each. */
+    /** Structured opening hours — days left, hours right, one row each. */
     hoursRows?: { days: string; hours: string }[];
   };
   socials?: SocialLink[];
@@ -163,7 +163,7 @@ export function Footer({
                   width={160}
                   height={40}
                   unoptimized
-                  className="h-12 w-auto rounded-lg object-contain"
+                  className="h-10 w-auto rounded-lg object-contain"
                 />
               ) : brand.hideMonogram ? null : (
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-bold text-primary-foreground">

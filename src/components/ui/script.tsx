@@ -6,7 +6,7 @@
 
 export interface ScriptProps extends React.ScriptHTMLAttributes<HTMLScriptElement> {
   id?: string;
-  /** Framework hint - Next.js uses strategies; other frameworks ignore it. */
+  /** Framework hint — Next.js uses strategies; other frameworks ignore it. */
   strategy?: "afterInteractive" | "beforeInteractive" | "lazyOnload";
   /** Inline script source (JS string). */
   code?: string;
@@ -16,11 +16,10 @@ export interface ScriptProps extends React.ScriptHTMLAttributes<HTMLScriptElemen
 /**
  * Minimal inline <script>. Sites that need framework script handling
  * (e.g. Next.js `beforeInteractive`) replace this file with a framework
- * component - the props above keep the component contract stable.
+ * component — the props above keep the component contract stable.
  */
 export function Script({ id, strategy, code, children, ...props }: ScriptProps) {
   const source = code ?? children ?? "";
-  // eslint-disable-next-line react/no-danger -- intentionally inline
   return (
     <script
       id={id}

@@ -1,20 +1,32 @@
-import { cn } from "@/lib/utils";
+import { type SectionVariant, sectionVariantClasses } from "#/lib/section-variants";
+import { cn } from "#/lib/utils";
+
+export interface SectionHeadingProps {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  align?: "center" | "left";
+  as?: "h1" | "h2" | "h3";
+  variant?: SectionVariant;
+  /** @deprecated Use variant="primary" instead */
+  inverted?: boolean;
+  className?: string;
+}
 
 export function SectionHeading({
   eyebrow,
   title,
   subtitle,
   align = "center",
-  className,
+  as: Tag = "h2",
+  variant: variantProp,
   inverted = false,
-}: {
-  eyebrow?: string;
-  title: string;
-  subtitle?: string;
-  align?: "center" | "left";
-  className?: string;
-  inverted?: boolean;
-}) {
+  className,
+}: SectionHeadingProps) {
+  const variant = variantProp ?? (inverted ? "primary" : "default");
+  const colors = sectionVariantClasses[variant];
+  const isDark = variant === "primary" || variant === "secondary";
+
   return (
     <div
       className={cn(
@@ -24,32 +36,34 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <p
-          className={cn(
-            "mb-3 text-sm font-semibold tracking-[0.18em] uppercase",
-            inverted ? "text-secondary" : "text-primary",
-          )}
-        >
-          {eyebrow}
-        </p>
+        <>
+          <span
+            className={cn(
+              "mb-3 inline-block font-eyebrow text-sm font-semibold tracking-[0.18em] uppercase",
+              colors.eyebrow,
+            )}
+          >
+            {eyebrow}
+          </span>
+          <span
+            className={cn(
+              "mb-4 block h-0.5 w-10 rounded-full",
+              isDark ? "bg-primary-foreground/40" : "bg-secondary",
+              align === "center" ? "mx-auto" : "",
+            )}
+          />
+        </>
       ) : null}
-      <h2
+      <Tag
         className={cn(
-          "font-heading text-3xl leading-tight font-extrabold text-pretty sm:text-4xl md:text-[2.75rem]",
-          inverted ? "text-dark-foreground" : "text-foreground",
+          "font-heading text-3xl leading-tight font-bold tracking-tight text-pretty sm:text-4xl",
+          colors.heading,
         )}
       >
         {title}
-      </h2>
+      </Tag>
       {subtitle ? (
-        <p
-          className={cn(
-            "mt-4 text-lg leading-relaxed",
-            inverted ? "text-dark-foreground/70" : "text-muted-foreground",
-          )}
-        >
-          {subtitle}
-        </p>
+        <p className={cn("mt-4 text-lg leading-relaxed text-pretty", colors.body)}>{subtitle}</p>
       ) : null}
     </div>
   );

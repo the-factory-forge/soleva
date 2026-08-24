@@ -3,7 +3,25 @@
 import { Share2, Check } from "lucide-react";
 import { useState, useRef } from "react";
 
-export function ShareButton({ label }: { label: string }) {
+import { cn } from "#/lib/utils";
+
+export interface ShareButtonProps {
+  title: string;
+  text: string;
+  shareLabel?: string;
+  copiedLabel?: string;
+  url?: string;
+  className?: string;
+}
+
+export function ShareButton({
+  title,
+  text,
+  shareLabel = "Share",
+  copiedLabel = "Link copied",
+  url,
+  className,
+}: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
   const sharing = useRef(false);
 
@@ -11,19 +29,18 @@ export function ShareButton({ label }: { label: string }) {
     if (sharing.current) return;
     sharing.current = true;
 
-    const url = window.location.origin;
-    const text = "Découvrez Soleva - le van électrique solaire suisse";
+    const shareUrl = url ?? window.location.href;
 
     try {
       if (navigator.share) {
-        await navigator.share({ title: "Soleva", text, url });
+        await navigator.share({ title, text, url: shareUrl });
       } else {
-        await navigator.clipboard.writeText(`${text} : ${url}`);
+        await navigator.clipboard.writeText(`${text} : ${shareUrl}`);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       }
     } catch {
-      // user cancelled or error - ignore
+      /* user cancelled — ignore */
     } finally {
       sharing.current = false;
     }
@@ -31,18 +48,22 @@ export function ShareButton({ label }: { label: string }) {
 
   return (
     <button
+      type="button"
       onClick={handleShare}
-      className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+      className={cn(
+        "inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80",
+        className,
+      )}
     >
       {copied ? (
         <>
           <Check className="h-4 w-4" />
-          Lien copié
+          {copiedLabel}
         </>
       ) : (
         <>
           <Share2 className="h-4 w-4" />
-          {label}
+          {shareLabel}
         </>
       )}
     </button>

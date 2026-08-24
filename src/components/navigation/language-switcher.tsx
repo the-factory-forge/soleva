@@ -7,10 +7,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Link } from "@/components/ui/link";
-import { usePathname } from "@/components/ui/use-location";
-import { cn } from "@/lib/utils";
+} from "#/components/ui/dropdown-menu";
+import { Link } from "#/components/ui/link";
+import { usePathname } from "#/components/ui/use-location";
+import { cn } from "#/lib/utils";
 
 export interface LanguageSwitcherProps {
   locale: string;

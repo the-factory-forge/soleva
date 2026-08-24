@@ -1,5 +1,5 @@
-import { CtaLink } from "@/components/ui/cta-button";
-import { cn } from "@/lib/utils";
+import { CtaLink } from "#/components/ui/cta-button";
+import { cn } from "#/lib/utils";
 
 export interface NotFoundPageProps {
   title?: string;

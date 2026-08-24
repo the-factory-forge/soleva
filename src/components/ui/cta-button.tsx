@@ -1,5 +1,5 @@
-import { Link } from "@/components/ui/link";
-import { cn } from "@/lib/utils";
+import { Link } from "#/components/ui/link";
+import { cn } from "#/lib/utils";
 
 export type CtaVariant = "primary" | "secondary" | "outline" | "onDark";
 export type CtaSize = "default" | "lg";
