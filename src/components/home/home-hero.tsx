@@ -17,7 +17,7 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
           loop
           playsInline
           preload="none"
-          poster={IMAGES.hero}
+          poster={IMAGES.videoPoster}
           className="h-full w-full object-cover"
         >
           <source src={IMAGES.heroVideo} type="video/mp4" />

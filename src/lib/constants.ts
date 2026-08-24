@@ -49,6 +49,7 @@ export const SITE = {
 export const IMAGES = {
   hero: "/images/hero.webp",
   heroVideo: "/images/hero-video.mp4",
+  videoPoster: "/images/video-poster.webp",
   vanExterior: "/images/van-exterior.webp",
   vanInterior: "/images/van-interior.webp",
   solarPanels: "/images/solar-panels.webp",
