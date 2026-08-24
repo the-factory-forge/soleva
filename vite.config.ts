@@ -147,7 +147,11 @@ export default defineConfig({
     // pages render instantly on first visit (on-demand transform is slow in
     // this stack - see TanStack Start dev-server docs).
     warmup: {
-      clientFiles: ["./src/routes/__root.tsx", "./src/routes/_site.tsx", "./src/routes/_site/$lang.tsx"],
+      clientFiles: [
+        "./src/routes/__root.tsx",
+        "./src/routes/_site.tsx",
+        "./src/routes/_site/$lang.tsx",
+      ],
       ssrFiles: [
         "./src/routes/__root.tsx",
         "./src/routes/_site.tsx",
@@ -178,7 +182,20 @@ export default defineConfig({
     }),
     tanstackStart(),
     // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
-    nitro(),
+    nitro({
+      // Runtime compression lives in server/plugins/compression.ts (nitro picks
+      // up the directory via serverDir).
+      serverDir: "server",
+      // Pre-compress .output/public assets (gzip+brotli) at build time.
+      compressPublicAssets: true,
+      // Static images are immutable-ish (hash-less names, but rarely change):
+      // 7-day browser cache avoids re-downloads across pages/sessions.
+      routeRules: {
+        "/images/**": {
+          headers: { "cache-control": "public, max-age=604800" },
+        },
+      },
+    }),
     // React plugin (Babel) is required by TanStack Start's React Refresh
     // runtime in dev. React Compiler is build-only (below) so dev transforms
     // stay as fast as the stack allows.

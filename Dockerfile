@@ -24,7 +24,8 @@ ENV VITE_BASE_URL=$VITE_BASE_URL \
     VITE_GA_MEASUREMENT_ID=$VITE_GA_MEASUREMENT_ID \
     VITE_GOOGLE_ADS_ID=$VITE_GOOGLE_ADS_ID
 
-RUN pnpm build
+# pnpm 11 verify-deps-before-run spawns an internal install that inherits ENV, not CLI flags - this skips the root `prepare` lifecycle in the image (no git).
+RUN pnpm_config_ignore_scripts=true pnpm build
 
 FROM node:24-alpine AS runtime
 ENV NODE_ENV=production
