@@ -19,7 +19,7 @@ export function CtaBand({
   href?: string;
 }) {
   return (
-    <section className="bg-primary text-primary-foreground">
+    <section className="bg-primary text-primary-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
       <div className="container-premium section-padding">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <h2 className="font-heading text-3xl leading-tight font-extrabold text-balance sm:text-4xl">

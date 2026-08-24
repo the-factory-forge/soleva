@@ -87,7 +87,7 @@ function SupportPage() {
         image={IMAGES.support}
       />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid gap-6 md:grid-cols-2">
             {ways.map((way, i) => {
@@ -124,7 +124,10 @@ function SupportPage() {
       </section>
 
       {/* Sponsoring Tiers */}
-      <section id="sponsorship" className="bg-background">
+      <section
+        id="sponsorship"
+        className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]"
+      >
         <div className="container-premium section-padding">
           <SectionHeading title={t.sponsor_tiers_title} subtitle={t.sponsor_tiers_subtitle} />
           <div className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
@@ -177,7 +180,7 @@ function SupportPage() {
         </div>
       </section>
 
-      <section className="bg-dark text-dark-foreground">
+      <section className="bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <SectionHeading inverted title={cf.title} subtitle={cf.body} />
           <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-6 md:grid-cols-4">
@@ -211,7 +214,10 @@ function SupportPage() {
       </section>
 
       {/* IBAN Donation */}
-      <section id="donation" className="bg-background">
+      <section
+        id="donation"
+        className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]"
+      >
         <div className="container-premium section-padding">
           <div className="mx-auto max-w-2xl">
             <Reveal>

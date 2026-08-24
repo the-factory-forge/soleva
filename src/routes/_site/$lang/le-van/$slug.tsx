@@ -91,7 +91,7 @@ function ServiceDetailPage() {
       <FaqJsonLd items={content.faqs} />
 
       {/* Overview */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -126,7 +126,7 @@ function ServiceDetailPage() {
       </section>
 
       {/* Features */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">
@@ -149,7 +149,7 @@ function ServiceDetailPage() {
       </section>
 
       {/* Process */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">
@@ -175,7 +175,7 @@ function ServiceDetailPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">

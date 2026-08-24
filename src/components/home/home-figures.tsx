@@ -15,7 +15,7 @@ export function HomeFigures({ dict }: { locale: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <section className="bg-muted">
+    <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
       <div className="container-premium section-padding">
         <SectionHeading title={dict.home.figures.title} subtitle={dict.home.figures.subtitle} />
         <div className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">

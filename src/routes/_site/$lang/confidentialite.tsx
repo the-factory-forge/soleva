@@ -52,7 +52,7 @@ function PrivacyPage() {
         subtitle={p.intro}
       />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="mx-auto flex max-w-3xl flex-col gap-8">
             {sections.map((s) => (

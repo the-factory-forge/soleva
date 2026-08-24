@@ -56,7 +56,7 @@ function VoyagePage() {
         image={IMAGES.journey}
       />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -95,7 +95,7 @@ function VoyagePage() {
         </div>
       </section>
 
-      <section className="bg-muted/50">
+      <section className="bg-muted/50 [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <SectionHeading title={t.stops_title} />
           <div className="mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-3">
@@ -112,7 +112,7 @@ function VoyagePage() {
       </section>
 
       {/* Past Events */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <SectionHeading title={t.events_title} />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2">
@@ -138,7 +138,7 @@ function VoyagePage() {
       </section>
 
       {/* Polar Steps */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding text-center">
           <SectionHeading title={t.polar_title} subtitle={t.polar_body} />
           <div className="mx-auto mt-8 max-w-2xl rounded-3xl border border-border bg-card p-8">
@@ -160,7 +160,7 @@ function VoyagePage() {
       </section>
 
       {/* Tour Map */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding text-center">
           <SectionHeading
             title="Carte du tour"

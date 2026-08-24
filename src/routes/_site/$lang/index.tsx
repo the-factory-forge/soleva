@@ -66,7 +66,7 @@ function HomePage() {
       <HomeFigures locale={locale} dict={dict} />
 
       {/* Nouveau départ */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -108,7 +108,7 @@ function HomePage() {
       </section>
 
       {/* Partenaires */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">
@@ -218,7 +218,7 @@ function HomePage() {
       </section>
 
       {/* Documentaire */}
-      <section className="bg-dark text-dark-foreground">
+      <section className="bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding text-center">
           <Reveal>
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/20 text-secondary">

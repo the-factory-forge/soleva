@@ -55,7 +55,7 @@ function FaqPage() {
 
       <FaqJsonLd items={jsonLdItems} />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="mx-auto max-w-3xl">
             <FaqList locale={locale} categoryLabels={fq.categories} />
@@ -63,7 +63,7 @@ function FaqPage() {
         </div>
       </section>
 
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">{fq.cta.title}</h2>

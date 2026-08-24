@@ -35,7 +35,7 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
   ];
 
   return (
-    <section className="bg-accent">
+    <section className="bg-accent [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
       <div className="container-premium section-padding">
         <SectionHeading title={dict.home.pillars.title} subtitle={dict.home.pillars.subtitle} />
         <div className="mt-14 grid gap-8 md:grid-cols-3">

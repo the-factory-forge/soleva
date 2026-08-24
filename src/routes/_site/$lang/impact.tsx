@@ -59,7 +59,7 @@ function ImpactPage() {
         image={IMAGES.impact}
       />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid gap-6 md:grid-cols-2">
             {cards.map((card, i) => {
@@ -88,7 +88,7 @@ function ImpactPage() {
         </div>
       </section>
 
-      <section className="relative isolate overflow-hidden bg-dark text-dark-foreground">
+      <section className="relative isolate overflow-hidden bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="absolute inset-0 -z-10">
           <Image
             src={IMAGES.journey}

@@ -195,7 +195,7 @@ function AboutPage() {
       />
 
       {/* Mission / Vision */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid gap-6 md:grid-cols-2">
             <Reveal>
@@ -221,7 +221,7 @@ function AboutPage() {
       </section>
 
       {/* Story */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -253,7 +253,7 @@ function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">{a.timeline_title}</h2>
@@ -273,7 +273,7 @@ function AboutPage() {
       </section>
 
       {/* Team Members */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">
@@ -316,7 +316,7 @@ function AboutPage() {
       </section>
 
       {/* Mentors */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">
@@ -348,7 +348,7 @@ function AboutPage() {
       </section>
 
       {/* Press */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="text-center font-heading text-2xl font-bold sm:text-3xl">

@@ -70,7 +70,7 @@ function HabitatPage() {
       <FaqJsonLd items={c.faq.items} />
 
       {/* Concept */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <SectionHeading
@@ -107,7 +107,7 @@ function HabitatPage() {
       </section>
 
       {/* Sustainability */}
-      <section className="bg-dark text-dark-foreground">
+      <section className="bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -157,7 +157,7 @@ function HabitatPage() {
       </section>
 
       {/* Comfort */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -208,7 +208,7 @@ function HabitatPage() {
       </section>
 
       {/* Technical / Autonomy */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <SectionHeading
@@ -235,7 +235,7 @@ function HabitatPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <SectionHeading eyebrow={c.faq.eyebrow} title={c.faq.title} />
@@ -262,7 +262,7 @@ function HabitatPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="relative isolate overflow-hidden bg-primary text-primary-foreground">
+      <section className="relative isolate overflow-hidden bg-primary text-primary-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="absolute inset-0 -z-10 opacity-20">
           <Image src={IMAGES.habitatHero} alt="" fill sizes="100vw" className="object-cover" />
         </div>

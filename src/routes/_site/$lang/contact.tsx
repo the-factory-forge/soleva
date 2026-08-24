@@ -46,7 +46,7 @@ function ContactPage() {
         subtitle={t.hero.subtitle}
       />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid gap-12 lg:grid-cols-[1fr_22rem] lg:gap-16">
             <div className="flex flex-col items-center justify-center rounded-3xl border border-border bg-card p-10 text-center">

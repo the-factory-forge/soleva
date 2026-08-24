@@ -7,7 +7,7 @@ import { type Locale } from "@/lib/i18n/config";
 
 export function HomeProblem({ dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section className="bg-background">
+    <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
       <div className="container-premium section-padding">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal>

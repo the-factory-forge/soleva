@@ -50,7 +50,7 @@ function VanPage() {
         subtitle={dict.van.hero.subtitle}
       />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="flex flex-col gap-16">
             {services.map((service, i) => {
@@ -114,7 +114,7 @@ function VanPage() {
       </section>
 
       {/* Habitat feature banner */}
-      <section className="bg-accent">
+      <section className="bg-accent [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <Link
