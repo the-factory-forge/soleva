@@ -14,7 +14,7 @@ Host: ${SITE_URL}
 Sitemap: ${SITE_URL}/sitemap.xml
 `;
         return new Response(content, {
-          headers: { "Content-Type": "text/plain" },
+          headers: { "Content-Type": "text/plain; charset=utf-8" },
         });
       },
     },
