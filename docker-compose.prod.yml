@@ -12,6 +12,9 @@ services:
         VITE_BASE_URL: ${VITE_BASE_URL}
         VITE_GA_MEASUREMENT_ID: ${VITE_GA_MEASUREMENT_ID:-}
         VITE_GOOGLE_ADS_ID: ${VITE_GOOGLE_ADS_ID:-}
+        VITE_ADS_CONVERSION_LABEL: ${VITE_ADS_CONVERSION_LABEL:-}
+        VITE_ADS_PHONE_LABEL: ${VITE_ADS_PHONE_LABEL:-}
+        VITE_ADS_MAIL_LABEL: ${VITE_ADS_MAIL_LABEL:-}
     env_file: .env
     deploy:
       update_config:
