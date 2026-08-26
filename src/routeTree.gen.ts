@@ -22,6 +22,7 @@ import { Route as AuthLangAppRouteRouteImport } from './routes/_auth/$lang/app/r
 import { Route as AuthLangLoginRouteImport } from './routes/_auth/$lang/login'
 import { Route as AuthLangSignupRouteImport } from './routes/_auth/$lang/signup'
 import { Route as SiteLangIndexRouteImport } from './routes/_site/$lang/index'
+import { Route as SiteLangSplatRouteImport } from './routes/_site/$lang/$'
 import { Route as SiteLangAProposRouteImport } from './routes/_site/$lang/a-propos'
 import { Route as SiteLangConfidentialiteRouteImport } from './routes/_site/$lang/confidentialite'
 import { Route as SiteLangContactRouteImport } from './routes/_site/$lang/contact'
@@ -97,6 +98,11 @@ const AuthLangSignupRoute = AuthLangSignupRouteImport.update({
 const SiteLangIndexRoute = SiteLangIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangSplatRoute = SiteLangSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => SiteLangRoute,
 } as any)
 const SiteLangAProposRoute = SiteLangAProposRouteImport.update({
@@ -175,6 +181,7 @@ export interface FileRoutesByFullPath {
   '/$lang/app': typeof AuthLangAppRouteRouteWithChildren
   '/$lang/login': typeof AuthLangLoginRoute
   '/$lang/signup': typeof AuthLangSignupRoute
+  '/$lang/$': typeof SiteLangSplatRoute
   '/$lang/a-propos': typeof SiteLangAProposRoute
   '/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
   '/$lang/contact': typeof SiteLangContactRoute
@@ -199,6 +206,7 @@ export interface FileRoutesByTo {
   '/api/data.json': typeof ApiDataDotjsonRoute
   '/$lang/login': typeof AuthLangLoginRoute
   '/$lang/signup': typeof AuthLangSignupRoute
+  '/$lang/$': typeof SiteLangSplatRoute
   '/$lang/a-propos': typeof SiteLangAProposRoute
   '/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
   '/$lang/contact': typeof SiteLangContactRoute
@@ -227,6 +235,7 @@ export interface FileRoutesById {
   '/_auth/$lang/app': typeof AuthLangAppRouteRouteWithChildren
   '/_auth/$lang/login': typeof AuthLangLoginRoute
   '/_auth/$lang/signup': typeof AuthLangSignupRoute
+  '/_site/$lang/$': typeof SiteLangSplatRoute
   '/_site/$lang/a-propos': typeof SiteLangAProposRoute
   '/_site/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
   '/_site/$lang/contact': typeof SiteLangContactRoute
@@ -254,6 +263,7 @@ export interface FileRouteTypes {
     | '/$lang/app'
     | '/$lang/login'
     | '/$lang/signup'
+    | '/$lang/$'
     | '/$lang/a-propos'
     | '/$lang/confidentialite'
     | '/$lang/contact'
@@ -278,6 +288,7 @@ export interface FileRouteTypes {
     | '/api/data.json'
     | '/$lang/login'
     | '/$lang/signup'
+    | '/$lang/$'
     | '/$lang/a-propos'
     | '/$lang/confidentialite'
     | '/$lang/contact'
@@ -305,6 +316,7 @@ export interface FileRouteTypes {
     | '/_auth/$lang/app'
     | '/_auth/$lang/login'
     | '/_auth/$lang/signup'
+    | '/_site/$lang/$'
     | '/_site/$lang/a-propos'
     | '/_site/$lang/confidentialite'
     | '/_site/$lang/contact'
@@ -423,6 +435,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/$lang/'
       preLoaderRoute: typeof SiteLangIndexRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/$': {
+      id: '/_site/$lang/$'
+      path: '/$'
+      fullPath: '/$lang/$'
+      preLoaderRoute: typeof SiteLangSplatRouteImport
       parentRoute: typeof SiteLangRoute
     }
     '/_site/$lang/a-propos': {
@@ -559,6 +578,7 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 )
 
 interface SiteLangRouteChildren {
+  SiteLangSplatRoute: typeof SiteLangSplatRoute
   SiteLangAProposRoute: typeof SiteLangAProposRoute
   SiteLangConfidentialiteRoute: typeof SiteLangConfidentialiteRoute
   SiteLangContactRoute: typeof SiteLangContactRoute
@@ -574,6 +594,7 @@ interface SiteLangRouteChildren {
 }
 
 const SiteLangRouteChildren: SiteLangRouteChildren = {
+  SiteLangSplatRoute: SiteLangSplatRoute,
   SiteLangAProposRoute: SiteLangAProposRoute,
   SiteLangConfidentialiteRoute: SiteLangConfidentialiteRoute,
   SiteLangContactRoute: SiteLangContactRoute,
