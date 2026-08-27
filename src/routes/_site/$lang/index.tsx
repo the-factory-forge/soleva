@@ -132,7 +132,7 @@ function HomePage() {
                   ?.partners.map((item, i) => {
                     const logo = TECHNICAL_LOGO_MAP[item.name];
                     return (
-                      <Reveal key={item.name} delay={i * 0.06}>
+                      <Reveal key={`partner-technical-${i}`} delay={i * 0.06}>
                         <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card p-5">
                           <div className="relative h-16 w-28">
                             <Image
@@ -162,7 +162,7 @@ function HomePage() {
                   ?.partners.map((item, i) => {
                     const logo = INSTITUTIONAL_LOGO_MAP[item.name];
                     return (
-                      <Reveal key={item.name} delay={i * 0.06}>
+                      <Reveal key={`partner-institutional-${i}`} delay={i * 0.06}>
                         <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card p-5">
                           <div className="relative h-16 w-28">
                             <Image
@@ -191,10 +191,10 @@ function HomePage() {
               <div className="mt-4">
                 {partnerCategories
                   .find((c) => c.key === "awards")
-                  ?.partners.map((item) => {
+                  ?.partners.map((item, i) => {
                     const logo = AWARDS_LOGO_MAP[item.name];
                     return (
-                      <Reveal key={item.name}>
+                      <Reveal key={`partner-awards-${i}`}>
                         <div className="mx-auto flex max-w-xs flex-col items-center justify-center gap-3 rounded-2xl border border-secondary/30 bg-secondary/5 p-5">
                           <div className="relative h-16 w-28">
                             <Image

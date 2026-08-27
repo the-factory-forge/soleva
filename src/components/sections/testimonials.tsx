@@ -45,7 +45,7 @@ export function Testimonials({
         <SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} variant={variant} />
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.1}>
+            <Reveal key={`testimonial-${i}`} delay={i * 0.1}>
               <figure
                 className={cn(
                   "flex h-full flex-col rounded-xl border p-6 shadow-sm",

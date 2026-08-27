@@ -20,7 +20,7 @@ export function HomeFigures({ dict }: { locale: Locale; dict: Dictionary }) {
         <SectionHeading title={dict.home.figures.title} subtitle={dict.home.figures.subtitle} />
         <div className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">
           {figures.map((figure, i) => (
-            <Reveal key={figure.label} delay={i * 0.05}>
+            <Reveal key={`figure-${i}`} delay={i * 0.05}>
               <div className="flex h-full flex-col items-center justify-center bg-card px-6 py-10 text-center">
                 <span className="font-heading text-4xl font-extrabold text-primary md:text-5xl">
                   {figure.value}

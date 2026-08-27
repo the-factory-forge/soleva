@@ -45,7 +45,7 @@ export function MethodSteps({
           />
 
           {steps.map((step, i) => (
-            <Reveal key={step.title} delay={i * 0.15}>
+            <Reveal key={i} delay={i * 0.15}>
               <div className="relative text-center">
                 <div
                   className={cn(

@@ -1,4 +1,4 @@
-import { HeroAnimation } from "#/components/ui/animations";
+import { HeroAnimation } from "#/components/animations-lazy";
 import { CtaExternal, CtaLink } from "#/components/ui/cta-button";
 import { Image } from "#/components/ui/image";
 import { cn } from "#/lib/utils";

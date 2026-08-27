@@ -94,7 +94,7 @@ function SupportPage() {
             {ways.map((way, i) => {
               const Icon = way.icon;
               return (
-                <Reveal key={way.title} delay={i * 0.06}>
+                <Reveal key={`way-${i}`} delay={i * 0.06}>
                   <article className="flex h-full flex-col rounded-3xl border border-border bg-card p-8">
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/15 text-secondary">
                       <Icon className="h-6 w-6" aria-hidden="true" />

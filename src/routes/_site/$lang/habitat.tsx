@@ -85,7 +85,7 @@ function HabitatPage() {
             {c.concept.points.map((point, i) => {
               const Icon = point.icon;
               return (
-                <Reveal key={point.title} delay={i * 0.06}>
+                <Reveal key={`concept-${i}`} delay={i * 0.06}>
                   <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6">
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <Icon className="h-6 w-6" aria-hidden="true" />
@@ -181,7 +181,7 @@ function HabitatPage() {
                   {c.comfort.points.map((point, i) => {
                     const Icon = point.icon;
                     return (
-                      <Reveal key={point.title} delay={i * 0.06}>
+                      <Reveal key={`comfort-${i}`} delay={i * 0.06}>
                         <div className="flex h-full flex-col rounded-2xl bg-muted p-5">
                           <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/15 text-secondary">
                             <Icon className="h-5 w-5" aria-hidden="true" />
@@ -229,7 +229,7 @@ function HabitatPage() {
           </Reveal>
           <dl className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {c.technical.specs.map((spec, i) => (
-              <Reveal key={spec.label} delay={i * 0.05}>
+              <Reveal key={`spec-${i}`} delay={i * 0.05}>
                 <div className="flex flex-col rounded-2xl border border-border bg-card p-6 text-center">
                   <dt className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
                     {spec.label}
@@ -252,7 +252,7 @@ function HabitatPage() {
           </Reveal>
           <div className="mx-auto mt-10 flex max-w-3xl flex-col gap-4">
             {c.faq.items.map((faq, i) => (
-              <Reveal key={faq.question} delay={i * 0.04}>
+              <Reveal key={`faq-${i}`} delay={i * 0.04}>
                 <details className="group rounded-2xl border border-border bg-card p-5">
                   <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                     {faq.question}

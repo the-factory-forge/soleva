@@ -27,17 +27,23 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
 
       <div className="container-premium flex min-h-[92vh] flex-col justify-center py-32">
         <div className="max-w-2xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-secondary/10 px-4 py-1.5 text-sm font-medium text-secondary">
+          <p className="hero-enter inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-secondary/10 px-4 py-1.5 text-sm font-medium text-secondary">
             <Sun className="h-4 w-4" aria-hidden="true" />
             {dict.home.hero.eyebrow}
           </p>
-          <h1 className="mt-6 font-heading text-4xl leading-[1.05] font-extrabold text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="hero-enter mt-6 font-heading text-4xl leading-[1.05] font-extrabold text-balance sm:text-5xl lg:text-6xl">
             {dict.home.hero.title}
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-dark-foreground/80">
+          <p
+            className="hero-enter mt-6 max-w-xl text-lg leading-relaxed text-dark-foreground/80"
+            style={{ animationDelay: "80ms" }}
+          >
             {dict.home.hero.subtitle}
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <div
+            className="hero-enter mt-9 flex flex-col gap-3 sm:flex-row"
+            style={{ animationDelay: "120ms" }}
+          >
             <Button
               size="lg"
               className="bg-secondary text-secondary-foreground hover:bg-secondary/90"

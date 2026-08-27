@@ -180,10 +180,7 @@ export function CookieBanner({
         <div className="flex flex-col gap-4 rounded-xl border border-border bg-background p-5 shadow-lg">
           <p className="max-w-2xl text-sm leading-relaxed text-foreground">
             {text}{" "}
-            <a
-              href={privacyHref}
-              className="font-semibold text-primary underline underline-offset-2"
-            >
+            <a href={privacyHref} className="font-medium text-primary underline underline-offset-2">
               {policyLabel}
             </a>
           </p>
@@ -198,7 +195,7 @@ export function CookieBanner({
                   className="mt-0.5 h-4 w-4 shrink-0 rounded accent-primary"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-foreground">{necessaryTitle}</p>
+                  <p className="text-sm font-medium text-foreground">{necessaryTitle}</p>
                   <p className="text-xs text-muted-foreground">{necessaryDescription}</p>
                 </div>
               </label>
@@ -217,7 +214,7 @@ export function CookieBanner({
                     className="mt-0.5 h-4 w-4 shrink-0 rounded accent-primary"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{analyticsTitle}</p>
+                    <p className="text-sm font-medium text-foreground">{analyticsTitle}</p>
                     <p className="text-xs text-muted-foreground">{analyticsDescription}</p>
                   </div>
                 </label>
@@ -237,7 +234,7 @@ export function CookieBanner({
                     className="mt-0.5 h-4 w-4 shrink-0 rounded accent-primary"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{marketingTitle}</p>
+                    <p className="text-sm font-medium text-foreground">{marketingTitle}</p>
                     <p className="text-xs text-muted-foreground">{marketingDescription}</p>
                   </div>
                 </label>
@@ -249,7 +246,7 @@ export function CookieBanner({
             <button
               type="button"
               onClick={acceptAll}
-              className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors outline-none hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-primary/40"
+              className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors outline-none hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-primary/40"
             >
               {acceptAllLabel}
             </button>
@@ -257,7 +254,7 @@ export function CookieBanner({
               <button
                 type="button"
                 onClick={acceptSelection}
-                className="inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-semibold text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40"
+                className="inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-medium text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40"
               >
                 {acceptSelectionLabel}
               </button>
@@ -265,7 +262,7 @@ export function CookieBanner({
             <button
               type="button"
               onClick={rejectAll}
-              className="inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-semibold text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40"
+              className="inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-medium text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40"
             >
               {rejectLabel}
             </button>

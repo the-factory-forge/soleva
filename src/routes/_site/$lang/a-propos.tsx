@@ -290,7 +290,7 @@ function AboutPage() {
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TEAM_MEMBERS.map((member, i) => (
-              <Reveal key={member.name} delay={i * 0.04}>
+              <Reveal key={`member-${i}`} delay={i * 0.04}>
                 <div className="flex flex-col rounded-2xl border border-border bg-card p-6 text-center">
                   <div className="relative mx-auto h-20 w-20 overflow-hidden rounded-full">
                     <Image
@@ -330,7 +330,7 @@ function AboutPage() {
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {MENTORS.map((mentor, i) => (
-              <Reveal key={mentor.name} delay={i * 0.06}>
+              <Reveal key={`mentor-${i}`} delay={i * 0.06}>
                 <div className="flex flex-col rounded-2xl border border-border bg-card p-6 text-center">
                   <div className="relative mx-auto h-20 w-20 overflow-hidden rounded-full">
                     <Image
@@ -365,7 +365,7 @@ function AboutPage() {
           </Reveal>
           <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {PRESS_ITEMS.map((item, i) => (
-              <Reveal key={item.media + item.date} delay={i * 0.03}>
+              <Reveal key={`press-${i}`} delay={i * 0.03}>
                 <div className="flex flex-col items-center gap-2 rounded-xl border border-border bg-card p-4 text-center">
                   <div className="relative h-10 w-20">
                     <Image

@@ -1,6 +1,6 @@
 # MECHANICS — factory-forge/soleva
 
-> **Repo** : factory-forge/soleva (client site) · **Branch** : fix/site-parity (to merge into seo-adaptation then main) · **Locales** : fr/en/de/it · **Analytics** : Strict scripts mechanics ready, IDs empty (inactive).
+> **Repo** : factory-forge/soleva (client site) · **Branch** : fix/validation-learnings (learnings batch applied; merge into fix/site-parity then main) · **Locales** : fr/en/de/it · **Analytics** : Strict scripts mechanics ready, IDs empty (inactive).
 > Parity batch applied 27.08.2026 (accordion keyframes, reveal, immutable cache, latin fonts + preloads, real og:image, Analytics Strict scripts, JSON-LD E.164, footer attribution forge).
 
 > **Legend** : ✅ present · ⚠️ partial · ⏳ pending · ➖ absent · N/A not applicable (by decision)
@@ -10,6 +10,7 @@
 
 - **Migration**: ported from factory-template (fr/en/de/it), solar association (NGO schema).
 - **Parity batch (27.08)**: accordion keyframes, reveal fix, /assets immutable cache, latin fonts (montserrat) + preloads 600/700, **og-image 1200x630 from the hero video poster frame (video-poster.webp)**, absolute og URLs everywhere, Analytics Strict scripts (+ VITE_ADS_CONVERSION_LABEL exposed in env/client), attribution forge, localized alts (timeline, QR, 404 logo), localized breadcrumb aria-label, docker-compose labels args.
+- **Validation learnings batch (27.08)**: stable keys in animated lists (Reveal), CSS-only hero entrance (tc-fade-up 0.01 + tc-img-reveal, prefers-reduced-motion) on home video hero + habitat hero (was motion SSR opacity:0), animations-lazy module (below-fold motion chunk), preloads corrected to faces used above the fold (400/500/600/800 - LCP h1 is extrabold 800), cookie banner font-semibold -> font-medium.
 - **Analytics**: Strict scripts - IDs empty.
 
 ## 2. Mechanics matrix
@@ -69,17 +70,17 @@
 | Performance | Cache headers /images/** (7d) | Site photos | vite.config.ts routeRules | ✅ |  |
 | Performance | Cache headers /assets/** (1y immutable) | Hashed bundles | vite.config.ts routeRules | ✅ |  |
 | Performance | Font subsetting (latin-only) | @fontsource latin-* imports | src/styles.css | ✅ |  |
-| Performance | Font preloads (woff2) | 400/600/700 preload links | src/routes/__root.tsx | ✅ |  |
+| Performance | Font preloads (woff2) | 400/500/600/800 preload links (faces used above the fold incl. LCP h1 extrabold) | src/routes/__root.tsx | ✅ |  |
 | Performance | Responsive images (srcset) | 480/800/1200 webp variants, native-width candidate | scripts/generate-image-variants.mjs | ✅ |  |
 | Performance | Quality convention (480 q90 / >480 q80) | Variant generator defaults | scripts/generate-image-variants.mjs | ✅ |  |
 | Performance | Lazy images by default | loading=lazy unless priority (LCP) | src/components/ui/image.tsx | ✅ |  |
 | Performance | Priority for LCP image | fetchPriority high on hero when LCP=image | src/components/ui/image.tsx | ✅ |  |
 | Performance | content-visibility:auto | Below-fold sections | src/components/sections/* | ✅ |  |
 | Performance | Scroll-reveal (SSR-visible, works) | useInView + post-hydration animate | src/components/ui/reveal.tsx | ✅ |  |
-| Performance | Hydration-safe animations (SSR-visible) | initial hidden only after hydration - LCP visible without JS | src/components/animations.tsx + ui/animations | ✅ |  |
-| Performance | LCP-safe hero entrance (contentful at frame 1) | CSS keyframes with opacity 0.01 start - text is a contentful candidate at first paint | src/styles.css + hero | ✅ |  |
-| Performance | Below-fold animation chunk lazy-loaded | motion chunk not modulepreloaded - loads dynamically after hydration | animations-lazy + routes | ⚠️ |  |
-| Performance | Context-aware image sizes (sizes attr) | sizes per layout context - no 100vw over-download of originals | routes + ui/image | ⚠️ |  |
+| Performance | Hydration-safe animations (SSR-visible) | initial hidden only after hydration - LCP visible without JS | src/components/ui/animations.tsx | ✅ |  |
+| Performance | LCP-safe hero entrance (contentful at frame 1) | CSS keyframes with opacity 0.01 start - text is a contentful candidate at first paint | src/styles.css + home/habitat heroes | ✅ |  |
+| Performance | Below-fold animation chunk lazy-loaded | motion chunk not modulepreloaded - loads dynamically after hydration | animations-lazy + sections/home-hero | ✅ |  |
+| Performance | Context-aware image sizes (sizes attr) | sizes per layout context - no 100vw over-download of originals | routes + ui/image | ✅ | Video hero exempt (poster is static, no srcset) |
 | Performance | Route-level code splitting | Per-route + per-locale chunks | vite (rolldown) | ✅ |  |
 | Performance | TanStack Query caching | staleTime 2min, SSR dedupe | src/router.tsx | ✅ |  |
 | Performance | Image runtime optimizer / CDN | On-the-fly resizing | src/components/ui/image.tsx | ➖ |  |

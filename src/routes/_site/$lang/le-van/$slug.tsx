@@ -137,7 +137,7 @@ function ServiceDetailPage() {
           </Reveal>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {content.features.map((feature, i) => (
-              <Reveal key={feature} delay={i * 0.05}>
+              <Reveal key={`feature-${i}`} delay={i * 0.05}>
                 <li className="flex items-start gap-3 rounded-2xl bg-card p-5 shadow-sm">
                   <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary">
                     <Check className="h-4 w-4" aria-hidden="true" />
@@ -186,7 +186,7 @@ function ServiceDetailPage() {
           </Reveal>
           <div className="mx-auto mt-8 flex max-w-3xl flex-col gap-4">
             {content.faqs.map((faq, i) => (
-              <Reveal key={faq.question} delay={i * 0.05}>
+              <Reveal key={`faq-${i}`} delay={i * 0.05}>
                 <details className="group rounded-2xl border border-border bg-card p-5">
                   <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                     {faq.question}

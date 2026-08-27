@@ -102,7 +102,7 @@ function VoyagePage() {
           <SectionHeading title={t.stops_title} />
           <div className="mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-3">
             {STOPS.map((stop, i) => (
-              <Reveal key={stop} delay={i * 0.04}>
+              <Reveal key={`stop-${i}`} delay={i * 0.04}>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground">
                   <MapPin className="h-4 w-4 text-secondary" aria-hidden="true" />
                   {stop}
@@ -119,7 +119,7 @@ function VoyagePage() {
           <SectionHeading title={t.events_title} />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2">
             {pastEvents.map((event, i) => (
-              <Reveal key={event.name[locale]} delay={i * 0.06}>
+              <Reveal key={`event-${i}`} delay={i * 0.06}>
                 <div className="rounded-2xl border border-border bg-card p-6">
                   <h3 className="font-heading text-lg font-semibold">{event.name[locale]}</h3>
                   <div className="mt-2 flex items-center gap-4 text-sm text-muted-foreground">

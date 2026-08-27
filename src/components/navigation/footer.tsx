@@ -240,8 +240,8 @@ export function Footer({
           </div>
 
           {/* Navigation columns */}
-          {columns.map((col) => (
-            <div key={col.title}>
+          {columns.map((col, i) => (
+            <div key={`footer-col-${i}`}>
               <h3
                 className={cn(
                   "mb-4 font-heading text-sm font-semibold tracking-wide uppercase",

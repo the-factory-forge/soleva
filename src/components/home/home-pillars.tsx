@@ -40,7 +40,7 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
         <SectionHeading title={dict.home.pillars.title} subtitle={dict.home.pillars.subtitle} />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {pillars.map((pillar, i) => (
-            <Reveal key={pillar.title} delay={i * 0.08}>
+            <Reveal key={`pillar-${i}`} delay={i * 0.08}>
               <Link
                 href={withLocale(locale, pillar.href)}
                 className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"

@@ -57,7 +57,7 @@ export function TrustSection({
                 : "text-secondary"
               : colors.iconColor;
             return (
-              <Reveal key={item.title} delay={i * 0.1}>
+              <Reveal key={i} delay={i * 0.1}>
                 <div
                   className={cn(
                     "rounded-xl border p-6 shadow-sm transition-shadow hover:shadow-md",

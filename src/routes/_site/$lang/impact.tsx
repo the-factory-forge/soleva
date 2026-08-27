@@ -66,7 +66,7 @@ function ImpactPage() {
             {cards.map((card, i) => {
               const Icon = card.icon;
               return (
-                <Reveal key={card.title} delay={i * 0.06}>
+                <Reveal key={`card-${i}`} delay={i * 0.06}>
                   <article className="flex h-full flex-col rounded-3xl border border-border bg-card p-8">
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <Icon className="h-6 w-6" aria-hidden="true" />
