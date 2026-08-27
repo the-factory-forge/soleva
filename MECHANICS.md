@@ -1,7 +1,7 @@
 # MECHANICS — factory-forge/soleva
 
-> **Repo** : factory-forge/soleva (client site) · **Branch** : fix/site-parity (to merge into seo-adaptation then main) · **Locales** : fr/en/de/it · **Analytics** : Option B mechanics ready, IDs empty (inactive).
-> Parity batch applied 27.08.2026 (accordion keyframes, reveal, immutable cache, latin fonts + preloads, real og:image, Analytics Option B, JSON-LD E.164, footer attribution forge).
+> **Repo** : factory-forge/soleva (client site) · **Branch** : fix/site-parity (to merge into seo-adaptation then main) · **Locales** : fr/en/de/it · **Analytics** : Strict scripts mechanics ready, IDs empty (inactive).
+> Parity batch applied 27.08.2026 (accordion keyframes, reveal, immutable cache, latin fonts + preloads, real og:image, Analytics Strict scripts, JSON-LD E.164, footer attribution forge).
 
 > **Legend** : ✅ present · ⚠️ partial · ⏳ pending · ➖ absent · N/A not applicable (by decision)
 > **Last update** : 27.08.2026
@@ -9,8 +9,8 @@
 ## 1. Changelog (Next.js → today)
 
 - **Migration**: ported from factory-template (fr/en/de/it), solar association (NGO schema).
-- **Parity batch (27.08)**: accordion keyframes, reveal fix, /assets immutable cache, latin fonts (montserrat) + preloads 600/700, **og-image 1200x630 from the hero video poster frame (video-poster.webp)**, absolute og URLs everywhere, Analytics Option B (+ VITE_ADS_CONVERSION_LABEL exposed in env/client), attribution forge, localized alts (timeline, QR, 404 logo), localized breadcrumb aria-label, docker-compose labels args.
-- **Analytics**: Option B - IDs empty.
+- **Parity batch (27.08)**: accordion keyframes, reveal fix, /assets immutable cache, latin fonts (montserrat) + preloads 600/700, **og-image 1200x630 from the hero video poster frame (video-poster.webp)**, absolute og URLs everywhere, Analytics Strict scripts (+ VITE_ADS_CONVERSION_LABEL exposed in env/client), attribution forge, localized alts (timeline, QR, 404 logo), localized breadcrumb aria-label, docker-compose labels args.
+- **Analytics**: Strict scripts - IDs empty.
 
 ## 2. Mechanics matrix
 
@@ -85,12 +85,12 @@
 | Performance | Image runtime optimizer / CDN | On-the-fly resizing | src/components/ui/image.tsx | ➖ |  |
 | Performance | Bundle analysis / budgets | rollup visualizer, size budgets | vite.config.ts | ➖ |  |
 | Performance | PWA (manifest + service worker) | Offline shell, installability | public/ | ➖ |  |
-| Analytics | GA4 | Google Analytics 4, env-gated | src/lib/analytics.ts + env | ➖ | Option B mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
-| Analytics | Google Ads + conversions | tel/mailto click conversions | src/lib/analytics.ts (trackAdsConversion) | ➖ | Option B mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
-| Analytics | Per-action conversion labels | VITE_ADS_PHONE_LABEL / VITE_ADS_MAIL_LABEL | .env.production + Docker build args | ➖ | Option B mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
+| Analytics | GA4 | Google Analytics 4, env-gated | src/lib/analytics.ts + env | ➖ | Strict scripts mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
+| Analytics | Google Ads + conversions | tel/mailto click conversions | src/lib/analytics.ts (trackAdsConversion) | ➖ | Strict scripts mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
+| Analytics | Per-action conversion labels | VITE_ADS_PHONE_LABEL / VITE_ADS_MAIL_LABEL | .env.production + Docker build args | ➖ | Strict scripts mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
 | Analytics | Consent Mode v2 (default-deny) | 4 signals denied before any load | src/routes/__root.tsx | ✅ |  |
-| Analytics | Option B: tag loads only after consent | loadGtag() injected post-acceptance (nLPD) | src/lib/analytics.ts + cookie banner | ✅ |  |
-| Analytics | GA4 link event tracking | click_phone / click_email events | src/components/layout/ga4-link-tracker.tsx | ➖ | Option B mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
+| Analytics | Strict scripts: tag loads only after consent | loadGtag() injected post-acceptance (nLPD) | src/lib/analytics.ts + cookie banner | ✅ |  |
+| Analytics | GA4 link event tracking | click_phone / click_email events | src/components/layout/ga4-link-tracker.tsx | ➖ | Strict scripts mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
 | Analytics | Privacy-friendly analytics (Plausible/Matomo) | Cookieless alternative | src/lib/analytics.ts | ➖ |  |
 | Privacy | Cookie banner (granular) | necessary/analytics/marketing toggles + accept/reject | src/components/layouts/cookie-banner.tsx | ✅ |  |
 | Privacy | No tracking before consent | Zero Google requests pre-acceptance | src/routes/__root.tsx + analytics.ts | ✅ |  |
@@ -165,7 +165,7 @@
 | Monitoring | Uptime monitoring | Availability checks + alerts | infra | ➖ |  |
 | Monitoring | RUM / Core Web Vitals tracking | Real-user metrics | src/lib | ➖ |  |
 | Monitoring | Health endpoint | /health or /status | src/routes/api | ➖ |  |
-| Monitoring | Analytics dashboards | GA4 + Ads live dashboards | external (GA4/Ads) | ➖ | Option B mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
+| Monitoring | Analytics dashboards | GA4 + Ads live dashboards | external (GA4/Ads) | ➖ | Strict scripts mechanics in place; GA/Ads IDs empty in .env.production (inactive until wired at deploy) |
 
 ## 3. Gaps vs modern web standards
 
