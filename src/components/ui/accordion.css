@@ -1,0 +1,23 @@
+/* Accordion expand/collapse keyframes.
+   base-ui measures the panel height and exposes it as the inline CSS variable
+   --accordion-panel-height (pixels) on the panel element, so the keyframes can
+   animate height between 0 and the measured value. This is the same animation
+   base-ui's own docs recommend; the classes are referenced by the accordion
+   component as arbitrary animate utilities (data-open / data-closed hooks). */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--accordion-panel-height, auto);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--accordion-panel-height, auto);
+  }
+  to {
+    height: 0;
+  }
+}

@@ -48,7 +48,7 @@ export interface FooterOptions {
 
 const CORNER_ATTRIBUTION = {
   text: "Made by The Corner Factory",
-  href: "https://the-corner.io/",
+  href: "https://the-corner.io/portfolio/forge",
   logo: "https://assets.the-corner.io/logos/the_corner-icon.png",
 };
 

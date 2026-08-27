@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 
 import { Link } from "@/components/ui/link";
+import { loadGtag } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/i18n";
 import { type Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/navigation";
@@ -67,6 +68,11 @@ function applyConsent(state: ConsentState) {
     ad_user_data: state.marketing ? "granted" : "denied",
     ad_personalization: state.marketing ? "granted" : "denied",
   });
+  // nLPD: the Google tag itself loads only once analytics/marketing consent is
+  // granted (nothing loads for reject-only visitors).
+  if (state.analytics || state.marketing) {
+    loadGtag();
+  }
 }
 
 const OPEN_EVENT = "soleva:open-cookie-settings";

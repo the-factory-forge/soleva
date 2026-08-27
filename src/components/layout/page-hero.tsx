@@ -11,6 +11,7 @@ export function PageHero({
   title,
   subtitle,
   image,
+  breadcrumbAriaLabel,
 }: {
   locale: Locale;
   homeLabel: string;
@@ -19,6 +20,7 @@ export function PageHero({
   title: string;
   subtitle?: string;
   image?: string;
+  breadcrumbAriaLabel?: string;
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-dark text-dark-foreground">
@@ -40,7 +42,12 @@ export function PageHero({
       )}
 
       <div className="[&_a]:text-dark-foreground/70 [&_a:hover]:text-secondary [&_span]:text-dark-foreground [&_svg]:text-dark-foreground/40">
-        <Breadcrumb locale={locale} homeLabel={homeLabel} items={crumbs} />
+        <Breadcrumb
+          locale={locale}
+          homeLabel={homeLabel}
+          items={crumbs}
+          ariaLabel={breadcrumbAriaLabel}
+        />
       </div>
 
       <div className="container-premium pt-10 pb-20 md:pt-12 md:pb-28">

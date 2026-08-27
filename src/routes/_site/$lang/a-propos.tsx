@@ -15,7 +15,7 @@ import {
   srcSetFor,
   TEAM_PHOTOS,
 } from "@/lib/constants";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -187,6 +187,7 @@ function AboutPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={t(dict, "breadcrumb.ariaLabel")}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.about, href: "/a-propos" }]}
         eyebrow={a.hero.eyebrow}
@@ -261,12 +262,12 @@ function AboutPage() {
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">{a.timeline_title}</h2>
           </Reveal>
           <div className="mt-6 overflow-hidden rounded-2xl">
-            <Lightbox src="/images/timeline.webp" alt="Roadmap Soleva">
+            <Lightbox src="/images/timeline.webp" alt={a.timeline_alt}>
               <Image
                 src="/images/timeline.webp"
                 srcSet="/images/timeline-480.webp 480w, /images/timeline-800.webp 800w, /images/timeline.webp 2010w"
                 sizes="100vw"
-                alt="Roadmap Soleva"
+                alt={a.timeline_alt}
                 width={1200}
                 height={600}
                 className="h-auto w-full"

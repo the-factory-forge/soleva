@@ -12,10 +12,12 @@ export function Breadcrumb({
   locale,
   homeLabel,
   items,
+  ariaLabel = "Breadcrumb",
 }: {
   locale: Locale;
   homeLabel: string;
   items: Crumb[];
+  ariaLabel?: string;
 }) {
   const all: Crumb[] = [{ label: homeLabel, href: "/" }, ...items];
 
@@ -25,7 +27,7 @@ export function Breadcrumb({
   }));
 
   return (
-    <nav aria-label="Breadcrumb" className="container-premium pt-24 md:pt-28">
+    <nav aria-label={ariaLabel} className="container-premium pt-24 md:pt-28">
       <ol className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
         {all.map((crumb, i) => {
           const isLast = i === all.length - 1;

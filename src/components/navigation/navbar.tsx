@@ -59,7 +59,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         <Link href={withLocale(locale, "/")} className="flex items-center" aria-label="Soleva">
           <Image
             src="/images/soleva-logo.webp"
-            alt="Soleva - The Solar Electric Van"
+            alt=""
             width={300}
             height={123}
             priority

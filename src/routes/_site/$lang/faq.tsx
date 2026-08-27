@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { faqs } from "@/lib/data/faqs";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -46,6 +46,7 @@ function FaqPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={t(dict, "breadcrumb.ariaLabel")}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.faq, href: "/faq" }]}
         eyebrow={fq.hero.eyebrow}

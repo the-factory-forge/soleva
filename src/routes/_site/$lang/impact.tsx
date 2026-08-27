@@ -51,6 +51,7 @@ function ImpactPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={dict.breadcrumb.ariaLabel}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.impact, href: "/impact" }]}
         eyebrow={t.hero.eyebrow}

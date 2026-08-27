@@ -235,7 +235,8 @@
     "sponsor_tiers_title": "Formules de sponsoring",
     "sponsor_tiers_subtitle": "Trois formules pour vous associer au projet Soleva et gagner en visibilité.",
     "sponsor_cta": "Discuter d'un sponsoring",
-    "sponsor_features": "Avantages"
+    "sponsor_features": "Avantages",
+    "qr_alt": "QR Code pour don bancaire Soleva"
   },
   "about": {
     "hero": {
@@ -256,7 +257,8 @@
     "members_subtitle": "Une équipe d'ingénieurs et de passionnés, soutenue par des dizaines de bénévoles.",
     "mentors_title": "Tuteurs et conseillers externes",
     "press_title": "Soleva dans les médias",
-    "press_subtitle": "Une couverture médiatique nationale en Suisse et au-delà."
+    "press_subtitle": "Une couverture médiatique nationale en Suisse et au-delà.",
+    "timeline_alt": "Roadmap Soleva"
   },
   "contact": {
     "hero": {
@@ -335,7 +337,8 @@
     "faq": "FAQ",
     "legal": "Mentions légales",
     "privacy": "Confidentialité",
-    "habitat": "Habitat"
+    "habitat": "Habitat",
+    "ariaLabel": "Fil d'ariane"
   },
   "footer": {
     "description": "Soleva transforme un ancien van en camper électrique alimenté par le soleil. Un démonstrateur suisse de mobilité durable.",

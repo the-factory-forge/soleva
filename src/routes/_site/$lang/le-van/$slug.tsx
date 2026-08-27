@@ -11,7 +11,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -78,6 +78,7 @@ function ServiceDetailPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={t(dict, "breadcrumb.ariaLabel")}
         homeLabel={dict.breadcrumb.home}
         crumbs={[
           { label: dict.breadcrumb.van, href: "/le-van" },

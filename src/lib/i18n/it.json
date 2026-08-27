@@ -235,7 +235,8 @@
     "sponsor_tiers_title": "Pacchetti di sponsorizzazione",
     "sponsor_tiers_subtitle": "Tre modi per associarsi al progetto Soleva e guadagnare visibilità.",
     "sponsor_cta": "Discuti una sponsorizzazione",
-    "sponsor_features": "Vantaggi"
+    "sponsor_features": "Vantaggi",
+    "qr_alt": "Codice QR per una donazione bancaria a Soleva"
   },
   "about": {
     "hero": {
@@ -256,7 +257,8 @@
     "members_subtitle": "Un team di ingegneri e appassionati, supportato da decine di volontari.",
     "mentors_title": "Mentori e consulenti esterni",
     "press_title": "Soleva nei media",
-    "press_subtitle": "Copertura mediatica nazionale in Svizzera e oltre."
+    "press_subtitle": "Copertura mediatica nazionale in Svizzera e oltre.",
+    "timeline_alt": "Roadmap di Soleva"
   },
   "contact": {
     "hero": {
@@ -335,7 +337,8 @@
     "faq": "FAQ",
     "legal": "Note legali",
     "privacy": "Privacy",
-    "habitat": "Habitat"
+    "habitat": "Habitat",
+    "ariaLabel": "Percorso di navigazione"
   },
   "footer": {
     "description": "Soleva trasforma un vecchio furgone in un camper elettrico alimentato dal sole. Un dimostratore svizzero di mobilità sostenibile.",

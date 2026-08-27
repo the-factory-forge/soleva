@@ -11,7 +11,6 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import { Toaster } from "@/components/ui/toast";
-import { env as clientEnv } from "@/env/client";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
 
@@ -64,6 +63,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "font/woff2",
         crossOrigin: "anonymous",
       },
+      {
+        rel: "preload",
+        href: "/assets/montserrat-latin-600-normal-UVxSCcoG.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/assets/montserrat-latin-700-normal-BdjcYUrC.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
       { rel: "icon", href: "https://assets.the-corner.io/logos/the_corner-icon.png" },
       { rel: "apple-touch-icon", href: "https://assets.the-corner.io/logos/the_corner-icon.png" },
     ],
@@ -73,7 +86,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify(websiteJsonLd),
       },
       {
-        // Consent Mode v2 - default-deny before anything loads.
+        // Consent Mode v2 - default-deny before anything loads. The Google tag
+        // (gtag.js) itself is NOT loaded here: it is injected dynamically by
+        // loadGtag() (src/lib/analytics.ts) only after the visitor accepts in
+        // the cookie banner (nLPD - nothing loads before consent).
         children: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -87,19 +103,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           });
         `,
       },
-      clientEnv.VITE_GA_MEASUREMENT_ID
-        ? {
-            children: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              window.gtag = window.gtag || gtag;
-              gtag('js', new Date());
-              gtag('config', '${import.meta.env.VITE_GA_MEASUREMENT_ID}');
-            `,
-          }
-        : {
-            children: `console.info("[GA4] Google Analytics is not configured. Set VITE_GA_MEASUREMENT_ID in .env (e.g. 'G-XXXXXXXXXX') to enable tracking with Consent Mode v2.")`,
-          },
     ],
   }),
   shellComponent: RootDocument,

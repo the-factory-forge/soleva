@@ -56,7 +56,7 @@ function buildFooterProps(locale: Locale, dict: Dictionary) {
     ],
     attribution: {
       text: dict.footer.produced_by,
-      href: "https://the-corner.io/",
+      href: "https://the-corner.io/portfolio/forge",
       logo: "https://assets.the-corner.io/logos/the_corner-icon.png",
     },
     manageCookiesEvent: "soleva:open-cookie-settings",

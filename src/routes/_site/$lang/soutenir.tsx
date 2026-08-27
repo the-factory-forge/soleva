@@ -79,6 +79,7 @@ function SupportPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={dict.breadcrumb.ariaLabel}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.support, href: "/soutenir" }]}
         eyebrow={t.hero.eyebrow}
@@ -277,12 +278,12 @@ function SupportPage() {
                 </dl>
               </div>
               <div className="flex flex-col items-center justify-center rounded-3xl border border-border bg-card p-6">
-                <Lightbox src="/images/qr-code.webp" alt="QR Code pour don bancaire Soleva">
+                <Lightbox src="/images/qr-code.webp" alt={t.qr_alt}>
                   <img
                     src="/images/qr-code.webp"
                     srcSet="/images/qr-code-480.webp 480w, /images/qr-code-800.webp 800w, /images/qr-code.webp 937w"
                     sizes="180px"
-                    alt="QR Code pour don bancaire Soleva"
+                    alt={t.qr_alt}
                     width={180}
                     height={180}
                     className="rounded-xl"

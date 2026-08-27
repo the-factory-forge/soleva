@@ -39,6 +39,7 @@ function ContactPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={dict.breadcrumb.ariaLabel}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.contact, href: "/contact" }]}
         eyebrow={t.hero.eyebrow}

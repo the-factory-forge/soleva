@@ -12,7 +12,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getServiceBySlug } from "@/lib/data/services";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -56,6 +56,7 @@ function HabitatPage() {
           <Breadcrumb
             locale={locale}
             homeLabel={dict.breadcrumb.home}
+            ariaLabel={t(dict, "breadcrumb.ariaLabel")}
             items={[
               { label: dict.breadcrumb.van, href: "/le-van" },
               { label: dict.breadcrumb.habitat, href: "/habitat" },

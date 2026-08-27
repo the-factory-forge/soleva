@@ -194,6 +194,11 @@ export default defineConfig({
         "/images/**": {
           headers: { "cache-control": "public, max-age=604800" },
         },
+        "/assets/**": {
+          headers: {
+            "cache-control": "public, max-age=31536000, immutable",
+          },
+        },
       },
     }),
     // React plugin (Babel) is required by TanStack Start's React Refresh

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -46,6 +46,7 @@ function PrivacyPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={t(dict, "breadcrumb.ariaLabel")}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.privacy, href: "/confidentialite" }]}
         title={p.title}

@@ -235,7 +235,8 @@
     "sponsor_tiers_title": "Sponsorship packages",
     "sponsor_tiers_subtitle": "Three ways to partner with the Soleva project and gain visibility.",
     "sponsor_cta": "Discuss sponsorship",
-    "sponsor_features": "Benefits"
+    "sponsor_features": "Benefits",
+    "qr_alt": "QR code for a bank donation to Soleva"
   },
   "about": {
     "hero": {
@@ -256,7 +257,8 @@
     "members_subtitle": "A team of engineers and enthusiasts, supported by dozens of volunteers.",
     "mentors_title": "Mentors and external advisors",
     "press_title": "Soleva in the media",
-    "press_subtitle": "National media coverage in Switzerland and beyond."
+    "press_subtitle": "National media coverage in Switzerland and beyond.",
+    "timeline_alt": "Soleva roadmap"
   },
   "contact": {
     "hero": {
@@ -335,7 +337,8 @@
     "faq": "FAQ",
     "legal": "Legal notice",
     "privacy": "Privacy",
-    "habitat": "Habitat"
+    "habitat": "Habitat",
+    "ariaLabel": "Breadcrumb"
   },
   "footer": {
     "description": "Soleva converts an old van into a solar-powered electric camper. A Swiss demonstrator of sustainable mobility.",

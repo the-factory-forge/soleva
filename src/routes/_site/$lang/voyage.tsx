@@ -48,6 +48,7 @@ function VoyagePage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={dict.breadcrumb.ariaLabel}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.voyage, href: "/voyage" }]}
         eyebrow={t.hero.eyebrow}
