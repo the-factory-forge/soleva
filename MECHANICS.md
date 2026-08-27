@@ -77,6 +77,8 @@
 | Performance | content-visibility:auto | Below-fold sections | src/components/sections/* | ✅ |  |
 | Performance | Scroll-reveal (SSR-visible, works) | useInView + post-hydration animate | src/components/ui/reveal.tsx | ✅ |  |
 | Performance | Hydration-safe animations (SSR-visible) | initial hidden only after hydration - LCP visible without JS | src/components/animations.tsx + ui/animations | ✅ |  |
+| Performance | LCP-safe hero entrance (contentful at frame 1) | CSS keyframes with opacity 0.01 start - text is a contentful candidate at first paint | src/styles.css + hero | ✅ |  |
+| Performance | Below-fold animation chunk lazy-loaded | motion chunk not modulepreloaded - loads dynamically after hydration | animations-lazy + routes | ⚠️ |  |
 | Performance | Context-aware image sizes (sizes attr) | sizes per layout context - no 100vw over-download of originals | routes + ui/image | ⚠️ |  |
 | Performance | Route-level code splitting | Per-route + per-locale chunks | vite (rolldown) | ✅ |  |
 | Performance | TanStack Query caching | staleTime 2min, SSR dedupe | src/router.tsx | ✅ |  |
