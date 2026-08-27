@@ -76,6 +76,8 @@
 | Performance | Priority for LCP image | fetchPriority high on hero when LCP=image | src/components/ui/image.tsx | ✅ |  |
 | Performance | content-visibility:auto | Below-fold sections | src/components/sections/* | ✅ |  |
 | Performance | Scroll-reveal (SSR-visible, works) | useInView + post-hydration animate | src/components/ui/reveal.tsx | ✅ |  |
+| Performance | Hydration-safe animations (SSR-visible) | initial hidden only after hydration - LCP visible without JS | src/components/animations.tsx + ui/animations | ✅ |  |
+| Performance | Context-aware image sizes (sizes attr) | sizes per layout context - no 100vw over-download of originals | routes + ui/image | ⚠️ |  |
 | Performance | Route-level code splitting | Per-route + per-locale chunks | vite (rolldown) | ✅ |  |
 | Performance | TanStack Query caching | staleTime 2min, SSR dedupe | src/router.tsx | ✅ |  |
 | Performance | Image runtime optimizer / CDN | On-the-fly resizing | src/components/ui/image.tsx | ➖ |  |
