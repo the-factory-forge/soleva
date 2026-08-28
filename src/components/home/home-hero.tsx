@@ -29,7 +29,7 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
           playsInline
           preload="auto"
           poster={IMAGES.videoPoster}
-          className="h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
         >
           <source src="/images/hero-video-720p.mp4" type="video/mp4" media="(min-width: 1024px)" />
           <source src="/images/hero-video-480p.mp4" type="video/mp4" />
