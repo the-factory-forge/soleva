@@ -1,5 +1,7 @@
 # Soleva
 
+> **Production status** : **validated 28.08.2026** (visual parity, video hero autoplay, lightbox galleries, i18n fr/en/de/it, responsive). **Merged to `main` (`7f2c3c4`, pushed)**. Lighthouse mobile: **73 Performance / 96 Accessibility / 100 Best Practices / 100 SEO / 3-3 Agentic Browsing** (video LCP accepted by decision). Remaining: redeploy the current build to `soleva.the-corner.io` (prod was a 2-week-old build, 43→~73 expected), verify Range support on the prod server (Safari/Firefox video), client data (email/IDE).
+
 Website of **Soleva** - ASSOCIATION SOLEVA (Renens VD, Suisse). Soleva transforms an
 old van into a solar-powered electric camper: a Swiss demonstrator of sustainable
 mobility, retrofit and solar energy.

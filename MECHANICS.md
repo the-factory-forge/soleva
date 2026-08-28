@@ -1,10 +1,11 @@
 # MECHANICS — factory-forge/soleva
 
-> **Repo** : factory-forge/soleva (client site) · **Branch** : fix/validation-learnings (learnings batch applied; merge into fix/site-parity then main) · **Locales** : fr/en/de/it · **Analytics** : Strict scripts mechanics ready, IDs empty (inactive).
+> **Repo** : factory-forge/soleva (client site) · **Branch** : main (fix/validation-learnings merged 28.08.2026, `7f2c3c4`, pushed) · **Locales** : fr/en/de/it · **Analytics** : Strict scripts mechanics ready, IDs empty (inactive).
 > Parity batch applied 27.08.2026 (accordion keyframes, reveal, immutable cache, latin fonts + preloads, real og:image, Analytics Strict scripts, JSON-LD E.164, footer attribution forge).
+> Validation + perf session 28.08.2026 (hero video 62MB re-encoded to 720p/480p autoplay + poster frame-0, lightbox portal, crash fix (React icons never in loaderData - Seroval), i18n a-propos/voyage/soutenir x4, dict back in stream (L1 reverted - double hydration cost TTI), lang/mobile menus load on first open, fonts preloads 400/800, llms forge credit, JSON-LD geo+E.164, stable keys, dead components removed). **Lighthouse mobile: 73 Perf / 96 A11y / 100 BP / 100 SEO / 3-3 Agentic** (video LCP accepted by decision - hero autoplay).
 
 > **Legend** : ✅ present · ⚠️ partial · ⏳ pending · ➖ absent · N/A not applicable (by decision)
-> **Last update** : 27.08.2026
+> **Last update** : 28.08.2026
 
 ## 1. Changelog (Next.js → today)
 
@@ -70,7 +71,7 @@
 | Performance | Cache headers /images/** (7d) | Site photos | vite.config.ts routeRules | ✅ |  |
 | Performance | Cache headers /assets/** (1y immutable) | Hashed bundles | vite.config.ts routeRules | ✅ |  |
 | Performance | Font subsetting (latin-only) | @fontsource latin-* imports | src/styles.css | ✅ |  |
-| Performance | Font preloads (woff2) | 400/500/600/800 preload links (faces used above the fold incl. LCP h1 extrabold) | src/routes/__root.tsx | ✅ |  |
+| Performance | Font preloads (woff2) | 400/800 preload links (body + LCP h1 extrabold; 500/600/700 load on demand) | src/routes/__root.tsx | ✅ |  |
 | Performance | Responsive images (srcset) | 480/800/1200 webp variants, native-width candidate | scripts/generate-image-variants.mjs | ✅ |  |
 | Performance | Quality convention (480 q90 / >480 q80) | Variant generator defaults | scripts/generate-image-variants.mjs | ✅ |  |
 | Performance | Lazy images by default | loading=lazy unless priority (LCP) | src/components/ui/image.tsx | ✅ |  |
@@ -80,6 +81,7 @@
 | Performance | Hydration-safe animations (SSR-visible) | initial hidden only after hydration - LCP visible without JS | src/components/ui/animations.tsx | ✅ |  |
 | Performance | LCP-safe hero entrance (contentful at frame 1) | CSS keyframes with opacity 0.01 start - text is a contentful candidate at first paint | src/styles.css + home/habitat heroes | ✅ |  |
 | Performance | Below-fold animation chunk lazy-loaded | motion chunk not modulepreloaded - loads dynamically after hydration | animations-lazy + sections/home-hero | ✅ |  |
+| Performance | Hero video (autoplay, re-encoded) | 62MB -> 720p (13MB) + 480p (5.7MB) mp4, <source media> per viewport; poster = frame 0 (ffmpeg -ss 0.15); video painted above poster img (positioned) | src/components/home/home-hero.tsx | ✅ | LCP = video on autoplay (score trade-off accepted 28.08); SERVER MUST SUPPORT Range (200 full body = Safari/FF fail - verify at deploy) |
 | Performance | Context-aware image sizes (sizes attr) | sizes per layout context - no 100vw over-download of originals | routes + ui/image | ✅ | Video hero exempt (poster is static, no srcset) |
 | Performance | Route-level code splitting | Per-route + per-locale chunks | vite (rolldown) | ✅ |  |
 | Performance | TanStack Query caching | staleTime 2min, SSR dedupe | src/router.tsx | ✅ |  |
