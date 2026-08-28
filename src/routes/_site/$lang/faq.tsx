@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { faqs } from "@/lib/data/faqs";
-import { getDictionary, t } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -16,25 +17,28 @@ import { metadataToHead } from "@/lib/seo/head";
 export const Route = createFileRoute("/_site/$lang/faq")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    const dict = await getDictionary(locale);
-    return { locale, dict };
+    await ensureDictionary(locale);
+    return { locale };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${loaderData.dict.meta.faq.title} | ${SITE_NAME}`,
-        description: loaderData.dict.meta.faq.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.faq.title} | ${SITE_NAME}`,
+        description: dict.meta.faq.description,
         path: "/faq",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
       }),
-    ),
+    );
+  },
   component: FaqPage,
 });
 
 function FaqPage() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const dict = useDictionary(locale);
   const fq = dict.faq;
 
   const jsonLdItems = faqs.map((f) => ({

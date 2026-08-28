@@ -1,4 +1,4 @@
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { KEY_FIGURES } from "@/lib/constants";
 import type { Dictionary } from "@/lib/i18n";

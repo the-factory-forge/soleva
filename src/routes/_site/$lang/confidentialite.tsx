@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
-import { getDictionary, t } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -11,26 +12,29 @@ import { metadataToHead } from "@/lib/seo/head";
 export const Route = createFileRoute("/_site/$lang/confidentialite")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    const dict = await getDictionary(locale);
-    return { locale, dict };
+    await ensureDictionary(locale);
+    return { locale };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${loaderData.dict.meta.privacy.title} | ${SITE_NAME}`,
-        description: loaderData.dict.meta.privacy.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.privacy.title} | ${SITE_NAME}`,
+        description: dict.meta.privacy.description,
         path: "/confidentialite",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
         noIndex: true,
       }),
-    ),
+    );
+  },
   component: PrivacyPage,
 });
 
 function PrivacyPage() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const dict = useDictionary(locale);
   const p = dict.privacy;
 
   const sections = [
@@ -56,8 +60,8 @@ function PrivacyPage() {
       <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="mx-auto flex max-w-3xl flex-col gap-8">
-            {sections.map((s) => (
-              <div key={s.title}>
+            {sections.map((s, i) => (
+              <div key={i}>
                 <h2 className="font-heading text-xl font-bold">{s.title}</h2>
                 <p className="mt-2 leading-relaxed whitespace-pre-line text-muted-foreground">
                   {s.body}

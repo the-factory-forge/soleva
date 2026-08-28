@@ -4,7 +4,7 @@ import { Mail, MapPin, Share2 } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT, SOCIALS, SITE_NAME, SITE_URL } from "@/lib/constants";
-import { getDictionary } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -14,25 +14,28 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/_site/$lang/contact")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    const dict = await getDictionary(locale);
-    return { locale, dict };
+    await ensureDictionary(locale);
+    return { locale };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${loaderData.dict.meta.contact.title} | ${SITE_NAME}`,
-        description: loaderData.dict.meta.contact.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.contact.title} | ${SITE_NAME}`,
+        description: dict.meta.contact.description,
         path: "/contact",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
       }),
-    ),
+    );
+  },
   component: ContactPage,
 });
 
 function ContactPage() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const dict = useDictionary(locale);
   const t = dict.contact;
 
   return (

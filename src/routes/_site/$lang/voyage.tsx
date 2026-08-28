@@ -7,12 +7,12 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { TourMap } from "@/components/voyage/tour-map";
 import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { POLAR_STEPS_URL, pastEvents } from "@/lib/data/events";
-import { getDictionary } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -23,25 +23,28 @@ const STOPS = ["Lausanne", "Genève", "Sion", "Lugano", "Davos", "Zürich", "Bas
 export const Route = createFileRoute("/_site/$lang/voyage")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    const dict = await getDictionary(locale);
-    return { locale, dict };
+    await ensureDictionary(locale);
+    return { locale };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${loaderData.dict.meta.voyage.title} | ${SITE_NAME}`,
-        description: loaderData.dict.meta.voyage.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.voyage.title} | ${SITE_NAME}`,
+        description: dict.meta.voyage.description,
         path: "/voyage",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
       }),
-    ),
+    );
+  },
   component: VoyagePage,
 });
 
 function VoyagePage() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const dict = useDictionary(locale);
   const t = dict.voyage;
 
   return (
@@ -145,7 +148,7 @@ function VoyagePage() {
           <SectionHeading title={t.polar_title} subtitle={t.polar_body} />
           <div className="mx-auto mt-8 max-w-2xl rounded-3xl border border-border bg-card p-8">
             <p className="leading-relaxed text-muted-foreground">
-              Retrouvez le suivi en direct sur{" "}
+              {t.polar_tracking_before}{" "}
               <a
                 href={POLAR_STEPS_URL}
                 target="_blank"
@@ -154,8 +157,7 @@ function VoyagePage() {
               >
                 Polar Steps
               </a>
-              . L'application mobile permet de suivre la position du van en temps réel pendant le
-              tour.
+              {t.polar_tracking_after}
             </p>
           </div>
         </div>
@@ -164,10 +166,7 @@ function VoyagePage() {
       {/* Tour Map */}
       <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding text-center">
-          <SectionHeading
-            title="Carte du tour"
-            subtitle="De Lausanne à Zurich, en passant par Davos, Lugano et Sion."
-          />
+          <SectionHeading title={t.map_title} subtitle={t.map_subtitle} />
           <div className="mx-auto mt-8 max-w-4xl">
             <TourMap />
           </div>

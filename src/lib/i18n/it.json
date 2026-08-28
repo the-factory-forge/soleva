@@ -189,7 +189,11 @@
     "events_title": "Eventi passati",
     "events_cta": "Hai in mente un evento? Invita Soleva!",
     "polar_title": "Segui il viaggio in diretta",
-    "polar_body": "Segui il tour di Soleva in tempo reale tramite Polar Steps."
+    "polar_body": "Segui il tour di Soleva in tempo reale tramite Polar Steps.",
+    "polar_tracking_before": "Segui il tracciamento in diretta su",
+    "polar_tracking_after": ". L'app mobile consente di seguire la posizione del van in tempo reale durante il tour.",
+    "map_title": "Mappa del tour",
+    "map_subtitle": "Da Losanna a Zurigo, passando per Davos, Lugano e Sion."
   },
   "support": {
     "hero": {
@@ -236,7 +240,8 @@
     "sponsor_tiers_subtitle": "Tre modi per associarsi al progetto Soleva e guadagnare visibilità.",
     "sponsor_cta": "Discuti una sponsorizzazione",
     "sponsor_features": "Vantaggi",
-    "qr_alt": "Codice QR per una donazione bancaria a Soleva"
+    "qr_alt": "Codice QR per una donazione bancaria a Soleva",
+    "scan_to_pay": "Scansiona per pagare"
   },
   "about": {
     "hero": {
@@ -258,7 +263,31 @@
     "mentors_title": "Mentori e consulenti esterni",
     "press_title": "Soleva nei media",
     "press_subtitle": "Copertura mediatica nazionale in Svizzera e oltre.",
-    "timeline_alt": "Roadmap di Soleva"
+    "timeline_alt": "Roadmap di Soleva",
+    "teamRoles": {
+      "curdin": "CEO e cofondatore",
+      "matthieu": "CTO, cofondatore, integrazione meccanica",
+      "max": "Tesoriere, gestione batterie",
+      "tobia": "Cofondatore, integrazione solare",
+      "sara": "Cofondatrice, comunicazione e habitat",
+      "sevane": "Cofondatrice, questioni legali",
+      "lucanael": "Capo progetto integrazione meccanica",
+      "roman": "Capo progetto elettrificazione",
+      "nicola": "Costruzione habitat sostenibile"
+    },
+    "mentorRoles": {
+      "marc": "Fondatore ICARE, Presidente Impact Living",
+      "andre": "Docente-ricercatore EPFL, motori elettrici",
+      "louis": "Fondatore SolarTaxi, SolarButterfly, WAVE",
+      "werner": "HTW Berlin, Advanced Automotive Concepts"
+    },
+    "pressTypes": {
+      "tvNational": "TV nazionale",
+      "pressWritten": "Stampa",
+      "tvRegional": "TV regionale",
+      "radioNational": "Radio nazionale",
+      "radio": "Radio"
+    }
   },
   "contact": {
     "hero": {

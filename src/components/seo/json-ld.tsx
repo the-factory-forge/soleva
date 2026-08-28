@@ -19,7 +19,12 @@ export function OrganizationJsonLd({ locale, dict }: { locale: Locale; dict: Dic
       addressRegion: CONTACT.address.canton,
       addressCountry: "CH",
     },
-    telephone: CONTACT.phone,
+    telephone: `+41${CONTACT.phone.replace(/[^\d]/g, "")}`,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: CONTACT.geo.latitude,
+      longitude: CONTACT.geo.longitude,
+    },
     foundingLocation: {
       "@type": "Place",
       address: {

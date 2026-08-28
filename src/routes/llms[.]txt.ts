@@ -39,6 +39,9 @@ export const Route = createFileRoute("/llms.txt")({
           "",
           "## Sitemap",
           `- [Sitemap](${SITE_URL}/sitemap.xml)`,
+          "",
+          "## Credits",
+          `- Built by The Corner Factory — [the-corner.io/portfolio/forge](https://the-corner.io/portfolio/forge)`,
         ];
 
         return new Response(lines.join("\n"), {

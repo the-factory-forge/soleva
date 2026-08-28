@@ -7,11 +7,12 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
-import { getDictionary, t } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -23,10 +24,11 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
     const slug = location.pathname.split("/")[3] ?? "";
     const service = getServiceBySlug(slug);
     if (!service) throw notFound();
-    const dict = await getDictionary(locale);
-    return { locale, dict, slug, service };
+    await ensureDictionary(locale);
+    return { locale, slug, service };
   },
-  head: ({ loaderData }) => {
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
     const { locale, service } = loaderData;
     const content = service.content[locale];
     return metadataToHead(

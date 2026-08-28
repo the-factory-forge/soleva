@@ -5,7 +5,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import {
   IMAGES,
   MENTOR_PHOTOS,
@@ -15,7 +15,8 @@ import {
   srcSetFor,
   TEAM_PHOTOS,
 } from "@/lib/constants";
-import { getDictionary, t } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -24,54 +25,54 @@ import { metadataToHead } from "@/lib/seo/head";
 const TEAM_MEMBERS = [
   {
     name: "Curdin Wüthrich",
-    role: "CEO et co-fondateur",
+    roleKey: "curdin",
     email: "curdin.wuethrich@soleva.org",
     photo: TEAM_PHOTOS["Curdin Wüthrich"],
   },
   {
     name: "Matthieu Bourgois",
-    role: "CTO, co-fondateur, intégration mécanique",
+    roleKey: "matthieu",
     email: "matthieu.bourgois@soleva.org",
     photo: TEAM_PHOTOS["Matthieu Bourgois"],
   },
   {
     name: "Max Chevron",
-    role: "Trésorier, gestion batteries",
+    roleKey: "max",
     email: "max.chevron@soleva.org",
     photo: TEAM_PHOTOS["Max Chevron"],
   },
   {
     name: "Tobia Wyss",
-    role: "Co-fondateur, intégration solaire",
+    roleKey: "tobia",
     email: "tobia.wyss@soleva.org",
     photo: TEAM_PHOTOS["Tobia Wyss"],
   },
   {
     name: "Sara Bossuyt",
-    role: "Co-fondatrice, communication et habitat",
+    roleKey: "sara",
     email: "sara.bossuyt@soleva.org",
     photo: TEAM_PHOTOS["Sara Bossuyt"],
   },
   {
     name: "Sévane Bercher",
-    role: "Co-fondatrice, juridique",
+    roleKey: "sevane",
     email: "sevane.bercher@soleva.org",
     photo: TEAM_PHOTOS["Sévane Bercher"],
   },
   {
     name: "Lucanaël Kopf",
-    role: "Chef de projet intégration mécanique",
+    roleKey: "lucanael",
     photo: TEAM_PHOTOS["Lucanaël Kopf"],
   },
   {
     name: "Roman Schmitz",
-    role: "Chef de projet électrification",
+    roleKey: "roman",
     email: "roman.schmitz@soleva.org",
     photo: TEAM_PHOTOS["Roman Schmitz"],
   },
   {
     name: "Nicola Offeddu",
-    role: "Construction habitat durable",
+    roleKey: "nicola",
     photo: TEAM_PHOTOS["Nicola Offeddu"],
   },
 ];
@@ -79,22 +80,22 @@ const TEAM_MEMBERS = [
 const MENTORS = [
   {
     name: "Marc Müller",
-    role: "Fondateur ICARE, Président Impact Living",
+    roleKey: "marc",
     photo: MENTOR_PHOTOS["Marc Müller"],
   },
   {
     name: "André Hodder",
-    role: "Enseignant-chercheur EPFL, moteurs électriques",
+    roleKey: "andre",
     photo: MENTOR_PHOTOS["André Hodder"],
   },
   {
     name: "Louis Palmer",
-    role: "Fondateur SolarTaxi, SolarButterfly, WAVE",
+    roleKey: "louis",
     photo: MENTOR_PHOTOS["Louis Palmer"],
   },
   {
     name: "Prof. Dr. Werner Stednitz",
-    role: "HTW Berlin, Advanced Automotive Concepts",
+    roleKey: "werner",
     photo: MENTOR_PHOTOS["Prof. Dr. Werner Stednitz"],
   },
 ];
@@ -102,57 +103,56 @@ const MENTORS = [
 const PRESS_ITEMS = [
   {
     media: "RTS 19h30",
-    type: "TV nationale",
+    typeKey: "tvNational",
     date: "23.06.2024",
     lang: "FR",
     logo: PRESS_LOGOS["RTS 19h30"],
   },
   {
     media: "SRF Schweiz Aktuell",
-    type: "TV nationale",
+    typeKey: "tvNational",
     date: "29.08.2024",
     lang: "DE",
     logo: PRESS_LOGOS["SRF Schweiz Aktuell"],
   },
   {
-    media: "RSI Telegiornale",
-    type: "TV nationale",
-    date: "13.07.2024",
-    lang: "IT",
-    logo: PRESS_LOGOS["RSI Telegiornale"],
-  },
-  {
     media: "24Heures",
-    type: "Presse écrite",
+    typeKey: "pressWritten",
     date: "12.06.2024",
     lang: "FR",
     logo: PRESS_LOGOS["24Heures"],
   },
   {
     media: "Télé Vaud-Fribourg",
-    type: "TV régionale",
+    typeKey: "tvRegional",
     date: "06.04.2022",
     lang: "FR",
     logo: PRESS_LOGOS["Télé Vaud-Fribourg"],
   },
   {
     media: "RTS Radio Matinale",
-    type: "Radio nationale",
+    typeKey: "radioNational",
     date: "24.06.2022",
     lang: "FR",
     logo: PRESS_LOGOS["RTS Radio Matinale"],
   },
   {
     media: "Rouge FM",
-    type: "Radio",
+    typeKey: "radio",
     date: "30.06.2022",
     lang: "FR",
     logo: PRESS_LOGOS["Rouge FM"],
   },
-  { media: "LFM", type: "Radio", date: "06.03.2022", lang: "FR", logo: PRESS_LOGOS["LFM"] },
+  {
+    media: "LFM",
+    typeKey: "radio",
+    date: "06.03.2022",
+    lang: "FR",
+    logo: PRESS_LOGOS["LFM"],
+  },
   {
     media: "La Côte",
-    type: "Presse écrite",
+    typeKey: "pressWritten",
     date: "01.03.2022",
     lang: "FR",
     logo: PRESS_LOGOS["La Côte"],
@@ -162,25 +162,28 @@ const PRESS_ITEMS = [
 export const Route = createFileRoute("/_site/$lang/a-propos")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    const dict = await getDictionary(locale);
-    return { locale, dict };
+    await ensureDictionary(locale);
+    return { locale };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${loaderData.dict.meta.about.title} | ${SITE_NAME}`,
-        description: loaderData.dict.meta.about.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.about.title} | ${SITE_NAME}`,
+        description: dict.meta.about.description,
         path: "/a-propos",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
       }),
-    ),
+    );
+  },
   component: AboutPage,
 });
 
 function AboutPage() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const dict = useDictionary(locale);
   const a = dict.about;
 
   return (
@@ -303,7 +306,7 @@ function AboutPage() {
                   </div>
                   <h3 className="mt-4 font-heading text-lg font-semibold">{member.name}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    {member.role}
+                    {t(dict, `about.teamRoles.${member.roleKey}`)}
                   </p>
                   {member.email && (
                     <a
@@ -343,7 +346,7 @@ function AboutPage() {
                   </div>
                   <h3 className="mt-3 font-heading text-base font-semibold">{mentor.name}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    {mentor.role}
+                    {t(dict, `about.mentorRoles.${mentor.roleKey}`)}
                   </p>
                 </div>
               </Reveal>
@@ -377,7 +380,9 @@ function AboutPage() {
                     />
                   </div>
                   <span className="font-heading text-xs font-bold">{item.media}</span>
-                  <span className="text-xs text-muted-foreground">{item.type}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {t(dict, `about.pressTypes.${item.typeKey}`)}
+                  </span>
                   <span className="text-xs text-muted-foreground/70">
                     {item.date} · {item.lang}
                   </span>

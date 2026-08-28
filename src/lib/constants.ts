@@ -48,7 +48,6 @@ export const SITE = {
 // All images served locally (migrated from Megaphone CDN - June 2026).
 export const IMAGES = {
   hero: "/images/hero.webp",
-  heroVideo: "/images/hero-video.mp4",
   videoPoster: "/images/video-poster.webp",
   vanExterior: "/images/van-exterior.webp",
   vanInterior: "/images/van-interior.webp",

@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 
 import { Link } from "@/components/ui/link";
 import { loadGtag } from "@/lib/analytics";
+import { COOKIE_CONSENT_KEY } from "@/lib/constants";
 import type { Dictionary } from "@/lib/i18n";
 import { type Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/navigation";
@@ -92,7 +93,7 @@ export function CookieBanner({
 }: CookieBannerProps) {
   const [visible, setVisible] = useState(false);
   const [draft, setDraft] = useState<ConsentState>(DEFAULT_CONSENT);
-  const consentKey = "cookie-consent";
+  const consentKey = COOKIE_CONSENT_KEY;
 
   const evaluate = useCallback(() => {
     const stored = localStorage.getItem(consentKey);
@@ -166,7 +167,7 @@ export function CookieBanner({
             {dict.cookies.text}{" "}
             <Link
               href={withLocale(locale, "/confidentialite")}
-              className="font-semibold text-primary underline underline-offset-2"
+              className="font-medium text-primary underline underline-offset-2"
             >
               {dict.cookies.privacyLink}
             </Link>
@@ -182,7 +183,7 @@ export function CookieBanner({
                   className="mt-0.5 h-4 w-4 shrink-0 rounded accent-primary"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-foreground">
+                  <p className="text-sm font-medium text-foreground">
                     {dict.cookies.necessaryTitle}
                   </p>
                   <p className="text-xs text-muted-foreground">
@@ -200,7 +201,7 @@ export function CookieBanner({
                     className="mt-0.5 h-4 w-4 shrink-0 rounded accent-primary"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-foreground">
+                    <p className="text-sm font-medium text-foreground">
                       {dict.cookies.analyticsTitle}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -219,7 +220,7 @@ export function CookieBanner({
                     className="mt-0.5 h-4 w-4 shrink-0 rounded accent-primary"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-foreground">
+                    <p className="text-sm font-medium text-foreground">
                       {dict.cookies.marketingTitle}
                     </p>
                     <p className="text-xs text-muted-foreground">

@@ -10,10 +10,10 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { IMAGES, PARTNER_LOGOS, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { partnerCategories } from "@/lib/data/partners";
-import { getDictionary } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -38,25 +38,28 @@ const AWARDS_LOGO_MAP: Record<string, string> = {
 export const Route = createFileRoute("/_site/$lang/")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    const dict = await getDictionary(locale);
-    return { locale, dict };
+    await ensureDictionary(locale);
+    return { locale };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${loaderData.dict.meta.home.title} | ${SITE_NAME}`,
-        description: loaderData.dict.meta.home.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.home.title} | ${SITE_NAME}`,
+        description: dict.meta.home.description,
         path: "/",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
       }),
-    ),
+    );
+  },
   component: HomePage,
 });
 
 function HomePage() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const dict = useDictionary(locale);
 
   return (
     <>

@@ -6,11 +6,12 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { IMAGES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { services } from "@/lib/data/services";
-import { getDictionary, t } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -19,25 +20,28 @@ import { metadataToHead } from "@/lib/seo/head";
 export const Route = createFileRoute("/_site/$lang/le-van/")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    const dict = await getDictionary(locale);
-    return { locale, dict };
+    await ensureDictionary(locale);
+    return { locale };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${loaderData.dict.meta.van.title} | ${SITE_NAME}`,
-        description: loaderData.dict.meta.van.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.van.title} | ${SITE_NAME}`,
+        description: dict.meta.van.description,
         path: "/le-van",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
       }),
-    ),
+    );
+  },
   component: VanPage,
 });
 
 function VanPage() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const dict = useDictionary(locale);
 
   return (
     <>
@@ -86,9 +90,9 @@ function VanPage() {
                         {content.fullDescription}
                       </p>
                       <ul className="mt-6 flex flex-col gap-2">
-                        {content.features.slice(0, 4).map((feature) => (
+                        {content.features.slice(0, 4).map((feature, i) => (
                           <li
-                            key={feature}
+                            key={`feature-${i}`}
                             className="flex items-start gap-3 text-sm text-foreground/80"
                           >
                             <span

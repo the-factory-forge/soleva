@@ -2,7 +2,7 @@ import { Zap, Sun, Home, ArrowRight } from "lucide-react";
 
 import { Image } from "@/components/ui/image";
 import { Link } from "@/components/ui/link";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, srcSetFor } from "@/lib/constants";
 import type { Dictionary } from "@/lib/i18n";

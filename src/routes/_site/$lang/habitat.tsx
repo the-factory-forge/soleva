@@ -7,12 +7,13 @@ import { FaqJsonLd } from "@/components/seo/json-ld";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getServiceBySlug } from "@/lib/data/services";
-import { getDictionary, t } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
+import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -24,10 +25,11 @@ const DISCOVER_URL = SITE_URL;
 export const Route = createFileRoute("/_site/$lang/habitat")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    const dict = await getDictionary(locale);
-    return { locale, dict };
+    await ensureDictionary(locale);
+    return { locale };
   },
-  head: ({ loaderData }) => {
+  head: async ({ loaderData }) => {
+    const dict = await ensureDictionary(loaderData!.locale);
     const { locale } = loaderData;
     const c = habitatContent[locale];
     return metadataToHead(
@@ -46,7 +48,8 @@ export const Route = createFileRoute("/_site/$lang/habitat")({
 });
 
 function HabitatPage() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const dict = useDictionary(locale);
   const c = habitatContent[locale];
 
   return (
@@ -147,9 +150,9 @@ function HabitatPage() {
                   inverted
                 />
                 <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-                  {c.sustainability.items.map((item) => (
+                  {c.sustainability.items.map((item, i) => (
                     <li
-                      key={item}
+                      key={`item-${i}`}
                       className="flex items-start gap-3 text-sm leading-relaxed text-dark-foreground/85"
                     >
                       <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/25 text-secondary">
