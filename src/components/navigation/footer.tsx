@@ -108,14 +108,10 @@ export function Footer({
 
   const root = dark ? "bg-dark text-dark-foreground" : "border-t border-border bg-muted/50";
 
-  const colorClass = (
-    color: "accent" | "primary" | "primary-soft" | "secondary" | "foreground" | undefined,
-  ) =>
+  const colorClass = (color: "accent" | "primary" | "secondary" | "foreground" | undefined) =>
     color === "primary"
       ? "text-primary"
-      : color === "primary-soft"
-        ? "text-primary-soft"
-        : color === "secondary"
+      : color === "secondary"
         ? "text-secondary"
         : color === "foreground"
           ? "text-foreground"

@@ -61,7 +61,7 @@ function buildFooterProps(locale: Locale, dict: Dictionary) {
     },
     manageCookiesEvent: "soleva:open-cookie-settings",
     variant: "dark",
-    accentColor: "primary-soft",
+    accentColor: "primary",
   });
 }
 

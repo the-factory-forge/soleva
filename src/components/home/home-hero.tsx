@@ -1,6 +1,5 @@
 import { ArrowRight, Sun } from "lucide-react";
 
-import { HeroVideo } from "@/components/home/hero-video";
 import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { Link } from "@/components/ui/link";
@@ -23,10 +22,18 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
           className="h-full w-full object-cover"
           aria-hidden="true"
         />
-        <HeroVideo
-          srcDesktop="/images/hero-video-720p.mp4"
-          srcMobile="/images/hero-video-480p.mp4"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={IMAGES.videoPoster}
+          className="h-full w-full object-cover"
+        >
+          <source src="/images/hero-video-720p.mp4" type="video/mp4" media="(min-width: 1024px)" />
+          <source src="/images/hero-video-480p.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/70 to-dark/30" />
       </div>
 

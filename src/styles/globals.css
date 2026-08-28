@@ -16,7 +16,6 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
-  --color-primary-soft: var(--primary-soft);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -44,8 +43,7 @@
 
 :root {
   /* Solar orange - sun, energy, the Soleva brand */
-  --primary: #c94e15;
-  --primary-soft: #ff803e;
+  --primary: #ff803e;
   --primary-foreground: #ffffff;
 
   /* Deep teal - trust, technology, contrast to the warm sun */

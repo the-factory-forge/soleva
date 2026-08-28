@@ -124,9 +124,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                   className={cn(
                     "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                     parentActive
-                      ? onLight
-                        ? "text-primary"
-                        : "text-primary-soft"
+                      ? "text-primary"
                       : onLight
                         ? "text-foreground/80 hover:text-primary"
                         : "text-white/85 hover:text-white",

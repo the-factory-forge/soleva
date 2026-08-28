@@ -39,8 +39,8 @@ export interface FooterOptions {
   newsletter?: FooterProps["newsletter"];
   manageCookiesEvent?: string;
   variant?: "default" | "dark";
-  accentColor?: "accent" | "primary" | "primary-soft" | "secondary" | "foreground";
-  iconColor?: "accent" | "primary" | "primary-soft" | "secondary" | "foreground";
+  accentColor?: "accent" | "primary" | "secondary" | "foreground";
+  iconColor?: "accent" | "primary" | "secondary" | "foreground";
   /** Grouped color overrides (preferred over accentColor/iconColor). */
   colors?: FooterProps["colors"];
   className?: string;
