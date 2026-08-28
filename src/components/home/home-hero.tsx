@@ -24,7 +24,6 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
           aria-hidden="true"
         />
         <HeroVideo
-          poster={IMAGES.videoPoster}
           srcDesktop="/images/hero-video-720p.mp4"
           srcMobile="/images/hero-video-480p.mp4"
         />

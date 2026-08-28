@@ -25,15 +25,18 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
     const service = getServiceBySlug(slug);
     if (!service) throw notFound();
     await ensureDictionary(locale);
-    return { locale, slug, service };
+    // NOTE: never put `service` in loaderData - it contains React components
+    // (Lucide icons) that break Seroval serialization (Symbol(react.forward_ref)).
+    return { locale, slug };
   },
   head: async ({ loaderData }) => {
     const dict = await ensureDictionary(loaderData!.locale);
-    const { locale, service } = loaderData;
-    const content = service.content[locale];
+    const service = getServiceBySlug(loaderData!.slug);
+    if (!service) throw notFound();
+    const content = service.content[loaderData!.locale];
     return metadataToHead(
       buildMetadata({
-        locale,
+        locale: loaderData!.locale,
         title: `${content.title} | ${SITE_NAME}`,
         description: content.shortDescription,
         path: `/le-van/${service.slug}`,
@@ -46,7 +49,10 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
 });
 
 function ServiceDetailPage() {
-  const { locale, dict, slug, service } = Route.useLoaderData();
+  const { locale, slug } = Route.useLoaderData();
+  const dict = useDictionary(locale);
+  const service = getServiceBySlug(slug);
+  if (!service) throw notFound();
   const content = service.content[locale];
   const related = service.relatedServices
     .map((relSlug) => {
