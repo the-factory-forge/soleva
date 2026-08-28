@@ -20,29 +20,32 @@ export const Route = createFileRoute("/llms.txt")({
           "",
           "## Pages",
           ...STATIC_PATHS.map(
-            (path) => `- ${path === "" ? "Home" : path}: ${SITE_URL}/${defaultLocale}${path}`,
+            (path) => `- [${path === "" ? "Home" : path}](${SITE_URL}/${defaultLocale}${path})`,
           ),
           "",
           "## Services",
           ...services.map(
             (service) =>
-              `- ${service.content[defaultLocale].title}: ${SITE_URL}/${defaultLocale}/le-van/${service.slug} - ${service.content[defaultLocale].shortDescription}`,
+              `- [${service.content[defaultLocale].title}](${SITE_URL}/${defaultLocale}/le-van/${service.slug}) - ${service.content[defaultLocale].shortDescription}`,
           ),
           "",
           "## Languages",
-          ...locales.map((locale) => `- ${locale}: ${SITE_URL}/${locale}`),
+          ...locales.map((locale) => `- [${locale}](${SITE_URL}/${locale})`),
           "",
           "## Contact",
-          `- Website: ${SITE_URL}`,
-          `- Email: ${CONTACT.email}`,
-          `- Phone: ${CONTACT.phone}`,
+          `- [Website](${SITE_URL})`,
+          `- [Email](mailto:${CONTACT.email})`,
+          `- [Phone](tel:${CONTACT.phone.replace(/\s/g, "")})`,
           "",
           "## Sitemap",
-          `${SITE_URL}/sitemap.xml`,
+          `- [Sitemap](${SITE_URL}/sitemap.xml)`,
+          "",
+          "## Credits",
+          `- Built by The Corner Factory — [the-corner.io/portfolio/forge](https://the-corner.io/portfolio/forge)`,
         ];
 
         return new Response(lines.join("\n"), {
-          headers: { "Content-Type": "text/plain" },
+          headers: { "Content-Type": "text/plain; charset=utf-8" },
         });
       },
     },

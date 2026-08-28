@@ -189,7 +189,11 @@
     "events_title": "Événements passés",
     "events_cta": "Vous avez un événement en tête ? Invitez Soleva !",
     "polar_title": "Suivez le voyage en direct",
-    "polar_body": "Retrouvez le suivi en temps réel du tour de Soleva via Polar Steps."
+    "polar_body": "Retrouvez le suivi en temps réel du tour de Soleva via Polar Steps.",
+    "polar_tracking_before": "Retrouvez le suivi en direct sur",
+    "polar_tracking_after": ". L'application mobile permet de suivre la position du van en temps réel pendant le tour.",
+    "map_title": "Carte du tour",
+    "map_subtitle": "De Lausanne à Zurich, en passant par Davos, Lugano et Sion."
   },
   "support": {
     "hero": {
@@ -235,7 +239,9 @@
     "sponsor_tiers_title": "Formules de sponsoring",
     "sponsor_tiers_subtitle": "Trois formules pour vous associer au projet Soleva et gagner en visibilité.",
     "sponsor_cta": "Discuter d'un sponsoring",
-    "sponsor_features": "Avantages"
+    "sponsor_features": "Avantages",
+    "qr_alt": "QR Code pour don bancaire Soleva",
+    "scan_to_pay": "Scannez pour payer"
   },
   "about": {
     "hero": {
@@ -256,7 +262,32 @@
     "members_subtitle": "Une équipe d'ingénieurs et de passionnés, soutenue par des dizaines de bénévoles.",
     "mentors_title": "Tuteurs et conseillers externes",
     "press_title": "Soleva dans les médias",
-    "press_subtitle": "Une couverture médiatique nationale en Suisse et au-delà."
+    "press_subtitle": "Une couverture médiatique nationale en Suisse et au-delà.",
+    "timeline_alt": "Roadmap Soleva",
+    "teamRoles": {
+      "curdin": "CEO et co-fondateur",
+      "matthieu": "CTO, co-fondateur, intégration mécanique",
+      "max": "Trésorier, gestion batteries",
+      "tobia": "Co-fondateur, intégration solaire",
+      "sara": "Co-fondatrice, communication et habitat",
+      "sevane": "Co-fondatrice, juridique",
+      "lucanael": "Chef de projet intégration mécanique",
+      "roman": "Chef de projet électrification",
+      "nicola": "Construction habitat durable"
+    },
+    "mentorRoles": {
+      "marc": "Fondateur ICARE, Président Impact Living",
+      "andre": "Enseignant-chercheur EPFL, moteurs électriques",
+      "louis": "Fondateur SolarTaxi, SolarButterfly, WAVE",
+      "werner": "HTW Berlin, Advanced Automotive Concepts"
+    },
+    "pressTypes": {
+      "tvNational": "TV nationale",
+      "pressWritten": "Presse écrite",
+      "tvRegional": "TV régionale",
+      "radioNational": "Radio nationale",
+      "radio": "Radio"
+    }
   },
   "contact": {
     "hero": {
@@ -335,7 +366,8 @@
     "faq": "FAQ",
     "legal": "Mentions légales",
     "privacy": "Confidentialité",
-    "habitat": "Habitat"
+    "habitat": "Habitat",
+    "ariaLabel": "Fil d'ariane"
   },
   "footer": {
     "description": "Soleva transforme un ancien van en camper électrique alimenté par le soleil. Un démonstrateur suisse de mobilité durable.",

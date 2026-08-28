@@ -1,7 +1,7 @@
 export interface Event {
-  name: Record<"fr" | "en" | "de" | "it", string>
-  location: string
-  date: string
+  name: Record<"fr" | "en" | "de" | "it", string>;
+  location: string;
+  date: string;
 }
 
 export const pastEvents: Event[] = [
@@ -18,9 +18,9 @@ export const pastEvents: Event[] = [
   {
     name: {
       fr: "Vanlife Expo Grenoble (« Coup de cœur »)",
-      en: "Vanlife Expo Grenoble (\"Favourite\")",
-      de: "Vanlife Expo Grenoble („Coup de cœur\")",
-      it: "Vanlife Expo Grenoble (\"Coup de cœur\")",
+      en: 'Vanlife Expo Grenoble ("Favourite")',
+      de: 'Vanlife Expo Grenoble („Coup de cœur")',
+      it: 'Vanlife Expo Grenoble ("Coup de cœur")',
     },
     location: "Grenoble",
     date: "04-05.05.2024",
@@ -45,6 +45,6 @@ export const pastEvents: Event[] = [
     location: "Suisse",
     date: "11.2023",
   },
-]
+];
 
-export const POLAR_STEPS_URL = "https://www.polarsteps.com/Soleva"
+export const POLAR_STEPS_URL = "https://www.polarsteps.com/Soleva";

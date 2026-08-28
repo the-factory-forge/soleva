@@ -1,9 +1,9 @@
 export interface PressAppearance {
-  media: string
-  type: string
-  date: string
-  language: string
-  url?: string
+  media: string;
+  type: string;
+  date: string;
+  language: string;
+  url?: string;
 }
 
 export const pressAppearances: PressAppearance[] = [
@@ -16,4 +16,4 @@ export const pressAppearances: PressAppearance[] = [
   { media: "Rouge FM", type: "Radio", date: "30.06.2022", language: "FR" },
   { media: "LFM", type: "Radio", date: "06.03.2022", language: "FR" },
   { media: "La Côte", type: "Presse écrite", date: "01.03.2022", language: "FR" },
-]
+];

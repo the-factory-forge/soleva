@@ -9,7 +9,8 @@ const config = {
   prefix: "src/",
   // Map registry item -> actual file path on this site (for divergent layouts).
   overrides: {},
-  // Items to skip (dictionaries and template-only providers).
+  // Items to skip (dictionaries, template-only providers, and site-customized
+  // files that the pull would otherwise clobber - see AGENTS.md clobber protocol).
   skip: new Set([
     "i18n-engine",
     "theme-presets",
@@ -18,6 +19,12 @@ const config = {
     "font-presets",
     "font-provider",
     "font-switcher",
+    // Site-customized (restored after pull - detected via the CUSTOM grep).
+    "navbar",
+    "footer-helpers",
+    "build-metadata",
+    // ui-shims is ALWAYS site-owned (framework re-exports).
+    "ui-shims",
   ]),
 };
 

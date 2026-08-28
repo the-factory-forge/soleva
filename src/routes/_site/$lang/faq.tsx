@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { faqs } from "@/lib/data/faqs";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -19,17 +19,19 @@ export const Route = createFileRoute("/_site/$lang/faq")({
     const dict = await getDictionary(locale);
     return { locale, dict };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.faq.title } | ${SITE_NAME}`,
-        description: loaderData.dict.meta.faq.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.faq.title} | ${SITE_NAME}`,
+        description: dict.meta.faq.description,
         path: "/faq",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
       }),
-    ),
+    );
+  },
   component: FaqPage,
 });
 
@@ -46,6 +48,7 @@ function FaqPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={t(dict, "breadcrumb.ariaLabel")}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.faq, href: "/faq" }]}
         eyebrow={fq.hero.eyebrow}
@@ -55,7 +58,7 @@ function FaqPage() {
 
       <FaqJsonLd items={jsonLdItems} />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="mx-auto max-w-3xl">
             <FaqList locale={locale} categoryLabels={fq.categories} />
@@ -63,7 +66,7 @@ function FaqPage() {
         </div>
       </section>
 
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">{fq.cta.title}</h2>

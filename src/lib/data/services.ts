@@ -1,35 +1,36 @@
-import { Sun, Zap, type LucideIcon } from "lucide-react"
-import type { Locale } from "@/lib/i18n/config"
-import { IMAGES } from "@/lib/constants"
+import { Sun, Zap, type LucideIcon } from "lucide-react";
+
+import { IMAGES } from "@/lib/constants";
+import type { Locale } from "@/lib/i18n/config";
 
 export interface ServiceProcessStep {
-  step: number
-  title: string
-  description: string
+  step: number;
+  title: string;
+  description: string;
 }
 
 export interface ServiceFAQ {
-  question: string
-  answer: string
+  question: string;
+  answer: string;
 }
 
 export interface ServiceContent {
-  title: string
-  shortTitle: string
-  shortDescription: string
-  fullDescription: string
-  features: string[]
-  process: ServiceProcessStep[]
-  faqs: ServiceFAQ[]
+  title: string;
+  shortTitle: string;
+  shortDescription: string;
+  fullDescription: string;
+  features: string[];
+  process: ServiceProcessStep[];
+  faqs: ServiceFAQ[];
 }
 
 export interface Service {
-  slug: string
-  icon: LucideIcon
-  heroImage: string
-  relatedServices: string[]
-  seoKeywords: string[]
-  content: Record<Locale, ServiceContent>
+  slug: string;
+  icon: LucideIcon;
+  heroImage: string;
+  relatedServices: string[];
+  seoKeywords: string[];
+  content: Record<Locale, ServiceContent>;
 }
 
 // IMPORTANT: All technical figures below are estimates and MUST be validated by
@@ -63,15 +64,47 @@ export const services: Service[] = [
           "Réduction de l'empreinte carbone de 80% vs camping-car diesel neuf",
         ],
         process: [
-          { step: 1, title: "Démontage", description: "Retrait du moteur essence, du réservoir et des composants thermiques du Peugeot J9 d'origine." },
-          { step: 2, title: "Intégration électrique", description: "Installation du moteur électrique, des batteries, du convertisseur et du système de gestion énergétique." },
-          { step: 3, title: "Tests et sécurité", description: "Tests de sécurité électrique, calibration et vérification de l'ensemble du système." },
-          { step: 4, title: "Homologation", description: "Certification route et immatriculation du véhicule converti." },
+          {
+            step: 1,
+            title: "Démontage",
+            description:
+              "Retrait du moteur essence, du réservoir et des composants thermiques du Peugeot J9 d'origine.",
+          },
+          {
+            step: 2,
+            title: "Intégration électrique",
+            description:
+              "Installation du moteur électrique, des batteries, du convertisseur et du système de gestion énergétique.",
+          },
+          {
+            step: 3,
+            title: "Tests et sécurité",
+            description:
+              "Tests de sécurité électrique, calibration et vérification de l'ensemble du système.",
+          },
+          {
+            step: 4,
+            title: "Homologation",
+            description: "Certification route et immatriculation du véhicule converti.",
+          },
         ],
         faqs: [
-          { question: "Pourquoi convertir un ancien van plutôt qu'acheter un véhicule électrique neuf ?", answer: "Le retrofit permet de réutiliser un véhicule existant, d'éviter l'impact environnemental de la fabrication d'un véhicule neuf et de prolonger la durée de vie de ressources déjà produites. C'est une approche circulaire et concrète." },
-          { question: "Quelle est l'autonomie du van ?", answer: "L'autonomie estimée est d'environ 250 km grâce aux batteries, avec la possibilité de recharger via les panneaux solaires embarqués ou des bornes de recharge." },
-          { question: "Le van est-il homologué pour la route ?", answer: "Oui. Le véhicule a passé les tests de sécurité électrique et a été certifié pour la circulation routière en Suisse." },
+          {
+            question:
+              "Pourquoi convertir un ancien van plutôt qu'acheter un véhicule électrique neuf ?",
+            answer:
+              "Le retrofit permet de réutiliser un véhicule existant, d'éviter l'impact environnemental de la fabrication d'un véhicule neuf et de prolonger la durée de vie de ressources déjà produites. C'est une approche circulaire et concrète.",
+          },
+          {
+            question: "Quelle est l'autonomie du van ?",
+            answer:
+              "L'autonomie estimée est d'environ 250 km grâce aux batteries, avec la possibilité de recharger via les panneaux solaires embarqués ou des bornes de recharge.",
+          },
+          {
+            question: "Le van est-il homologué pour la route ?",
+            answer:
+              "Oui. Le véhicule a passé les tests de sécurité électrique et a été certifié pour la circulation routière en Suisse.",
+          },
         ],
       },
       en: {
@@ -90,15 +123,46 @@ export const services: Service[] = [
           "80% lower carbon footprint vs a new diesel campervan",
         ],
         process: [
-          { step: 1, title: "Disassembly", description: "Removing the petrol engine, the tank and the combustion components of the original Peugeot J9." },
-          { step: 2, title: "Electric integration", description: "Installing the electric motor, batteries, converter and energy management system." },
-          { step: 3, title: "Tests and safety", description: "Electrical safety tests, calibration and verification of the entire system." },
-          { step: 4, title: "Homologation", description: "Road certification and registration of the converted vehicle." },
+          {
+            step: 1,
+            title: "Disassembly",
+            description:
+              "Removing the petrol engine, the tank and the combustion components of the original Peugeot J9.",
+          },
+          {
+            step: 2,
+            title: "Electric integration",
+            description:
+              "Installing the electric motor, batteries, converter and energy management system.",
+          },
+          {
+            step: 3,
+            title: "Tests and safety",
+            description:
+              "Electrical safety tests, calibration and verification of the entire system.",
+          },
+          {
+            step: 4,
+            title: "Homologation",
+            description: "Road certification and registration of the converted vehicle.",
+          },
         ],
         faqs: [
-          { question: "Why convert an old van instead of buying a new electric vehicle?", answer: "Retrofit reuses an existing vehicle, avoids the environmental impact of manufacturing a new one and extends the life of resources already produced. It is a concrete, circular approach." },
-          { question: "What is the range of the van?", answer: "The estimated range is around 250 km thanks to the batteries, with the possibility of recharging via the on-board solar panels or charging stations." },
-          { question: "Is the van road-legal?", answer: "Yes. The vehicle has passed electrical safety tests and has been certified for road use in Switzerland." },
+          {
+            question: "Why convert an old van instead of buying a new electric vehicle?",
+            answer:
+              "Retrofit reuses an existing vehicle, avoids the environmental impact of manufacturing a new one and extends the life of resources already produced. It is a concrete, circular approach.",
+          },
+          {
+            question: "What is the range of the van?",
+            answer:
+              "The estimated range is around 250 km thanks to the batteries, with the possibility of recharging via the on-board solar panels or charging stations.",
+          },
+          {
+            question: "Is the van road-legal?",
+            answer:
+              "Yes. The vehicle has passed electrical safety tests and has been certified for road use in Switzerland.",
+          },
         ],
       },
       de: {
@@ -117,15 +181,46 @@ export const services: Service[] = [
           "80% kleinerer CO₂-Fussabdruck als ein neuer Diesel-Camper",
         ],
         process: [
-          { step: 1, title: "Demontage", description: "Entfernung des Benzinmotors, des Tanks und der Verbrennungskomponenten des originalen Peugeot J9." },
-          { step: 2, title: "Elektrische Integration", description: "Einbau des Elektromotors, der Batterien, des Konverters und des Energiemanagementsystems." },
-          { step: 3, title: "Tests und Sicherheit", description: "Elektrische Sicherheitstests, Kalibrierung und Überprüfung des gesamten Systems." },
-          { step: 4, title: "Zulassung", description: "Strassenzertifizierung und Zulassung des umgebauten Fahrzeugs." },
+          {
+            step: 1,
+            title: "Demontage",
+            description:
+              "Entfernung des Benzinmotors, des Tanks und der Verbrennungskomponenten des originalen Peugeot J9.",
+          },
+          {
+            step: 2,
+            title: "Elektrische Integration",
+            description:
+              "Einbau des Elektromotors, der Batterien, des Konverters und des Energiemanagementsystems.",
+          },
+          {
+            step: 3,
+            title: "Tests und Sicherheit",
+            description:
+              "Elektrische Sicherheitstests, Kalibrierung und Überprüfung des gesamten Systems.",
+          },
+          {
+            step: 4,
+            title: "Zulassung",
+            description: "Strassenzertifizierung und Zulassung des umgebauten Fahrzeugs.",
+          },
         ],
         faqs: [
-          { question: "Warum einen alten Van umbauen, statt ein neues Elektrofahrzeug zu kaufen?", answer: "Der Retrofit verwendet ein bestehendes Fahrzeug wieder, vermeidet die Umweltauswirkungen der Herstellung eines neuen und verlängert die Lebensdauer bereits produzierter Ressourcen. Ein konkreter, kreislauforientierter Ansatz." },
-          { question: "Wie hoch ist die Reichweite des Vans?", answer: "Die geschätzte Reichweite liegt dank der Batterien bei rund 250 km, mit der Möglichkeit, über die Solarmodule an Bord oder Ladestationen zu laden." },
-          { question: "Ist der Van strassenzugelassen?", answer: "Ja. Das Fahrzeug hat die elektrischen Sicherheitstests bestanden und wurde für den Strassenverkehr in der Schweiz zertifiziert." },
+          {
+            question: "Warum einen alten Van umbauen, statt ein neues Elektrofahrzeug zu kaufen?",
+            answer:
+              "Der Retrofit verwendet ein bestehendes Fahrzeug wieder, vermeidet die Umweltauswirkungen der Herstellung eines neuen und verlängert die Lebensdauer bereits produzierter Ressourcen. Ein konkreter, kreislauforientierter Ansatz.",
+          },
+          {
+            question: "Wie hoch ist die Reichweite des Vans?",
+            answer:
+              "Die geschätzte Reichweite liegt dank der Batterien bei rund 250 km, mit der Möglichkeit, über die Solarmodule an Bord oder Ladestationen zu laden.",
+          },
+          {
+            question: "Ist der Van strassenzugelassen?",
+            answer:
+              "Ja. Das Fahrzeug hat die elektrischen Sicherheitstests bestanden und wurde für den Strassenverkehr in der Schweiz zertifiziert.",
+          },
         ],
       },
       it: {
@@ -144,15 +239,47 @@ export const services: Service[] = [
           "80% in meno di impronta di carbonio rispetto a un camper diesel nuovo",
         ],
         process: [
-          { step: 1, title: "Smontaggio", description: "Rimozione del motore a benzina, del serbatoio e dei componenti a combustione del Peugeot J9 originale." },
-          { step: 2, title: "Integrazione elettrica", description: "Installazione del motore elettrico, delle batterie, del convertitore e del sistema di gestione energetica." },
-          { step: 3, title: "Test e sicurezza", description: "Test di sicurezza elettrica, calibrazione e verifica dell'intero sistema." },
-          { step: 4, title: "Omologazione", description: "Certificazione stradale e immatricolazione del veicolo convertito." },
+          {
+            step: 1,
+            title: "Smontaggio",
+            description:
+              "Rimozione del motore a benzina, del serbatoio e dei componenti a combustione del Peugeot J9 originale.",
+          },
+          {
+            step: 2,
+            title: "Integrazione elettrica",
+            description:
+              "Installazione del motore elettrico, delle batterie, del convertitore e del sistema di gestione energetica.",
+          },
+          {
+            step: 3,
+            title: "Test e sicurezza",
+            description:
+              "Test di sicurezza elettrica, calibrazione e verifica dell'intero sistema.",
+          },
+          {
+            step: 4,
+            title: "Omologazione",
+            description: "Certificazione stradale e immatricolazione del veicolo convertito.",
+          },
         ],
         faqs: [
-          { question: "Perché convertire un vecchio furgone invece di acquistare un veicolo elettrico nuovo?", answer: "Il retrofit riutilizza un veicolo esistente, evita l'impatto ambientale della fabbricazione di uno nuovo e prolunga la vita di risorse già prodotte. È un approccio concreto e circolare." },
-          { question: "Qual è l'autonomia del van?", answer: "L'autonomia stimata è di circa 250 km grazie alle batterie, con la possibilità di ricaricare tramite i pannelli solari a bordo o le colonnine di ricarica." },
-          { question: "Il van è omologato per la strada?", answer: "Sì. Il veicolo ha superato i test di sicurezza elettrica ed è stato certificato per la circolazione stradale in Svizzera." },
+          {
+            question:
+              "Perché convertire un vecchio furgone invece di acquistare un veicolo elettrico nuovo?",
+            answer:
+              "Il retrofit riutilizza un veicolo esistente, evita l'impatto ambientale della fabbricazione di uno nuovo e prolunga la vita di risorse già prodotte. È un approccio concreto e circolare.",
+          },
+          {
+            question: "Qual è l'autonomia del van?",
+            answer:
+              "L'autonomia stimata è di circa 250 km grazie alle batterie, con la possibilità di ricaricare tramite i pannelli solari a bordo o le colonnine di ricarica.",
+          },
+          {
+            question: "Il van è omologato per la strada?",
+            answer:
+              "Sì. Il veicolo ha superato i test di sicurezza elettrica ed è stato certificato per la circolazione stradale in Svizzera.",
+          },
         ],
       },
     },
@@ -186,15 +313,47 @@ export const services: Service[] = [
           "Convertisseur DC-DC BRUSA HyPower optimisant le flux panneaux → batterie",
         ],
         process: [
-          { step: 1, title: "Conception", description: "Développement de panneaux adaptés à la surface du toit, en collaboration avec le CSEM et l'EPFL PV-Lab." },
-          { step: 2, title: "Fabrication", description: "Production de modules légers en structure honeycomb, résistants aux intempéries, fabriqués en Suisse." },
-          { step: 3, title: "Intégration", description: "Installation du système déployable sur le toit du van avec mécanisme d'ajustement pour optimiser l'orientation." },
-          { step: 4, title: "Optimisation", description: "Calibration de la chaîne énergétique complète : panneaux → convertisseur → batterie → propulsion et habitat." },
+          {
+            step: 1,
+            title: "Conception",
+            description:
+              "Développement de panneaux adaptés à la surface du toit, en collaboration avec le CSEM et l'EPFL PV-Lab.",
+          },
+          {
+            step: 2,
+            title: "Fabrication",
+            description:
+              "Production de modules légers en structure honeycomb, résistants aux intempéries, fabriqués en Suisse.",
+          },
+          {
+            step: 3,
+            title: "Intégration",
+            description:
+              "Installation du système déployable sur le toit du van avec mécanisme d'ajustement pour optimiser l'orientation.",
+          },
+          {
+            step: 4,
+            title: "Optimisation",
+            description:
+              "Calibration de la chaîne énergétique complète : panneaux → convertisseur → batterie → propulsion et habitat.",
+          },
         ],
         faqs: [
-          { question: "Le van roule-t-il uniquement au solaire ?", answer: "L'objectif est de maximiser l'autonomie solaire. En conditions favorables, les panneaux fournissent jusqu'à 150 km de recharge par jour. Le van peut aussi être rechargé sur des bornes électriques classiques." },
-          { question: "Qui a développé les panneaux solaires ?", answer: "Les panneaux ont été développés par le CSEM (Centre suisse d'électronique et de microtechnique) en collaboration avec le PV-Lab de l'EPFL, deux institutions de référence en Suisse." },
-          { question: "Le système solaire peut-il être adapté à d'autres véhicules ?", answer: "C'est l'une des ambitions du projet : démontrer que cette technologie peut être transposée à d'autres véhicules utilitaires et de transport professionnel." },
+          {
+            question: "Le van roule-t-il uniquement au solaire ?",
+            answer:
+              "L'objectif est de maximiser l'autonomie solaire. En conditions favorables, les panneaux fournissent jusqu'à 150 km de recharge par jour. Le van peut aussi être rechargé sur des bornes électriques classiques.",
+          },
+          {
+            question: "Qui a développé les panneaux solaires ?",
+            answer:
+              "Les panneaux ont été développés par le CSEM (Centre suisse d'électronique et de microtechnique) en collaboration avec le PV-Lab de l'EPFL, deux institutions de référence en Suisse.",
+          },
+          {
+            question: "Le système solaire peut-il être adapté à d'autres véhicules ?",
+            answer:
+              "C'est l'une des ambitions du projet : démontrer que cette technologie peut être transposée à d'autres véhicules utilitaires et de transport professionnel.",
+          },
         ],
       },
       en: {
@@ -214,15 +373,47 @@ export const services: Service[] = [
           "BRUSA HyPower DC-DC converter optimizing the panels → battery flow",
         ],
         process: [
-          { step: 1, title: "Design", description: "Developing panels adapted to the roof surface, in collaboration with CSEM and the EPFL PV-Lab." },
-          { step: 2, title: "Manufacturing", description: "Producing lightweight honeycomb-structured modules, weather-resistant, made in Switzerland." },
-          { step: 3, title: "Integration", description: "Installing the deployable system on the van roof with an adjustment mechanism to optimize orientation." },
-          { step: 4, title: "Optimization", description: "Calibrating the complete energy chain: panels → converter → battery → propulsion and habitat." },
+          {
+            step: 1,
+            title: "Design",
+            description:
+              "Developing panels adapted to the roof surface, in collaboration with CSEM and the EPFL PV-Lab.",
+          },
+          {
+            step: 2,
+            title: "Manufacturing",
+            description:
+              "Producing lightweight honeycomb-structured modules, weather-resistant, made in Switzerland.",
+          },
+          {
+            step: 3,
+            title: "Integration",
+            description:
+              "Installing the deployable system on the van roof with an adjustment mechanism to optimize orientation.",
+          },
+          {
+            step: 4,
+            title: "Optimization",
+            description:
+              "Calibrating the complete energy chain: panels → converter → battery → propulsion and habitat.",
+          },
         ],
         faqs: [
-          { question: "Does the van run on solar power alone?", answer: "The goal is to maximize solar autonomy. In favorable conditions, the panels provide up to 150 km of charge per day. The van can also be recharged at standard charging stations." },
-          { question: "Who developed the solar panels?", answer: "The panels were developed by CSEM (Swiss Center for Electronics and Microtechnology) in collaboration with the EPFL PV-Lab, two leading institutions in Switzerland." },
-          { question: "Can the solar system be adapted to other vehicles?", answer: "That is one of the project's ambitions: to demonstrate that this technology can be transferred to other utility and professional transport vehicles." },
+          {
+            question: "Does the van run on solar power alone?",
+            answer:
+              "The goal is to maximize solar autonomy. In favorable conditions, the panels provide up to 150 km of charge per day. The van can also be recharged at standard charging stations.",
+          },
+          {
+            question: "Who developed the solar panels?",
+            answer:
+              "The panels were developed by CSEM (Swiss Center for Electronics and Microtechnology) in collaboration with the EPFL PV-Lab, two leading institutions in Switzerland.",
+          },
+          {
+            question: "Can the solar system be adapted to other vehicles?",
+            answer:
+              "That is one of the project's ambitions: to demonstrate that this technology can be transferred to other utility and professional transport vehicles.",
+          },
         ],
       },
       de: {
@@ -242,15 +433,47 @@ export const services: Service[] = [
           "BRUSA HyPower DC-DC-Konverter zur Optimierung des Flusses Module → Batterie",
         ],
         process: [
-          { step: 1, title: "Konzeption", description: "Entwicklung von an die Dachfläche angepassten Modulen, in Zusammenarbeit mit dem CSEM und dem EPFL PV-Lab." },
-          { step: 2, title: "Fertigung", description: "Produktion leichter Module in Wabenstruktur, witterungsbeständig, hergestellt in der Schweiz." },
-          { step: 3, title: "Integration", description: "Installation des ausfahrbaren Systems auf dem Van-Dach mit Verstellmechanismus zur Optimierung der Ausrichtung." },
-          { step: 4, title: "Optimierung", description: "Kalibrierung der gesamten Energiekette: Module → Konverter → Batterie → Antrieb und Wohnraum." },
+          {
+            step: 1,
+            title: "Konzeption",
+            description:
+              "Entwicklung von an die Dachfläche angepassten Modulen, in Zusammenarbeit mit dem CSEM und dem EPFL PV-Lab.",
+          },
+          {
+            step: 2,
+            title: "Fertigung",
+            description:
+              "Produktion leichter Module in Wabenstruktur, witterungsbeständig, hergestellt in der Schweiz.",
+          },
+          {
+            step: 3,
+            title: "Integration",
+            description:
+              "Installation des ausfahrbaren Systems auf dem Van-Dach mit Verstellmechanismus zur Optimierung der Ausrichtung.",
+          },
+          {
+            step: 4,
+            title: "Optimierung",
+            description:
+              "Kalibrierung der gesamten Energiekette: Module → Konverter → Batterie → Antrieb und Wohnraum.",
+          },
         ],
         faqs: [
-          { question: "Fährt der Van nur mit Solarenergie?", answer: "Ziel ist es, die Solarautonomie zu maximieren. Unter günstigen Bedingungen liefern die Module bis zu 150 km Ladung pro Tag. Der Van kann auch an üblichen Ladestationen geladen werden." },
-          { question: "Wer hat die Solarmodule entwickelt?", answer: "Die Module wurden vom CSEM (Schweizerisches Zentrum für Elektronik und Mikrotechnik) in Zusammenarbeit mit dem EPFL PV-Lab entwickelt, zwei führenden Institutionen in der Schweiz." },
-          { question: "Kann das Solarsystem auf andere Fahrzeuge übertragen werden?", answer: "Das ist eines der Ziele des Projekts: zu zeigen, dass diese Technologie auf andere Nutz- und Transportfahrzeuge übertragen werden kann." },
+          {
+            question: "Fährt der Van nur mit Solarenergie?",
+            answer:
+              "Ziel ist es, die Solarautonomie zu maximieren. Unter günstigen Bedingungen liefern die Module bis zu 150 km Ladung pro Tag. Der Van kann auch an üblichen Ladestationen geladen werden.",
+          },
+          {
+            question: "Wer hat die Solarmodule entwickelt?",
+            answer:
+              "Die Module wurden vom CSEM (Schweizerisches Zentrum für Elektronik und Mikrotechnik) in Zusammenarbeit mit dem EPFL PV-Lab entwickelt, zwei führenden Institutionen in der Schweiz.",
+          },
+          {
+            question: "Kann das Solarsystem auf andere Fahrzeuge übertragen werden?",
+            answer:
+              "Das ist eines der Ziele des Projekts: zu zeigen, dass diese Technologie auf andere Nutz- und Transportfahrzeuge übertragen werden kann.",
+          },
         ],
       },
       it: {
@@ -270,30 +493,61 @@ export const services: Service[] = [
           "Convertitore DC-DC BRUSA HyPower che ottimizza il flusso pannelli → batteria",
         ],
         process: [
-          { step: 1, title: "Progettazione", description: "Sviluppo di pannelli adattati alla superficie del tetto, in collaborazione con il CSEM e il PV-Lab dell'EPFL." },
-          { step: 2, title: "Fabbricazione", description: "Produzione di moduli leggeri a struttura honeycomb, resistenti alle intemperie, fabbricati in Svizzera." },
-          { step: 3, title: "Integrazione", description: "Installazione del sistema estensibile sul tetto del van con meccanismo di regolazione per ottimizzare l'orientamento." },
-          { step: 4, title: "Ottimizzazione", description: "Calibrazione dell'intera catena energetica: pannelli → convertitore → batteria → propulsione e habitat." },
+          {
+            step: 1,
+            title: "Progettazione",
+            description:
+              "Sviluppo di pannelli adattati alla superficie del tetto, in collaborazione con il CSEM e il PV-Lab dell'EPFL.",
+          },
+          {
+            step: 2,
+            title: "Fabbricazione",
+            description:
+              "Produzione di moduli leggeri a struttura honeycomb, resistenti alle intemperie, fabbricati in Svizzera.",
+          },
+          {
+            step: 3,
+            title: "Integrazione",
+            description:
+              "Installazione del sistema estensibile sul tetto del van con meccanismo di regolazione per ottimizzare l'orientamento.",
+          },
+          {
+            step: 4,
+            title: "Ottimizzazione",
+            description:
+              "Calibrazione dell'intera catena energetica: pannelli → convertitore → batteria → propulsione e habitat.",
+          },
         ],
         faqs: [
-          { question: "Il van va solo a energia solare?", answer: "L'obiettivo è massimizzare l'autonomia solare. In condizioni favorevoli, i pannelli forniscono fino a 150 km di ricarica al giorno. Il van può anche essere ricaricato a colonnine elettriche classiche." },
-          { question: "Chi ha sviluppato i pannelli solari?", answer: "I pannelli sono stati sviluppati dal CSEM (Centro svizzero di elettronica e microtecnica) in collaborazione con il PV-Lab dell'EPFL, due istituzioni di riferimento in Svizzera." },
-          { question: "Il sistema solare può essere adattato ad altri veicoli?", answer: "È una delle ambizioni del progetto: dimostrare che questa tecnologia può essere trasferita ad altri veicoli utilitari e di trasporto professionale." },
+          {
+            question: "Il van va solo a energia solare?",
+            answer:
+              "L'obiettivo è massimizzare l'autonomia solare. In condizioni favorevoli, i pannelli forniscono fino a 150 km di ricarica al giorno. Il van può anche essere ricaricato a colonnine elettriche classiche.",
+          },
+          {
+            question: "Chi ha sviluppato i pannelli solari?",
+            answer:
+              "I pannelli sono stati sviluppati dal CSEM (Centro svizzero di elettronica e microtecnica) in collaborazione con il PV-Lab dell'EPFL, due istituzioni di riferimento in Svizzera.",
+          },
+          {
+            question: "Il sistema solare può essere adattato ad altri veicoli?",
+            answer:
+              "È una delle ambizioni del progetto: dimostrare che questa tecnologia può essere trasferita ad altri veicoli utilitari e di trasporto professionale.",
+          },
         ],
       },
     },
   },
-
-]
+];
 
 export function getServiceBySlug(slug: string): Service | undefined {
-  return services.find((s) => s.slug === slug)
+  return services.find((s) => s.slug === slug);
 }
 
 export function getRelatedServices(slug: string): Service[] {
-  const service = getServiceBySlug(slug)
-  if (!service) return []
+  const service = getServiceBySlug(slug);
+  if (!service) return [];
   return service.relatedServices
     .map((s) => getServiceBySlug(s))
-    .filter((s): s is Service => Boolean(s))
+    .filter((s): s is Service => Boolean(s));
 }

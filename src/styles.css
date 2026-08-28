@@ -3,14 +3,54 @@
 @import "tw-animate-css";
 
 /* Fonts - Google via @fontsource (Montserrat, the Soleva brand face) */
-@import "@fontsource/montserrat/400.css";
-@import "@fontsource/montserrat/500.css";
-@import "@fontsource/montserrat/600.css";
-@import "@fontsource/montserrat/700.css";
-@import "@fontsource/montserrat/800.css";
+@import "@fontsource/montserrat/latin-400.css";
+@import "@fontsource/montserrat/latin-500.css";
+@import "@fontsource/montserrat/latin-600.css";
+@import "@fontsource/montserrat/latin-700.css";
+@import "@fontsource/montserrat/latin-800.css";
 
 /* Soleva design system (tokens, utilities) */
 @import "./styles/globals.css";
+
+/* Hero entrance - CSS-only keyframes (LCP-safe: delay 0 on LCP elements,
+   opacity > 0 from frame 2; image reveal via scale keeps it visible at frame 1).
+   Motion stays reserved for below-the-fold scroll reveals. */
+@keyframes tc-fade-up {
+  from {
+    /* 0.01 instead of 0: the text is a contentful-paint candidate at frame 1
+       (LCP-safe), the fade stays visually identical. */
+    opacity: 0.01;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes tc-img-reveal {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-enter {
+  animation: tc-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-enter-img {
+  animation: tc-img-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter,
+  .hero-enter-img {
+    animation: none;
+  }
+}
 
 @layer base {
   * {

@@ -1,5 +1,3 @@
-import { IMAGES } from "@/lib/constants"
-import type { Locale } from "@/lib/i18n/config"
 import {
   BedDouble,
   CookingPot,
@@ -13,77 +11,80 @@ import {
   Sun,
   Wrench,
   type LucideIcon,
-} from "lucide-react"
+} from "lucide-react";
+
+import { IMAGES } from "@/lib/constants";
+import type { Locale } from "@/lib/i18n/config";
 
 export interface HabitatPoint {
-  icon: LucideIcon
-  title: string
-  body: string
+  icon: LucideIcon;
+  title: string;
+  body: string;
 }
 
 export interface HabitatSpace {
-  icon: LucideIcon
-  title: string
-  body: string
-  image: string
+  icon: LucideIcon;
+  title: string;
+  body: string;
+  image: string;
 }
 
 export interface HabitatSpec {
-  label: string
-  value: string
+  label: string;
+  value: string;
 }
 
 export interface HabitatFaq {
-  question: string
-  answer: string
+  question: string;
+  answer: string;
 }
 
 export interface HabitatContent {
-  meta: { title: string; description: string }
+  meta: { title: string; description: string };
   hero: {
-    eyebrow: string
-    title: string
-    subtitle: string
-    ctaPrimary: string
-    ctaSecondary: string
-  }
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+  };
   concept: {
-    eyebrow: string
-    title: string
-    intro: string
-    points: HabitatPoint[]
-  }
+    eyebrow: string;
+    title: string;
+    intro: string;
+    points: HabitatPoint[];
+  };
   living: {
-    eyebrow: string
-    title: string
-    subtitle: string
-    spaces: HabitatSpace[]
-  }
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    spaces: HabitatSpace[];
+  };
   sustainability: {
-    eyebrow: string
-    title: string
-    body: string
-    items: string[]
-    imageCaption: string
-  }
+    eyebrow: string;
+    title: string;
+    body: string;
+    items: string[];
+    imageCaption: string;
+  };
   comfort: {
-    eyebrow: string
-    title: string
-    body: string
-    points: HabitatPoint[]
-  }
+    eyebrow: string;
+    title: string;
+    body: string;
+    points: HabitatPoint[];
+  };
   technical: {
-    eyebrow: string
-    title: string
-    body: string
-    specs: HabitatSpec[]
-  }
+    eyebrow: string;
+    title: string;
+    body: string;
+    specs: HabitatSpec[];
+  };
   faq: {
-    eyebrow: string
-    title: string
-    items: HabitatFaq[]
-  }
-  cta: { title: string; body: string; primary: string; secondary: string }
+    eyebrow: string;
+    title: string;
+    items: HabitatFaq[];
+  };
+  cta: { title: string; body: string; primary: string; secondary: string };
 }
 
 export const habitatSeoKeywords = [
@@ -95,7 +96,7 @@ export const habitatSeoKeywords = [
   "van solaire",
   "tiny house écologique",
   "habitat mobile durable",
-]
+];
 
 export const habitatContent: Record<Locale, HabitatContent> = {
   fr: {
@@ -118,12 +119,36 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       intro:
         "Soleva applique le concept Low-Tech et la réutilisation des composants pour offrir un habitat à faible émission de carbone et sans déchet. Être confortable tout en respectant les limites planétaires.",
       points: [
-        { icon: Sun, title: "Énergie renouvelable", body: "L'habitat est alimenté par les panneaux solaires embarqués qui couvrent éclairage, cuisine et appareils du quotidien." },
-        { icon: Route, title: "Mobilité consciente", body: "Une maison qui se déplace au gré du soleil, pensée pour voyager sans dépendre des infrastructures." },
-        { icon: Leaf, title: "Faible impact", body: "Chaque choix vise à réduire l'empreinte environnementale : du gros œuvre aux finitions intérieures." },
-        { icon: Recycle, title: "Réemploi et recyclage", body: "Liège, laine et bois de récupération composent l'essentiel de l'aménagement." },
-        { icon: Gauge, title: "Confort compact", body: "Un volume optimisé au centimètre près, sans jamais sacrifier le bien-être à bord." },
-        { icon: Wrench, title: "Autonomie réelle", body: "Eau, énergie et chauffage gérés en circuit court pour vivre loin de tout raccordement." },
+        {
+          icon: Sun,
+          title: "Énergie renouvelable",
+          body: "L'habitat est alimenté par les panneaux solaires embarqués qui couvrent éclairage, cuisine et appareils du quotidien.",
+        },
+        {
+          icon: Route,
+          title: "Mobilité consciente",
+          body: "Une maison qui se déplace au gré du soleil, pensée pour voyager sans dépendre des infrastructures.",
+        },
+        {
+          icon: Leaf,
+          title: "Faible impact",
+          body: "Chaque choix vise à réduire l'empreinte environnementale : du gros œuvre aux finitions intérieures.",
+        },
+        {
+          icon: Recycle,
+          title: "Réemploi et recyclage",
+          body: "Liège, laine et bois de récupération composent l'essentiel de l'aménagement.",
+        },
+        {
+          icon: Gauge,
+          title: "Confort compact",
+          body: "Un volume optimisé au centimètre près, sans jamais sacrifier le bien-être à bord.",
+        },
+        {
+          icon: Wrench,
+          title: "Autonomie réelle",
+          body: "Eau, énergie et chauffage gérés en circuit court pour vivre loin de tout raccordement.",
+        },
       ],
     },
     living: {
@@ -132,10 +157,30 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       subtitle:
         "Quatre espaces essentiels cohabitent dans un volume compact, conçus pour le quotidien comme pour les longs voyages.",
       spaces: [
-        { icon: BedDouble, title: "Chambre", body: "Des couchages confortables pour l'équipe, intégrés à l'aménagement pour libérer de l'espace en journée.", image: IMAGES.vanInterior },
-        { icon: ShowerHead, title: "Salle de bain", body: "Une « douche perpétuelle » qui recycle l'eau et des toilettes sèches pour réduire drastiquement la consommation.", image: IMAGES.habitatFeatures },
-        { icon: CookingPot, title: "Cuisine", body: "Une cuisine équipée et fonctionnelle, alimentée par l'énergie solaire produite à bord.", image: IMAGES.habitat },
-        { icon: Sofa, title: "Salon", body: "Un coin de vie chaleureux pour se retrouver, travailler et se reposer, baigné de lumière naturelle.", image: IMAGES.habitatInterior },
+        {
+          icon: BedDouble,
+          title: "Chambre",
+          body: "Des couchages confortables pour l'équipe, intégrés à l'aménagement pour libérer de l'espace en journée.",
+          image: IMAGES.vanInterior,
+        },
+        {
+          icon: ShowerHead,
+          title: "Salle de bain",
+          body: "Une « douche perpétuelle » qui recycle l'eau et des toilettes sèches pour réduire drastiquement la consommation.",
+          image: IMAGES.habitatFeatures,
+        },
+        {
+          icon: CookingPot,
+          title: "Cuisine",
+          body: "Une cuisine équipée et fonctionnelle, alimentée par l'énergie solaire produite à bord.",
+          image: IMAGES.habitat,
+        },
+        {
+          icon: Sofa,
+          title: "Salon",
+          body: "Un coin de vie chaleureux pour se retrouver, travailler et se reposer, baigné de lumière naturelle.",
+          image: IMAGES.habitatInterior,
+        },
       ],
     },
     sustainability: {
@@ -157,10 +202,26 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       title: "Écologique ne veut pas dire spartiate",
       body: "Vivre durablement n'impose aucun renoncement. L'habitat conserve la sensation d'un vrai logement : agencement fonctionnel, atmosphère chaleureuse et usages pensés pour le quotidien.",
       points: [
-        { icon: Sofa, title: "Sensation de vrai logement", body: "Un intérieur cohérent où chaque zone a sa place, comme dans une maison." },
-        { icon: Flame, title: "Chaleur naturelle", body: "Un poêle à masse inertielle diffuse une chaleur douce et durable." },
-        { icon: Gauge, title: "Compact mais complet", body: "Aucun essentiel ne manque malgré la surface réduite." },
-        { icon: BedDouble, title: "Usage au quotidien", body: "Un espace que l'on habite vraiment, jour après jour, en mouvement." },
+        {
+          icon: Sofa,
+          title: "Sensation de vrai logement",
+          body: "Un intérieur cohérent où chaque zone a sa place, comme dans une maison.",
+        },
+        {
+          icon: Flame,
+          title: "Chaleur naturelle",
+          body: "Un poêle à masse inertielle diffuse une chaleur douce et durable.",
+        },
+        {
+          icon: Gauge,
+          title: "Compact mais complet",
+          body: "Aucun essentiel ne manque malgré la surface réduite.",
+        },
+        {
+          icon: BedDouble,
+          title: "Usage au quotidien",
+          body: "Un espace que l'on habite vraiment, jour après jour, en mouvement.",
+        },
       ],
     },
     technical: {
@@ -180,11 +241,31 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       eyebrow: "Questions fréquentes",
       title: "Tout savoir sur l'habitat",
       items: [
-        { question: "Qu'est-ce qu'un habitat autonome sur roues ?", answer: "C'est un logement mobile complet - chambre, salle de bain, cuisine et salon - capable de fonctionner hors réseau grâce à l'énergie solaire et à des systèmes Low-Tech à faible consommation." },
-        { question: "L'énergie solaire alimente-t-elle aussi l'habitat ?", answer: "Oui. L'énergie produite par les panneaux solaires couvre la propulsion comme les besoins de la vie à bord : éclairage, cuisine et appareils." },
-        { question: "Quels matériaux sont utilisés ?", answer: "L'aménagement privilégie les matériaux réutilisés et recyclés : liège et laine pour l'isolation, bois de récupération pour les meubles." },
-        { question: "Comment l'eau est-elle économisée ?", answer: "Grâce à une « douche perpétuelle » qui recycle l'eau et à des toilettes sèches, la consommation d'eau est réduite au strict nécessaire." },
-        { question: "Le confort est-il sacrifié ?", answer: "Non. L'habitat conserve toutes les fonctions d'un vrai logement, avec une atmosphère chaleureuse et un chauffage par poêle à masse inertielle." },
+        {
+          question: "Qu'est-ce qu'un habitat autonome sur roues ?",
+          answer:
+            "C'est un logement mobile complet - chambre, salle de bain, cuisine et salon - capable de fonctionner hors réseau grâce à l'énergie solaire et à des systèmes Low-Tech à faible consommation.",
+        },
+        {
+          question: "L'énergie solaire alimente-t-elle aussi l'habitat ?",
+          answer:
+            "Oui. L'énergie produite par les panneaux solaires couvre la propulsion comme les besoins de la vie à bord : éclairage, cuisine et appareils.",
+        },
+        {
+          question: "Quels matériaux sont utilisés ?",
+          answer:
+            "L'aménagement privilégie les matériaux réutilisés et recyclés : liège et laine pour l'isolation, bois de récupération pour les meubles.",
+        },
+        {
+          question: "Comment l'eau est-elle économisée ?",
+          answer:
+            "Grâce à une « douche perpétuelle » qui recycle l'eau et à des toilettes sèches, la consommation d'eau est réduite au strict nécessaire.",
+        },
+        {
+          question: "Le confort est-il sacrifié ?",
+          answer:
+            "Non. L'habitat conserve toutes les fonctions d'un vrai logement, avec une atmosphère chaleureuse et un chauffage par poêle à masse inertielle.",
+        },
       ],
     },
     cta: {
@@ -214,12 +295,36 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       intro:
         "Soleva applies the Low-Tech concept and the reuse of components to deliver a low-carbon, zero-waste habitat. Living comfortably while respecting planetary boundaries.",
       points: [
-        { icon: Sun, title: "Renewable energy", body: "The habitat is powered by the on-board solar panels covering lighting, cooking and everyday appliances." },
-        { icon: Route, title: "Conscious mobility", body: "A home that moves with the sun, designed to travel without depending on infrastructure." },
-        { icon: Leaf, title: "Low impact", body: "Every decision aims to reduce the environmental footprint, from the structure to the interior finishes." },
-        { icon: Recycle, title: "Reuse and recycling", body: "Cork, wool and reclaimed wood make up most of the interior." },
-        { icon: Gauge, title: "Compact comfort", body: "A volume optimised to the centimetre, never sacrificing on-board well-being." },
-        { icon: Wrench, title: "Real autonomy", body: "Water, energy and heating managed in short loops to live far from any connection." },
+        {
+          icon: Sun,
+          title: "Renewable energy",
+          body: "The habitat is powered by the on-board solar panels covering lighting, cooking and everyday appliances.",
+        },
+        {
+          icon: Route,
+          title: "Conscious mobility",
+          body: "A home that moves with the sun, designed to travel without depending on infrastructure.",
+        },
+        {
+          icon: Leaf,
+          title: "Low impact",
+          body: "Every decision aims to reduce the environmental footprint, from the structure to the interior finishes.",
+        },
+        {
+          icon: Recycle,
+          title: "Reuse and recycling",
+          body: "Cork, wool and reclaimed wood make up most of the interior.",
+        },
+        {
+          icon: Gauge,
+          title: "Compact comfort",
+          body: "A volume optimised to the centimetre, never sacrificing on-board well-being.",
+        },
+        {
+          icon: Wrench,
+          title: "Real autonomy",
+          body: "Water, energy and heating managed in short loops to live far from any connection.",
+        },
       ],
     },
     living: {
@@ -228,10 +333,30 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       subtitle:
         "Four essential spaces coexist in a compact volume, designed for daily life as much as for long journeys.",
       spaces: [
-        { icon: BedDouble, title: "Bedroom", body: "Comfortable sleeping space for the team, built into the layout to free up room during the day.", image: IMAGES.vanInterior },
-        { icon: ShowerHead, title: "Bathroom", body: "A \"perpetual shower\" that recycles water and dry toilets to drastically cut consumption.", image: IMAGES.habitatFeatures },
-        { icon: CookingPot, title: "Kitchen", body: "A functional, fully equipped kitchen powered by the solar energy produced on board.", image: IMAGES.habitat },
-        { icon: Sofa, title: "Living room", body: "A warm living corner to gather, work and rest, bathed in natural light.", image: IMAGES.habitatInterior },
+        {
+          icon: BedDouble,
+          title: "Bedroom",
+          body: "Comfortable sleeping space for the team, built into the layout to free up room during the day.",
+          image: IMAGES.vanInterior,
+        },
+        {
+          icon: ShowerHead,
+          title: "Bathroom",
+          body: 'A "perpetual shower" that recycles water and dry toilets to drastically cut consumption.',
+          image: IMAGES.habitatFeatures,
+        },
+        {
+          icon: CookingPot,
+          title: "Kitchen",
+          body: "A functional, fully equipped kitchen powered by the solar energy produced on board.",
+          image: IMAGES.habitat,
+        },
+        {
+          icon: Sofa,
+          title: "Living room",
+          body: "A warm living corner to gather, work and rest, bathed in natural light.",
+          image: IMAGES.habitatInterior,
+        },
       ],
     },
     sustainability: {
@@ -253,10 +378,26 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       title: "Ecological does not mean spartan",
       body: "Living sustainably requires no compromise. The habitat keeps the feeling of a real home: a functional layout, a warm atmosphere and uses designed for everyday life.",
       points: [
-        { icon: Sofa, title: "Real home feeling", body: "A coherent interior where every zone has its place, just like in a house." },
-        { icon: Flame, title: "Natural warmth", body: "An inertial mass stove radiates a gentle, lasting heat." },
-        { icon: Gauge, title: "Compact yet complete", body: "Nothing essential is missing despite the reduced footprint." },
-        { icon: BedDouble, title: "Daily usability", body: "A space you genuinely live in, day after day, on the move." },
+        {
+          icon: Sofa,
+          title: "Real home feeling",
+          body: "A coherent interior where every zone has its place, just like in a house.",
+        },
+        {
+          icon: Flame,
+          title: "Natural warmth",
+          body: "An inertial mass stove radiates a gentle, lasting heat.",
+        },
+        {
+          icon: Gauge,
+          title: "Compact yet complete",
+          body: "Nothing essential is missing despite the reduced footprint.",
+        },
+        {
+          icon: BedDouble,
+          title: "Daily usability",
+          body: "A space you genuinely live in, day after day, on the move.",
+        },
       ],
     },
     technical: {
@@ -276,11 +417,31 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       eyebrow: "Frequently asked questions",
       title: "Everything about the habitat",
       items: [
-        { question: "What is a self-sufficient house on wheels?", answer: "It is a complete mobile home - bedroom, bathroom, kitchen and living room - able to run off-grid thanks to solar energy and low-consumption Low-Tech systems." },
-        { question: "Does solar energy also power the habitat?", answer: "Yes. The energy produced by the solar panels covers both propulsion and the needs of life on board: lighting, cooking and appliances." },
-        { question: "Which materials are used?", answer: "The interior favours reused and recycled materials: cork and wool for insulation, reclaimed wood for furniture." },
-        { question: "How is water saved?", answer: "Thanks to a \"perpetual shower\" that recycles water and dry toilets, water consumption is reduced to the strict minimum." },
-        { question: "Is comfort sacrificed?", answer: "No. The habitat keeps all the functions of a real home, with a warm atmosphere and heating from an inertial mass stove." },
+        {
+          question: "What is a self-sufficient house on wheels?",
+          answer:
+            "It is a complete mobile home - bedroom, bathroom, kitchen and living room - able to run off-grid thanks to solar energy and low-consumption Low-Tech systems.",
+        },
+        {
+          question: "Does solar energy also power the habitat?",
+          answer:
+            "Yes. The energy produced by the solar panels covers both propulsion and the needs of life on board: lighting, cooking and appliances.",
+        },
+        {
+          question: "Which materials are used?",
+          answer:
+            "The interior favours reused and recycled materials: cork and wool for insulation, reclaimed wood for furniture.",
+        },
+        {
+          question: "How is water saved?",
+          answer:
+            'Thanks to a "perpetual shower" that recycles water and dry toilets, water consumption is reduced to the strict minimum.',
+        },
+        {
+          question: "Is comfort sacrificed?",
+          answer:
+            "No. The habitat keeps all the functions of a real home, with a warm atmosphere and heating from an inertial mass stove.",
+        },
       ],
     },
     cta: {
@@ -310,12 +471,36 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       intro:
         "Soleva wendet das Low-Tech-Konzept und die Wiederverwendung von Komponenten an, um einen CO₂-armen und abfallfreien Wohnraum zu schaffen. Komfortabel leben und dabei die planetaren Grenzen respektieren.",
       points: [
-        { icon: Sun, title: "Erneuerbare Energie", body: "Der Wohnraum wird von den Solarmodulen an Bord versorgt: Beleuchtung, Kochen und Alltagsgeräte." },
-        { icon: Route, title: "Bewusste Mobilität", body: "Ein Zuhause, das sich mit der Sonne bewegt und reist, ohne von Infrastruktur abhängig zu sein." },
-        { icon: Leaf, title: "Geringe Wirkung", body: "Jede Entscheidung reduziert den ökologischen Fussabdruck, vom Rohbau bis zum Innenausbau." },
-        { icon: Recycle, title: "Wieder- und Weiterverwendung", body: "Kork, Wolle und Altholz bilden den Grossteil des Ausbaus." },
-        { icon: Gauge, title: "Kompakter Komfort", body: "Ein auf den Zentimeter optimiertes Volumen, ohne Wohlbefinden zu opfern." },
-        { icon: Wrench, title: "Echte Autarkie", body: "Wasser, Energie und Heizung im Kreislauf, um fern jeder Anschlüsse zu leben." },
+        {
+          icon: Sun,
+          title: "Erneuerbare Energie",
+          body: "Der Wohnraum wird von den Solarmodulen an Bord versorgt: Beleuchtung, Kochen und Alltagsgeräte.",
+        },
+        {
+          icon: Route,
+          title: "Bewusste Mobilität",
+          body: "Ein Zuhause, das sich mit der Sonne bewegt und reist, ohne von Infrastruktur abhängig zu sein.",
+        },
+        {
+          icon: Leaf,
+          title: "Geringe Wirkung",
+          body: "Jede Entscheidung reduziert den ökologischen Fussabdruck, vom Rohbau bis zum Innenausbau.",
+        },
+        {
+          icon: Recycle,
+          title: "Wieder- und Weiterverwendung",
+          body: "Kork, Wolle und Altholz bilden den Grossteil des Ausbaus.",
+        },
+        {
+          icon: Gauge,
+          title: "Kompakter Komfort",
+          body: "Ein auf den Zentimeter optimiertes Volumen, ohne Wohlbefinden zu opfern.",
+        },
+        {
+          icon: Wrench,
+          title: "Echte Autarkie",
+          body: "Wasser, Energie und Heizung im Kreislauf, um fern jeder Anschlüsse zu leben.",
+        },
       ],
     },
     living: {
@@ -324,10 +509,30 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       subtitle:
         "Vier wesentliche Bereiche teilen sich ein kompaktes Volumen, gedacht für den Alltag wie für lange Reisen.",
       spaces: [
-        { icon: BedDouble, title: "Schlafraum", body: "Bequeme Schlafplätze für das Team, in den Ausbau integriert, um tagsüber Platz zu schaffen.", image: IMAGES.vanInterior },
-        { icon: ShowerHead, title: "Bad", body: "Eine «immerwährende Dusche», die Wasser recycelt, und eine Trockentoilette zur drastischen Reduktion des Verbrauchs.", image: IMAGES.habitatFeatures },
-        { icon: CookingPot, title: "Küche", body: "Eine funktionale, voll ausgestattete Küche, versorgt durch die an Bord erzeugte Solarenergie.", image: IMAGES.habitat },
-        { icon: Sofa, title: "Wohnbereich", body: "Eine warme Wohnecke zum Zusammensein, Arbeiten und Ausruhen, durchflutet von Tageslicht.", image: IMAGES.habitatInterior },
+        {
+          icon: BedDouble,
+          title: "Schlafraum",
+          body: "Bequeme Schlafplätze für das Team, in den Ausbau integriert, um tagsüber Platz zu schaffen.",
+          image: IMAGES.vanInterior,
+        },
+        {
+          icon: ShowerHead,
+          title: "Bad",
+          body: "Eine «immerwährende Dusche», die Wasser recycelt, und eine Trockentoilette zur drastischen Reduktion des Verbrauchs.",
+          image: IMAGES.habitatFeatures,
+        },
+        {
+          icon: CookingPot,
+          title: "Küche",
+          body: "Eine funktionale, voll ausgestattete Küche, versorgt durch die an Bord erzeugte Solarenergie.",
+          image: IMAGES.habitat,
+        },
+        {
+          icon: Sofa,
+          title: "Wohnbereich",
+          body: "Eine warme Wohnecke zum Zusammensein, Arbeiten und Ausruhen, durchflutet von Tageslicht.",
+          image: IMAGES.habitatInterior,
+        },
       ],
     },
     sustainability: {
@@ -349,10 +554,26 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       title: "Ökologisch heisst nicht spartanisch",
       body: "Nachhaltig zu leben verlangt keinen Verzicht. Der Wohnraum bewahrt das Gefühl eines echten Zuhauses: funktionale Aufteilung, warme Atmosphäre und alltagstaugliche Nutzung.",
       points: [
-        { icon: Sofa, title: "Gefühl eines echten Zuhauses", body: "Ein stimmiges Interieur, in dem jede Zone ihren Platz hat, wie in einem Haus." },
-        { icon: Flame, title: "Natürliche Wärme", body: "Ein Speicherofen verbreitet eine sanfte, lang anhaltende Wärme." },
-        { icon: Gauge, title: "Kompakt und doch komplett", body: "Trotz reduzierter Fläche fehlt nichts Wesentliches." },
-        { icon: BedDouble, title: "Alltagstauglich", body: "Ein Raum, den man wirklich bewohnt, Tag für Tag, in Bewegung." },
+        {
+          icon: Sofa,
+          title: "Gefühl eines echten Zuhauses",
+          body: "Ein stimmiges Interieur, in dem jede Zone ihren Platz hat, wie in einem Haus.",
+        },
+        {
+          icon: Flame,
+          title: "Natürliche Wärme",
+          body: "Ein Speicherofen verbreitet eine sanfte, lang anhaltende Wärme.",
+        },
+        {
+          icon: Gauge,
+          title: "Kompakt und doch komplett",
+          body: "Trotz reduzierter Fläche fehlt nichts Wesentliches.",
+        },
+        {
+          icon: BedDouble,
+          title: "Alltagstauglich",
+          body: "Ein Raum, den man wirklich bewohnt, Tag für Tag, in Bewegung.",
+        },
       ],
     },
     technical: {
@@ -372,11 +593,31 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       eyebrow: "Häufige Fragen",
       title: "Alles über den Wohnraum",
       items: [
-        { question: "Was ist ein autarkes Haus auf Rädern?", answer: "Es ist ein vollständiges mobiles Zuhause - Schlafraum, Bad, Küche und Wohnbereich -, das dank Solarenergie und sparsamen Low-Tech-Systemen netzunabhängig funktioniert." },
-        { question: "Versorgt die Solarenergie auch den Wohnraum?", answer: "Ja. Die von den Solarmodulen erzeugte Energie deckt sowohl den Antrieb als auch die Bedürfnisse des Lebens an Bord: Beleuchtung, Kochen und Geräte." },
-        { question: "Welche Materialien werden verwendet?", answer: "Der Ausbau bevorzugt wiederverwendete und recycelte Materialien: Kork und Wolle für die Dämmung, Altholz für die Möbel." },
-        { question: "Wie wird Wasser gespart?", answer: "Dank einer «immerwährenden Dusche», die Wasser recycelt, und einer Trockentoilette wird der Wasserverbrauch auf das Nötigste reduziert." },
-        { question: "Wird Komfort geopfert?", answer: "Nein. Der Wohnraum behält alle Funktionen eines echten Zuhauses, mit warmer Atmosphäre und Heizung durch einen Speicherofen." },
+        {
+          question: "Was ist ein autarkes Haus auf Rädern?",
+          answer:
+            "Es ist ein vollständiges mobiles Zuhause - Schlafraum, Bad, Küche und Wohnbereich -, das dank Solarenergie und sparsamen Low-Tech-Systemen netzunabhängig funktioniert.",
+        },
+        {
+          question: "Versorgt die Solarenergie auch den Wohnraum?",
+          answer:
+            "Ja. Die von den Solarmodulen erzeugte Energie deckt sowohl den Antrieb als auch die Bedürfnisse des Lebens an Bord: Beleuchtung, Kochen und Geräte.",
+        },
+        {
+          question: "Welche Materialien werden verwendet?",
+          answer:
+            "Der Ausbau bevorzugt wiederverwendete und recycelte Materialien: Kork und Wolle für die Dämmung, Altholz für die Möbel.",
+        },
+        {
+          question: "Wie wird Wasser gespart?",
+          answer:
+            "Dank einer «immerwährenden Dusche», die Wasser recycelt, und einer Trockentoilette wird der Wasserverbrauch auf das Nötigste reduziert.",
+        },
+        {
+          question: "Wird Komfort geopfert?",
+          answer:
+            "Nein. Der Wohnraum behält alle Funktionen eines echten Zuhauses, mit warmer Atmosphäre und Heizung durch einen Speicherofen.",
+        },
       ],
     },
     cta: {
@@ -406,12 +647,36 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       intro:
         "Soleva applica il concetto Low-Tech e il riutilizzo dei componenti per offrire un habitat a basse emissioni e senza rifiuti. Vivere comodamente rispettando i limiti planetari.",
       points: [
-        { icon: Sun, title: "Energia rinnovabile", body: "L'habitat è alimentato dai pannelli solari a bordo che coprono illuminazione, cucina e apparecchi quotidiani." },
-        { icon: Route, title: "Mobilità consapevole", body: "Una casa che si sposta seguendo il sole, pensata per viaggiare senza dipendere dalle infrastrutture." },
-        { icon: Leaf, title: "Basso impatto", body: "Ogni scelta mira a ridurre l'impronta ambientale, dalla struttura alle finiture interne." },
-        { icon: Recycle, title: "Riutilizzo e riciclo", body: "Sughero, lana e legno di recupero compongono gran parte dell'allestimento." },
-        { icon: Gauge, title: "Comfort compatto", body: "Un volume ottimizzato al centimetro, senza mai sacrificare il benessere a bordo." },
-        { icon: Wrench, title: "Autonomia reale", body: "Acqua, energia e riscaldamento gestiti in circuito breve per vivere lontano da ogni allacciamento." },
+        {
+          icon: Sun,
+          title: "Energia rinnovabile",
+          body: "L'habitat è alimentato dai pannelli solari a bordo che coprono illuminazione, cucina e apparecchi quotidiani.",
+        },
+        {
+          icon: Route,
+          title: "Mobilità consapevole",
+          body: "Una casa che si sposta seguendo il sole, pensata per viaggiare senza dipendere dalle infrastrutture.",
+        },
+        {
+          icon: Leaf,
+          title: "Basso impatto",
+          body: "Ogni scelta mira a ridurre l'impronta ambientale, dalla struttura alle finiture interne.",
+        },
+        {
+          icon: Recycle,
+          title: "Riutilizzo e riciclo",
+          body: "Sughero, lana e legno di recupero compongono gran parte dell'allestimento.",
+        },
+        {
+          icon: Gauge,
+          title: "Comfort compatto",
+          body: "Un volume ottimizzato al centimetro, senza mai sacrificare il benessere a bordo.",
+        },
+        {
+          icon: Wrench,
+          title: "Autonomia reale",
+          body: "Acqua, energia e riscaldamento gestiti in circuito breve per vivere lontano da ogni allacciamento.",
+        },
       ],
     },
     living: {
@@ -420,10 +685,30 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       subtitle:
         "Quattro spazi essenziali convivono in un volume compatto, progettati per il quotidiano come per i lunghi viaggi.",
       spaces: [
-        { icon: BedDouble, title: "Camera", body: "Posti letto confortevoli per il team, integrati nell'allestimento per liberare spazio di giorno.", image: IMAGES.vanInterior },
-        { icon: ShowerHead, title: "Bagno", body: "Una «doccia perpetua» che ricicla l'acqua e una toilette a secco per ridurre drasticamente i consumi.", image: IMAGES.habitatFeatures },
-        { icon: CookingPot, title: "Cucina", body: "Una cucina funzionale e attrezzata, alimentata dall'energia solare prodotta a bordo.", image: IMAGES.habitat },
-        { icon: Sofa, title: "Soggiorno", body: "Un angolo di vita accogliente per ritrovarsi, lavorare e riposare, immerso nella luce naturale.", image: IMAGES.habitatInterior },
+        {
+          icon: BedDouble,
+          title: "Camera",
+          body: "Posti letto confortevoli per il team, integrati nell'allestimento per liberare spazio di giorno.",
+          image: IMAGES.vanInterior,
+        },
+        {
+          icon: ShowerHead,
+          title: "Bagno",
+          body: "Una «doccia perpetua» che ricicla l'acqua e una toilette a secco per ridurre drasticamente i consumi.",
+          image: IMAGES.habitatFeatures,
+        },
+        {
+          icon: CookingPot,
+          title: "Cucina",
+          body: "Una cucina funzionale e attrezzata, alimentata dall'energia solare prodotta a bordo.",
+          image: IMAGES.habitat,
+        },
+        {
+          icon: Sofa,
+          title: "Soggiorno",
+          body: "Un angolo di vita accogliente per ritrovarsi, lavorare e riposare, immerso nella luce naturale.",
+          image: IMAGES.habitatInterior,
+        },
       ],
     },
     sustainability: {
@@ -445,10 +730,26 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       title: "Ecologico non significa spartano",
       body: "Vivere in modo sostenibile non impone rinunce. L'habitat mantiene la sensazione di una vera casa: disposizione funzionale, atmosfera calda e usi pensati per il quotidiano.",
       points: [
-        { icon: Sofa, title: "Sensazione di vera casa", body: "Un interno coerente in cui ogni zona ha il suo posto, come in una casa." },
-        { icon: Flame, title: "Calore naturale", body: "Una stufa a massa inerziale diffonde un calore dolce e duraturo." },
-        { icon: Gauge, title: "Compatto ma completo", body: "Non manca nulla di essenziale nonostante la superficie ridotta." },
-        { icon: BedDouble, title: "Uso quotidiano", body: "Uno spazio che si vive davvero, giorno dopo giorno, in movimento." },
+        {
+          icon: Sofa,
+          title: "Sensazione di vera casa",
+          body: "Un interno coerente in cui ogni zona ha il suo posto, come in una casa.",
+        },
+        {
+          icon: Flame,
+          title: "Calore naturale",
+          body: "Una stufa a massa inerziale diffonde un calore dolce e duraturo.",
+        },
+        {
+          icon: Gauge,
+          title: "Compatto ma completo",
+          body: "Non manca nulla di essenziale nonostante la superficie ridotta.",
+        },
+        {
+          icon: BedDouble,
+          title: "Uso quotidiano",
+          body: "Uno spazio che si vive davvero, giorno dopo giorno, in movimento.",
+        },
       ],
     },
     technical: {
@@ -468,11 +769,31 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       eyebrow: "Domande frequenti",
       title: "Tutto sull'habitat",
       items: [
-        { question: "Cos'è una casa autonoma su ruote?", answer: "È un'abitazione mobile completa - camera, bagno, cucina e soggiorno - capace di funzionare off-grid grazie all'energia solare e a sistemi Low-Tech a basso consumo." },
-        { question: "L'energia solare alimenta anche l'habitat?", answer: "Sì. L'energia prodotta dai pannelli solari copre sia la propulsione sia i bisogni della vita a bordo: illuminazione, cucina e apparecchi." },
-        { question: "Quali materiali sono utilizzati?", answer: "L'allestimento privilegia materiali riutilizzati e riciclati: sughero e lana per l'isolamento, legno di recupero per i mobili." },
-        { question: "Come si risparmia l'acqua?", answer: "Grazie a una «doccia perpetua» che ricicla l'acqua e a una toilette a secco, il consumo d'acqua è ridotto allo stretto necessario." },
-        { question: "Si sacrifica il comfort?", answer: "No. L'habitat mantiene tutte le funzioni di una vera casa, con un'atmosfera calda e il riscaldamento tramite una stufa a massa inerziale." },
+        {
+          question: "Cos'è una casa autonoma su ruote?",
+          answer:
+            "È un'abitazione mobile completa - camera, bagno, cucina e soggiorno - capace di funzionare off-grid grazie all'energia solare e a sistemi Low-Tech a basso consumo.",
+        },
+        {
+          question: "L'energia solare alimenta anche l'habitat?",
+          answer:
+            "Sì. L'energia prodotta dai pannelli solari copre sia la propulsione sia i bisogni della vita a bordo: illuminazione, cucina e apparecchi.",
+        },
+        {
+          question: "Quali materiali sono utilizzati?",
+          answer:
+            "L'allestimento privilegia materiali riutilizzati e riciclati: sughero e lana per l'isolamento, legno di recupero per i mobili.",
+        },
+        {
+          question: "Come si risparmia l'acqua?",
+          answer:
+            "Grazie a una «doccia perpetua» che ricicla l'acqua e a una toilette a secco, il consumo d'acqua è ridotto allo stretto necessario.",
+        },
+        {
+          question: "Si sacrifica il comfort?",
+          answer:
+            "No. L'habitat mantiene tutte le funzioni di una vera casa, con un'atmosfera calda e il riscaldamento tramite una stufa a massa inerziale.",
+        },
       ],
     },
     cta: {
@@ -482,4 +803,4 @@ export const habitatContent: Record<Locale, HabitatContent> = {
       secondary: "Scopri di più",
     },
   },
-}
+};

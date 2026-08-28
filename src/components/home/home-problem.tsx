@@ -1,13 +1,13 @@
-import { Image } from "@/components/ui/image"
-import { type Locale } from "@/lib/i18n/config"
-import type { Dictionary } from "@/lib/i18n"
-import { IMAGES } from "@/lib/constants"
-import { Reveal } from "@/components/ui/reveal"
-import { Lightbox } from "@/components/ui/lightbox"
+import { Image } from "@/components/ui/image";
+import { Lightbox } from "@/components/ui/lightbox";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
+import { IMAGES, srcSetFor } from "@/lib/constants";
+import type { Dictionary } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n/config";
 
 export function HomeProblem({ dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section className="bg-background">
+    <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
       <div className="container-premium section-padding">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal>
@@ -17,6 +17,7 @@ export function HomeProblem({ dict }: { locale: Locale; dict: Dictionary }) {
                   src={IMAGES.journey || "/placeholder.svg"}
                   alt=""
                   fill
+                  srcSet={srcSetFor(IMAGES.journey)}
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                 />
@@ -25,17 +26,19 @@ export function HomeProblem({ dict }: { locale: Locale; dict: Dictionary }) {
           </Reveal>
           <Reveal delay={0.1}>
             <div>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+              <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-primary uppercase">
                 {dict.home.problem.eyebrow}
               </p>
-              <h2 className="text-pretty font-heading text-3xl font-extrabold leading-tight sm:text-4xl">
+              <h2 className="font-heading text-3xl leading-tight font-extrabold text-pretty sm:text-4xl">
                 {dict.home.problem.title}
               </h2>
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">{dict.home.problem.body}</p>
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                {dict.home.problem.body}
+              </p>
             </div>
           </Reveal>
         </div>
       </div>
     </section>
-  )
+  );
 }

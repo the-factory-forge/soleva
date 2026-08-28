@@ -2,21 +2,21 @@ import { createFileRoute } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
 
 import { PageHero } from "@/components/layout/page-hero";
-import { TourMap } from "@/components/voyage/tour-map";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { TourMap } from "@/components/voyage/tour-map";
+import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { POLAR_STEPS_URL, pastEvents } from "@/lib/data/events";
-import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
+import { getDictionary } from "@/lib/i18n";
 
 const STOPS = ["Lausanne", "Genève", "Sion", "Lugano", "Davos", "Zürich", "Basel", "Bern"];
 
@@ -26,17 +26,19 @@ export const Route = createFileRoute("/_site/$lang/voyage")({
     const dict = await getDictionary(locale);
     return { locale, dict };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.voyage.title } | ${SITE_NAME}`,
-        description: loaderData.dict.meta.voyage.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.voyage.title} | ${SITE_NAME}`,
+        description: dict.meta.voyage.description,
         path: "/voyage",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
       }),
-    ),
+    );
+  },
   component: VoyagePage,
 });
 
@@ -48,6 +50,7 @@ function VoyagePage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={dict.breadcrumb.ariaLabel}
         homeLabel={dict.breadcrumb.home}
         crumbs={[{ label: dict.breadcrumb.voyage, href: "/voyage" }]}
         eyebrow={t.hero.eyebrow}
@@ -56,7 +59,7 @@ function VoyagePage() {
         image={IMAGES.journey}
       />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -66,6 +69,7 @@ function VoyagePage() {
                     src={IMAGES.hero}
                     alt=""
                     fill
+                    srcSet={srcSetFor(IMAGES.hero)}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
@@ -95,12 +99,12 @@ function VoyagePage() {
         </div>
       </section>
 
-      <section className="bg-muted/50">
+      <section className="bg-muted/50 [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <SectionHeading title={t.stops_title} />
           <div className="mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-3">
             {STOPS.map((stop, i) => (
-              <Reveal key={stop} delay={i * 0.04}>
+              <Reveal key={`stop-${i}`} delay={i * 0.04}>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground">
                   <MapPin className="h-4 w-4 text-secondary" aria-hidden="true" />
                   {stop}
@@ -112,12 +116,12 @@ function VoyagePage() {
       </section>
 
       {/* Past Events */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <SectionHeading title={t.events_title} />
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2">
             {pastEvents.map((event, i) => (
-              <Reveal key={event.name[locale]} delay={i * 0.06}>
+              <Reveal key={`event-${i}`} delay={i * 0.06}>
                 <div className="rounded-2xl border border-border bg-card p-6">
                   <h3 className="font-heading text-lg font-semibold">{event.name[locale]}</h3>
                   <div className="mt-2 flex items-center gap-4 text-sm text-muted-foreground">
@@ -138,12 +142,12 @@ function VoyagePage() {
       </section>
 
       {/* Polar Steps */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding text-center">
           <SectionHeading title={t.polar_title} subtitle={t.polar_body} />
           <div className="mx-auto mt-8 max-w-2xl rounded-3xl border border-border bg-card p-8">
             <p className="leading-relaxed text-muted-foreground">
-              Retrouvez le suivi en direct sur{" "}
+              {t.polar_tracking_before}{" "}
               <a
                 href={POLAR_STEPS_URL}
                 target="_blank"
@@ -152,19 +156,16 @@ function VoyagePage() {
               >
                 Polar Steps
               </a>
-              . L'application mobile permet de suivre la position du van en temps réel pendant le tour.
+              {t.polar_tracking_after}
             </p>
           </div>
         </div>
       </section>
 
       {/* Tour Map */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding text-center">
-          <SectionHeading
-            title="Carte du tour"
-            subtitle="De Lausanne à Zurich, en passant par Davos, Lugano et Sion."
-          />
+          <SectionHeading title={t.map_title} subtitle={t.map_subtitle} />
           <div className="mx-auto mt-8 max-w-4xl">
             <TourMap />
           </div>

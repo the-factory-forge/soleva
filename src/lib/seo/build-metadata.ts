@@ -55,6 +55,15 @@ export function buildMetadata({
   const cleanPath = path === "/" ? "" : path;
   const canonical = `${siteUrl}/${locale}${cleanPath}`;
 
+  // Default share image is the hero/video frame (public/images/og-image.webp).
+  // Any route-provided ogImage must be absolute for crawlers (habitat passes
+  // a relative /images/... URL - normalize it here).
+  const ogImageUrl = ogImage
+    ? ogImage.startsWith("http")
+      ? ogImage
+      : `${siteUrl}${ogImage.startsWith("/") ? ogImage : `/${ogImage}`}`
+    : `${siteUrl}/images/og-image.webp`;
+
   const languages: Record<string, string> = {};
   for (const l of locales) {
     languages[l] = `${siteUrl}/${l}${cleanPath}`;
@@ -73,13 +82,13 @@ export function buildMetadata({
       siteName,
       locale: ogLocales[locale],
       type: "website",
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: siteName }] : undefined,
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: siteName }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ogImage ? [ogImage] : undefined,
+      images: [ogImageUrl],
     },
   };
 }

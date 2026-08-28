@@ -1,11 +1,11 @@
-import type { Locale } from "@/lib/i18n/config"
+import type { Locale } from "@/lib/i18n/config";
 
-export type FaqCategory = "project" | "van" | "support" | "technology" | "privacy"
+export type FaqCategory = "project" | "van" | "support" | "technology" | "privacy";
 
 export interface FAQ {
-  category: FaqCategory
-  question: Record<Locale, string>
-  answer: Record<Locale, string>
+  category: FaqCategory;
+  question: Record<Locale, string>;
+  answer: Record<Locale, string>;
 }
 
 // TODO: Some answers (range, batteries, motor, tax deductibility) must be
@@ -251,10 +251,10 @@ export const faqs: FAQ[] = [
       it: "I dati scambiati via email servono esclusivamente a rispondere alla tua richiesta. Consulta la nostra informativa sulla privacy.",
     },
   },
-]
+];
 
-export const faqCategories: FaqCategory[] = ["project", "van", "support", "technology", "privacy"]
+export const faqCategories: FaqCategory[] = ["project", "van", "support", "technology", "privacy"];
 
 export function getFaqsByCategory(category: FaqCategory): FAQ[] {
-  return faqs.filter((f) => f.category === category)
+  return faqs.filter((f) => f.category === category);
 }

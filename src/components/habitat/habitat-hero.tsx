@@ -1,12 +1,10 @@
-"use client"
+"use client";
 
-import type { ReactNode } from "react"
-import { Image } from "@/components/ui/image"
-import { motion } from "motion/react"
-import { ArrowRight, ArrowUpRight } from "lucide-react"
-import type { HabitatContent } from "@/lib/data/habitat"
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import type { ReactNode } from "react";
 
-const ease = [0.22, 1, 0.36, 1] as const
+import { Image } from "@/components/ui/image";
+import type { HabitatContent } from "@/lib/data/habitat";
 
 export function HabitatHero({
   breadcrumb,
@@ -15,11 +13,11 @@ export function HabitatHero({
   supportHref,
   discoverHref,
 }: {
-  breadcrumb: ReactNode
-  hero: HabitatContent["hero"]
-    image?: string
-  supportHref: string
-  discoverHref: string
+  breadcrumb: ReactNode;
+  hero: HabitatContent["hero"];
+  image?: string;
+  supportHref: string;
+  discoverHref: string;
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-dark text-dark-foreground">
@@ -34,37 +32,23 @@ export function HabitatHero({
         {breadcrumb}
       </div>
 
-      <div className="container-premium pb-24 pt-12 md:pb-32 md:pt-16">
+      <div className="container-premium pt-12 pb-24 md:pt-16 md:pb-32">
         <div className="max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease }}
-            className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-secondary"
-          >
+          <p className="hero-enter mb-4 text-sm font-semibold tracking-[0.18em] text-secondary uppercase">
             {hero.eyebrow}
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.06, ease }}
-            className="text-balance font-heading text-4xl font-extrabold leading-[1.07] sm:text-5xl lg:text-6xl"
-          >
+          </p>
+          <h1 className="hero-enter font-heading text-4xl leading-[1.07] font-extrabold text-balance sm:text-5xl lg:text-6xl">
             {hero.title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.14, ease }}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-dark-foreground/85"
+          </h1>
+          <p
+            className="hero-enter mt-6 max-w-2xl text-lg leading-relaxed text-dark-foreground/85"
+            style={{ animationDelay: "80ms" }}
           >
             {hero.subtitle}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.22, ease }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+          </p>
+          <div
+            className="hero-enter mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+            style={{ animationDelay: "120ms" }}
           >
             <a
               href={supportHref}
@@ -84,9 +68,9 @@ export function HabitatHero({
               {hero.ctaSecondary}
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

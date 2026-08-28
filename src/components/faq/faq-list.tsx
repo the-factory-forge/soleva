@@ -1,28 +1,29 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import type { Locale } from "@/lib/i18n/config"
-import { faqs, type FaqCategory } from "@/lib/data/faqs"
+} from "@/components/ui/accordion";
+import { faqs, type FaqCategory } from "@/lib/data/faqs";
+import type { Locale } from "@/lib/i18n/config";
 
-const categoryOrder: FaqCategory[] = ["project", "van", "technology", "support", "privacy"]
+const categoryOrder: FaqCategory[] = ["project", "van", "technology", "support", "privacy"];
 
 export function FaqList({
   locale,
   categoryLabels,
 }: {
-  locale: Locale
-  categoryLabels: Record<FaqCategory, string>
+  locale: Locale;
+  categoryLabels: Record<FaqCategory, string>;
 }) {
-  const categories = categoryOrder.filter((cat) => faqs.some((f) => f.category === cat))
-  const [active, setActive] = useState<FaqCategory>(categories[0])
+  const categories = categoryOrder.filter((cat) => faqs.some((f) => f.category === cat));
+  const [active, setActive] = useState<FaqCategory>(categories[0]);
 
-  const visible = faqs.filter((f) => f.category === active)
+  const visible = faqs.filter((f) => f.category === active);
 
   return (
     <div>
@@ -61,5 +62,5 @@ export function FaqList({
         ))}
       </Accordion>
     </div>
-  )
+  );
 }

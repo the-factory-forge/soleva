@@ -1,18 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Check } from "lucide-react";
 
-import { Breadcrumb } from "@/components/layout/breadcrumb";
 import { HabitatHero } from "@/components/habitat/habitat-hero";
+import { Breadcrumb } from "@/components/layout/breadcrumb";
 import { FaqJsonLd } from "@/components/seo/json-ld";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
-import { Reveal } from "@/components/ui/reveal";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getServiceBySlug } from "@/lib/data/services";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -28,12 +28,13 @@ export const Route = createFileRoute("/_site/$lang/habitat")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     const { locale } = loaderData;
     const c = habitatContent[locale];
     return metadataToHead(
       buildMetadata({
         locale,
-        title: `${ c.meta.title } | ${SITE_NAME}`,
+        title: `${c.meta.title} | ${SITE_NAME}`,
         description: c.meta.description,
         path: "/habitat",
         siteUrl: SITE_URL,
@@ -56,6 +57,7 @@ function HabitatPage() {
           <Breadcrumb
             locale={locale}
             homeLabel={dict.breadcrumb.home}
+            ariaLabel={t(dict, "breadcrumb.ariaLabel")}
             items={[
               { label: dict.breadcrumb.van, href: "/le-van" },
               { label: dict.breadcrumb.habitat, href: "/habitat" },
@@ -70,22 +72,29 @@ function HabitatPage() {
       <FaqJsonLd items={c.faq.items} />
 
       {/* Concept */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
-            <SectionHeading eyebrow={c.concept.eyebrow} title={c.concept.title} subtitle={c.concept.intro} align="left" />
+            <SectionHeading
+              eyebrow={c.concept.eyebrow}
+              title={c.concept.title}
+              subtitle={c.concept.intro}
+              align="left"
+            />
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {c.concept.points.map((point, i) => {
               const Icon = point.icon;
               return (
-                <Reveal key={point.title} delay={i * 0.06}>
+                <Reveal key={`concept-${i}`} delay={i * 0.06}>
                   <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6">
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h3 className="mt-5 font-heading text-lg font-bold">{point.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{point.body}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {point.body}
+                    </p>
                   </div>
                 </Reveal>
               );
@@ -97,6 +106,7 @@ function HabitatPage() {
                 src={IMAGES.habitatHero}
                 alt=""
                 fill
+                srcSet={srcSetFor(IMAGES.habitatHero)}
                 sizes="100vw"
                 className="object-cover"
               />
@@ -106,7 +116,7 @@ function HabitatPage() {
       </section>
 
       {/* Sustainability */}
-      <section className="bg-dark text-dark-foreground">
+      <section className="bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -117,6 +127,7 @@ function HabitatPage() {
                       src={IMAGES.habitatFeatures}
                       alt={c.sustainability.imageCaption}
                       fill
+                      srcSet={srcSetFor(IMAGES.habitatFeatures)}
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover"
                     />
@@ -137,8 +148,11 @@ function HabitatPage() {
                   inverted
                 />
                 <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-                  {c.sustainability.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-dark-foreground/85">
+                  {c.sustainability.items.map((item, i) => (
+                    <li
+                      key={`item-${i}`}
+                      className="flex items-start gap-3 text-sm leading-relaxed text-dark-foreground/85"
+                    >
                       <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/25 text-secondary">
                         <Check className="h-4 w-4" aria-hidden="true" />
                       </span>
@@ -153,7 +167,7 @@ function HabitatPage() {
       </section>
 
       {/* Comfort */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -168,13 +182,17 @@ function HabitatPage() {
                   {c.comfort.points.map((point, i) => {
                     const Icon = point.icon;
                     return (
-                      <Reveal key={point.title} delay={i * 0.06}>
+                      <Reveal key={`comfort-${i}`} delay={i * 0.06}>
                         <div className="flex h-full flex-col rounded-2xl bg-muted p-5">
                           <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/15 text-secondary">
                             <Icon className="h-5 w-5" aria-hidden="true" />
                           </span>
-                          <h3 className="mt-4 font-heading text-base font-semibold">{point.title}</h3>
-                          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{point.body}</p>
+                          <h3 className="mt-4 font-heading text-base font-semibold">
+                            {point.title}
+                          </h3>
+                          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                            {point.body}
+                          </p>
                         </div>
                       </Reveal>
                     );
@@ -189,6 +207,7 @@ function HabitatPage() {
                     src={IMAGES.habitatInterior}
                     alt=""
                     fill
+                    srcSet={srcSetFor(IMAGES.habitatInterior)}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
@@ -200,7 +219,7 @@ function HabitatPage() {
       </section>
 
       {/* Technical / Autonomy */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <SectionHeading
@@ -211,12 +230,14 @@ function HabitatPage() {
           </Reveal>
           <dl className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {c.technical.specs.map((spec, i) => (
-              <Reveal key={spec.label} delay={i * 0.05}>
+              <Reveal key={`spec-${i}`} delay={i * 0.05}>
                 <div className="flex flex-col rounded-2xl border border-border bg-card p-6 text-center">
-                  <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  <dt className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
                     {spec.label}
                   </dt>
-                  <dd className="mt-2 font-heading text-xl font-bold text-foreground">{spec.value}</dd>
+                  <dd className="mt-2 font-heading text-xl font-bold text-foreground">
+                    {spec.value}
+                  </dd>
                 </div>
               </Reveal>
             ))}
@@ -225,18 +246,23 @@ function HabitatPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <SectionHeading eyebrow={c.faq.eyebrow} title={c.faq.title} />
           </Reveal>
           <div className="mx-auto mt-10 flex max-w-3xl flex-col gap-4">
             {c.faq.items.map((faq, i) => (
-              <Reveal key={faq.question} delay={i * 0.04}>
+              <Reveal key={`faq-${i}`} delay={i * 0.04}>
                 <details className="group rounded-2xl border border-border bg-card p-5">
                   <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                     {faq.question}
-                    <span className="ml-4 text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                    <span
+                      className="ml-4 text-primary transition-transform group-open:rotate-45"
+                      aria-hidden="true"
+                    >
+                      +
+                    </span>
                   </summary>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{faq.answer}</p>
                 </details>
@@ -247,13 +273,20 @@ function HabitatPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="relative isolate overflow-hidden bg-primary text-primary-foreground">
+      <section className="relative isolate overflow-hidden bg-primary text-primary-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="absolute inset-0 -z-10 opacity-20">
-          <Image src={IMAGES.habitatHero} alt="" fill sizes="100vw" className="object-cover" />
+          <Image
+            src={IMAGES.habitatHero}
+            alt=""
+            fill
+            srcSet={srcSetFor(IMAGES.habitatHero)}
+            sizes="100vw"
+            className="object-cover"
+          />
         </div>
         <div className="container-premium section-padding">
           <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-            <h2 className="text-balance font-heading text-3xl font-extrabold leading-tight sm:text-4xl">
+            <h2 className="font-heading text-3xl leading-tight font-extrabold text-balance sm:text-4xl">
               {c.cta.title}
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-primary-foreground/85">{c.cta.body}</p>
@@ -288,7 +321,8 @@ function HabitatPage() {
             href: "/le-van/conversion-electrique",
             icon: getServiceBySlug("conversion-electrique")!.icon,
             title: getServiceBySlug("conversion-electrique")!.content[locale].title,
-            description: getServiceBySlug("conversion-electrique")!.content[locale].shortDescription,
+            description:
+              getServiceBySlug("conversion-electrique")!.content[locale].shortDescription,
           },
           {
             href: "/le-van/systeme-solaire",
@@ -298,7 +332,6 @@ function HabitatPage() {
           },
         ]}
       />
-
     </>
   );
 }

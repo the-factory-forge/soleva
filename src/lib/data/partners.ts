@@ -1,11 +1,11 @@
 export interface Partner {
-  name: string
-  logo?: string
+  name: string;
+  logo?: string;
 }
 
 export interface PartnerCategory {
-  key: string
-  partners: Partner[]
+  key: string;
+  partners: Partner[];
 }
 
 export const partnerCategories: PartnerCategory[] = [
@@ -20,15 +20,10 @@ export const partnerCategories: PartnerCategory[] = [
   },
   {
     key: "institutional",
-    partners: [
-      { name: "Canton de Vaud" },
-      { name: "Services industriels de Lausanne (SiL)" },
-    ],
+    partners: [{ name: "Canton de Vaud" }, { name: "Services industriels de Lausanne (SiL)" }],
   },
   {
     key: "awards",
-    partners: [
-      { name: "Energy Lab Winner 2022" },
-    ],
+    partners: [{ name: "Energy Lab Winner 2022" }],
   },
-]
+];

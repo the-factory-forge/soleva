@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -14,18 +14,20 @@ export const Route = createFileRoute("/_site/$lang/confidentialite")({
     const dict = await getDictionary(locale);
     return { locale, dict };
   },
-  head: ({ loaderData }) =>
-    metadataToHead(
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
+    return     metadataToHead(
       buildMetadata({
-        locale: loaderData.locale,
-        title: `${ loaderData.dict.meta.privacy.title } | ${SITE_NAME}`,
-        description: loaderData.dict.meta.privacy.description,
+        locale: loaderData!.locale,
+        title: `${dict.meta.privacy.title} | ${SITE_NAME}`,
+        description: dict.meta.privacy.description,
         path: "/confidentialite",
         siteUrl: SITE_URL,
         siteName: SITE_NAME,
         noIndex: true,
       }),
-    ),
+    );
+  },
   component: PrivacyPage,
 });
 
@@ -46,21 +48,20 @@ function PrivacyPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={t(dict, "breadcrumb.ariaLabel")}
         homeLabel={dict.breadcrumb.home}
-        crumbs={[
-          { label: dict.breadcrumb.privacy, href: "/confidentialite" },
-        ]}
+        crumbs={[{ label: dict.breadcrumb.privacy, href: "/confidentialite" }]}
         title={p.title}
         subtitle={p.intro}
       />
 
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="mx-auto flex max-w-3xl flex-col gap-8">
-            {sections.map((s) => (
-              <div key={s.title}>
+            {sections.map((s, i) => (
+              <div key={i}>
                 <h2 className="font-heading text-xl font-bold">{s.title}</h2>
-                <p className="mt-2 whitespace-pre-line leading-relaxed text-muted-foreground">
+                <p className="mt-2 leading-relaxed whitespace-pre-line text-muted-foreground">
                   {s.body}
                 </p>
               </div>

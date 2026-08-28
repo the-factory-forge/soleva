@@ -7,11 +7,11 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
-import { Reveal } from "@/components/ui/reveal";
-import { SITE_NAME, SITE_URL } from "@/lib/constants";
-import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
+import { SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
-import { getDictionary } from "@/lib/i18n";
+import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -24,15 +24,19 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
     const service = getServiceBySlug(slug);
     if (!service) throw notFound();
     const dict = await getDictionary(locale);
-    return { locale, dict, slug, service };
+    // NOTE: never put `service` in loaderData - it contains React components
+    // (Lucide icons) that break Seroval serialization (Symbol(react.forward_ref)).
+    return { locale, dict, slug };
   },
   head: ({ loaderData }) => {
-    const { locale, service } = loaderData;
-    const content = service.content[locale];
+    const dict = loaderData!.dict;
+    const service = getServiceBySlug(loaderData!.slug);
+    if (!service) throw notFound();
+    const content = service.content[loaderData!.locale];
     return metadataToHead(
       buildMetadata({
-        locale,
-        title: `${ content.title } | ${SITE_NAME}`,
+        locale: loaderData!.locale,
+        title: `${content.title} | ${SITE_NAME}`,
         description: content.shortDescription,
         path: `/le-van/${service.slug}`,
         siteUrl: SITE_URL,
@@ -44,7 +48,9 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
 });
 
 function ServiceDetailPage() {
-  const { locale, dict, slug, service } = Route.useLoaderData();
+  const { locale, dict, slug } = Route.useLoaderData();
+  const service = getServiceBySlug(slug);
+  if (!service) throw notFound();
   const content = service.content[locale];
   const related = service.relatedServices
     .map((relSlug) => {
@@ -78,6 +84,7 @@ function ServiceDetailPage() {
     <>
       <PageHero
         locale={locale}
+        breadcrumbAriaLabel={t(dict, "breadcrumb.ariaLabel")}
         homeLabel={dict.breadcrumb.home}
         crumbs={[
           { label: dict.breadcrumb.van, href: "/le-van" },
@@ -91,7 +98,7 @@ function ServiceDetailPage() {
       <FaqJsonLd items={content.faqs} />
 
       {/* Overview */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -101,6 +108,7 @@ function ServiceDetailPage() {
                     src={service.heroImage || "/placeholder.svg"}
                     alt=""
                     fill
+                    srcSet={srcSetFor(service.heroImage)}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                     priority
@@ -113,7 +121,9 @@ function ServiceDetailPage() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <Icon className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">{content.title}</h2>
+                <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">
+                  {content.title}
+                </h2>
                 <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
                   {content.fullDescription}
                 </p>
@@ -124,7 +134,7 @@ function ServiceDetailPage() {
       </section>
 
       {/* Features */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">
@@ -133,7 +143,7 @@ function ServiceDetailPage() {
           </Reveal>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {content.features.map((feature, i) => (
-              <Reveal key={feature} delay={i * 0.05}>
+              <Reveal key={`feature-${i}`} delay={i * 0.05}>
                 <li className="flex items-start gap-3 rounded-2xl bg-card p-5 shadow-sm">
                   <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary">
                     <Check className="h-4 w-4" aria-hidden="true" />
@@ -147,7 +157,7 @@ function ServiceDetailPage() {
       </section>
 
       {/* Process */}
-      <section className="bg-background">
+      <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">
@@ -173,7 +183,7 @@ function ServiceDetailPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-muted">
+      <section className="bg-muted [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <Reveal>
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">
@@ -182,11 +192,16 @@ function ServiceDetailPage() {
           </Reveal>
           <div className="mx-auto mt-8 flex max-w-3xl flex-col gap-4">
             {content.faqs.map((faq, i) => (
-              <Reveal key={faq.question} delay={i * 0.05}>
+              <Reveal key={`faq-${i}`} delay={i * 0.05}>
                 <details className="group rounded-2xl border border-border bg-card p-5">
                   <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                     {faq.question}
-                    <span className="ml-4 text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                    <span
+                      className="ml-4 text-primary transition-transform group-open:rotate-45"
+                      aria-hidden="true"
+                    >
+                      +
+                    </span>
                   </summary>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{faq.answer}</p>
                 </details>
@@ -197,9 +212,7 @@ function ServiceDetailPage() {
       </section>
 
       {/* Related */}
-      {related.length > 0 && (
-        <PillarSuggestions locale={locale} dict={dict} items={related} />
-      )}
+      {related.length > 0 && <PillarSuggestions locale={locale} dict={dict} items={related} />}
 
       <p className="container-premium pb-6 text-center text-xs text-muted-foreground">
         {dict.service_detail.disclaimer}

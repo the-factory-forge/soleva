@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
-import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
+import { getDictionary } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_auth/$lang")({
   loader: async ({ location }) => {

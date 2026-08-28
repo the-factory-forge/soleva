@@ -1,12 +1,13 @@
-import { Image } from "@/components/ui/image"
-import { Zap, Sun, Home, ArrowRight } from "lucide-react"
-import { type Locale } from "@/lib/i18n/config"
-import type { Dictionary } from "@/lib/i18n"
-import { Link } from "@/components/ui/link"
-import { IMAGES } from "@/lib/constants"
-import { SectionHeading } from "@/components/ui/section-heading"
-import { Reveal } from "@/components/ui/reveal"
-import { withLocale } from "@/lib/navigation"
+import { Zap, Sun, Home, ArrowRight } from "lucide-react";
+
+import { Image } from "@/components/ui/image";
+import { Link } from "@/components/ui/link";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { IMAGES, srcSetFor } from "@/lib/constants";
+import type { Dictionary } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n/config";
+import { withLocale } from "@/lib/navigation";
 
 export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const pillars = [
@@ -31,15 +32,15 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
       href: "/habitat",
       image: IMAGES.habitat,
     },
-  ]
+  ];
 
   return (
-    <section className="bg-accent">
+    <section className="bg-accent [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
       <div className="container-premium section-padding">
         <SectionHeading title={dict.home.pillars.title} subtitle={dict.home.pillars.subtitle} />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {pillars.map((pillar, i) => (
-            <Reveal key={pillar.title} delay={i * 0.08}>
+            <Reveal key={`pillar-${i}`} delay={i * 0.08}>
               <Link
                 href={withLocale(locale, pillar.href)}
                 className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
@@ -49,6 +50,7 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
                     src={pillar.image || "/placeholder.svg"}
                     alt=""
                     fill
+                    srcSet={srcSetFor(pillar.image)}
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -61,7 +63,10 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
                   <p className="mt-3 flex-1 text-muted-foreground">{pillar.desc}</p>
                   <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                     {dict.common.learn_more}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                    <ArrowRight
+                      className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
                   </span>
                 </div>
               </Link>
@@ -70,5 +75,5 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
         </div>
       </div>
     </section>
-  )
+  );
 }

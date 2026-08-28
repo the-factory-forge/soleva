@@ -1,9 +1,9 @@
-import type { Locale } from "@/lib/i18n/config"
+import type { Locale } from "@/lib/i18n/config";
 
 export interface SponsorTier {
-  key: string
-  price: string
-  features: Record<Locale, string[]>
+  key: string;
+  price: string;
+  features: Record<Locale, string[]>;
 }
 
 export const sponsorTiers: SponsorTier[] = [
@@ -109,4 +109,4 @@ export const sponsorTiers: SponsorTier[] = [
       ],
     },
   },
-]
+];

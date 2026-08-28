@@ -4,10 +4,10 @@
 
 @theme inline {
   --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-montserrat), 'Montserrat Fallback', sans-serif;
-  --font-sans: var(--font-montserrat), 'Montserrat Fallback', sans-serif;
-  --font-eyebrow: var(--font-montserrat), 'Montserrat Fallback', sans-serif;
-  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback', monospace;
+  --font-heading: var(--font-montserrat), "Montserrat Fallback", sans-serif;
+  --font-sans: var(--font-montserrat), "Montserrat Fallback", sans-serif;
+  --font-eyebrow: var(--font-montserrat), "Montserrat Fallback", sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono Fallback", monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

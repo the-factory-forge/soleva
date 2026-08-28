@@ -1,7 +1,7 @@
 import { ArrowRight, type LucideIcon } from "lucide-react";
 
 import { Link } from "@/components/ui/link";
-import { Reveal } from "@/components/ui/reveal";
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/navigation";
@@ -28,7 +28,7 @@ export function PillarSuggestions({
   items: PillarSuggestion[];
 }) {
   return (
-    <section className="bg-background">
+    <section className="bg-background [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
       <div className="container-premium section-padding">
         <Reveal>
           <h2 className="font-heading text-2xl font-bold sm:text-3xl">
