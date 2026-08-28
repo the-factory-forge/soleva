@@ -25,7 +25,7 @@ export function CtaBand({
           <h2 className="font-heading text-3xl leading-tight font-extrabold text-balance sm:text-4xl">
             {title}
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-primary-foreground/80">{body}</p>
+          <p className="mt-4 text-lg leading-relaxed text-primary-foreground">{body}</p>
           <Button
             size="lg"
             className="mt-8 bg-secondary text-secondary-foreground hover:bg-secondary/90"

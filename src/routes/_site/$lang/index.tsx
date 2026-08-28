@@ -13,11 +13,11 @@ import { Link } from "@/components/ui/link";
 import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { IMAGES, PARTNER_LOGOS, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { partnerCategories } from "@/lib/data/partners";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
+import { getDictionary } from "@/lib/i18n";
 
 const TECHNICAL_LOGO_MAP: Record<string, string> = {
   CSEM: PARTNER_LOGOS.csem,
@@ -38,11 +38,11 @@ const AWARDS_LOGO_MAP: Record<string, string> = {
 export const Route = createFileRoute("/_site/$lang/")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
-  head: async ({ loaderData }) => {
-    const dict = await ensureDictionary(loaderData!.locale);
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     return     metadataToHead(
       buildMetadata({
         locale: loaderData!.locale,
@@ -58,8 +58,7 @@ export const Route = createFileRoute("/_site/$lang/")({
 });
 
 function HomePage() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
 
   return (
     <>

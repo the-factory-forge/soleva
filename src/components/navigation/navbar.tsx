@@ -23,6 +23,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -123,7 +124,9 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                   className={cn(
                     "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                     parentActive
-                      ? "text-primary"
+                      ? onLight
+                        ? "text-primary"
+                        : "text-primary-soft"
                       : onLight
                         ? "text-foreground/80 hover:text-primary"
                         : "text-white/85 hover:text-white",
@@ -150,18 +153,22 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                     : "text-white hover:bg-white/10 hover:text-white",
                 )}
                 aria-label={dict.nav.language}
+                onClick={() => setLangOpen(true)}
               >
                 {localeShort[locale]}
                 <ChevronDown className="h-4 w-4" aria-hidden="true" />
               </Button>
             }
           >
-            <LangSwitcher
-              locale={locale}
-              pathWithoutLocale={pathWithoutLocale}
-              onLight={onLight}
-              dict={dict}
-            />
+            {langOpen && (
+              <LangSwitcher
+                locale={locale}
+                pathWithoutLocale={pathWithoutLocale}
+                onLight={onLight}
+                dict={dict}
+                defaultOpen
+              />
+            )}
           </Suspense>
 
           <Button
@@ -183,12 +190,13 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                   onLight ? "text-foreground" : "text-white hover:bg-white/10 hover:text-white",
                 )}
                 aria-label={dict.nav.menu}
+                onClick={() => setOpen(true)}
               >
                 <Menu className="h-6 w-6" aria-hidden="true" />
               </Button>
             }
           >
-            <MobileNav
+            {open && <MobileNav
               locale={locale}
               dict={dict}
               open={open}
@@ -197,7 +205,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               navLabel={navLabel}
               mainNav={mainNav}
               onLight={onLight}
-            />
+            />}
           </Suspense>
         </div>
       </nav>

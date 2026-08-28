@@ -11,8 +11,7 @@ import { Label } from "#/components/ui/label";
 import { toast } from "#/components/ui/toast";
 import { authClient } from "#/lib/auth/auth-client";
 import { $getAuthProviders, $getUser } from "#/lib/auth/functions";
-import { t } from "@/lib/i18n";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { SITE_NAME } from "@/lib/site/constants";
 
@@ -27,16 +26,15 @@ export const Route = createFileRoute("/_auth/$lang/login")({
   },
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
+    const dict = await getDictionary(locale);
     const providers = await $getAuthProviders();
-    return { locale, providers };
+    return { locale, dict, providers };
   },
   component: LoginPage,
 });
 
 function LoginPage() {
-  const { locale, providers } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict, providers } = Route.useLoaderData();
   const { github, google } = providers;
 
   const { mutate: emailLoginMutate, isPending } = useMutation({

@@ -12,20 +12,20 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { ShareButton } from "@/components/ui/share-button";
 import { DONATION, IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { sponsorTiers } from "@/lib/data/sponsor-tiers";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
+import { getDictionary } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_site/$lang/soutenir")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
-  head: async ({ loaderData }) => {
-    const dict = await ensureDictionary(loaderData!.locale);
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     return     metadataToHead(
       buildMetadata({
         locale: loaderData!.locale,
@@ -41,8 +41,7 @@ export const Route = createFileRoute("/_site/$lang/soutenir")({
 });
 
 function SupportPage() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
   const t = dict.support;
 
   const ways = [

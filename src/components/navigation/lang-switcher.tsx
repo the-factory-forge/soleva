@@ -21,9 +21,9 @@ interface LangSwitcherProps {
   dict: Dictionary;
 }
 
-export function LangSwitcher({ locale, pathWithoutLocale, onLight, dict }: LangSwitcherProps) {
+export function LangSwitcher({ locale, pathWithoutLocale, onLight, dict, defaultOpen = false }: LangSwitcherProps & { defaultOpen?: boolean }) {
   return (
-    <DropdownMenu>
+    <DropdownMenu defaultOpen={defaultOpen}>
       <DropdownMenuTrigger
         render={
           <Button

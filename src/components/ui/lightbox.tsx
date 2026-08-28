@@ -3,6 +3,7 @@
 
 import { X } from "lucide-react";
 import { useState, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 import { Image } from "#/components/ui/image";
 import { cn } from "#/lib/utils";
@@ -80,9 +81,10 @@ export function Lightbox({
         </span>
       </button>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+      {open &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           onClick={closeModal}
@@ -101,8 +103,9 @@ export function Lightbox({
             className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
             onClick={(e) => e.stopPropagation()}
           />
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

@@ -7,8 +7,7 @@ import { Navbar } from "@/components/navigation/navbar";
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { CONTACT, SOCIALS, SITE_NAME } from "@/lib/constants";
 import { getFooterProps } from "@/lib/footer-helpers";
-import { type Dictionary, t } from "@/lib/i18n";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
+import { type Dictionary, getDictionary, t } from "@/lib/i18n";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n/config";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
@@ -62,7 +61,7 @@ function buildFooterProps(locale: Locale, dict: Dictionary) {
     },
     manageCookiesEvent: "soleva:open-cookie-settings",
     variant: "dark",
-    accentColor: "primary",
+    accentColor: "primary-soft",
   });
 }
 
@@ -76,22 +75,15 @@ export const Route = createFileRoute("/_site/$lang")({
       throw redirect({ href: `/${defaultLocale}${rest}` });
     }
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
-  },
-  // Seeds the dict cache before hydration (loaders are not re-run client-side,
-  // but heads are awaited - see use-dictionary.ts invariant).
-  head: async ({ loaderData }) => {
-    await ensureDictionary(loaderData!.locale);
-    return {};
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
   notFoundComponent: DefaultNotFound,
   component: LangLayout,
 });
 
 function LangLayout() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
 
   return (
     <div lang={locale}>

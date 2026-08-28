@@ -2,8 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
-import { t } from "@/lib/i18n";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -12,11 +11,11 @@ import { metadataToHead } from "@/lib/seo/head";
 export const Route = createFileRoute("/_site/$lang/confidentialite")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
-  head: async ({ loaderData }) => {
-    const dict = await ensureDictionary(loaderData!.locale);
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     return     metadataToHead(
       buildMetadata({
         locale: loaderData!.locale,
@@ -33,8 +32,7 @@ export const Route = createFileRoute("/_site/$lang/confidentialite")({
 });
 
 function PrivacyPage() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
   const p = dict.privacy;
 
   const sections = [

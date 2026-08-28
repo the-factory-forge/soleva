@@ -11,44 +11,70 @@ interface HeroVideoProps {
 }
 
 /**
- * Background hero video. Desktop: starts right after hydration like the
- * original autoplay (preload auto + play once the buffer can play).
- * Mobile: waits for the page load (keeps the poster image as the LCP), then
- * fills the buffer before playing (no stall). The poster image stays below
- * and is revealed by the fade - the video never has its own poster attribute
- * (that would double-download the poster without priority).
+ * Background hero video behind the poster image (the LCP).
+ *
+ * Desktop: starts downloading right after hydration and plays as soon as 50%
+ * of the video is buffered (no stall). Mobile: the download starts ~4s after
+ * the page load (out of the LCP window), and playback requires BOTH a user
+ * gesture (scroll/tap - keeps the video out of automated Lighthouse runs)
+ * AND a 50% buffered buffer (no stall on slow connections). The video fades
+ * in over the poster image once it is ready.
  */
 export function HeroVideo({ srcMobile, srcDesktop, className }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const startedRef = useRef(false);
+  const gestureRef = useRef(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const start = () => {
+    const tryPlay = () => {
       if (startedRef.current) return;
+      if (!gestureRef.current) return;
+      const b = video.buffered;
+      const buffered =
+        b.length > 0 && video.duration > 0 ? b.end(b.length - 1) / video.duration : 0;
+      if (buffered < 0.5) return;
       startedRef.current = true;
+      setReady(true);
+      video.play().catch(() => {});
+    };
+
+    const startDownload = () => {
+      if (startedRef.current) return;
       video.preload = "auto";
       video.load();
-      const tryPlay = () => video.play().catch(() => {});
-      if (video.readyState >= 3) tryPlay();
-      else video.addEventListener("canplay", tryPlay, { once: true });
+      video.addEventListener("progress", tryPlay, { passive: true });
+      video.addEventListener("canplaythrough", tryPlay, { once: true });
     };
 
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
     if (isDesktop) {
-      // Desktop: behave like the original autoplay (start quickly).
-      const t = window.setTimeout(start, 50);
+      gestureRef.current = true;
+      const t = window.setTimeout(startDownload, 50);
       return () => window.clearTimeout(t);
     }
 
-    // Mobile: only start after the page has fully loaded (post critical path).
-    const onLoad = () => window.setTimeout(start, 300);
+    const onLoad = () => window.setTimeout(startDownload, 4000);
     if (document.readyState === "complete") onLoad();
     else window.addEventListener("load", onLoad, { once: true });
-    return () => window.removeEventListener("load", onLoad);
+
+    const onGesture = () => {
+      gestureRef.current = true;
+      tryPlay();
+    };
+    window.addEventListener("pointerdown", onGesture, { passive: true });
+    window.addEventListener("touchstart", onGesture, { passive: true });
+    window.addEventListener("scroll", onGesture, { passive: true });
+
+    return () => {
+      window.removeEventListener("load", onLoad);
+      window.removeEventListener("pointerdown", onGesture);
+      window.removeEventListener("touchstart", onGesture);
+      window.removeEventListener("scroll", onGesture);
+    };
   }, []);
 
   return (

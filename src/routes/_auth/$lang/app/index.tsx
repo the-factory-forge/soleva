@@ -1,14 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { useAuthSuspense } from "#/lib/auth/hooks";
-import { t } from "@/lib/i18n";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 
 export const Route = createFileRoute("/_auth/$lang/app/")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
+    const dict = await getDictionary(locale);
     return { dict };
   },
   component: AppIndex,

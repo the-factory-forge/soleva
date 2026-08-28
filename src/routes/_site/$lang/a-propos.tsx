@@ -15,8 +15,7 @@ import {
   srcSetFor,
   TEAM_PHOTOS,
 } from "@/lib/constants";
-import { t } from "@/lib/i18n";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -162,11 +161,11 @@ const PRESS_ITEMS = [
 export const Route = createFileRoute("/_site/$lang/a-propos")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
-  head: async ({ loaderData }) => {
-    const dict = await ensureDictionary(loaderData!.locale);
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     return     metadataToHead(
       buildMetadata({
         locale: loaderData!.locale,
@@ -182,8 +181,7 @@ export const Route = createFileRoute("/_site/$lang/a-propos")({
 });
 
 function AboutPage() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
   const a = dict.about;
 
   return (

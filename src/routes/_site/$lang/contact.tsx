@@ -4,21 +4,21 @@ import { Mail, MapPin, Share2 } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT, SOCIALS, SITE_NAME, SITE_URL } from "@/lib/constants";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 import { cn } from "@/lib/utils";
+import { getDictionary } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_site/$lang/contact")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
-  head: async ({ loaderData }) => {
-    const dict = await ensureDictionary(loaderData!.locale);
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     return     metadataToHead(
       buildMetadata({
         locale: loaderData!.locale,
@@ -34,8 +34,7 @@ export const Route = createFileRoute("/_site/$lang/contact")({
 });
 
 function ContactPage() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
   const t = dict.contact;
 
   return (

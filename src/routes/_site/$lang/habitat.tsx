@@ -12,8 +12,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getServiceBySlug } from "@/lib/data/services";
-import { t } from "@/lib/i18n";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -25,11 +24,11 @@ const DISCOVER_URL = SITE_URL;
 export const Route = createFileRoute("/_site/$lang/habitat")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
-  head: async ({ loaderData }) => {
-    const dict = await ensureDictionary(loaderData!.locale);
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     const { locale } = loaderData;
     const c = habitatContent[locale];
     return metadataToHead(
@@ -48,8 +47,7 @@ export const Route = createFileRoute("/_site/$lang/habitat")({
 });
 
 function HabitatPage() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
   const c = habitatContent[locale];
 
   return (

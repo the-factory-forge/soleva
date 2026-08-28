@@ -11,8 +11,7 @@ import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
-import { t } from "@/lib/i18n";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -24,13 +23,13 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
     const slug = location.pathname.split("/")[3] ?? "";
     const service = getServiceBySlug(slug);
     if (!service) throw notFound();
-    await ensureDictionary(locale);
+    const dict = await getDictionary(locale);
     // NOTE: never put `service` in loaderData - it contains React components
     // (Lucide icons) that break Seroval serialization (Symbol(react.forward_ref)).
-    return { locale, slug };
+    return { locale, dict, slug };
   },
-  head: async ({ loaderData }) => {
-    const dict = await ensureDictionary(loaderData!.locale);
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     const service = getServiceBySlug(loaderData!.slug);
     if (!service) throw notFound();
     const content = service.content[loaderData!.locale];
@@ -49,8 +48,7 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
 });
 
 function ServiceDetailPage() {
-  const { locale, slug } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict, slug } = Route.useLoaderData();
   const service = getServiceBySlug(slug);
   if (!service) throw notFound();
   const content = service.content[locale];

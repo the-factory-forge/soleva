@@ -65,20 +65,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "preload",
-        href: "/assets/montserrat-latin-500-normal-DRFEGfly.woff2",
-        as: "font",
-        type: "font/woff2",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
-        href: "/assets/montserrat-latin-600-normal-UVxSCcoG.woff2",
-        as: "font",
-        type: "font/woff2",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
         href: "/assets/montserrat-latin-800-normal-axpkC1rd.woff2",
         as: "font",
         type: "font/woff2",

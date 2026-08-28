@@ -2,10 +2,10 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/auth/app-shell";
 import { $getUser } from "@/lib/auth/functions";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { SITE_NAME } from "@/lib/site/constants";
 import { getNavbarProps } from "@/lib/site/navigation";
+import { getDictionary } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_auth/$lang/app")({
   beforeLoad: async ({ location }) => {
@@ -18,15 +18,14 @@ export const Route = createFileRoute("/_auth/$lang/app")({
   },
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
   component: AppLayout,
 });
 
 function AppLayout() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
   const navbarProps = getNavbarProps(locale, dict);
 
   return (

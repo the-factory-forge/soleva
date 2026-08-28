@@ -10,8 +10,7 @@ import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { IMAGES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { services } from "@/lib/data/services";
-import { t } from "@/lib/i18n";
-import { ensureDictionary, useDictionary } from "@/lib/i18n/use-dictionary";
+import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
@@ -20,11 +19,11 @@ import { metadataToHead } from "@/lib/seo/head";
 export const Route = createFileRoute("/_site/$lang/le-van/")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
-    await ensureDictionary(locale);
-    return { locale };
+    const dict = await getDictionary(locale);
+    return { locale, dict };
   },
-  head: async ({ loaderData }) => {
-    const dict = await ensureDictionary(loaderData!.locale);
+  head: ({ loaderData }) => {
+    const dict = loaderData!.dict;
     return     metadataToHead(
       buildMetadata({
         locale: loaderData!.locale,
@@ -40,8 +39,7 @@ export const Route = createFileRoute("/_site/$lang/le-van/")({
 });
 
 function VanPage() {
-  const { locale } = Route.useLoaderData();
-  const dict = useDictionary(locale);
+  const { locale, dict } = Route.useLoaderData();
 
   return (
     <>

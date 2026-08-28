@@ -1,10 +1,8 @@
 "use client";
 
-import { Menu } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import type { Dictionary } from "@/lib/i18n";
 import { type Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/navigation";
@@ -33,21 +31,6 @@ export function MobileNav({
 }: MobileNavProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetTrigger
-        render={
-          <Button
-            variant="ghost"
-            size="icon"
-            className={cn(
-              "lg:hidden",
-              onLight ? "text-foreground" : "text-white hover:bg-white/10 hover:text-white",
-            )}
-            aria-label={dict.nav.menu}
-          />
-        }
-      >
-        <Menu className="h-6 w-6" aria-hidden="true" />
-      </SheetTrigger>
       <SheetContent side="right" className="w-[300px] p-0">
         <SheetTitle className="sr-only">{dict.nav.menu}</SheetTitle>
         <div className="flex max-h-[calc(100dvh-4rem)] flex-col gap-1 overflow-y-auto px-4 pt-16">
