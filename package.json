@@ -26,6 +26,7 @@
     "intent": "pnpm dlx @tanstack/intent@latest",
     "registry:pull": "node scripts/pull-registry.mjs",
     "images:variants": "node scripts/generate-image-variants.mjs",
+    "scrape:soleva": "node scripts/scrape-soleva-org.mjs",
     "db:start": "docker compose up",
     "db:stop": "docker compose down",
     "db:reset": "docker compose down -v",

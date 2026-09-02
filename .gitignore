@@ -33,3 +33,6 @@ dist
 !.env.example
 !.env.production
 public/original-videos/
+
+# Exports de récupération de contenu (régénérables via scripts/scrape-soleva-org.mjs)
+content-export/
