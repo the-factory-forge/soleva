@@ -476,5 +476,36 @@
     "loginError": "An error occurred while signing in.",
     "signupError": "An error occurred while signing up.",
     "passwordsMismatch": "Passwords do not match."
+  },
+  "presse": {
+    "hero": {
+      "eyebrow": "Press & media",
+      "title": "The press is talking about Soleva",
+      "subtitle": "Discover the reports, articles, radio and TV coverage devoted to the solar van."
+    },
+    "title": "In the media",
+    "intro": "Discover the people, newspapers, articles, radio and TV that are talking about the Soleva project.",
+    "read_label": "Read",
+    "pressTypes": {
+      "tvNational": "National TV",
+      "pressWritten": "Print press",
+      "tvRegional": "Regional TV",
+      "radioNational": "National radio",
+      "radio": "Radio"
+    }
+  },
+  "evenements": {
+    "hero": {
+      "eyebrow": "Events",
+      "title": "Events and tour stops",
+      "subtitle": "Soleva takes part in trade shows, conferences, screenings and gatherings to showcase the solar van."
+    },
+    "intro": "Find the trade shows, conferences, screenings and gatherings that Soleva took part in.",
+    "past_title": "Past events",
+    "cta": {
+      "title": "Invite Soleva to your event",
+      "body": "Festival, trade show, school, company or local authority: get in touch to invite the solar van.",
+      "button": "Contact us"
+    }
   }
 }

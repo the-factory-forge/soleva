@@ -476,5 +476,36 @@
     "loginError": "Une erreur est survenue lors de la connexion.",
     "signupError": "Une erreur est survenue lors de l'inscription.",
     "passwordsMismatch": "Les mots de passe ne correspondent pas."
+  },
+  "presse": {
+    "hero": {
+      "eyebrow": "Presse & médias",
+      "title": "La presse parle de Soleva",
+      "subtitle": "Découvrez les reportages, articles, radios et émissions consacrés au van solaire."
+    },
+    "title": "Ils parlent de Soleva",
+    "intro": "Découvrez les personnes, journaux, articles, radios et télévisions qui parlent du projet Soleva.",
+    "read_label": "Lire",
+    "pressTypes": {
+      "tvNational": "TV nationale",
+      "pressWritten": "Presse écrite",
+      "tvRegional": "TV régionale",
+      "radioNational": "Radio nationale",
+      "radio": "Radio"
+    }
+  },
+  "evenements": {
+    "hero": {
+      "eyebrow": "Événements",
+      "title": "Événements et étapes",
+      "subtitle": "Soleva participe à des salons, conférences, projections et rencontres pour faire découvrir le van solaire."
+    },
+    "intro": "Retrouvez les salons, conférences, projections et rencontres auxquels Soleva a participé.",
+    "past_title": "Événements passés",
+    "cta": {
+      "title": "Inviter Soleva à votre événement",
+      "body": "Festival, salon, école, entreprise ou collectivité : contactez-nous pour inviter le van solaire.",
+      "button": "Nous contacter"
+    }
   }
 }

@@ -45,6 +45,28 @@ export const pastEvents: Event[] = [
     location: "Suisse",
     date: "11.2023",
   },
+  {
+    // fr: source EN (pas de FR source) - l'événement n'apparaît pas dans le
+    // fichier FR exporté, seul le titre EN est fourni.
+    name: {
+      fr: "Conférence internationale PVinMotion",
+      en: "International PVinMotion conference",
+      de: "Internationale PVinMotion-Konferenz",
+      it: "Conferenza internazionale PVinMotion",
+    },
+    location: "Neuchâtel",
+    date: "06-08.03.2024",
+  },
+  {
+    name: {
+      fr: "Congrès photovoltaïque Suisse",
+      en: "Annual Swiss Photovoltaics meeting",
+      de: "Schweizer Photovoltaik-Treffen",
+      it: "Incontro fotovoltaico svizzero",
+    },
+    location: "Suisse",
+    date: "21-22.03.2024",
+  },
 ];
 
 export const POLAR_STEPS_URL = "https://www.polarsteps.com/Soleva";

@@ -476,5 +476,36 @@
     "loginError": "Beim Anmelden ist ein Fehler aufgetreten.",
     "signupError": "Beim Registrieren ist ein Fehler aufgetreten.",
     "passwordsMismatch": "Die Passworter stimmen nicht uberein."
+  },
+  "presse": {
+    "hero": {
+      "eyebrow": "Presse & Medien",
+      "title": "Die Presse spricht uber Soleva",
+      "subtitle": "Entdecken Sie die Reportagen, Artikel, Radio- und TV-Beitrage rund um das Solar-Van."
+    },
+    "title": "In den Medien",
+    "intro": "Entdecken Sie die Menschen, Zeitungen, Artikel, Radiosender und TV-Sender, die uber das Soleva-Projekt sprechen.",
+    "read_label": "Lesen",
+    "pressTypes": {
+      "tvNational": "Nationales TV",
+      "pressWritten": "Printpresse",
+      "tvRegional": "Regionales TV",
+      "radioNational": "Nationalradio",
+      "radio": "Radio"
+    }
+  },
+  "evenements": {
+    "hero": {
+      "eyebrow": "Veranstaltungen",
+      "title": "Veranstaltungen und Etappen",
+      "subtitle": "Soleva nimmt an Messen, Konferenzen, Vorfuhrungen und Treffen teil, um den Solar-Van vorzustellen."
+    },
+    "intro": "Hier finden Sie die Messen, Konferenzen, Vorfuhrungen und Treffen, an denen Soleva teilgenommen hat.",
+    "past_title": "Vergangene Veranstaltungen",
+    "cta": {
+      "title": "Soleva zu Ihrer Veranstaltung einladen",
+      "body": "Festival, Messe, Schule, Unternehmen oder Gemeinde: Kontaktieren Sie uns, um den Solar-Van einzuladen.",
+      "button": "Kontakt aufnehmen"
+    }
   }
 }
