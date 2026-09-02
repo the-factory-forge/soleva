@@ -1,0 +1,86 @@
+{
+  "lang": "en",
+  "slug": "about-soleva",
+  "url": "https://soleva.org/en/about-soleva",
+  "title": "About Soleva · Soleva Website",
+  "h1": [],
+  "h2": [
+    "OUR VISION: THE DREAM OF A SOLAR POWERED CAMPER VAN #",
+    "What soleva does: Education and development of sustainable technologies #",
+    "Documentary: \"The Soleva adventure\" #",
+    "OUR GOAL #",
+    "Where we are standing: Soleva today #",
+    "LET'S RETHINK THE WAY OF MOBILITY AND TRAVELING!"
+  ],
+  "h3": [
+    "Training the current and next generation of engineers",
+    "Participating in events and talk about renewable energies",
+    "educate about sustainable travel mobility"
+  ],
+  "paragraphs": [
+    "home > About Soleva > Our vision OUR VISION: THE DREAM OF A SOLAR POWERED CAMPER VAN # Soleva dreams of a future where the next generations can enjoy the beauty of this planet as we do now. We need to act now to stop the Global Warming that threatens to destroy the delicate balance of the environment all around us. Soleva strives for a zero-carbon world by pushing the boundaries of the mobility and travel sectors.",
+    "Training the current and next generation of engineers",
+    "Participating in events and talk about renewable energies",
+    "educate about sustainable travel mobility",
+    "Our goal is to show the possibilities of solar energy in the mobility sector. On top of that, we promote slow travel and demonstrate how low-tech solutions can be integrated even in a small home on wheels.",
+    "LET'S RETHINK THE WAY OF MOBILITY AND TRAVELING!"
+  ],
+  "listItems": [],
+  "links": {
+    "internal": [
+      "/about-soleva",
+      "/sponsoring",
+      "/contact-us"
+    ],
+    "external": [],
+    "mailto": [],
+    "tel": []
+  },
+  "images": [
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/41c4eba1ac410e0ff50e7584f77d06f734bdf3ead41633bd9156e21c0dc494b0-112688.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a18dc77a1c2b27c2c2a1204cf514e8c053aa435754f839cf711a94a6742f8266-114028.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/b3b39fd6338afdf093d627f0bda0414de11bc57547733870aa031a6f55c4a5d3-253538.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/03a80fd974e2aa6bd1bfc68210fca8e79d1c035f080822256bbd81941b1c311a-105379.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/cf70c433d0b51b1e80e9106c0079c147aa33bcdbc4b57e2adc1a45b7e6a53661-253537.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/9e0680890378ac823246e9b28d3644ec219d580eddda979567bd90f49a8c3ca9-253536.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/2a7bcfeeabba1703369d117a5c288c0a0f1a85dcb83dd9d8854baeee9333e46a-253539.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/ae4e21ee747a02e4f60cb457309a2d8b8944f86675b2c481f6fbd4c7a4293d93-253535.webp"
+  ],
+  "cmsMeta": {
+    "id": 750,
+    "title": "About Soleva",
+    "slug": "/about-soleva",
+    "published": true,
+    "publishedDate": "2022-06-10T12:09:54.000Z",
+    "seo": null,
+    "attributes": {
+      "title": "",
+      "layout": "centered",
+      "attachments": [
+        {
+          "id": 96220,
+          "path": "https://megaphone-data.s3.eu-central-2.amazonaws.com/public/media/7b77516f1aae3df9f143da36ba7c370ca3c6d25a16542e22ab981b43bf3fe2f0-96220.jpg",
+          "type": "image/jpeg",
+          "order": 1,
+          "title": "Soleva_team_working_van.jpg",
+          "creationDate": "2022-06-30T00:00:00.000Z"
+        }
+      ],
+      "hideSidebar": true,
+      "slug": "/about-soleva"
+    },
+    "attachments": [
+      {
+        "id": 96220,
+        "path": "https://megaphone-data.s3.eu-central-2.amazonaws.com/public/media/7b77516f1aae3df9f143da36ba7c370ca3c6d25a16542e22ab981b43bf3fe2f0-96220.jpg",
+        "type": "image/jpeg",
+        "order": 1,
+        "title": "Soleva_team_working_van.jpg",
+        "creationDate": "2022-06-30T00:00:00.000Z"
+      }
+    ],
+    "hideSidebar": true
+  },
+  "ok": true,
+  "error": null
+}

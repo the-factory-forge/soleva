@@ -1,0 +1,87 @@
+{
+  "lang": "fr",
+  "slug": "environmental-impact",
+  "url": "https://soleva.org/fr/environmental-impact",
+  "title": "La solution au voyage durable · Soleva Website",
+  "h1": [
+    "Environmental impact"
+  ],
+  "h2": [
+    "Voyage vs. empreinte carbone #",
+    "Un van propre #"
+  ],
+  "h3": [],
+  "paragraphs": [
+    "home > Le van solaire > Impact environmental Voyage vs. empreinte carbone # L'équipe Soleva est unie par l'amour de la nature et du voyage, et l'impact environnemental de celui-ci nous a poussé à troquer l'avion par le van et à explorer davantage nos alentours. Le coût environnemental reste cependant important, car selon l'OFEV, en 2019 en Suisse, le transport personnel représentait 32% de toutes les émissions de gaz à effet de serre.",
+    "L'UE projette de bannir tous les véhicules à carburant fossile d'ici 2035 et certains pays dès 2025. Malgré le fait que peu de solutions existent pour les véhicules de tourisme, il deviendra essentiel de trouver un compromis entre aventure et éthique environnementale.",
+    "Et s'il existait un moyen de parcourir le monde en toute autonomie avec en prime le confort d'un véhicule personnel et ayant un impact environnemental proche de zéro ? C'est pour cela que nous avons décidé de créer Soleva !",
+    "Nous avons comparé l'empreinte carbone de Soleva à celle des véhicules électriques ainsi que des vans diesel conventionnels existant sur le marché européen. Grâce au rétrofit d'un vieux van avec une recharge 100% solaire, les émissions de CO2 de Soleva sont réduites de 81%. Et oui, cela inclut bien “l'énergie grise” des batteries et du moteur électrique."
+  ],
+  "listItems": [],
+  "links": {
+    "internal": [
+      "/electric-conversion-van",
+      "/environmental-impact"
+    ],
+    "external": [],
+    "mailto": [],
+    "tel": []
+  },
+  "images": [
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/41c4eba1ac410e0ff50e7584f77d06f734bdf3ead41633bd9156e21c0dc494b0-112688.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/f4641aa800813a457fe8dde2c59fecc80b6502242bb652ab5c6320547c544077-92101.jpg",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a18dc77a1c2b27c2c2a1204cf514e8c053aa435754f839cf711a94a6742f8266-114028.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/0f9a502e216fd2ef1e7a27a13f52082b77c582b0c98fb1952889fdf17b737331-91174.jpg"
+  ],
+  "cmsMeta": {
+    "id": 759,
+    "title": "Environmental Impact",
+    "slug": "/environmental-impact",
+    "published": true,
+    "publishedDate": "2022-06-10T12:09:54.000Z",
+    "seo": {
+      "title": "A truely sustainable and circular solution",
+      "keywords": "mobility,solar,van,vehicle,car,retrofit,electric,renewable,energy,sustainable",
+      "description": "From old to sustainable: Principle of circular economy and upcycling. We build the solution with the lowest environmental and carbon footprint."
+    },
+    "attributes": {
+      "list": [],
+      "slug": "/environmental-impact",
+      "title": "Environmental impact",
+      "attachments": [
+        {
+          "id": 218595,
+          "path": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/27a88f5f6e99d8fe4314b3239dbcfdd589224cb7b949d17ddda9ef901d655b26-218595.jpeg",
+          "size": 282267,
+          "type": "image/jpeg",
+          "order": 1,
+          "sizes": [],
+          "title": "Soleva_landscape_environment_3.jpg",
+          "private": false,
+          "creationDate": "2025-07-07T00:00:00.000Z",
+          "optimizedPath": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/27a88f5f6e99d8fe4314b3239dbcfdd589224cb7b949d17ddda9ef901d655b26-218595.webp"
+        }
+      ],
+      "hideSidebar": true,
+      "backgroundPosition": "bottom"
+    },
+    "attachments": [
+      {
+        "id": 218595,
+        "path": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/27a88f5f6e99d8fe4314b3239dbcfdd589224cb7b949d17ddda9ef901d655b26-218595.jpeg",
+        "size": 282267,
+        "type": "image/jpeg",
+        "order": 1,
+        "sizes": [],
+        "title": "Soleva_landscape_environment_3.jpg",
+        "private": false,
+        "creationDate": "2025-07-07T00:00:00.000Z",
+        "optimizedPath": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/27a88f5f6e99d8fe4314b3239dbcfdd589224cb7b949d17ddda9ef901d655b26-218595.webp"
+      }
+    ],
+    "hideSidebar": true,
+    "backgroundPosition": "bottom"
+  },
+  "ok": true,
+  "error": null
+}

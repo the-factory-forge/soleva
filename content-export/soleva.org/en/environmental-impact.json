@@ -1,0 +1,87 @@
+{
+  "lang": "en",
+  "slug": "environmental-impact",
+  "url": "https://soleva.org/en/environmental-impact",
+  "title": "A truely sustainable and circular solution · Soleva Website",
+  "h1": [
+    "Environmental impact"
+  ],
+  "h2": [
+    "Travelling vs. Footprint #",
+    "A Low-Carbon Van #"
+  ],
+  "h3": [],
+  "paragraphs": [
+    "home > Solar electric van > Environmental impact Travelling vs. Footprint # Our team is united by the love of nature and travelling, but the environmental impact of it has made us trade in planes for camper vans and stay closer to home. However, even this does not come without cost as personal transportation accounts for 32% of all greenhouse gas emissions in Switzerland (OFEV, 2019).",
+    "The EU has announced a ban on fossil-fuel powered cars by 2035 and other countries as early as 2025. However, as very few solutions exist nowadays for travel vehicles, we are forced to compromise between adventure and environmental ethics.",
+    "But what if there was a way to explore the globe with the autonomy and comfort of travelling by car and having a minimal environmental impact at the same time? That's where Soleva comes in!",
+    "We compared the carbon footprint of Soleva to that of a conventional electric vehicle (EV) in the EU as well as that of a conventional diesel van. Thanks to retrofitting an old van and driving 100% solar, the CO2 emissions of Soleva are reduced by 81%. And yes, this includes the grey energy of the batteries and the electric motor."
+  ],
+  "listItems": [],
+  "links": {
+    "internal": [
+      "/electric-conversion-van",
+      "/environmental-impact"
+    ],
+    "external": [],
+    "mailto": [],
+    "tel": []
+  },
+  "images": [
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/41c4eba1ac410e0ff50e7584f77d06f734bdf3ead41633bd9156e21c0dc494b0-112688.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/f4641aa800813a457fe8dde2c59fecc80b6502242bb652ab5c6320547c544077-92101.jpg",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a18dc77a1c2b27c2c2a1204cf514e8c053aa435754f839cf711a94a6742f8266-114028.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/0f9a502e216fd2ef1e7a27a13f52082b77c582b0c98fb1952889fdf17b737331-91174.jpg"
+  ],
+  "cmsMeta": {
+    "id": 759,
+    "title": "Environmental Impact",
+    "slug": "/environmental-impact",
+    "published": true,
+    "publishedDate": "2022-06-10T12:09:54.000Z",
+    "seo": {
+      "title": "A truely sustainable and circular solution",
+      "keywords": "mobility,solar,van,vehicle,car,retrofit,electric,renewable,energy,sustainable",
+      "description": "From old to sustainable: Principle of circular economy and upcycling. We build the solution with the lowest environmental and carbon footprint."
+    },
+    "attributes": {
+      "list": [],
+      "slug": "/environmental-impact",
+      "title": "Environmental impact",
+      "attachments": [
+        {
+          "id": 218595,
+          "path": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/27a88f5f6e99d8fe4314b3239dbcfdd589224cb7b949d17ddda9ef901d655b26-218595.jpeg",
+          "size": 282267,
+          "type": "image/jpeg",
+          "order": 1,
+          "sizes": [],
+          "title": "Soleva_landscape_environment_3.jpg",
+          "private": false,
+          "creationDate": "2025-07-07T00:00:00.000Z",
+          "optimizedPath": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/27a88f5f6e99d8fe4314b3239dbcfdd589224cb7b949d17ddda9ef901d655b26-218595.webp"
+        }
+      ],
+      "hideSidebar": true,
+      "backgroundPosition": "bottom"
+    },
+    "attachments": [
+      {
+        "id": 218595,
+        "path": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/27a88f5f6e99d8fe4314b3239dbcfdd589224cb7b949d17ddda9ef901d655b26-218595.jpeg",
+        "size": 282267,
+        "type": "image/jpeg",
+        "order": 1,
+        "sizes": [],
+        "title": "Soleva_landscape_environment_3.jpg",
+        "private": false,
+        "creationDate": "2025-07-07T00:00:00.000Z",
+        "optimizedPath": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/27a88f5f6e99d8fe4314b3239dbcfdd589224cb7b949d17ddda9ef901d655b26-218595.webp"
+      }
+    ],
+    "hideSidebar": true,
+    "backgroundPosition": "bottom"
+  },
+  "ok": true,
+  "error": null
+}

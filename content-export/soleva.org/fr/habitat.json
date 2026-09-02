@@ -1,0 +1,87 @@
+{
+  "lang": "fr",
+  "slug": "habitat",
+  "url": "https://soleva.org/fr/habitat",
+  "title": "Habitation purement auto-suffisant et durable · Soleva Website",
+  "h1": [
+    "Self-sustaining House On Wheels"
+  ],
+  "h2": [
+    "Habitacle intelligent sans réduction du confort #",
+    "Notre projet applique le concept de Low-Tech et la réutilisation des composants pour fournir un habitat à faible émission de carbone et sans déchet. Être confortable tout en respectant les limites planétaires. #",
+    "Matériaux locaux et réutilisés #"
+  ],
+  "h3": [],
+  "paragraphs": [
+    "home > Le van solaire > Habitacle éco-responsable Habitacle intelligent sans réduction du confort # Notre espace de vie écologique et confortable ne manque d'aucun des éléments clés d'un chez-soi agréable: chambre, salle de bain, cuisine et salon. Mais la différence est dans les matériaux utilisés et dans les intégrations intelligentes. Un maximum de solutions low-tech et intelligentes sont intégrées, telle qu'une \"douche perpétuelle\" pour réduire la consommation d'eau, des toilettes sèches ou encore un poêle à masse inertielle pour le chauffage.",
+    "L'impact environnemental de notre espace de vie est réduit au minimum en utilisant des matériaux réutilisés et/ou recyclés, tels que le liège et la laine pour l'isolation et le bois de récupération pour les meubles."
+  ],
+  "listItems": [],
+  "links": {
+    "internal": [
+      "/electric-conversion-van",
+      "/habitat"
+    ],
+    "external": [],
+    "mailto": [],
+    "tel": []
+  },
+  "images": [
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/41c4eba1ac410e0ff50e7584f77d06f734bdf3ead41633bd9156e21c0dc494b0-112688.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a18dc77a1c2b27c2c2a1204cf514e8c053aa435754f839cf711a94a6742f8266-114028.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/487b8f2c1b90b50be87695357ac21b616c60b2c19866629916cef0464ef3b851-114045.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a11d3c70db24714d9c22e0eaa6617cd7520e15d4e136782c4df4ce42e07995f3-211108.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/898d61cbe305b72fe571dfb0c04a518937eb0336ed9dae191dad6d87339a439e-218430.webp"
+  ],
+  "cmsMeta": {
+    "id": 755,
+    "title": "Habitat",
+    "slug": "/habitat",
+    "published": true,
+    "publishedDate": "2022-06-10T12:09:54.000Z",
+    "seo": {
+      "title": "Fully self-sufficient and sustainable living",
+      "keywords": "self sufficient, living, habitat, self sustainable, life, van, vanlife,",
+      "description": "Completely eliminate fossil fuels and be fully grid-independent using a smart living space and local components."
+    },
+    "attributes": {
+      "list": [],
+      "slug": "/habitat",
+      "title": "Self-sustaining House On Wheels",
+      "attachments": [
+        {
+          "id": 211107,
+          "path": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a11d3c70db24714d9c22e0eaa6617cd7520e15d4e136782c4df4ce42e07995f3-211107.jpeg",
+          "size": 355603,
+          "type": "image/jpeg",
+          "order": 1,
+          "sizes": [],
+          "title": "Soleva_habitat_1.jpg",
+          "private": false,
+          "creationDate": "2025-05-27T00:00:00.000Z",
+          "optimizedPath": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a11d3c70db24714d9c22e0eaa6617cd7520e15d4e136782c4df4ce42e07995f3-211107.webp"
+        }
+      ],
+      "hideSidebar": true,
+      "backgroundPosition": "bottom"
+    },
+    "attachments": [
+      {
+        "id": 211107,
+        "path": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a11d3c70db24714d9c22e0eaa6617cd7520e15d4e136782c4df4ce42e07995f3-211107.jpeg",
+        "size": 355603,
+        "type": "image/jpeg",
+        "order": 1,
+        "sizes": [],
+        "title": "Soleva_habitat_1.jpg",
+        "private": false,
+        "creationDate": "2025-05-27T00:00:00.000Z",
+        "optimizedPath": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a11d3c70db24714d9c22e0eaa6617cd7520e15d4e136782c4df4ce42e07995f3-211107.webp"
+      }
+    ],
+    "hideSidebar": true,
+    "backgroundPosition": "bottom"
+  },
+  "ok": true,
+  "error": null
+}

@@ -1,0 +1,73 @@
+{
+  "lang": "en",
+  "slug": "contact-us",
+  "url": "https://soleva.org/en/contact-us",
+  "title": "Contact us · Soleva Website",
+  "h1": [
+    "Contact"
+  ],
+  "h2": [
+    "GOT A QUESTION? WANT TO BECOME A PARTNER?",
+    "OR JOIN THE TEAM? THEN REACH OUT TO US!",
+    "Contact form:"
+  ],
+  "h3": [
+    "Google"
+  ],
+  "paragraphs": [
+    "GOT A QUESTION? WANT TO BECOME A PARTNER? OR JOIN THE TEAM? THEN REACH OUT TO US!",
+    "Fill out the form below or write us on info@soleva.org for all kinds of requests and wishes.",
+    "Our team will come back to you the fastest we can.",
+    "Or give us a call: +41 77 420 74 40",
+    "Contact form:",
+    "Google uses cookies and other data to optimize search results and Maps features. Click \"I agree\" to use Maps or \"Learn more\" to review your options and to see how Google uses cookies",
+    "You would like to have a presentation on solar electric mobility? Or want to organise an event with a speaker specialized in renewable energies and sustainable mobility? We can make a collaboration and will be happy to prepare a talk suited to your needs."
+  ],
+  "listItems": [],
+  "links": {
+    "internal": [],
+    "external": [
+      "https://policies.google.com/privacy"
+    ],
+    "mailto": [
+      "mailto:info@soleva.org"
+    ],
+    "tel": [
+      "tel:+41774207440"
+    ]
+  },
+  "images": [
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/41c4eba1ac410e0ff50e7584f77d06f734bdf3ead41633bd9156e21c0dc494b0-112688.webp"
+  ],
+  "cmsMeta": {
+    "id": 761,
+    "title": "Contact",
+    "slug": "/contact-us",
+    "published": true,
+    "publishedDate": "2022-06-10T12:09:55.000Z",
+    "seo": {
+      "title": "Contact us",
+      "keywords": "soleva, contact, swiss, solar powered, van, vehicle,",
+      "description": "Reach out to Soleva for any enquiries, events, partnerships or if you want to join the team of young and dynamic people."
+    },
+    "attributes": {
+      "title": "Contact",
+      "layout": "fullWidth",
+      "attachments": [
+        {
+          "id": 96422,
+          "order": 1
+        }
+      ],
+      "slug": "/contact-us"
+    },
+    "attachments": [
+      {
+        "id": 96422,
+        "order": 1
+      }
+    ]
+  },
+  "ok": true,
+  "error": null
+}

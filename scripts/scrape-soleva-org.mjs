@@ -198,18 +198,44 @@ async function fetchApiPages() {
 // ---------- vérification des liens ----------
 
 async function checkUrl(url) {
-  try {
+  const attempt = async (ua) => {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 20000);
     try {
-      const res = await fetch(url, { method: "GET", headers: { "user-agent": UA_BOT }, redirect: "follow", signal: ctrl.signal });
+      const res = await fetch(url, { method: "GET", headers: { "user-agent": ua }, redirect: "follow", signal: ctrl.signal });
       await res.body?.cancel();
-      return { url, status: res.status, ok: res.ok, finalUrl: res.url };
+      return { status: res.status };
     } finally {
       clearTimeout(t);
     }
+  };
+  let r;
+  try {
+    r = await attempt(UA_BOT);
   } catch (e) {
-    return { url, status: 0, ok: false, error: e.name === "AbortError" ? "timeout" : e.message };
+    // Erreur réseau (TLS/anti-bot) : retry avec un UA navigateur — souvent la
+    // connexion passe, sinon c'est un blocage au niveau du serveur, pas un 404.
+    try {
+      r = await attempt(UA_BROWSER);
+    } catch {
+      return { url, status: 0, ok: false, blocked: true, error: "injoignable depuis le sandbox (à vérifier dans un navigateur)" };
+    }
+  }
+  // 403/429/451/999 = blocage anti-bot (souvent OK dans un navigateur) => "blocked", pas "broken"
+  const blocked = r.status === 403 || r.status === 429 || r.status === 451 || r.status === 999;
+  const ok = r.status >= 200 && r.status < 400 && !blocked;
+  return { url, status: r.status, ok, blocked };
+}
+
+// Normalise une URL pour dédupliquer la vérification (paramètres de tracking ignorés).
+function normUrl(u) {
+  try {
+    const x = new URL(u);
+    x.hash = "";
+    for (const k of ["utm_source", "utm_medium", "utm_campaign", "fbclid", "gclid"]) x.searchParams.delete(k);
+    return (x.origin + x.pathname).replace(/\/+$/, "").toLowerCase();
+  } catch {
+    return u.toLowerCase();
   }
 }
 
@@ -310,6 +336,7 @@ function main() {
 
     // 2. crawl SSR + API par page
     const allLinksToCheck = [];
+    const seenCheckKeys = new Set();
     const index = { generatedAt: new Date().toISOString(), source: ORIGIN, websiteId: WEBSITE_ID, langs: args.langs, pages: [] };
     let done = 0;
     const total = args.langs.reduce((n, l) => n + (pagePaths.get(l) || []).length, 0);
@@ -333,7 +360,14 @@ function main() {
                 const candidates = (extracted.links.external || []).filter((u) => {
                   try { return !CHECK_SKIP_HOSTS.has(new URL(u).hostname.toLowerCase()); } catch { return false; }
                 });
-                allLinksToCheck.push(...candidates);
+                // dédup par URL normalisée (garde la 1re occurrence)
+                for (const c of candidates) {
+                  const k = normUrl(c);
+                  if (!seenCheckKeys.has(k)) {
+                    seenCheckKeys.add(k);
+                    allLinksToCheck.push(c);
+                  }
+                }
               }
               if (args.media && meta) {
                 await mkdir(path.join(outRoot, "media"), { recursive: true });
@@ -360,37 +394,47 @@ function main() {
 
     // 3. vérification des liens
     let broken = [];
+    let blocked = [];
     if (args.checkLinks && allLinksToCheck.length) {
       console.log(`[links] vérification de ${allLinksToCheck.length} liens externes...`);
-      const results = await checkAllLinks([...new Set(allLinksToCheck)], args.concurrency);
-      broken = results.filter((r) => !r.ok);
+      const results = await checkAllLinks(allLinksToCheck, args.concurrency);
+      broken = results.filter((r) => !r.ok && !r.blocked);
+      blocked = results.filter((r) => r.blocked);
       for (const r of results) {
-        if (!r.ok) console.log(`  🔴 ${r.status || "ERR"} ${r.url}${r.error ? " (" + r.error + ")" : ""}`);
+        if (!r.ok && !r.blocked) console.log(`  🔴 ${r.status || "ERR"} ${r.url}${r.error ? " (" + r.error + ")" : ""}`);
+        else if (r.blocked) console.log(`  ⚠️ ${r.status} (anti-bot) ${r.url}`);
       }
     }
 
     // 4. rapport markdown
-    const report = buildReport({ index, broken });
+    const report = buildReport({ index, broken, blocked });
     await writeFile(path.join(outRoot, "report.md"), report);
-    await writeFile(path.join(outRoot, "index.json"), JSON.stringify({ ...index, brokenLinks: broken }, null, 2));
+    await writeFile(path.join(outRoot, "index.json"), JSON.stringify({ ...index, brokenLinks: broken, blockedLinks: blocked }, null, 2));
 
     console.log(`\nTerminé en ${((Date.now() - start) / 1000).toFixed(1)}s — ${done} pages → ${outRoot}`);
     if (broken.length) console.log(`🔴 ${broken.length} lien(s) cassé(s) : voir report.md`);
+    if (blocked.length) console.log(`⚠️ ${blocked.length} lien(s) bloqué(s) anti-bot (à vérifier dans un navigateur)`);
   })().catch((e) => {
     console.error(e);
     process.exitCode = 1;
   });
 }
 
-function buildReport({ index, broken }) {
+function buildReport({ index, broken, blocked }) {
   const lines = [];
   lines.push(`# Export soleva.org — ${new Date(index.generatedAt).toISOString().slice(0, 10)}`);
   lines.push("");
   lines.push(`Source : ${index.source} (websiteId ${index.websiteId}) · ${index.pages.length} pages · langues : ${index.langs.join(", ")}`);
   lines.push("");
   lines.push("## Liens cassés (🔴)");
+  lines.push("");
   if (!broken.length) lines.push("_Aucun lien cassé détecté._");
   for (const b of broken) lines.push(`- 🔴 \`${b.status || "ERR"}\` ${b.url}${b.error ? ` — ${b.error}` : ""}`);
+  lines.push("");
+  lines.push("## Liens bloqués anti-bot (⚠️ — à vérifier dans un navigateur)");
+  lines.push("");
+  if (!blocked.length) lines.push("_Aucun._");
+  for (const b of blocked) lines.push(`- ⚠️ \`${b.status}\` ${b.url}`);
   lines.push("");
   lines.push("## Pages");
   lines.push("");

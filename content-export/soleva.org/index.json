@@ -1,0 +1,348 @@
+{
+  "generatedAt": "2026-09-02T23:19:51.319Z",
+  "source": "https://soleva.org",
+  "websiteId": 37,
+  "langs": [
+    "fr",
+    "en"
+  ],
+  "pages": [
+    {
+      "lang": "fr",
+      "slug": "agb",
+      "url": "https://soleva.org/fr/agb",
+      "ok": true,
+      "title": "Déclaration de confidentialité et consentement RGPD · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "contact-us",
+      "url": "https://soleva.org/fr/contact-us",
+      "ok": true,
+      "title": "Contactez-nous · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "home",
+      "url": "https://soleva.org/fr/",
+      "ok": true,
+      "title": "Le Van Électrique Solaire · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "electric-conversion-van",
+      "url": "https://soleva.org/fr/electric-conversion-van",
+      "ok": true,
+      "title": "La technologie et spécifications du van solaire électrique · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "crowdfunding",
+      "url": "https://soleva.org/fr/crowdfunding",
+      "ok": true,
+      "title": "Crowdfunding et donations pour le projet soleva · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "environmental-impact",
+      "url": "https://soleva.org/fr/environmental-impact",
+      "ok": true,
+      "title": "La solution au voyage durable · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "journey",
+      "url": "https://soleva.org/fr/journey",
+      "ok": true,
+      "title": "Le tour de démonstration · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "events",
+      "url": "https://soleva.org/fr/events",
+      "ok": true,
+      "title": "Participer au projet en tant que sponsor-copie · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "habitat",
+      "url": "https://soleva.org/fr/habitat",
+      "ok": true,
+      "title": "Habitation purement auto-suffisant et durable · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "sponsoring",
+      "url": "https://soleva.org/fr/sponsoring",
+      "ok": true,
+      "title": "Participer au projet en tant que sponsor · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "solar-van",
+      "url": "https://soleva.org/fr/solar-van",
+      "ok": true,
+      "title": "La technologie et spécifications du van solaire électrique · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "partners",
+      "url": "https://soleva.org/fr/partners",
+      "ok": true,
+      "title": "Partenariat avec Soleva · Soleva Website"
+    },
+    {
+      "lang": "fr",
+      "slug": "team",
+      "url": "https://soleva.org/fr/team",
+      "ok": true,
+      "title": "L'équipe derrière Soleva · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "about-soleva",
+      "url": "https://soleva.org/en/about-soleva",
+      "ok": true,
+      "title": "About Soleva · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "agb",
+      "url": "https://soleva.org/en/agb",
+      "ok": true,
+      "title": "AGB · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "home",
+      "url": "https://soleva.org/en/",
+      "ok": true,
+      "title": "The Solar Electric Van Project · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "crowdfunding",
+      "url": "https://soleva.org/en/crowdfunding",
+      "ok": true,
+      "title": "Your support for the soleva project · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "contact-us",
+      "url": "https://soleva.org/en/contact-us",
+      "ok": true,
+      "title": "Contact us · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "blog",
+      "url": "https://soleva.org/en/blog",
+      "ok": true,
+      "title": "Blog · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "electric-conversion-van",
+      "url": "https://soleva.org/en/electric-conversion-van",
+      "ok": true,
+      "title": "The technology for a solar electric van · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "events",
+      "url": "https://soleva.org/en/events",
+      "ok": true,
+      "title": "Events and tour stops · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "environmental-impact",
+      "url": "https://soleva.org/en/environmental-impact",
+      "ok": true,
+      "title": "A truely sustainable and circular solution · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "habitat",
+      "url": "https://soleva.org/en/habitat",
+      "ok": true,
+      "title": "Fully self-sufficient and sustainable living · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "news",
+      "url": "https://soleva.org/en/news",
+      "ok": true,
+      "title": "Articles & news · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "journey",
+      "url": "https://soleva.org/en/journey",
+      "ok": true,
+      "title": "The demonstration tour · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "solar-van",
+      "url": "https://soleva.org/en/solar-van",
+      "ok": true,
+      "title": "Deployable solar array · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "partners",
+      "url": "https://soleva.org/en/partners",
+      "ok": true,
+      "title": "Partnership with Soleva · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "sponsoring",
+      "url": "https://soleva.org/en/sponsoring",
+      "ok": true,
+      "title": "Become part of the project as sponsor · Soleva Website"
+    },
+    {
+      "lang": "en",
+      "slug": "team",
+      "url": "https://soleva.org/en/team",
+      "ok": true,
+      "title": "The team behind Soleva · Soleva Website"
+    }
+  ],
+  "brokenLinks": [
+    {
+      "url": "https://www.birdhousebranding.com/",
+      "status": 404,
+      "ok": false,
+      "blocked": false
+    },
+    {
+      "url": "https://www.rouge.com/podcasts/le-coup-de-projecteur-203/1",
+      "status": 404,
+      "ok": false,
+      "blocked": false
+    }
+  ],
+  "blockedLinks": [
+    {
+      "url": "https://www.soleva.org/",
+      "status": 0,
+      "ok": false,
+      "blocked": true,
+      "error": "injoignable depuis le sandbox (à vérifier dans un navigateur)"
+    },
+    {
+      "url": "https://studer-innotec.com/",
+      "status": 0,
+      "ok": false,
+      "blocked": true,
+      "error": "injoignable depuis le sandbox (à vérifier dans un navigateur)"
+    },
+    {
+      "url": "https://www.vd.ch/",
+      "status": 403,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://dealers.peugeot.ch/grandjean-mt-sur-lausanne/accueil/?utm_source=google&amp;utm_medium=mybusiness",
+      "status": 403,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/curdin-wuethrich/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/matthieu-bourgois-1302/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/maxchevron/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/tobiawyss/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/sarabossuyt/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/s%C3%A9vane-bercher-715969144/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/lucanaël-kopf-60a334198/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/roman-schmitz-bba165b2/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/nicola-offeddu-63b07a130/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/andr%C3%A9-hodder-phd-8249961a/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.linkedin.com/in/louis-palmer-094b9923/",
+      "status": 999,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.rts.ch/play/tv/19h30/video/des-jeunes-ingenieurs-parcourent-la-suisse-avec-un-vieux-minibus-converti-a-lenergie-solaire?urn=urn:rts:video:15005664",
+      "status": 403,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.24heures.ch/un-van-romand-100-electrique-et-solaire-442970221563",
+      "status": 0,
+      "ok": false,
+      "blocked": true,
+      "error": "injoignable depuis le sandbox (à vérifier dans un navigateur)"
+    },
+    {
+      "url": "https://www.rts.ch/info/sciences-tech/13196779-avec-des-panneaux-solaires-sur-un-van-des-ingenieurs-veulent-voyager-durable.html?fbclid=IwAR3_CSqsC0CYBXNlauYxOtvTYCF1CzAteQdh2rZab9PKWLxXLmTuifF-ivQ",
+      "status": 403,
+      "ok": false,
+      "blocked": true
+    },
+    {
+      "url": "https://www.lacote.ch/vaud/la-cote/morges-district/morges-ville/morges-ils-transforment-leur-vieux-van-en-vehicule-solaire-1158291",
+      "status": 0,
+      "ok": false,
+      "blocked": true,
+      "error": "injoignable depuis le sandbox (à vérifier dans un navigateur)"
+    }
+  ]
+}
