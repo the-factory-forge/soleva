@@ -507,5 +507,48 @@
       "body": "Festival, Messe, Schule, Unternehmen oder Gemeinde: Kontaktieren Sie uns, um den Solar-Van einzuladen.",
       "button": "Kontakt aufnehmen"
     }
+  },
+  "equipe": {
+    "hero": {
+      "eyebrow": "Das Team",
+      "title": "Das Team hinter Soleva",
+      "subtitle": "Lernen Sie das Team und die Mentoren kennen, die den Solar-Van von Soleva bauen: Ingenieure, Enthusiasten und externe Berater."
+    },
+    "team_title": "DAS TEAM",
+    "mentors_title": "MENTOREN UND EXTERNE BERATER",
+    "roles": {
+      "curdin": "CEO und Mitgründer",
+      "matthieu": "CTO und Leiter mechanische Integration",
+      "max": "Leiter Finanzen & Batteriemanagement",
+      "tobia": "Mitgründer und Leiter Solarintegration",
+      "sara": "Mitgründerin und Leiterin Kommunikation und Wohnraum",
+      "sevane": "Leiterin Recht",
+      "lucanael": "Projektleiter mechanische Integration",
+      "roman": "Projektleiter Elektrifizierung",
+      "nicola": "Leiter Bau nachhaltiger Wohnräume"
+    },
+    "mentorRoles": {
+      "marc": "Gründer ICARE, Präsident Impact Living",
+      "andre": "Dozent und Forscher EPFL, Elektromotoren",
+      "louis": "Gründer SolarTaxi, SolarButterfly, WAVE",
+      "werner": "HTW Berlin, Advanced Automotive Concepts"
+    },
+    "join": {
+      "title": "Inspiriert vom Projekt und möchtest du Teil des Teams werden?",
+      "body": "Kontaktiere uns und wir finden gemeinsam einen Weg, wie du mitmachen kannst.",
+      "button": "Kontakt aufnehmen"
+    }
+  },
+  "partenaires": {
+    "hero": {
+      "eyebrow": "Partner",
+      "title": "Unsere Partner",
+      "subtitle": "Die technischen, institutionellen und akademischen Partner, die das Projekt Soleva ermöglichen."
+    },
+    "intro": "Technische, institutionelle und akademische Partner, die das Projekt möglich machen.",
+    "technical": "Technische Partner",
+    "institutional": "Institutionelle Unterstützung",
+    "awards": "Auszeichnungen und Anerkennungen",
+    "external_label": "Website besuchen"
   }
 }

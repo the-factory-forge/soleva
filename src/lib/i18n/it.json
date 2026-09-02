@@ -507,5 +507,48 @@
       "body": "Festival, fiera, scuola, azienda o ente locale: contattaci per invitare il van solare.",
       "button": "Contattaci"
     }
+  },
+  "equipe": {
+    "hero": {
+      "eyebrow": "Il team",
+      "title": "Il team dietro Soleva",
+      "subtitle": "Scopri il team e i mentori che costruiscono il van solare Soleva: ingegneri, appassionati e consulenti esterni."
+    },
+    "team_title": "IL TEAM",
+    "mentors_title": "MENTORI E CONSULENTI ESTERNI",
+    "roles": {
+      "curdin": "CEO e cofondatore",
+      "matthieu": "CTO e responsabile integrazione meccanica",
+      "max": "Responsabile tesoreria & gestione batterie",
+      "tobia": "Cofondatore e responsabile integrazione solare",
+      "sara": "Cofondatrice e responsabile comunicazione e habitat",
+      "sevane": "Responsabile legale",
+      "lucanael": "Capo progetto integrazione meccanica",
+      "roman": "Capo progetto elettrificazione",
+      "nicola": "Responsabile costruzione habitat sostenibile"
+    },
+    "mentorRoles": {
+      "marc": "Fondatore ICARE, Presidente Impact Living",
+      "andre": "Docente-ricercatore EPFL, motori elettrici",
+      "louis": "Fondatore SolarTaxi, SolarButterfly, WAVE",
+      "werner": "HTW Berlin, Advanced Automotive Concepts"
+    },
+    "join": {
+      "title": "Ispirato dal progetto e vorresti unirti al team?",
+      "body": "Contattaci e troveremo insieme un modo per partecipare al progetto.",
+      "button": "Contattaci"
+    }
+  },
+  "partenaires": {
+    "hero": {
+      "eyebrow": "Partner",
+      "title": "I nostri partner",
+      "subtitle": "I partner tecnici, istituzionali e accademici che rendono possibile il progetto Soleva."
+    },
+    "intro": "Partner tecnici, istituzionali e accademici che rendono possibile il progetto.",
+    "technical": "Partner tecnici",
+    "institutional": "Sostegno istituzionale",
+    "awards": "Premi e riconoscimenti",
+    "external_label": "Visita il sito"
   }
 }

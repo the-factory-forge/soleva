@@ -507,5 +507,48 @@
       "body": "Festival, salon, école, entreprise ou collectivité : contactez-nous pour inviter le van solaire.",
       "button": "Nous contacter"
     }
+  },
+  "equipe": {
+    "hero": {
+      "eyebrow": "L'équipe",
+      "title": "L'équipe de Soleva",
+      "subtitle": "Rencontrez l'équipe et les mentors qui construisent le van solaire Soleva : ingénieurs, passionnés et conseillers externes."
+    },
+    "team_title": "L'ÉQUIPE",
+    "mentors_title": "TUTEURS ET CONSEILLERS EXTERNES",
+    "roles": {
+      "curdin": "CEO et co-fondateur",
+      "matthieu": "CTO, co-fondateur et responsable intégration mécanique",
+      "max": "Trésorier & responsable de la gestion des batteries",
+      "tobia": "Co-fondateur et responsable de l'intégration solaire",
+      "sara": "Co-fondatrice et responsable de la communication et de l'habitat",
+      "sevane": "Co-fondatrice",
+      "lucanael": "Chef de projet intégration mécanique",
+      "roman": "Chef de projet électrification",
+      "nicola": "Responsable construction d'habitat durable"
+    },
+    "mentorRoles": {
+      "marc": "Fondateur ICARE, Président Impact Living",
+      "andre": "Enseignant-chercheur EPFL, moteurs électriques",
+      "louis": "Fondateur SolarTaxi, SolarButterfly, WAVE",
+      "werner": "HTW Berlin, Advanced Automotive Concepts"
+    },
+    "join": {
+      "title": "Inspiré par le projet, tu souhaiterais rejoindre l'équipe ?",
+      "body": "Contacte nous et nous trouverons ensemble comment tu peux prendre part au projet !",
+      "button": "Nous contacter"
+    }
+  },
+  "partenaires": {
+    "hero": {
+      "eyebrow": "Partenaires",
+      "title": "Nos partenaires",
+      "subtitle": "Les partenaires techniques, institutionnels et académiques qui rendent le projet Soleva possible."
+    },
+    "intro": "Des partenaires techniques, institutionnels et académiques qui rendent le projet possible.",
+    "technical": "Partenaires techniques",
+    "institutional": "Soutiens institutionnels",
+    "awards": "Prix et reconnaissances",
+    "external_label": "Visiter le site"
   }
 }

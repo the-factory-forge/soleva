@@ -507,5 +507,48 @@
       "body": "Festival, trade show, school, company or local authority: get in touch to invite the solar van.",
       "button": "Contact us"
     }
+  },
+  "equipe": {
+    "hero": {
+      "eyebrow": "The team",
+      "title": "The team behind Soleva",
+      "subtitle": "Meet the team and mentors building the Soleva solar van: engineers, enthusiasts and external advisors."
+    },
+    "team_title": "THE TEAM",
+    "mentors_title": "MENTORS AND EXTERNAL ADVISORS",
+    "roles": {
+      "curdin": "CEO and co-founder",
+      "matthieu": "CTO and head of mechanical integration",
+      "max": "Head of treasury & battery management",
+      "tobia": "Co-founder and head of solar integration",
+      "sara": "Co-founder and head of communication and habitat",
+      "sevane": "Head of law",
+      "lucanael": "Project manager mechanical integration",
+      "roman": "Project manager electrification",
+      "nicola": "Head of sustainable habitat construction"
+    },
+    "mentorRoles": {
+      "marc": "Founder of ICARE, President of Impact Living",
+      "andre": "EPFL lecturer-researcher, electric motors",
+      "louis": "Founder of SolarTaxi, SolarButterfly, WAVE",
+      "werner": "HTW Berlin, Advanced Automotive Concepts"
+    },
+    "join": {
+      "title": "Inspired by the project and would want to join the team?",
+      "body": "Then reach out to us and let's find a way you can be part.",
+      "button": "Contact us"
+    }
+  },
+  "partenaires": {
+    "hero": {
+      "eyebrow": "Partners",
+      "title": "Our partners",
+      "subtitle": "The technical, institutional and academic partners making the Soleva project possible."
+    },
+    "intro": "Technical, institutional and academic partners making the project possible.",
+    "technical": "Technical partners",
+    "institutional": "Institutional support",
+    "awards": "Awards and recognition",
+    "external_label": "Visit the website"
   }
 }
