@@ -21,7 +21,7 @@ import { getDictionary } from "@/lib/i18n";
 
 const TECHNICAL_LOGO_MAP: Record<string, string> = {
   CSEM: PARTNER_LOGOS.csem,
-  "EPFL PV-Lab": PARTNER_LOGOS.epfl,
+  EPFL: PARTNER_LOGOS.epfl,
   "Studer Innotec": PARTNER_LOGOS.studer,
   "BRUSA HyPower": PARTNER_LOGOS.brusa,
 };

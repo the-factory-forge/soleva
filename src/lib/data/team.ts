@@ -168,7 +168,6 @@ export const mentors: TeamMember[] = [
     name: "Prof. Dr. Werner Stednitz",
     role: "Professeur « Advanced Automotive Concepts » HTW Berlin",
     roleKey: "werner",
-    linkedin: "https://www.htw-berlin.de/hochschule/personen/person/?eid=1026",
     bio: {
       fr: "Professeur de Concepts Automobiles Avancés\" au HTW de Berlin",
       en: "Professor for advanced Automotive Concepts at the HTW Berlin",
