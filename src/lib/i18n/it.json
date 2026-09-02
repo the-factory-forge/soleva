@@ -51,6 +51,34 @@
     "privacy": {
       "title": "Informativa sulla privacy",
       "description": "Come Soleva tratta i tuoi dati personali (LPD / GDPR)."
+    },
+    "equipe": {
+      "title": "Il team di Soleva - i volti dietro il progetto",
+      "description": "Scopri il team e i mentor che costruiscono il van solare Soleva: ingegneri, appassionati e consulenti esterni."
+    },
+    "partenaires": {
+      "title": "Partner - Soleva",
+      "description": "I partner tecnici, istituzionali e accademici che rendono possibile il progetto Soleva."
+    },
+    "presse": {
+      "title": "Stampa e media - Soleva",
+      "description": "Soleva sui media: TV, radio, stampa e web. Scopri i servizi sul van solare."
+    },
+    "blog": {
+      "title": "Blog - Soleva",
+      "description": "Novità e dietro le quinte del progetto Soleva: eventi, conferenze, fiere e traguardi del van solare."
+    },
+    "evenements": {
+      "title": "Eventi - Soleva",
+      "description": "Eventi e tappe di Soleva: fiere, conferenze, proiezioni e incontri sulla mobilità solare."
+    },
+    "sponsoring": {
+      "title": "Sponsorizzazioni - Sostenere Soleva",
+      "description": "Diventa sponsor o partner del progetto Soleva e ottieni visibilità nella mobilità solare, nell'economia circolare e nelle energie rinnovabili."
+    },
+    "crowdfunding": {
+      "title": "Crowdfunding - Sostenere Soleva",
+      "description": "Sostieni il progetto Soleva: la campagna 2022 ha raccolto quasi 30'000 CHF grazie a oltre 130 sostenitori."
     }
   },
   "nav": {
@@ -65,6 +93,15 @@
     "about": "Chi siamo",
     "contact": "Contatto",
     "faq": "FAQ",
+    "projet": "Il progetto",
+    "actualites": "Novità",
+    "equipe": "Il team",
+    "partenaires": "Partner",
+    "blog": "Blog",
+    "presse": "Stampa e media",
+    "evenements": "Eventi",
+    "sponsoring": "Sponsorizzazioni",
+    "crowdfunding": "Crowdfunding",
     "language": "Lingua",
     "menu": "Menu",
     "close": "Chiudi"
@@ -367,6 +404,13 @@
     "legal": "Note legali",
     "privacy": "Privacy",
     "habitat": "Habitat",
+    "equipe": "Il team",
+    "partenaires": "Partner",
+    "presse": "Stampa e media",
+    "blog": "Blog",
+    "evenements": "Eventi",
+    "sponsoring": "Sponsorizzazioni",
+    "crowdfunding": "Crowdfunding",
     "ariaLabel": "Percorso di navigazione"
   },
   "footer": {

@@ -7,6 +7,7 @@ export type NavItem = {
 };
 
 // Paths are locale-agnostic; the locale prefix is added at render time.
+// IA restructuree (feat/content-implementation): groupes <= 6 top-level items.
 export const mainNav: NavItem[] = [
   { key: "home", href: "/" },
   {
@@ -19,9 +20,33 @@ export const mainNav: NavItem[] = [
       { key: "impact", href: "/impact" },
     ],
   },
-  { key: "about", href: "/a-propos" },
+  {
+    key: "projet",
+    href: "/a-propos",
+    children: [
+      { key: "about", href: "/a-propos" },
+      { key: "equipe", href: "/equipe" },
+      { key: "partenaires", href: "/partenaires" },
+    ],
+  },
   { key: "voyage", href: "/voyage" },
-  { key: "support", href: "/soutenir" },
+  {
+    key: "actualites",
+    href: "/blog",
+    children: [
+      { key: "blog", href: "/blog" },
+      { key: "presse", href: "/presse" },
+      { key: "evenements", href: "/evenements" },
+    ],
+  },
+  {
+    key: "support",
+    href: "/soutenir",
+    children: [
+      { key: "sponsoring", href: "/sponsoring" },
+      { key: "crowdfunding", href: "/crowdfunding" },
+    ],
+  },
   { key: "faq", href: "/faq" },
   { key: "contact", href: "/contact" },
 ];

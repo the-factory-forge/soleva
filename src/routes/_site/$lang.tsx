@@ -19,13 +19,11 @@ function buildFooterProps(locale: Locale, dict: Dictionary) {
     logo: "/images/soleva-logo.webp",
     columns: [
       {
-        title: dict.footer.explore,
+        title: dict.footer.project,
         links: [
           { label: dict.nav.about, href: withLocale(locale, "/a-propos") },
-          { label: dict.nav.voyage, href: withLocale(locale, "/voyage") },
-          { label: dict.nav.support, href: withLocale(locale, "/soutenir") },
-          { label: dict.nav.faq, href: withLocale(locale, "/faq") },
-          { label: dict.nav.contact, href: withLocale(locale, "/contact") },
+          { label: dict.nav.equipe, href: withLocale(locale, "/equipe") },
+          { label: dict.nav.partenaires, href: withLocale(locale, "/partenaires") },
         ],
       },
       {
@@ -35,6 +33,23 @@ function buildFooterProps(locale: Locale, dict: Dictionary) {
           { label: dict.nav.solaire, href: withLocale(locale, "/le-van/systeme-solaire") },
           { label: dict.nav.habitat, href: withLocale(locale, "/habitat") },
           { label: dict.nav.impact, href: withLocale(locale, "/impact") },
+        ],
+      },
+      {
+        title: dict.nav.actualites,
+        links: [
+          { label: dict.nav.voyage, href: withLocale(locale, "/voyage") },
+          { label: dict.nav.blog, href: withLocale(locale, "/blog") },
+          { label: dict.nav.presse, href: withLocale(locale, "/presse") },
+          { label: dict.nav.evenements, href: withLocale(locale, "/evenements") },
+        ],
+      },
+      {
+        title: dict.nav.support,
+        links: [
+          { label: dict.nav.support, href: withLocale(locale, "/soutenir") },
+          { label: dict.nav.sponsoring, href: withLocale(locale, "/sponsoring") },
+          { label: dict.nav.crowdfunding, href: withLocale(locale, "/crowdfunding") },
         ],
       },
     ],

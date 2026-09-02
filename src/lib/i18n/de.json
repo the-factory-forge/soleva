@@ -51,6 +51,34 @@
     "privacy": {
       "title": "Datenschutzerklärung",
       "description": "Wie Soleva mit Ihren persönlichen Daten umgeht (DSG / DSGVO)."
+    },
+    "equipe": {
+      "title": "Das Soleva-Team - die Gesichter hinter dem Projekt",
+      "description": "Lernen Sie das Team und die Mentoren kennen, die den Solar-Van Soleva bauen: Ingenieure, Enthusiasten und externe Berater."
+    },
+    "partenaires": {
+      "title": "Partner - Soleva",
+      "description": "Die technischen, institutionellen und akademischen Partner, die das Projekt Soleva ermöglichen."
+    },
+    "presse": {
+      "title": "Presse & Medien - Soleva",
+      "description": "Soleva in den Medien: TV, Radio, Print und Web. Sehen Sie die Beiträge über den Solar-Van."
+    },
+    "blog": {
+      "title": "Blog - Soleva",
+      "description": "Neuigkeiten und Einblicke in das Projekt Soleva: Events, Konferenzen, Messen und Meilensteine des Solar-Vans."
+    },
+    "evenements": {
+      "title": "Veranstaltungen - Soleva",
+      "description": "Soleva-Veranstaltungen und Tour-Stopps: Messen, Konferenzen, Filmvorführungen und Begegnungen rund um solare Mobilität."
+    },
+    "sponsoring": {
+      "title": "Sponsoring - Soleva unterstützen",
+      "description": "Werden Sie Sponsor oder Partner des Projekts Soleva und gewinnen Sie Sichtbarkeit in solarer Mobilität, Kreislaufwirtschaft und erneuerbaren Energien."
+    },
+    "crowdfunding": {
+      "title": "Crowdfunding - Soleva unterstützen",
+      "description": "Unterstützen Sie das Projekt Soleva: Die Kampagne 2022 sammelte dank über 130 Unterstützern fast 30'000 CHF."
     }
   },
   "nav": {
@@ -65,6 +93,15 @@
     "about": "Über uns",
     "contact": "Kontakt",
     "faq": "FAQ",
+    "projet": "Das Projekt",
+    "actualites": "Aktuelles",
+    "equipe": "Das Team",
+    "partenaires": "Partner",
+    "blog": "Blog",
+    "presse": "Presse & Medien",
+    "evenements": "Veranstaltungen",
+    "sponsoring": "Sponsoring",
+    "crowdfunding": "Crowdfunding",
     "language": "Sprache",
     "menu": "Menü",
     "close": "Schliessen"
@@ -367,6 +404,13 @@
     "legal": "Impressum",
     "privacy": "Datenschutz",
     "habitat": "Wohnraum",
+    "equipe": "Das Team",
+    "partenaires": "Partner",
+    "presse": "Presse & Medien",
+    "blog": "Blog",
+    "evenements": "Veranstaltungen",
+    "sponsoring": "Sponsoring",
+    "crowdfunding": "Crowdfunding",
     "ariaLabel": "Brotkrumen-Navigation"
   },
   "footer": {

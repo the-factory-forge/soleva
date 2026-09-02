@@ -51,6 +51,34 @@
     "privacy": {
       "title": "Politique de confidentialité",
       "description": "Comment Soleva traite vos données personnelles (LPD / RGPD)."
+    },
+    "equipe": {
+      "title": "L'équipe Soleva - les visages derrière le projet",
+      "description": "Rencontrez l'équipe et les mentors qui construisent le van solaire Soleva : ingénieurs, passionnés et conseillers externes."
+    },
+    "partenaires": {
+      "title": "Partenaires - Soleva",
+      "description": "Les partenaires techniques, institutionnels et académiques qui rendent le projet Soleva possible."
+    },
+    "presse": {
+      "title": "Presse & médias - Soleva",
+      "description": "Soleva dans les médias : TV, radio, presse écrite et web. Retrouvez les reportages sur le van solaire."
+    },
+    "blog": {
+      "title": "Blog - Soleva",
+      "description": "Les actualités et coulisses du projet Soleva : événements, conférences, salons et avancées du van solaire."
+    },
+    "evenements": {
+      "title": "Événements - Soleva",
+      "description": "Les événements et étapes de Soleva : salons, conférences, projections et rencontres autour de la mobilité solaire."
+    },
+    "sponsoring": {
+      "title": "Sponsoring - Soutenir Soleva",
+      "description": "Devenez sponsor ou partenaire du projet Soleva et gagnez en visibilité dans la mobilité solaire, l'économie circulaire et les énergies renouvelables."
+    },
+    "crowdfunding": {
+      "title": "Crowdfunding - Soutenir Soleva",
+      "description": "Soutenez le projet Soleva : la campagne 2022 a récolté près de 30'000 CHF grâce à plus de 130 contributeurs."
     }
   },
   "nav": {
@@ -65,6 +93,15 @@
     "about": "À propos",
     "contact": "Contact",
     "faq": "FAQ",
+    "projet": "Le projet",
+    "actualites": "Actualités",
+    "equipe": "L'équipe",
+    "partenaires": "Partenaires",
+    "blog": "Blog",
+    "presse": "Presse & médias",
+    "evenements": "Événements",
+    "sponsoring": "Sponsoring",
+    "crowdfunding": "Crowdfunding",
     "language": "Langue",
     "menu": "Menu",
     "close": "Fermer"
@@ -367,6 +404,13 @@
     "legal": "Mentions légales",
     "privacy": "Confidentialité",
     "habitat": "Habitat",
+    "equipe": "L'équipe",
+    "partenaires": "Partenaires",
+    "presse": "Presse & médias",
+    "blog": "Blog",
+    "evenements": "Événements",
+    "sponsoring": "Sponsoring",
+    "crowdfunding": "Crowdfunding",
     "ariaLabel": "Fil d'ariane"
   },
   "footer": {

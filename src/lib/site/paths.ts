@@ -11,6 +11,13 @@ export const STATIC_PATHS = [
   "/soutenir",
   "/contact",
   "/faq",
+  "/equipe",
+  "/partenaires",
+  "/presse",
+  "/blog",
+  "/evenements",
+  "/sponsoring",
+  "/crowdfunding",
   "/mentions-legales",
   "/confidentialite",
 ] as const;
