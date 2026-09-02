@@ -550,5 +550,37 @@
     "institutional": "Institutional support",
     "awards": "Awards and recognition",
     "external_label": "Visit the website"
+  },
+  "blog": {
+    "hero": {
+      "eyebrow": "Blog",
+      "title": "News & behind the scenes",
+      "subtitle": "Events, conferences, trade fairs and milestones from the Soleva solar van adventure."
+    },
+    "intro": "Follow the project's news: our events, our meetings and the latest news from the Soleva adventure.",
+    "date_label": "Published",
+    "cta": {
+      "title": "Would you like to meet us on the road?",
+      "body": "Get in touch to invite Soleva to your event or find out about the next tour stop.",
+      "button": "Contact us"
+    }
+  },
+  "sponsoring": {
+    "hero": {
+      "eyebrow": "Sponsoring",
+      "title": "Sponsor & support Soleva",
+      "subtitle": "Become a partner of the project and gain visibility in solar mobility, the circular economy and renewable energy."
+    },
+    "categories": {
+      "sponsors": "Sponsors",
+      "collaborations": "Collaborations",
+      "media": "Media partner"
+    },
+    "external_label": "Visit the website",
+    "cta": {
+      "title": "INTERESTED IN BECOMING A PARTNER?",
+      "body": "Contact us to find out how your company can support the Soleva project.",
+      "button": "Contact us"
+    }
   }
 }

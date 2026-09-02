@@ -550,5 +550,37 @@
     "institutional": "Sostegno istituzionale",
     "awards": "Premi e riconoscimenti",
     "external_label": "Visita il sito"
+  },
+  "blog": {
+    "hero": {
+      "eyebrow": "Blog",
+      "title": "Notizie & dietro le quinte",
+      "subtitle": "Eventi, conferenze, fiere e tappe dell'avventura del furgone solare Soleva."
+    },
+    "intro": "Seguite le notizie del progetto: i nostri eventi, i nostri incontri e le ultime novità dell'avventura Soleva.",
+    "date_label": "Pubblicato",
+    "cta": {
+      "title": "Volete incontrarci sulla strada?",
+      "body": "Contattateci per invitare Soleva al vostro evento o scoprire la prossima tappa.",
+      "button": "Contattaci"
+    }
+  },
+  "sponsoring": {
+    "hero": {
+      "eyebrow": "Sponsoring",
+      "title": "Sponsor e sostenere Soleva",
+      "subtitle": "Diventate partner del progetto e ottenete visibilità nella mobilità solare, nell'economia circolare e nelle energie rinnovabili."
+    },
+    "categories": {
+      "sponsors": "Sponsor",
+      "collaborations": "Collaborazioni",
+      "media": "Partner mediatici"
+    },
+    "external_label": "Visita il sito",
+    "cta": {
+      "title": "INTERESSATI A DIVENTARE PARTNER?",
+      "body": "Contattateci per scoprire come la vostra azienda può sostenere il progetto Soleva.",
+      "button": "Contattaci"
+    }
   }
 }

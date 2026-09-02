@@ -550,5 +550,37 @@
     "institutional": "Soutiens institutionnels",
     "awards": "Prix et reconnaissances",
     "external_label": "Visiter le site"
+  },
+  "blog": {
+    "hero": {
+      "eyebrow": "Blog",
+      "title": "Actualités & coulisses",
+      "subtitle": "Événements, conférences, salons et étapes de l'aventure du van solaire Soleva."
+    },
+    "intro": "Suivez l'actualité du projet : nos événements, nos rencontres et les dernières nouvelles de l'aventure Soleva.",
+    "date_label": "Publié",
+    "cta": {
+      "title": "Envie de nous rencontrer sur la route ?",
+      "body": "Contactez-nous pour inviter Soleva à votre événement ou découvrir la prochaine étape.",
+      "button": "Nous contacter"
+    }
+  },
+  "sponsoring": {
+    "hero": {
+      "eyebrow": "Sponsoring",
+      "title": "Sponsor et soutenir Soleva",
+      "subtitle": "Devenez partenaire du projet et gagnez en visibilité dans la mobilité solaire, l'économie circulaire et les énergies renouvelables."
+    },
+    "categories": {
+      "sponsors": "Partenaires et sponsors techniques",
+      "collaborations": "Partenaires",
+      "media": "Partenaires médiatiques"
+    },
+    "external_label": "Visiter le site",
+    "cta": {
+      "title": "INTÉRESSÉ À DEVENIR PARTENAIRE ?",
+      "body": "Contactez-nous pour découvrir comment votre entreprise peut soutenir le projet Soleva.",
+      "button": "Nous contacter"
+    }
   }
 }

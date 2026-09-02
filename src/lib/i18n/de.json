@@ -550,5 +550,37 @@
     "institutional": "Institutionelle Unterstützung",
     "awards": "Auszeichnungen und Anerkennungen",
     "external_label": "Website besuchen"
+  },
+  "blog": {
+    "hero": {
+      "eyebrow": "Blog",
+      "title": "Neuigkeiten & Hinter den Kulissen",
+      "subtitle": "Events, Konferenzen, Messen und Meilensteine des Soleva-Solarvans."
+    },
+    "intro": "Verfolgen Sie die Projektnews: unsere Events, unsere Begegnungen und die neuesten Nachrichten aus dem Soleva-Abenteuer.",
+    "date_label": "Veröffentlicht",
+    "cta": {
+      "title": "Möchten Sie uns unterwegs treffen?",
+      "body": "Kontaktieren Sie uns, um Soleva zu Ihrer Veranstaltung einzuladen oder die nächste Etappe zu erfahren.",
+      "button": "Kontakt aufnehmen"
+    }
+  },
+  "sponsoring": {
+    "hero": {
+      "eyebrow": "Sponsoring",
+      "title": "Soleva sponsern & unterstützen",
+      "subtitle": "Werden Sie Partner des Projekts und gewinnen Sie Sichtbarkeit in der Solarmobilität, der Kreislaufwirtschaft und den erneuerbaren Energien."
+    },
+    "categories": {
+      "sponsors": "Sponsoren",
+      "collaborations": "Kooperationen",
+      "media": "Medienpartner"
+    },
+    "external_label": "Website besuchen",
+    "cta": {
+      "title": "INTERESSIERT, PARTNER ZU WERDEN?",
+      "body": "Kontaktieren Sie uns, um zu erfahren, wie Ihr Unternehmen das Soleva-Projekt unterstützen kann.",
+      "button": "Kontakt aufnehmen"
+    }
   }
 }
