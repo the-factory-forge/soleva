@@ -15,6 +15,7 @@
 // `logo` stays undefined and the cards render name-only.
 // TODO localize via scripts/scrape-soleva-org.mjs --media
 
+import { PARTNER_LOGOS } from "@/lib/constants";
 import { type Locale } from "@/lib/i18n/config";
 
 export interface Sponsor {
@@ -44,18 +45,45 @@ export const sponsorCategories: SponsorCategory[] = [
         name: "SiL",
         url: "https://www.lausanne.ch/vie-pratique/energies-et-eau/services-industriels.html",
         linkStatus: "unverified",
+        logo: PARTNER_LOGOS.sil,
       },
       {
         name: "CSEM",
         url: "https://www.csem.ch/en/technical-focus/integrated-lightweight-photovoltaics/",
         linkStatus: "unverified",
+        logo: PARTNER_LOGOS.csem,
       },
       { name: "Loterie Romande", url: "https://www.loro.ch/", linkStatus: "ok" },
-      { name: "Studer Innotec", url: "https://studer-innotec.com/", linkStatus: "unverified" },
-      { name: "Canton de Vaud", url: "https://www.vd.ch/", linkStatus: "ok" },
-      { name: "Energy Lab Winner 2022", url: "https://energylab.site", linkStatus: "ok" },
-      { name: "BRUSA", url: "https://www.brusahypower.com", linkStatus: "ok" },
-      { name: "EPFL", url: "https://epfl.ch", linkStatus: "ok" },
+      {
+        name: "Studer Innotec",
+        url: "https://studer-innotec.com/",
+        linkStatus: "unverified",
+        logo: PARTNER_LOGOS.studer,
+      },
+      {
+        name: "Canton de Vaud",
+        url: "https://www.vd.ch/",
+        linkStatus: "ok",
+        logo: PARTNER_LOGOS.cantonVaud,
+      },
+      {
+        name: "Energy Lab Winner 2022",
+        url: "https://energylab.site",
+        linkStatus: "ok",
+        logo: PARTNER_LOGOS.energyLab,
+      },
+      {
+        name: "BRUSA",
+        url: "https://www.brusahypower.com",
+        linkStatus: "ok",
+        logo: PARTNER_LOGOS.brusa,
+      },
+      {
+        name: "EPFL",
+        url: "https://epfl.ch",
+        linkStatus: "ok",
+        logo: PARTNER_LOGOS.epfl,
+      },
       { name: "Soutenu par Renens", url: "https://www.renens.ch", linkStatus: "ok" },
       { name: "cork-shop", url: "https://cork-shop.com/", linkStatus: "ok" },
       { name: "evshop", url: "https://evshop.eu/en/", linkStatus: "ok" },
