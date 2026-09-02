@@ -3,6 +3,7 @@
 > Branche : `feat/content-recovery` · Site cible : `soleva.the-corner.io` (TanStack Start, 4 locales fr/en/de/it)
 > Site source : `soleva.org` (CMS Megaphone / Angular). Document décisionnel — les décisions client prises le jour de la rédaction sont intégrées (voir §4).
 > Récupération automatisée : `scripts/scrape-soleva-org.mjs` (voir §2 et le fichier).
+> ⚠️ Exigence clé (décision client) : **ne rien réinventer** — les textes éditoriaux sont **copiés-collés verbatim** depuis le site source, langue par langue (audit de fidélité : **§10**). Le design/UI seul est modernisé.
 
 ---
 
@@ -105,6 +106,7 @@ node scripts/scrape-soleva-org.mjs --limit=3                            # test r
 4. **Newsletter** → **pas de newsletter, pas de gestion d'e-mails** (non retenu). Le composant footer `newsletter` ne sera pas branché. (À rediscuter avec le chef si besoin.)
 5. **Formulaire de contact** → **aucun formulaire sur la page contact** ; l'**adresse e-mail est affichée** (mailto visible). Pas d'envoi d'e-mails à gérer.
 6. Autres points « à voir » listés en backlog (§9).
+7. **Fidélité stricte des textes (audit §10)** : les textes éditoriaux repris du site source sont **copiés-collés verbatim** (FR depuis la source FR quand elle existe, sinon EN) — aucune réécriture créative ; les éléments UI (labels nav/CTA/boutons, meta SEO) restent libres de modernisation ; tout contenu **sans source** ou **chiffre absent de la source** est supprimé ou marqué « à valider client ». Verdict de l'audit : nos textes actuels sont ~3/10 fidèles → gros travail de remplacement, page par page (§10).
 
 ---
 
@@ -229,6 +231,9 @@ IBAN `CH36 0076 7000 L553 2228 7` · BIC `BCVLCH2LXXX` · Banque Cantonale Vaudo
 - [ ] Logos sponsors : accord client pour l'affichage + fichiers sources si possible (sinon CDN).
 - [ ] LinkedIn + favicon + IDE (cf. backlog).
 - [ ] Dates/statuts « upcoming events » : l'événement du 04.10.2024 est passé → choisir affichage (archive) vs retirer.
+- [ ] **Fidélité (§10)** : textes des pages/sections copiés **verbatim** depuis la source FR/EN (pas de paraphrase) ; bloc par bloc via `content-export/` (garde-fous §10.7).
+- [ ] **Fidélité (§10.4)** : conflits chiffrés arbitrés avec le client — 81 % CO₂ (vs 80 %), specs techniques absentes de la source (250 km, 55 kWh, 1 350 W, moteur Nissan…), chiffres crowdfunding (« près de 30'000.- », pas de « 29'583 / 147 % / objectif 20'000 »), « 100+ communes » retiré.
+- [ ] **Fidélité (§10.5)** : contenus inventés retirés ou validés — disclaimers « estimés », formules de sponsoring CHF 500/1 500/5 000+, FAQ maison, durée GA « 14 mois » ; privacy remplacée par le texte AGB source.
 
 ## 9. Backlog (hors périmètre actuel)
 
@@ -239,3 +244,101 @@ IBAN `CH36 0076 7000 L553 2228 7` · BIC `BCVLCH2LXXX` · Banque Cantonale Vaudo
 - Numéro IDE (`constants.ts`), URL LinkedIn, favicon maison (placeholder The Corner).
 - Robots.txt : autorisations IA-crawlers (GEO) — opportunité, hors sujet contenu.
 - Réflexion : pages détail pour blog/événements (`$slug`) plus tard (le plan les garde en liste seulement).
+
+---
+
+## 10. Audit de fidélité des textes — on ne réinvente rien (copier-coller source)
+
+> Audit réalisé texte-à-texte (nos dicts/data FR vs rendu SSR EN **et** FR du site source) par 3 sous-agents + **cross-audit factuel** (31 claims vérifiés dans la source). Verdict global : **~3/10 de fidélité** — la grande majorité de nos textes actuels sont des réécritures/inventions issues du template, pas des textes du client.
+
+### 10.1 Scores par page (audit)
+
+| Page (nôtre) | Fidèle | Remplacer | Sans source | Commentaire |
+|---|---|---|---|---|
+| Home | ~11 % | ~67 % | ~22 % | hero, **5 piliers** (source en a 5, nous 3 inventés), new_start, cta, problem, press |
+| `/a-propos` (+ équipe/presse) | ~25 % | ~50 % | ~37 % | mission/vision, **rôles équipe** ; hero/story/timeline sans source directe |
+| Partenaires (noms) | 100 % | 0 % | 0 % | à compléter par les URLs |
+| `/le-van` hub | ~30 % | — | — | page UI ; sous-titre inventé |
+| conversion / solaire / habitat / impact | 0–3/10 | quasi toute la page | FAQ, comfort, technical… | specs inventées ; 80 % vs 81 % |
+| `/voyage` | 4/10 | 7 blocs | 7 blocs | « 100 communes », trajet inventés |
+| `/soutenir` | 3/10 | 12 | 8 | chiffres crowdfunding, tiers inventés |
+| `/contact` | 5/10 | 1 | 3 | e-mail seulement (décision client) |
+| `/faq` | 0/10 | — | 100 % | pas de source → garder + valider client |
+| légal + privacy | 3/10 | 8 | 5 | remplacer par le texte AGB source |
+| footer/common | 2/10 | — | — | labels UI (modernisation libre) |
+
+### 10.2 Règle par langue (copier-coller)
+
+- **FR** : copier le texte du site source **FR** quand la page existe réellement en français (14 pages — matrice §10.6) ; sinon traduire depuis la source EN (jamais réinventer).
+- **EN** : copier la source EN (20 pages, complète et fiable).
+- **DE/IT** : **pas de source** → traduire depuis la source FR/EN, court et fidèle → chaque traduction est marquée « traduction à relire client ».
+- **UI** (labels nav, boutons, CTA, meta SEO title/description, aria) : modernisation libre — non éditorial.
+- **Absence de source** : notre texte actuel conservé mais marqué « contenu maison → validation client ».
+- **Chiffre/date/fait absent de la source** : ne pas publier — supprimer ou passer en validation client (§10.4-§10.5).
+
+### 10.3 Nouvelles pages → source de copie (verbatim)
+
+| Page à créer | Source EN | Source FR réelle | Copier pour FR | Copier pour EN | DE/IT |
+|---|---|---|---|---|---|
+| `/equipe` | `/en/team` ✔ | `/fr/team` ✔ | bios FR verbatim | bios EN verbatim | trad. depuis FR/EN |
+| `/partenaires` | `/en/partners` (SSR **vide**) | idem FR | noms + liens depuis la **home** (7) — liste à valider client | idem | idem |
+| `/presse` | `/en/news` ✔ | `/fr/news` : corps FR réel, `<title>` EN | corps FR | corps EN | trad. |
+| `/blog` | `/en/blog` ✔ | **EN-only** (`/fr/blog` retombe EN) | traduire depuis EN | corps EN | trad. |
+| `/evenements` | `/en/events` ✔ | `/fr/events` : FR mais **titre FR cassé** | corps FR (vérifié) | corps EN | trad. |
+| `/sponsoring` | `/en/sponsoring` ✔ | `/fr/sponsoring` ✔ | catégories + logos FR | idem EN | trad. |
+| `/crowdfunding` | `/en/crowdfunding` ✔ | `/fr/crowdfunding` ✔ | texte FR verbatim | texte EN | trad. |
+
+### 10.4 Faits & chiffres — état (cross-audit, 31 claims)
+
+| # | Sujet | Notre valeur actuelle | Valeur source | Action |
+|---|---|---|---|---|
+| 1 | Réduction CO₂ | ~80 % | **81 %** (source, « incl. l'énergie grise des batteries et du moteur électrique ») | passer à 81 % |
+| 2 | Autonomie | ~250 km | **absent de la source** | validation client ou retrait |
+| 3 | Batterie | 55 kWh, 8 modules VW | **absent** (« battery modules » sans chiffre) | validation client ou retrait |
+| 4 | Moteur | Nissan seconde main | **absent** (« an electric motor », sans marque) | validation client ou retrait |
+| 5 | Solaire | 1 350 W, +150 km/jour | **absent** | validation client ou retrait |
+| 6 | BRUSA | « BRUSA HyPower DC-DC » | BRUSA = logo partenaire ✔, mais « HyPower converter » **absent** | nuancer / valider |
+| 7 | CSEM / EPFL PV-Lab | « développés par CSEM et EPFL PV-Lab » | CSEM ✔ (EN) ; « PV-Lab » absent des pages (cité dans un article presse) ; **la page FR solar ne cite pas CSEM** | suivre la langue de la source |
+| 8 | Panneaux | « grêle, nid d'abeille, made in CH » | « lightweight, durable, withstand harsh weather » ✔ ; détails **absents** | valider |
+| 9 | « 30'000 km/an gratuits » | absent de notre home | ✔ source (home « save money ») | récupérer |
+| 10 | Conversion | — | ✔ « double la durée de vie », Peugeot J9 1987, moteur diesel 190 kg ; « 4 façons de charger » (titre ✔, détail non rendu côté client) | récupérer ; demander le détail au client |
+| 11 | Impact | — | ✔ 32 % GES transport personnel CH (OFEV 2019) ; interdiction EU 2035 | récupérer |
+| 12 | Tour | « 100+ communes », trajet Lausanne→Zurich via Davos/Lugano/Sion | dates 15.06→03.08.2024 ✔ ; « premier véhicule entièrement autonome à parcourir la Suisse » ✔ ; **« 100 communes » absent** | remplacer ; retirer l'itinéraire inventé |
+| 13 | Crowdfunding | CHF 29'583 / 147 % / objectif 20'000 | **« plus de 29'000.- »**, « près de 30'000.- », « plus de 130 contributeurs », « 1 mois en été 2022 » — **pas de 147 %, pas d'objectif 20'000, pas de 29'583** (éventuellement dans le widget wemakeit) | texte source + valider les chiffres précis |
+| 14 | Rôles équipe & mentors | rôles FR maison | ✔ rôles source (EN + FR) | copier verbatim par langue (typo FR « méchanique » à corriger avec le client) |
+| 15 | Presse | 9 dates | 8 dates ✔ ; **24Heures sans date sur la source** | ne pas publier de date pour 24Heures (ou valider) |
+| 16 | Documentaire 04.10.2024 | sur la home | ✔ sur `/events` source (pas la home) | citer depuis les événements |
+| 17 | Adresse | Rue de Lausanne 64, 1020 Renens | source **incohérente** (footer Ave de Cour 19, 1007 ; AGB Ave de cour 19, 1000 ; crowdfunding Renens) + « Responsable : Curdin Wüthrich » omis chez nous | **backlog** — client arbitre |
+| 18 | Privacy | « 14 mois GA », « GA4 » | logs serveur « max 7 jours » ; « Google Analytics » (pas GA4) | reprendre le texte AGB source |
+
+### 10.5 Contenus actuels « inventés » → retirer ou valider client
+
+- **3 disclaimers maison** (« Chiffres techniques estimés, en cours de validation », « Les caractéristiques techniques sont estimées… », « Toutes les estimations d'impact doivent être validées par Soleva ») — absents de la source → à retirer ou remplacer par le texte source.
+- **Specs techniques non sourcées** : 250 km, 55 kWh, 8 modules VW, Nissan, 1 350 W, 150 km/jour, BRUSA HyPower, « grêle/nid d'abeille » → valider avec le client (données projet réelles possibles, mais hors site source).
+- **Chiffres crowdfunding précis** (29'583 / 147 % / 20'000) → remplacer par les valeurs sources.
+- **« 100+ communes » et l'itinéraire détaillé du tour** → remplacer par le texte source (dates + « premier véhicule autonome »).
+- **Formules de sponsoring CHF 500 / 1 500 / 5 000+** (« logo van taille M/L ») → fabriquées ; la source affiche des **catégories de partenaires** (Sponsors / Collaborations / Partenaires médiatiques + logos) et un tableau image « Sponsorship packages 2025 » → à refaire à partir de la source ou valider.
+- **FAQ entière** (pas de page FAQ source) → garder mais valider chaque Q/R avec le client.
+- **Privacy/mentions maison** → remplacer par le texte AGB source (déclarations RGPD réelles du client).
+- **Rôles d'équipe « co-fondatrice, juridique »…** → copier les rôles source (EN + FR) verbatim.
+
+### 10.6 Matrice FR source (pages réellement en français — titre FR vérifié)
+
+FR OK (14) : `/` (home FR), `/agb`, `/contact-us`, `/crowdfunding`, `/electric-conversion-van`, `/environmental-impact`, `/events`, `/habitat`, `/journey`, `/partners`, `/solar-van`, `/sponsoring`, `/team`, `/sitemap`.
+
+Pièges (vérifier le **corps**, pas seulement le titre) :
+- `/fr/about-soleva`, `/fr/news` : corps FR mais `<title>` EN (SEO FR à créer côté nôtre).
+- `/fr/solar-van` : **titre FR identique à la page conversion** (« La technologie et spécifications… ») — clash à vérifier avant copie.
+- `/fr/events` : **titre FR cassé** (« …sponsor-copie »).
+- `/fr/habitat` : H1 reste EN (« Self-sustaining House On Wheels ») malgré un titre FR.
+- `/fr/environmental-impact` : corps partiellement EN (fallback).
+- FR source parfois approximative (« Habitation purement auto-suffisant et durable ») → copier tel quel ou corriger avec le client (jamais seul).
+
+### 10.7 Garde-fous d'implémentation (copier-coller sans invention)
+
+1. Flux de copie : sortie du script `content-export/soleva.org/<lang>/<slug>.json` → textes collés **verbatim** dans les dicts/modules — interdiction de reformuler.
+2. Ne pas traduire soi-même FR→EN quand la source EN existe (copier l'EN), ni EN→FR quand une source FR existe (copier la FR).
+3. Garder le format source (guillemets, chiffres, dates) ; ne jamais ajouter un chiffre absent de la source.
+4. Valeur manquante ⇒ `TODO(client)` explicite ; **rien n'est publié avec un chiffre non sourcé**.
+5. QA finale (phase 6 de l'intégration) : diff « texte source vs texte livré » par bloc.
+6. Toute nouvelle page reprend le texte source complet (§10.3) — pas de synthèse maison.

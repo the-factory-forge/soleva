@@ -167,6 +167,8 @@ Règles :
 - [ ] Perf : nouvelles images locales passées dans `scripts/generate-image-variants.mjs` + entrées `srcSetFor` ; sections avec `content-visibility:auto` ; pas d'icônes dans loaderData.
 - [ ] Desktop ≤ 6 items nav ; mobile : menu lisible (dropdowns → sous-listes indentées, pattern existant).
 - [ ] Traductions complètes des 4 dicts (clés manquantes interdites en prod).
+- [ ] **Fidélité** : textes copiés **verbatim** depuis la source (FR si page FR réelle, sinon EN) — aucun bloc paraphrasé (audit : `content-recovery-plan.md` §10).
+- [ ] **Fidélité chiffres** : uniquement des valeurs sourcées ; 81 % CO₂, « près de 30'000.- », specs techniques validées par le client avant publication (écarts §10.4 du plan de récupération).
 
 ---
 
@@ -195,5 +197,37 @@ Audit croisé du `content-recovery-plan.md` contre le code et le site source :
 3. **`dict.home.press` inutilisé** : le plan s'appuie dessus pour la future page presse → combler : soit réutiliser la carte presse de `/a-propos` sur la home (objectif actuel de la clé), soit nettoyer la clé morte. À décider en phase 1.
 4. **Pas de page détail pour le blog/événements** : le plan de récupération liste des posts/événements sans pages détail → risque SEO « contenu riche sans page cible » faible au volume actuel (5 posts) ; combler plus tard par `$slug` (sitemap boucle type « services »). Noté §3.5.
 5. **Médias lourds** : vidéo hero source (mp4 CDN) et galerie conversion → combler : récupérer via `--media`, convertir en `.webp`/`.mp4` locaux (pattern « local-media » déjà appliqué en juin 2026), éviter le hot-linking du CDN source.
-6. **Traductions DE/IT** : le plan ne précise pas la chaîne → combler : FR source → EN (contrepartie source) → DE/IT par traduction (relire). Le site source n'est pas fiable en FR (fallback EN) — documenté §2.3 du plan de récupération.
+6. **Traductions DE/IT** : le plan ne précise pas la chaîne → combler : **FR depuis la source FR quand elle existe (14 pages), sinon traduire depuis la source EN** ; EN copié de la source EN ; DE/IT = traduction à relire par le client. Les pages FR fallback EN (`/fr/about-soleva`, `/fr/blog`, `/fr/news`, `/fr/search`) et les pièges FR (titre FR de `/fr/solar-van`, titre cassé `/fr/events`, H1 EN de `/fr/habitat`) sont documentés au §10.6 du plan de récupération.
 7. **Checklist technique du volet récupération** : aucun contrôle « contenu encore vivant » (dates 2022-2024, événement 04.10.2024 passé) → combler : statut `upcoming/past` dans `events.ts` et affichage adapté. Documenté dans le plan §8.
+
+---
+
+## 10. Exigence « copier-coller » : conséquences concrètes pour l'intégration
+
+L'audit de fidélité (`content-recovery-plan.md` §10, verdict ~3/10) impose une règle de travail stricte : **on modernise le UI/UX, on ne réécrit pas les textes du client**. Conséquences sur le code et le process :
+
+### 10.1 Stratégie de langue (par bloc de contenu)
+| Locale | Source | Règle |
+|---|---|---|
+| `fr` (défaut) | page FR source quand elle existe (14 pages) | **copier verbatim** |
+| `fr` (pages sans FR) | source EN (about-soleva, blog, news, search…) | traduire depuis l'EN — marqué « traduction » |
+| `en` | source EN (20 pages) | **copier verbatim** |
+| `de`, `it` | aucune source | traduire depuis FR/EN — **à relire client** |
+| UI (labels nav, CTA, meta SEO) | libre | modernisation OK (non éditorial) |
+
+### 10.2 Conséquences sur les modules de données existants
+- `src/lib/data/services.ts` : `fullDescription`/`features`/`process`/`faqs` actuels = réécriture/invention → **remplacer par le texte source** (process source = 5 étapes-images, pas nos 4 ; FAQ source inexistante → FAQ à valider client ou retirer).
+- `src/lib/constants.ts` `KEY_FIGURES` : chiffres non sourcés (250 km, 55 kWh, 1 350 W…) → **retirer du rendu public tant que non validés** ; garder les valeurs sourcées (81 %, 29'000+ CHF, 130 contributeurs, 30'000 km/an).
+- `sponsor-tiers.ts` : formules inventées (CHF 500/1 500/5 000+) → remplacer par les catégories de partenaires de la source (logos) ou passer en validation client.
+- `press.ts` : ajouter `url` + date seulement si sourcée (24Heures : pas de date sur la source → omettre ou valider).
+- `events.ts` : noms/dates sources ✔ ; descriptions à copier verbatim ; statut `upcoming/past`.
+- `faqs` / dict `faq` : page sans source → conserver mais chaque Q/R passe en validation client.
+
+### 10.3 Impact sur les phases (§8)
+- **Phases 1-4 (contenu)** : chaque bloc est **copié-collé** depuis `content-export/soleva.org/<lang>/<slug>.json` (sortie du script) — pas de rédaction maison ; les valeurs non sourcées sont exclues du rendu tant que le client n'a pas validé.
+- **Phase 5 (nav)** : inchangée — les labels de nav restent les nôtres (UI).
+- **Phase 6 (QA)** : ajouter un contrôle « fidélité » : diff texte source ↔ texte livré, par bloc ; vérifier l'absence de chiffres non sourcés ; vérifier la matrice FR (§10.6 du plan de récupération).
+
+### 10.4 Contenus « maison » tolérés (marqués, pas inventés)
+- Blocs **sans équivalent source** (FAQ, hero/vision/timeline de `/a-propos`, détails habitat/comfort) : conservés mais **chacun étiqueté `contenu-maison → validation client`** dans le code (TODO) pour ne pas les confondre avec du texte source.
+- Legal/privacy : remplacer par le texte AGB source (déclarations réelles du client), en laissant l'adresse en backlog (source incohérente, §10.4-17 du plan de récupération).
