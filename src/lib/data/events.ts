@@ -28,12 +28,12 @@ export const pastEvents: Event[] = [
   {
     name: {
       fr: "Congrès photovoltaïque Suisse",
-      en: "Swiss Photovoltaic Congress",
-      de: "Schweizer Photovoltaik-Kongress",
-      it: "Congresso fotovoltaico svizzero",
+      en: "Annual Swiss Photovoltaics meeting",
+      de: "Schweizer Photovoltaik-Treffen",
+      it: "Incontro fotovoltaico svizzero",
     },
     location: "Suisse",
-    date: "03.2024",
+    date: "21-22.03.2024",
   },
   {
     name: {
@@ -56,16 +56,6 @@ export const pastEvents: Event[] = [
     },
     location: "Neuchâtel",
     date: "06-08.03.2024",
-  },
-  {
-    name: {
-      fr: "Congrès photovoltaïque Suisse",
-      en: "Annual Swiss Photovoltaics meeting",
-      de: "Schweizer Photovoltaik-Treffen",
-      it: "Incontro fotovoltaico svizzero",
-    },
-    location: "Suisse",
-    date: "21-22.03.2024",
   },
 ];
 
