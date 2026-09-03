@@ -24,6 +24,13 @@ import { Route as AuthLangSignupRouteImport } from './routes/_auth/$lang/signup'
 import { Route as SiteLangIndexRouteImport } from './routes/_site/$lang/index'
 import { Route as SiteLangSplatRouteImport } from './routes/_site/$lang/$'
 import { Route as SiteLangAProposRouteImport } from './routes/_site/$lang/a-propos'
+import { Route as SiteLangBlogRouteImport } from './routes/_site/$lang/blog'
+import { Route as SiteLangCrowdfundingRouteImport } from './routes/_site/$lang/crowdfunding'
+import { Route as SiteLangEquipeRouteImport } from './routes/_site/$lang/equipe'
+import { Route as SiteLangEvenementsRouteImport } from './routes/_site/$lang/evenements'
+import { Route as SiteLangPartenairesRouteImport } from './routes/_site/$lang/partenaires'
+import { Route as SiteLangPresseRouteImport } from './routes/_site/$lang/presse'
+import { Route as SiteLangSponsoringRouteImport } from './routes/_site/$lang/sponsoring'
 import { Route as SiteLangConfidentialiteRouteImport } from './routes/_site/$lang/confidentialite'
 import { Route as SiteLangContactRouteImport } from './routes/_site/$lang/contact'
 import { Route as SiteLangFaqRouteImport } from './routes/_site/$lang/faq'
@@ -110,6 +117,41 @@ const SiteLangAProposRoute = SiteLangAProposRouteImport.update({
   path: '/a-propos',
   getParentRoute: () => SiteLangRoute,
 } as any)
+const SiteLangBlogRoute = SiteLangBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangCrowdfundingRoute = SiteLangCrowdfundingRouteImport.update({
+  id: '/crowdfunding',
+  path: '/crowdfunding',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangEquipeRoute = SiteLangEquipeRouteImport.update({
+  id: '/equipe',
+  path: '/equipe',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangEvenementsRoute = SiteLangEvenementsRouteImport.update({
+  id: '/evenements',
+  path: '/evenements',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangPartenairesRoute = SiteLangPartenairesRouteImport.update({
+  id: '/partenaires',
+  path: '/partenaires',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangPresseRoute = SiteLangPresseRouteImport.update({
+  id: '/presse',
+  path: '/presse',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangSponsoringRoute = SiteLangSponsoringRouteImport.update({
+  id: '/sponsoring',
+  path: '/sponsoring',
+  getParentRoute: () => SiteLangRoute,
+} as any)
 const SiteLangConfidentialiteRoute = SiteLangConfidentialiteRouteImport.update({
   id: '/confidentialite',
   path: '/confidentialite',
@@ -183,6 +225,13 @@ export interface FileRoutesByFullPath {
   '/$lang/signup': typeof AuthLangSignupRoute
   '/$lang/$': typeof SiteLangSplatRoute
   '/$lang/a-propos': typeof SiteLangAProposRoute
+  '/$lang/blog': typeof SiteLangBlogRoute
+  '/$lang/crowdfunding': typeof SiteLangCrowdfundingRoute
+  '/$lang/equipe': typeof SiteLangEquipeRoute
+  '/$lang/evenements': typeof SiteLangEvenementsRoute
+  '/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/$lang/presse': typeof SiteLangPresseRoute
+  '/$lang/sponsoring': typeof SiteLangSponsoringRoute
   '/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
   '/$lang/contact': typeof SiteLangContactRoute
   '/$lang/faq': typeof SiteLangFaqRoute
@@ -208,6 +257,13 @@ export interface FileRoutesByTo {
   '/$lang/signup': typeof AuthLangSignupRoute
   '/$lang/$': typeof SiteLangSplatRoute
   '/$lang/a-propos': typeof SiteLangAProposRoute
+  '/$lang/blog': typeof SiteLangBlogRoute
+  '/$lang/crowdfunding': typeof SiteLangCrowdfundingRoute
+  '/$lang/equipe': typeof SiteLangEquipeRoute
+  '/$lang/evenements': typeof SiteLangEvenementsRoute
+  '/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/$lang/presse': typeof SiteLangPresseRoute
+  '/$lang/sponsoring': typeof SiteLangSponsoringRoute
   '/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
   '/$lang/contact': typeof SiteLangContactRoute
   '/$lang/faq': typeof SiteLangFaqRoute
@@ -237,6 +293,13 @@ export interface FileRoutesById {
   '/_auth/$lang/signup': typeof AuthLangSignupRoute
   '/_site/$lang/$': typeof SiteLangSplatRoute
   '/_site/$lang/a-propos': typeof SiteLangAProposRoute
+  '/_site/$lang/blog': typeof SiteLangBlogRoute
+  '/_site/$lang/crowdfunding': typeof SiteLangCrowdfundingRoute
+  '/_site/$lang/equipe': typeof SiteLangEquipeRoute
+  '/_site/$lang/evenements': typeof SiteLangEvenementsRoute
+  '/_site/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/_site/$lang/presse': typeof SiteLangPresseRoute
+  '/_site/$lang/sponsoring': typeof SiteLangSponsoringRoute
   '/_site/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
   '/_site/$lang/contact': typeof SiteLangContactRoute
   '/_site/$lang/faq': typeof SiteLangFaqRoute
@@ -265,6 +328,13 @@ export interface FileRouteTypes {
     | '/$lang/signup'
     | '/$lang/$'
     | '/$lang/a-propos'
+    | '/$lang/blog'
+    | '/$lang/crowdfunding'
+    | '/$lang/equipe'
+    | '/$lang/evenements'
+    | '/$lang/partenaires'
+    | '/$lang/presse'
+    | '/$lang/sponsoring'
     | '/$lang/confidentialite'
     | '/$lang/contact'
     | '/$lang/faq'
@@ -290,6 +360,13 @@ export interface FileRouteTypes {
     | '/$lang/signup'
     | '/$lang/$'
     | '/$lang/a-propos'
+    | '/$lang/blog'
+    | '/$lang/crowdfunding'
+    | '/$lang/equipe'
+    | '/$lang/evenements'
+    | '/$lang/partenaires'
+    | '/$lang/presse'
+    | '/$lang/sponsoring'
     | '/$lang/confidentialite'
     | '/$lang/contact'
     | '/$lang/faq'
@@ -318,6 +395,13 @@ export interface FileRouteTypes {
     | '/_auth/$lang/signup'
     | '/_site/$lang/$'
     | '/_site/$lang/a-propos'
+    | '/_site/$lang/blog'
+    | '/_site/$lang/crowdfunding'
+    | '/_site/$lang/equipe'
+    | '/_site/$lang/evenements'
+    | '/_site/$lang/partenaires'
+    | '/_site/$lang/presse'
+    | '/_site/$lang/sponsoring'
     | '/_site/$lang/confidentialite'
     | '/_site/$lang/contact'
     | '/_site/$lang/faq'
@@ -451,6 +535,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteLangAProposRouteImport
       parentRoute: typeof SiteLangRoute
     }
+    '/_site/$lang/blog': {
+      id: '/_site/$lang/blog'
+      path: '/blog'
+      fullPath: '/$lang/blog'
+      preLoaderRoute: typeof SiteLangBlogRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/crowdfunding': {
+      id: '/_site/$lang/crowdfunding'
+      path: '/crowdfunding'
+      fullPath: '/$lang/crowdfunding'
+      preLoaderRoute: typeof SiteLangCrowdfundingRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/equipe': {
+      id: '/_site/$lang/equipe'
+      path: '/equipe'
+      fullPath: '/$lang/equipe'
+      preLoaderRoute: typeof SiteLangEquipeRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/evenements': {
+      id: '/_site/$lang/evenements'
+      path: '/evenements'
+      fullPath: '/$lang/evenements'
+      preLoaderRoute: typeof SiteLangEvenementsRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/partenaires': {
+      id: '/_site/$lang/partenaires'
+      path: '/partenaires'
+      fullPath: '/$lang/partenaires'
+      preLoaderRoute: typeof SiteLangPartenairesRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/presse': {
+      id: '/_site/$lang/presse'
+      path: '/presse'
+      fullPath: '/$lang/presse'
+      preLoaderRoute: typeof SiteLangPresseRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/sponsoring': {
+      id: '/_site/$lang/sponsoring'
+      path: '/sponsoring'
+      fullPath: '/$lang/sponsoring'
+      preLoaderRoute: typeof SiteLangSponsoringRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
     '/_site/$lang/confidentialite': {
       id: '/_site/$lang/confidentialite'
       path: '/confidentialite'
@@ -580,6 +713,13 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 interface SiteLangRouteChildren {
   SiteLangSplatRoute: typeof SiteLangSplatRoute
   SiteLangAProposRoute: typeof SiteLangAProposRoute
+  SiteLangBlogRoute: typeof SiteLangBlogRoute
+  SiteLangCrowdfundingRoute: typeof SiteLangCrowdfundingRoute
+  SiteLangEquipeRoute: typeof SiteLangEquipeRoute
+  SiteLangEvenementsRoute: typeof SiteLangEvenementsRoute
+  SiteLangPartenairesRoute: typeof SiteLangPartenairesRoute
+  SiteLangPresseRoute: typeof SiteLangPresseRoute
+  SiteLangSponsoringRoute: typeof SiteLangSponsoringRoute
   SiteLangConfidentialiteRoute: typeof SiteLangConfidentialiteRoute
   SiteLangContactRoute: typeof SiteLangContactRoute
   SiteLangFaqRoute: typeof SiteLangFaqRoute
@@ -596,6 +736,13 @@ interface SiteLangRouteChildren {
 const SiteLangRouteChildren: SiteLangRouteChildren = {
   SiteLangSplatRoute: SiteLangSplatRoute,
   SiteLangAProposRoute: SiteLangAProposRoute,
+  SiteLangBlogRoute: SiteLangBlogRoute,
+  SiteLangCrowdfundingRoute: SiteLangCrowdfundingRoute,
+  SiteLangEquipeRoute: SiteLangEquipeRoute,
+  SiteLangEvenementsRoute: SiteLangEvenementsRoute,
+  SiteLangPartenairesRoute: SiteLangPartenairesRoute,
+  SiteLangPresseRoute: SiteLangPresseRoute,
+  SiteLangSponsoringRoute: SiteLangSponsoringRoute,
   SiteLangConfidentialiteRoute: SiteLangConfidentialiteRoute,
   SiteLangContactRoute: SiteLangContactRoute,
   SiteLangFaqRoute: SiteLangFaqRoute,
