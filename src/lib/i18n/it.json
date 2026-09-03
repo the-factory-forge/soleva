@@ -582,5 +582,34 @@
       "body": "Contattateci per scoprire come la vostra azienda può sostenere il progetto Soleva.",
       "button": "Contattaci"
     }
+  },
+  "crowdfunding": {
+    "hero": {
+      "eyebrow": "Crowdfunding",
+      "title": "Crowdfunding e donazioni",
+      "subtitle": "Sostenete il progetto del van solare Soleva con una campagna di crowdfunding o una donazione."
+    },
+    "story_title": "La campagna pubblica di crowdfunding del 2022 ha raccolto più di 29'000.-!",
+    "facts": {
+      "title": "La campagna in cifre",
+      "campaign": "Campagna",
+      "campaign_value": "Wemakeit 2022",
+      "duration": "Durata",
+      "duration_value": "1 mese nell'estate 2022",
+      "contributors": "Contributori",
+      "contributors_value": "oltre 130",
+      "raised": "Raccolto",
+      "raised_value": "quasi 30'000.-"
+    },
+    "video_title": "Guardate il video di crowdfunding di Soleva",
+    "documentary_label": "Guarda il documentario",
+    "cta_wemakeit": "Vai alla campagna Wemakeit",
+    "donation_title": "Il vostro contributo resta essenziale per il successo del progetto",
+    "donation_body": "Anche se la grande campagna di crowdfunding su wemakeit del 2022 è terminata, le donazioni all'associazione Soleva restano essenziali e la aiutano a raggiungere i suoi obiettivi e la sua missione.",
+    "sponsor_cta": {
+      "title": "Siete un'azienda e desiderate sponsorizzare il progetto Soleva?",
+      "body": "Ottenete visibilità nei settori delle energie rinnovabili, della mobilità verde e dell'abitare sostenibile.",
+      "button": "Diventare sponsor"
+    }
   }
 }
