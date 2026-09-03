@@ -1,5 +1,7 @@
 # Plan d'intégration UI/UX — nouvelles pages de contenu (audit + proposition)
 
+> ⚙️ **Statut d'implémentation (màj 2026-09-02, branche `feat/content-implementation`)** : Phase 0 ✅ (nav restructurée en dropdowns, footer 4 colonnes, `STATIC_PATHS` +7, clés i18n meta/nav/breadcrumb ×4) · Phases 1-3 ✅ (`/presse`, `/evenements`, `/equipe`, `/partenaires`, `/blog`, `/sponsoring`, `/crowdfunding` — textes sources verbatim) · routeTree.gen.ts enregistré (édité manuellement, à régénérer via `vp dev`) · Reste : Phase 4 (enrichissements pages existantes + fidélité §10 du plan de récupération), QA toolchain (non exécutable dans le sandbox), médias (logos 15/22 à localiser), relecture client FR/DE/IT. Détail des commits : `git log --oneline feat/content-implementation`.
+
 > Document compagnon de `docs/content-recovery-plan.md`. But : intégrer les nouvelles pages (équipe, presse, blog, événements, partenaires, sponsoring, crowdfunding) **proprement** dans le site actuel — architecture de l'information, navigation, registrations SEO, conventions de composants — en gardant l'existant intact et cohérent.
 > Basé sur un audit réel du code (`src/`) : shell et templates de pages, composants réutilisables, conventions i18n, nav/footer, registrations SEO, sitemap, scripts. Aucun fichier n'a été modifié lors de l'audit.
 
