@@ -113,7 +113,9 @@
     "back_to_top": "Nach oben",
     "back_home": "Zurück zur Startseite",
     "support_project": "Projekt unterstützen",
-    "all_pillars": "Alle Säulen"
+    "all_pillars": "Alle Säulen",
+    "copy_iban": "IBAN kopieren",
+    "copied": "Kopiert"
   },
   "home": {
     "hero": {
@@ -480,11 +482,11 @@
   "presse": {
     "hero": {
       "eyebrow": "Presse & Medien",
-      "title": "Die Presse spricht uber Soleva",
-      "subtitle": "Entdecken Sie die Reportagen, Artikel, Radio- und TV-Beitrage rund um das Solar-Van."
+      "title": "Die Presse spricht über Soleva",
+      "subtitle": "Entdecken Sie die Reportagen, Artikel, Radio- und TV-Beiträge rund um den Solar-Van."
     },
     "title": "In den Medien",
-    "intro": "Entdecken Sie die Menschen, Zeitungen, Artikel, Radiosender und TV-Sender, die uber das Soleva-Projekt sprechen.",
+    "intro": "Entdecken Sie die Menschen, Zeitungen, Artikel, Radiosender und TV-Sender, die über das Soleva-Projekt sprechen.",
     "read_label": "Lesen",
     "pressTypes": {
       "tvNational": "Nationales TV",
@@ -498,9 +500,9 @@
     "hero": {
       "eyebrow": "Veranstaltungen",
       "title": "Veranstaltungen und Etappen",
-      "subtitle": "Soleva nimmt an Messen, Konferenzen, Vorfuhrungen und Treffen teil, um den Solar-Van vorzustellen."
+      "subtitle": "Soleva nimmt an Messen, Konferenzen, Vorführungen und Treffen teil, um den Solar-Van vorzustellen."
     },
-    "intro": "Hier finden Sie die Messen, Konferenzen, Vorfuhrungen und Treffen, an denen Soleva teilgenommen hat.",
+    "intro": "Hier finden Sie die Messen, Konferenzen, Vorführungen und Treffen, an denen Soleva teilgenommen hat.",
     "past_title": "Vergangene Veranstaltungen",
     "cta": {
       "title": "Soleva zu Ihrer Veranstaltung einladen",

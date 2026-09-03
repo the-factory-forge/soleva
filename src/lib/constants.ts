@@ -139,7 +139,7 @@ export const MENTOR_PHOTOS: Record<string, string> = {
 export const PRESS_LOGOS: Record<string, string> = {
   "RTS 19h30": "/images/press/rts.webp",
   "SRF Schweiz Aktuell": "/images/press/srf.webp",
-  "RSI Telegiornale": "/images/press/srf.webp",
+  "RSI Telegiornale": "/placeholder.svg",
   "24Heures": "/images/press/24heures.webp",
   "Télé Vaud-Fribourg": "/images/press/tele-vaud-fribourg.webp",
   "RTS Radio Matinale": "/images/press/rts-radio.webp",

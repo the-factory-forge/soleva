@@ -256,7 +256,11 @@ function SupportPage() {
                       <span className="font-mono text-sm text-foreground">
                         {DONATION.ibanFormatted}
                       </span>
-                      <CopyIbanButton iban={DONATION.iban} />
+                      <CopyIbanButton
+                        iban={DONATION.iban}
+                        copyLabel={dict.common.copy_iban}
+                        copiedLabel={dict.common.copied}
+                      />
                     </dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">

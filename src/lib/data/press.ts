@@ -2,7 +2,8 @@ export interface PressAppearance {
   media: string;
   /** Category key, resolved to a localized label via dict.presse.pressTypes. */
   type: string;
-  date: string;
+  /** Optional: only set when the source page actually states a date (24Heures has none). */
+  date?: string;
   language: string;
   url?: string;
   linkStatus?: "ok" | "broken" | "unverified";
@@ -36,7 +37,7 @@ export const pressAppearances: PressAppearance[] = [
   {
     media: "24Heures",
     type: "pressWritten",
-    date: "12.06.2024",
+    // Pas de date sur la page source /en/news (article non daté) → on n'en invente pas.
     language: "FR",
     url: "https://www.24heures.ch/un-van-romand-100-electrique-et-solaire-442970221563",
     linkStatus: "ok",

@@ -48,7 +48,6 @@ export const mainNav: NavItem[] = [
     ],
   },
   { key: "faq", href: "/faq" },
-  { key: "contact", href: "/contact" },
 ];
 
 export const vanPillars = [

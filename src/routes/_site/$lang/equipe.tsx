@@ -80,13 +80,13 @@ function TeamPage() {
               return (
                 <Reveal key={`member-${i}`} delay={i * 0.04}>
                   <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 text-center">
-                    <div className="relative mx-auto h-24 w-24 overflow-hidden rounded-full">
+                    <div className="relative mx-auto h-20 w-20 overflow-hidden rounded-full">
                       <Image
                         src={TEAM_PHOTOS[member.name] || "/placeholder.svg"}
                         alt={member.name}
                         fill
                         className="object-cover"
-                        sizes="96px"
+                        sizes="80px"
                       />
                     </div>
                     <h3 className="mt-4 font-heading text-lg font-semibold">{member.name}</h3>
@@ -135,13 +135,13 @@ function TeamPage() {
               return (
                 <Reveal key={`mentor-${i}`} delay={i * 0.06}>
                   <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 text-center">
-                    <div className="relative mx-auto h-24 w-24 overflow-hidden rounded-full">
+                    <div className="relative mx-auto h-20 w-20 overflow-hidden rounded-full">
                       <Image
                         src={MENTOR_PHOTOS[mentor.name] || "/placeholder.svg"}
                         alt={mentor.name}
                         fill
                         className="object-cover"
-                        sizes="96px"
+                        sizes="80px"
                       />
                     </div>
                     <h3 className="mt-3 font-heading text-base font-semibold">{mentor.name}</h3>

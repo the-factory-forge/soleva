@@ -25,19 +25,19 @@ import { Route as SiteLangIndexRouteImport } from './routes/_site/$lang/index'
 import { Route as SiteLangSplatRouteImport } from './routes/_site/$lang/$'
 import { Route as SiteLangAProposRouteImport } from './routes/_site/$lang/a-propos'
 import { Route as SiteLangBlogRouteImport } from './routes/_site/$lang/blog'
+import { Route as SiteLangConfidentialiteRouteImport } from './routes/_site/$lang/confidentialite'
+import { Route as SiteLangContactRouteImport } from './routes/_site/$lang/contact'
 import { Route as SiteLangCrowdfundingRouteImport } from './routes/_site/$lang/crowdfunding'
 import { Route as SiteLangEquipeRouteImport } from './routes/_site/$lang/equipe'
 import { Route as SiteLangEvenementsRouteImport } from './routes/_site/$lang/evenements'
-import { Route as SiteLangPartenairesRouteImport } from './routes/_site/$lang/partenaires'
-import { Route as SiteLangPresseRouteImport } from './routes/_site/$lang/presse'
-import { Route as SiteLangSponsoringRouteImport } from './routes/_site/$lang/sponsoring'
-import { Route as SiteLangConfidentialiteRouteImport } from './routes/_site/$lang/confidentialite'
-import { Route as SiteLangContactRouteImport } from './routes/_site/$lang/contact'
 import { Route as SiteLangFaqRouteImport } from './routes/_site/$lang/faq'
 import { Route as SiteLangHabitatRouteImport } from './routes/_site/$lang/habitat'
 import { Route as SiteLangImpactRouteImport } from './routes/_site/$lang/impact'
 import { Route as SiteLangMentionsLegalesRouteImport } from './routes/_site/$lang/mentions-legales'
+import { Route as SiteLangPartenairesRouteImport } from './routes/_site/$lang/partenaires'
+import { Route as SiteLangPresseRouteImport } from './routes/_site/$lang/presse'
 import { Route as SiteLangSoutenirRouteImport } from './routes/_site/$lang/soutenir'
+import { Route as SiteLangSponsoringRouteImport } from './routes/_site/$lang/sponsoring'
 import { Route as SiteLangVoyageRouteImport } from './routes/_site/$lang/voyage'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AuthLangAppIndexRouteImport } from './routes/_auth/$lang/app/index'
@@ -122,6 +122,16 @@ const SiteLangBlogRoute = SiteLangBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => SiteLangRoute,
 } as any)
+const SiteLangConfidentialiteRoute = SiteLangConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangContactRoute = SiteLangContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => SiteLangRoute,
+} as any)
 const SiteLangCrowdfundingRoute = SiteLangCrowdfundingRouteImport.update({
   id: '/crowdfunding',
   path: '/crowdfunding',
@@ -135,31 +145,6 @@ const SiteLangEquipeRoute = SiteLangEquipeRouteImport.update({
 const SiteLangEvenementsRoute = SiteLangEvenementsRouteImport.update({
   id: '/evenements',
   path: '/evenements',
-  getParentRoute: () => SiteLangRoute,
-} as any)
-const SiteLangPartenairesRoute = SiteLangPartenairesRouteImport.update({
-  id: '/partenaires',
-  path: '/partenaires',
-  getParentRoute: () => SiteLangRoute,
-} as any)
-const SiteLangPresseRoute = SiteLangPresseRouteImport.update({
-  id: '/presse',
-  path: '/presse',
-  getParentRoute: () => SiteLangRoute,
-} as any)
-const SiteLangSponsoringRoute = SiteLangSponsoringRouteImport.update({
-  id: '/sponsoring',
-  path: '/sponsoring',
-  getParentRoute: () => SiteLangRoute,
-} as any)
-const SiteLangConfidentialiteRoute = SiteLangConfidentialiteRouteImport.update({
-  id: '/confidentialite',
-  path: '/confidentialite',
-  getParentRoute: () => SiteLangRoute,
-} as any)
-const SiteLangContactRoute = SiteLangContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
   getParentRoute: () => SiteLangRoute,
 } as any)
 const SiteLangFaqRoute = SiteLangFaqRouteImport.update({
@@ -182,9 +167,24 @@ const SiteLangMentionsLegalesRoute = SiteLangMentionsLegalesRouteImport.update({
   path: '/mentions-legales',
   getParentRoute: () => SiteLangRoute,
 } as any)
+const SiteLangPartenairesRoute = SiteLangPartenairesRouteImport.update({
+  id: '/partenaires',
+  path: '/partenaires',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangPresseRoute = SiteLangPresseRouteImport.update({
+  id: '/presse',
+  path: '/presse',
+  getParentRoute: () => SiteLangRoute,
+} as any)
 const SiteLangSoutenirRoute = SiteLangSoutenirRouteImport.update({
   id: '/soutenir',
   path: '/soutenir',
+  getParentRoute: () => SiteLangRoute,
+} as any)
+const SiteLangSponsoringRoute = SiteLangSponsoringRouteImport.update({
+  id: '/sponsoring',
+  path: '/sponsoring',
   getParentRoute: () => SiteLangRoute,
 } as any)
 const SiteLangVoyageRoute = SiteLangVoyageRouteImport.update({
@@ -226,19 +226,19 @@ export interface FileRoutesByFullPath {
   '/$lang/$': typeof SiteLangSplatRoute
   '/$lang/a-propos': typeof SiteLangAProposRoute
   '/$lang/blog': typeof SiteLangBlogRoute
+  '/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
+  '/$lang/contact': typeof SiteLangContactRoute
   '/$lang/crowdfunding': typeof SiteLangCrowdfundingRoute
   '/$lang/equipe': typeof SiteLangEquipeRoute
   '/$lang/evenements': typeof SiteLangEvenementsRoute
-  '/$lang/partenaires': typeof SiteLangPartenairesRoute
-  '/$lang/presse': typeof SiteLangPresseRoute
-  '/$lang/sponsoring': typeof SiteLangSponsoringRoute
-  '/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
-  '/$lang/contact': typeof SiteLangContactRoute
   '/$lang/faq': typeof SiteLangFaqRoute
   '/$lang/habitat': typeof SiteLangHabitatRoute
   '/$lang/impact': typeof SiteLangImpactRoute
   '/$lang/mentions-legales': typeof SiteLangMentionsLegalesRoute
+  '/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/$lang/presse': typeof SiteLangPresseRoute
   '/$lang/soutenir': typeof SiteLangSoutenirRoute
+  '/$lang/sponsoring': typeof SiteLangSponsoringRoute
   '/$lang/voyage': typeof SiteLangVoyageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$lang/': typeof SiteLangIndexRoute
@@ -258,19 +258,19 @@ export interface FileRoutesByTo {
   '/$lang/$': typeof SiteLangSplatRoute
   '/$lang/a-propos': typeof SiteLangAProposRoute
   '/$lang/blog': typeof SiteLangBlogRoute
+  '/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
+  '/$lang/contact': typeof SiteLangContactRoute
   '/$lang/crowdfunding': typeof SiteLangCrowdfundingRoute
   '/$lang/equipe': typeof SiteLangEquipeRoute
   '/$lang/evenements': typeof SiteLangEvenementsRoute
-  '/$lang/partenaires': typeof SiteLangPartenairesRoute
-  '/$lang/presse': typeof SiteLangPresseRoute
-  '/$lang/sponsoring': typeof SiteLangSponsoringRoute
-  '/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
-  '/$lang/contact': typeof SiteLangContactRoute
   '/$lang/faq': typeof SiteLangFaqRoute
   '/$lang/habitat': typeof SiteLangHabitatRoute
   '/$lang/impact': typeof SiteLangImpactRoute
   '/$lang/mentions-legales': typeof SiteLangMentionsLegalesRoute
+  '/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/$lang/presse': typeof SiteLangPresseRoute
   '/$lang/soutenir': typeof SiteLangSoutenirRoute
+  '/$lang/sponsoring': typeof SiteLangSponsoringRoute
   '/$lang/voyage': typeof SiteLangVoyageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$lang/le-van/$slug': typeof SiteLangLeVanSlugRoute
@@ -294,19 +294,19 @@ export interface FileRoutesById {
   '/_site/$lang/$': typeof SiteLangSplatRoute
   '/_site/$lang/a-propos': typeof SiteLangAProposRoute
   '/_site/$lang/blog': typeof SiteLangBlogRoute
+  '/_site/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
+  '/_site/$lang/contact': typeof SiteLangContactRoute
   '/_site/$lang/crowdfunding': typeof SiteLangCrowdfundingRoute
   '/_site/$lang/equipe': typeof SiteLangEquipeRoute
   '/_site/$lang/evenements': typeof SiteLangEvenementsRoute
-  '/_site/$lang/partenaires': typeof SiteLangPartenairesRoute
-  '/_site/$lang/presse': typeof SiteLangPresseRoute
-  '/_site/$lang/sponsoring': typeof SiteLangSponsoringRoute
-  '/_site/$lang/confidentialite': typeof SiteLangConfidentialiteRoute
-  '/_site/$lang/contact': typeof SiteLangContactRoute
   '/_site/$lang/faq': typeof SiteLangFaqRoute
   '/_site/$lang/habitat': typeof SiteLangHabitatRoute
   '/_site/$lang/impact': typeof SiteLangImpactRoute
   '/_site/$lang/mentions-legales': typeof SiteLangMentionsLegalesRoute
+  '/_site/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/_site/$lang/presse': typeof SiteLangPresseRoute
   '/_site/$lang/soutenir': typeof SiteLangSoutenirRoute
+  '/_site/$lang/sponsoring': typeof SiteLangSponsoringRoute
   '/_site/$lang/voyage': typeof SiteLangVoyageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_site/$lang/': typeof SiteLangIndexRoute
@@ -329,19 +329,19 @@ export interface FileRouteTypes {
     | '/$lang/$'
     | '/$lang/a-propos'
     | '/$lang/blog'
+    | '/$lang/confidentialite'
+    | '/$lang/contact'
     | '/$lang/crowdfunding'
     | '/$lang/equipe'
     | '/$lang/evenements'
-    | '/$lang/partenaires'
-    | '/$lang/presse'
-    | '/$lang/sponsoring'
-    | '/$lang/confidentialite'
-    | '/$lang/contact'
     | '/$lang/faq'
     | '/$lang/habitat'
     | '/$lang/impact'
     | '/$lang/mentions-legales'
+    | '/$lang/partenaires'
+    | '/$lang/presse'
     | '/$lang/soutenir'
+    | '/$lang/sponsoring'
     | '/$lang/voyage'
     | '/api/auth/$'
     | '/$lang/'
@@ -361,19 +361,19 @@ export interface FileRouteTypes {
     | '/$lang/$'
     | '/$lang/a-propos'
     | '/$lang/blog'
+    | '/$lang/confidentialite'
+    | '/$lang/contact'
     | '/$lang/crowdfunding'
     | '/$lang/equipe'
     | '/$lang/evenements'
-    | '/$lang/partenaires'
-    | '/$lang/presse'
-    | '/$lang/sponsoring'
-    | '/$lang/confidentialite'
-    | '/$lang/contact'
     | '/$lang/faq'
     | '/$lang/habitat'
     | '/$lang/impact'
     | '/$lang/mentions-legales'
+    | '/$lang/partenaires'
+    | '/$lang/presse'
     | '/$lang/soutenir'
+    | '/$lang/sponsoring'
     | '/$lang/voyage'
     | '/api/auth/$'
     | '/$lang/le-van/$slug'
@@ -396,19 +396,19 @@ export interface FileRouteTypes {
     | '/_site/$lang/$'
     | '/_site/$lang/a-propos'
     | '/_site/$lang/blog'
+    | '/_site/$lang/confidentialite'
+    | '/_site/$lang/contact'
     | '/_site/$lang/crowdfunding'
     | '/_site/$lang/equipe'
     | '/_site/$lang/evenements'
-    | '/_site/$lang/partenaires'
-    | '/_site/$lang/presse'
-    | '/_site/$lang/sponsoring'
-    | '/_site/$lang/confidentialite'
-    | '/_site/$lang/contact'
     | '/_site/$lang/faq'
     | '/_site/$lang/habitat'
     | '/_site/$lang/impact'
     | '/_site/$lang/mentions-legales'
+    | '/_site/$lang/partenaires'
+    | '/_site/$lang/presse'
     | '/_site/$lang/soutenir'
+    | '/_site/$lang/sponsoring'
     | '/_site/$lang/voyage'
     | '/api/auth/$'
     | '/_site/$lang/'
@@ -542,6 +542,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteLangBlogRouteImport
       parentRoute: typeof SiteLangRoute
     }
+    '/_site/$lang/confidentialite': {
+      id: '/_site/$lang/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/$lang/confidentialite'
+      preLoaderRoute: typeof SiteLangConfidentialiteRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/contact': {
+      id: '/_site/$lang/contact'
+      path: '/contact'
+      fullPath: '/$lang/contact'
+      preLoaderRoute: typeof SiteLangContactRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
     '/_site/$lang/crowdfunding': {
       id: '/_site/$lang/crowdfunding'
       path: '/crowdfunding'
@@ -561,41 +575,6 @@ declare module '@tanstack/react-router' {
       path: '/evenements'
       fullPath: '/$lang/evenements'
       preLoaderRoute: typeof SiteLangEvenementsRouteImport
-      parentRoute: typeof SiteLangRoute
-    }
-    '/_site/$lang/partenaires': {
-      id: '/_site/$lang/partenaires'
-      path: '/partenaires'
-      fullPath: '/$lang/partenaires'
-      preLoaderRoute: typeof SiteLangPartenairesRouteImport
-      parentRoute: typeof SiteLangRoute
-    }
-    '/_site/$lang/presse': {
-      id: '/_site/$lang/presse'
-      path: '/presse'
-      fullPath: '/$lang/presse'
-      preLoaderRoute: typeof SiteLangPresseRouteImport
-      parentRoute: typeof SiteLangRoute
-    }
-    '/_site/$lang/sponsoring': {
-      id: '/_site/$lang/sponsoring'
-      path: '/sponsoring'
-      fullPath: '/$lang/sponsoring'
-      preLoaderRoute: typeof SiteLangSponsoringRouteImport
-      parentRoute: typeof SiteLangRoute
-    }
-    '/_site/$lang/confidentialite': {
-      id: '/_site/$lang/confidentialite'
-      path: '/confidentialite'
-      fullPath: '/$lang/confidentialite'
-      preLoaderRoute: typeof SiteLangConfidentialiteRouteImport
-      parentRoute: typeof SiteLangRoute
-    }
-    '/_site/$lang/contact': {
-      id: '/_site/$lang/contact'
-      path: '/contact'
-      fullPath: '/$lang/contact'
-      preLoaderRoute: typeof SiteLangContactRouteImport
       parentRoute: typeof SiteLangRoute
     }
     '/_site/$lang/faq': {
@@ -626,11 +605,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteLangMentionsLegalesRouteImport
       parentRoute: typeof SiteLangRoute
     }
+    '/_site/$lang/partenaires': {
+      id: '/_site/$lang/partenaires'
+      path: '/partenaires'
+      fullPath: '/$lang/partenaires'
+      preLoaderRoute: typeof SiteLangPartenairesRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/presse': {
+      id: '/_site/$lang/presse'
+      path: '/presse'
+      fullPath: '/$lang/presse'
+      preLoaderRoute: typeof SiteLangPresseRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
     '/_site/$lang/soutenir': {
       id: '/_site/$lang/soutenir'
       path: '/soutenir'
       fullPath: '/$lang/soutenir'
       preLoaderRoute: typeof SiteLangSoutenirRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
+    '/_site/$lang/sponsoring': {
+      id: '/_site/$lang/sponsoring'
+      path: '/sponsoring'
+      fullPath: '/$lang/sponsoring'
+      preLoaderRoute: typeof SiteLangSponsoringRouteImport
       parentRoute: typeof SiteLangRoute
     }
     '/_site/$lang/voyage': {
@@ -714,19 +714,19 @@ interface SiteLangRouteChildren {
   SiteLangSplatRoute: typeof SiteLangSplatRoute
   SiteLangAProposRoute: typeof SiteLangAProposRoute
   SiteLangBlogRoute: typeof SiteLangBlogRoute
+  SiteLangConfidentialiteRoute: typeof SiteLangConfidentialiteRoute
+  SiteLangContactRoute: typeof SiteLangContactRoute
   SiteLangCrowdfundingRoute: typeof SiteLangCrowdfundingRoute
   SiteLangEquipeRoute: typeof SiteLangEquipeRoute
   SiteLangEvenementsRoute: typeof SiteLangEvenementsRoute
-  SiteLangPartenairesRoute: typeof SiteLangPartenairesRoute
-  SiteLangPresseRoute: typeof SiteLangPresseRoute
-  SiteLangSponsoringRoute: typeof SiteLangSponsoringRoute
-  SiteLangConfidentialiteRoute: typeof SiteLangConfidentialiteRoute
-  SiteLangContactRoute: typeof SiteLangContactRoute
   SiteLangFaqRoute: typeof SiteLangFaqRoute
   SiteLangHabitatRoute: typeof SiteLangHabitatRoute
   SiteLangImpactRoute: typeof SiteLangImpactRoute
   SiteLangMentionsLegalesRoute: typeof SiteLangMentionsLegalesRoute
+  SiteLangPartenairesRoute: typeof SiteLangPartenairesRoute
+  SiteLangPresseRoute: typeof SiteLangPresseRoute
   SiteLangSoutenirRoute: typeof SiteLangSoutenirRoute
+  SiteLangSponsoringRoute: typeof SiteLangSponsoringRoute
   SiteLangVoyageRoute: typeof SiteLangVoyageRoute
   SiteLangIndexRoute: typeof SiteLangIndexRoute
   SiteLangLeVanSlugRoute: typeof SiteLangLeVanSlugRoute
@@ -737,19 +737,19 @@ const SiteLangRouteChildren: SiteLangRouteChildren = {
   SiteLangSplatRoute: SiteLangSplatRoute,
   SiteLangAProposRoute: SiteLangAProposRoute,
   SiteLangBlogRoute: SiteLangBlogRoute,
+  SiteLangConfidentialiteRoute: SiteLangConfidentialiteRoute,
+  SiteLangContactRoute: SiteLangContactRoute,
   SiteLangCrowdfundingRoute: SiteLangCrowdfundingRoute,
   SiteLangEquipeRoute: SiteLangEquipeRoute,
   SiteLangEvenementsRoute: SiteLangEvenementsRoute,
-  SiteLangPartenairesRoute: SiteLangPartenairesRoute,
-  SiteLangPresseRoute: SiteLangPresseRoute,
-  SiteLangSponsoringRoute: SiteLangSponsoringRoute,
-  SiteLangConfidentialiteRoute: SiteLangConfidentialiteRoute,
-  SiteLangContactRoute: SiteLangContactRoute,
   SiteLangFaqRoute: SiteLangFaqRoute,
   SiteLangHabitatRoute: SiteLangHabitatRoute,
   SiteLangImpactRoute: SiteLangImpactRoute,
   SiteLangMentionsLegalesRoute: SiteLangMentionsLegalesRoute,
+  SiteLangPartenairesRoute: SiteLangPartenairesRoute,
+  SiteLangPresseRoute: SiteLangPresseRoute,
   SiteLangSoutenirRoute: SiteLangSoutenirRoute,
+  SiteLangSponsoringRoute: SiteLangSponsoringRoute,
   SiteLangVoyageRoute: SiteLangVoyageRoute,
   SiteLangIndexRoute: SiteLangIndexRoute,
   SiteLangLeVanSlugRoute: SiteLangLeVanSlugRoute,

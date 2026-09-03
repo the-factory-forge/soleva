@@ -72,7 +72,8 @@ function PressPage() {
                     {t(dict, `presse.pressTypes.${item.type}`)}
                   </span>
                   <span className="text-xs text-muted-foreground/70">
-                    {item.date} · {item.language}
+                    {item.date ? `${item.date} · ` : ""}
+                    {item.language}
                   </span>
                   {item.linkStatus !== "broken" && item.url ? (
                     <a

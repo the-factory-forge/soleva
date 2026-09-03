@@ -183,7 +183,11 @@ function CrowdfundingPage() {
                       <span className="font-mono text-sm text-foreground">
                         {DONATION.ibanFormatted}
                       </span>
-                      <CopyIbanButton iban={DONATION.iban} />
+                      <CopyIbanButton
+                        iban={DONATION.iban}
+                        copyLabel={dict.common.copy_iban}
+                        copiedLabel={dict.common.copied}
+                      />
                     </dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
@@ -200,7 +204,9 @@ function CrowdfundingPage() {
                     <dt className="text-sm font-semibold text-muted-foreground">
                       {iban.description_label}
                     </dt>
-                    <dd className="font-mono text-sm text-foreground">{DONATION.reference}</dd>
+                    <dd className="font-mono text-sm text-foreground">
+                      {dict.support.iban.description_value}
+                    </dd>
                   </div>
                 </dl>
               </div>

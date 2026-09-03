@@ -113,7 +113,9 @@
     "back_to_top": "Retour en haut",
     "back_home": "Retour à l'accueil",
     "support_project": "Soutenir le projet",
-    "all_pillars": "Tous les piliers"
+    "all_pillars": "Tous les piliers",
+    "copy_iban": "Copier l'IBAN",
+    "copied": "Copié"
   },
   "home": {
     "hero": {
