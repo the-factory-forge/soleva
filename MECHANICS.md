@@ -9,7 +9,7 @@
 
 ## 1. Changelog (Next.js → today)
 
-- **Migration**: ported from factory-template (fr/en/de/it), solar association (NGO schema).
+- **Migration**: ported from forge-template (fr/en/de/it), solar association (NGO schema).
 - **Parity batch (27.08)**: accordion keyframes, reveal fix, /assets immutable cache, latin fonts (montserrat) + preloads 600/700, **og-image 1200x630 from the hero video poster frame (video-poster.webp)**, absolute og URLs everywhere, Analytics Strict scripts (+ VITE_ADS_CONVERSION_LABEL exposed in env/client), attribution forge, localized alts (timeline, QR, 404 logo), localized breadcrumb aria-label, docker-compose labels args.
 - **Validation learnings batch (27.08)**: stable keys in animated lists (Reveal), CSS-only hero entrance (tc-fade-up 0.01 + tc-img-reveal, prefers-reduced-motion) on home video hero + habitat hero (was motion SSR opacity:0), animations-lazy module (below-fold motion chunk), preloads corrected to faces used above the fold (400/500/600/800 - LCP h1 is extrabold 800), cookie banner font-semibold -> font-medium.
 - **Analytics**: Strict scripts - IDs empty.
@@ -157,7 +157,7 @@
 | Tooling | Vite+ unified toolchain (vp) | dev/build/lint/fmt/check/test | package.json + vite.config.ts | ✅ |  |
 | Tooling | Type-aware lint (oxlint) | react, react-perf, jsx-a11y, tanstack plugins | vite.config.ts | ✅ |  |
 | Tooling | Staged git hooks (auto-fmt) | vp staged pre-commit | .vite-hooks | ✅ |  |
-| Tooling | Registry workflow (pull) | react-factories registry + clobber protection | scripts/pull-registry.mjs | ✅ |  |
+| Tooling | Registry workflow (pull) | forge-registry registry + clobber protection | scripts/pull-registry.mjs | ✅ |  |
 | Tooling | Image variant generator | sharp-based srcset pipeline | scripts/generate-image-variants.mjs | ✅ |  |
 | Tooling | Drizzle tooling | generate/migrate/push/studio | package.json | ✅ |  |
 | Tooling | Docs (README/ROADMAP/AGENTS) | Extensive guidance | *.md | ✅ |  |

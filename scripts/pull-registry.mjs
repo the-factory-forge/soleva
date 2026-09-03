@@ -33,7 +33,7 @@ const args = process.argv.slice(2);
 const customUrl = args.find((a) => a.startsWith("http"));
 const REGISTRY_URL =
   customUrl ||
-  `https://raw.githubusercontent.com/the-corner-inc/react-factories/${REGISTRY_BRANCH}/public/registry/registry.json`;
+  `https://raw.githubusercontent.com/the-factory-forge/forge-registry/${REGISTRY_BRANCH}/public/registry/registry.json`;
 
 const root = process.cwd();
 const DRY_RUN = args.includes("--dry-run");
