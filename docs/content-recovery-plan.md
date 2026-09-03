@@ -1,5 +1,7 @@
 # Plan de récupération de contenu — soleva.org → soleva.the-corner.io
 
+> 📣 **Rapport d'état présentable au client : [`docs/client-migration-report.md`](client-migration-report.md)** — état d'avancement, décisions attendues (10 points), roadmap.
+
 > ⚙️ **Statut (màj 2026-09-02)** : scraping complet livré (`feat/content-export`, 29 pages fr+en, report.md liens 🔴/⚠️) · plan de fidélité intégré (§10, verdict ~3/10) · **7 nouvelles pages implémentées** sur `feat/content-implementation` avec textes sources verbatim (`/presse`, `/evenements`, `/equipe`, `/partenaires`, `/blog`, `/sponsoring`, `/crowdfunding`) · **Reste** : remédiation fidélité des pages existantes (home, a-propos, services, impact, voyage, soutenir — cf. §10.4-§10.5), QA toolchain, médias, validation client (§8).
 
 > Branche : `feat/content-recovery` · Site cible : `soleva.the-corner.io` (TanStack Start, 4 locales fr/en/de/it)
