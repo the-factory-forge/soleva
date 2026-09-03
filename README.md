@@ -6,7 +6,7 @@ Website of **Soleva** - ASSOCIATION SOLEVA (Renens VD, Suisse). Soleva transform
 old van into a solar-powered electric camper: a Swiss demonstrator of sustainable
 mobility, retrofit and solar energy.
 
-Built from [The Corner Factory](https://github.com/the-corner-inc/factory-template)
+Built from [The Corner Factory](https://github.com/the-factory-forge/forge-template)
 site template (TanStack Start). Migrated from the v0 Next site (process validation,
 Phase 3.16 of the factory roadmap).
 
@@ -14,7 +14,7 @@ Phase 3.16 of the factory roadmap).
 
 - TanStack Start (Vite+ / Nitro / React Compiler)
 - Tailwind CSS v4 + registry components from
-  [react-factories](https://github.com/the-corner-inc/react-factories)
+  [forge-registry](https://github.com/the-factory-forge/forge-registry)
 - Custom i18n dicts (fr/en/de/it) in `src/lib/i18n/`
 - GEO layer: JSON-LD, dynamic robots.txt/sitemap, llms.txt, `/api/data.json`
 - Auth/DB optional (Better Auth + Drizzle/Postgres) - off by default (showcase mode)
@@ -38,7 +38,7 @@ vpr build && pnpm start
 ## Deploy
 
 dockploy (VPS): compose app-only pattern, one database `factory_soleva` if login
-is ever enabled. See the factory-template README "Deployment" for details.
+is ever enabled. See the forge-template README "Deployment" for details.
 
 ## SEO mechanics
 

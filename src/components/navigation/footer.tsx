@@ -35,7 +35,7 @@ export interface NewsletterProps {
  *    brand.name + tagline, hideMonogram: true,
  *    colors: { brandName: "primary" }, className: "bg-secondary/60"
  *
- * 3. Light default (factory-template)
+ * 3. Light default (forge-template)
  *    No colors required — headings default to text-primary (readable on
  *    all theme presets). Do NOT default to text-secondary: in shadcn
  *    presets, --secondary is a surface color nearly invisible on light
