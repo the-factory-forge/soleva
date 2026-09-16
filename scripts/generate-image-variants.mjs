@@ -1,4 +1,6 @@
-// Generates responsive srcset variants (480/800/1200, q80) for site images.
+// Generates responsive srcset variants (480/800/1200) for site images.
+// Quality convention: 480px variants = q90, larger variants = q80
+// (--quality=NN overrides for all widths).
 // Variants are capped at the source width (no upscaling, no duplicates).
 // Sources: .webp AND .png (sharp converts PNG -> webp for the variants; the
 // original stays untouched - backup convention).
@@ -27,10 +29,16 @@ function parseWidths(args) {
 
 function parseQuality(args) {
   const flag = args.find((a) => a.startsWith("--quality="));
-  return flag ? Number(flag.slice("--quality=".length)) || 80 : 80;
+  return flag ? Number(flag.slice("--quality=".length)) || 0 : 0; // 0 = per-width convention
 }
 
-async function processFile(file, widths, quality) {
+// 480 -> q90, anything larger -> q80 (unless --quality= overrides).
+function qualityFor(width, explicitQuality) {
+  if (explicitQuality > 0) return explicitQuality;
+  return width <= 480 ? 90 : 80;
+}
+
+async function processFile(file, widths, explicitQuality) {
   const meta = await sharp(file).metadata();
   const sourceWidth = meta.width ?? 0;
   const dir = dirname(file);
@@ -38,6 +46,7 @@ async function processFile(file, widths, quality) {
   let count = 0;
   for (const w of widths) {
     if (w >= sourceWidth) continue;
+    const quality = qualityFor(w, explicitQuality);
     const out = join(dir, `${base}-${w}.webp`);
     await sharp(file).resize({ width: w, withoutEnlargement: true }).webp({ quality }).toFile(out);
     console.log(`  ${basename(out)} (${w}px, q${quality})`);

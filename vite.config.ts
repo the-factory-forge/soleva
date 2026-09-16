@@ -1,18 +1,23 @@
-import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
+import { varlockVitePlugin } from "@varlock/vite-integration";
+import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig, lazyPlugins } from "vite-plus";
 
 import { version } from "./package.json";
 
 // https://viteplus.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   // Git hooks for staged files - https://viteplus.dev/guide/commit-hooks
   staged: {
     "*": "vp fmt --no-error-on-unmatched-pattern",
+  },
+
+  test: {
+    include: ["src/**/*.test.{ts,tsx}"],
+    passWithNoTests: true,
   },
 
   // Oxfmt - https://oxc.rs/docs/guide/usage/formatter/config.html
@@ -48,6 +53,8 @@ export default defineConfig({
       ".wrangler",
       ".netlify",
       "dist",
+      ".agents/skills/",
+      "env.d.ts",
     ],
   },
 
@@ -76,6 +83,7 @@ export default defineConfig({
       },
       { name: "vite-plus", specifier: "vite-plus/oxlint-plugin" },
     ],
+    categories: { correctness: "warn" },
     rules: {
       "vite-plus/prefer-vite-plus-imports": "warn",
 
@@ -84,10 +92,6 @@ export default defineConfig({
       "typescript/no-misused-spread": "off",
 
       "jsx-a11y/prefer-tag-over-role": "off",
-
-      // Experimental:
-      // https://oxc.rs/docs/guide/usage/linter/rules/react/react-compiler.html
-      "react/react-compiler": "warn",
 
       "eslint-tanstack-router/create-route-property-order": "warn",
 
@@ -108,6 +112,8 @@ export default defineConfig({
       "build/",
       "worker-configuration.d.ts",
       "scripts/",
+      ".agents/skills/",
+      "env.d.ts",
     ],
   },
 
@@ -133,7 +139,6 @@ export default defineConfig({
           "postgres",
           "zod",
           "@better-auth/drizzle-adapter",
-          "@t3-oss/env-core",
         ],
       },
     },
@@ -146,35 +151,36 @@ export default defineConfig({
     // Dev server warmup: pre-transform the site's own modules at startup so
     // pages render instantly on first visit (on-demand transform is slow in
     // this stack - see TanStack Start dev-server docs).
-    warmup: process.env.VITEST
-      ? undefined
-      : {
-          clientFiles: [
-            "./src/routes/__root.tsx",
-            "./src/routes/_site.tsx",
-            "./src/routes/_site/$lang.tsx",
-          ],
-          ssrFiles: [
-            "./src/routes/__root.tsx",
-            "./src/routes/_site.tsx",
-            "./src/routes/_site/$lang.tsx",
-            "./src/routes/_site/$lang/index.tsx",
-            "./src/routes/_site/$lang/a-propos.tsx",
-            "./src/routes/_site/$lang/le-van/index.tsx",
-            "./src/routes/_site/$lang/le-van/$slug.tsx",
-            "./src/routes/_site/$lang/habitat.tsx",
-            "./src/routes/_site/$lang/impact.tsx",
-            "./src/routes/_site/$lang/voyage.tsx",
-            "./src/routes/_site/$lang/soutenir.tsx",
-            "./src/routes/_site/$lang/contact.tsx",
-            "./src/routes/_site/$lang/faq.tsx",
-            "./src/routes/_site/$lang/mentions-legales.tsx",
-            "./src/routes/_site/$lang/confidentialite.tsx",
-          ],
-        },
+    warmup:
+      mode === "test"
+        ? undefined
+        : {
+            clientFiles: [
+              "./src/routes/__root.tsx",
+              "./src/routes/_site.tsx",
+              "./src/routes/_site/$lang.tsx",
+            ],
+            ssrFiles: [
+              "./src/routes/__root.tsx",
+              "./src/routes/_site.tsx",
+              "./src/routes/_site/$lang.tsx",
+              "./src/routes/_site/$lang/index.tsx",
+              "./src/routes/_site/$lang/a-propos.tsx",
+              "./src/routes/_site/$lang/le-van/index.tsx",
+              "./src/routes/_site/$lang/le-van/$slug.tsx",
+              "./src/routes/_site/$lang/habitat.tsx",
+              "./src/routes/_site/$lang/impact.tsx",
+              "./src/routes/_site/$lang/voyage.tsx",
+              "./src/routes/_site/$lang/soutenir.tsx",
+              "./src/routes/_site/$lang/contact.tsx",
+              "./src/routes/_site/$lang/faq.tsx",
+              "./src/routes/_site/$lang/mentions-legales.tsx",
+              "./src/routes/_site/$lang/confidentialite.tsx",
+            ],
+          },
   },
   plugins: lazyPlugins(() =>
-    process.env.VITEST
+    mode === "test"
       ? []
       : [
           devtools({
@@ -185,6 +191,9 @@ export default defineConfig({
             // Disabled: devtools still work, transforms are faster.
             injectSource: { enabled: false },
           }),
+          // start/entrypoint use `varlock run`; read validated runtime settings.
+          // resolved-env would freeze optional auth to its build-time state.
+          varlockVitePlugin({ ssrInjectMode: "init-only" }),
           tanstackStart(),
           // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
           nitro({
@@ -197,29 +206,22 @@ export default defineConfig({
             // 7-day browser cache avoids re-downloads across pages/sessions.
             routeRules: {
               "/images/**": {
-                headers: { "cache-control": "public, max-age=604800" },
+                headers: {
+                  "cache-control": "public, max-age=604800",
+                  "access-control-allow-origin": "*",
+                },
               },
               "/assets/**": {
                 headers: {
                   "cache-control": "public, max-age=31536000, immutable",
+                  "access-control-allow-origin": "*",
                 },
               },
+              "/fonts/**": { headers: { "access-control-allow-origin": "*" } },
             },
           }),
-          // React plugin (Babel) is required by TanStack Start's React Refresh
-          // runtime in dev. React Compiler is build-only (below) so dev transforms
-          // stay as fast as the stack allows.
-          viteReact(),
-          // React Compiler is a build-time optimization - applying it in dev slows
-          // down every module transform (babel). Build-only keeps dev fast.
-          // https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#react-compiler
-          {
-            ...babel({
-              presets: [reactCompilerPreset()],
-            }),
-            apply: "build",
-          },
+          viteReact({ compiler: true }),
           tailwindcss(),
         ],
   ),
-});
+}));

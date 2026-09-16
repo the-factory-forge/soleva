@@ -1,14 +1,14 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/auth/app-shell";
-import { $getUser } from "@/lib/auth/functions";
+import { authQueryOptions } from "@/lib/auth/queries";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 
 export const Route = createFileRoute("/_auth/$lang/app")({
-  beforeLoad: async ({ location }) => {
+  beforeLoad: async ({ context, location }) => {
     // Protected route - redirect to the localized login when signed out.
-    const user = await $getUser();
+    const user = await context.queryClient.query(authQueryOptions());
     if (!user) {
       const locale = localeFromPathname(location.pathname);
       throw redirect({ to: "/$lang/login", params: { lang: locale } });

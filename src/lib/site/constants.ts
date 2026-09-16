@@ -1,10 +1,10 @@
 // TODO: Replace all values with client-specific data
 
-import { env as clientEnv } from "@/env/client";
+import { ENV } from "varlock/env";
 
 export const SITE_NAME = "Soleva";
 // Site URL is derived from VITE_BASE_URL (build arg + runtime env, one source of truth).
-export const SITE_URL = clientEnv.VITE_BASE_URL.replace(/\/+$/, "");
+export const SITE_URL = ENV.VITE_BASE_URL.replace(/\/+$/, "");
 export const SITE_DESCRIPTION =
   "Soleva transforme un ancien van en camper électrique alimenté par le soleil. Un démonstrateur suisse de mobilité durable, retrofit et énergie solaire.";
 

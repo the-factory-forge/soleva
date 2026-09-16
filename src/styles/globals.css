@@ -2,8 +2,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+@theme static {
   --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme inline static {
   --font-heading: var(--font-montserrat), "Montserrat Fallback", sans-serif;
   --font-sans: var(--font-montserrat), "Montserrat Fallback", sans-serif;
   --font-eyebrow: var(--font-montserrat), "Montserrat Fallback", sans-serif;
@@ -42,6 +45,7 @@
 }
 
 :root {
+  color-scheme: light;
   /* Solar orange - sun, energy, the Soleva brand */
   --primary: #ff803e;
   --primary-foreground: #ffffff;
@@ -183,13 +187,15 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    font-family: var(--font-sans);
     scroll-behavior: smooth;
   }
   h1,
   h2,
   h3,
-  h4 {
-    @apply font-heading;
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sans);
   }
 }
