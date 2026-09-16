@@ -10,7 +10,7 @@ import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ShareButton } from "@/components/ui/share-button";
-import { DONATION, IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
+import { DONATION, IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { sponsorTiers } from "@/lib/data/sponsor-tiers";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";

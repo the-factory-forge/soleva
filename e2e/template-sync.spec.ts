@@ -18,6 +18,12 @@ test("localized navigation, consent and brand survive the template update", asyn
   });
 
   for (const [locale, dict] of Object.entries({ fr, en, de, it })) {
+    if (locale === "de") {
+      await page.setViewportSize({
+        width: testInfo.project.name === "mobile" ? 320 : 1024,
+        height: 844,
+      });
+    }
     const response = await page.goto(`/${locale}/contact`);
     expect(response?.status()).toBe(200);
     await expect(page.locator("html")).toHaveAttribute("lang", locale);
@@ -32,13 +38,56 @@ test("localized navigation, consent and brand survive the template update", asyn
       const cookies = page.getByRole("dialog", { name: "Cookies" });
       await expect(cookies).toBeVisible();
       expect(tags).toEqual([]);
-      await cookies.getByRole("button", { name: dict.cookies.reject, exact: true }).click();
+      await expect(cookies.getByRole("checkbox")).toHaveCount(0);
+      await cookies.getByRole("button", { name: dict.cookies.customize, exact: true }).click();
+      await cookies
+        .getByRole("button", { name: dict.cookies.acceptSelection, exact: true })
+        .click();
       await expect(cookies).toBeHidden();
     }
     expect(tags).toEqual([]);
     await page.emulateMedia({ colorScheme: "dark" });
     await expect(page.locator("body")).toHaveCSS("background-color", "rgb(255, 255, 255)");
     await expect(page.locator("h1")).toHaveCSS("font-family", /Montserrat/);
+
+    const newsletterTrigger = page
+      .locator("header")
+      .getByRole("button", { name: dict.footer.newsletter_title, exact: true });
+    const newsletter = page.getByRole("dialog", { name: dict.footer.newsletter_title });
+    await expect(newsletter).toBeHidden();
+    await expect(newsletterTrigger).toBeInViewport({ ratio: 1 });
+    const triggerBounds = await newsletterTrigger.boundingBox();
+    const languageBounds = await page
+      .getByRole("button", { name: `${dict.nav.language} : ${locale.toUpperCase()}`, exact: true })
+      .boundingBox();
+    expect(triggerBounds!.x + triggerBounds!.width).toBeLessThanOrEqual(languageBounds!.x);
+    expect(languageBounds!.x + languageBounds!.width).toBeLessThanOrEqual(
+      page.viewportSize()!.width,
+    );
+    if (locale === "de") {
+      const logoBounds = await page.locator('header a[aria-label="Soleva"] img').boundingBox();
+      expect(logoBounds!.width / logoBounds!.height).toBeCloseTo(300 / 123, 1);
+      await page.locator("header").screenshot({ path: testInfo.outputPath("navbar-narrow.png") });
+    }
+    await newsletterTrigger.click();
+    await expect(newsletter).toBeVisible();
+    await expect(newsletter.getByRole("heading", { name: dict.newsletter.title })).toBeVisible();
+    await expect(newsletter.getByRole("textbox")).toBeDisabled();
+    await expect(
+      newsletter.getByRole("button", { name: dict.newsletter.comingSoon }),
+    ).toBeDisabled();
+    await expect(newsletter).toContainText(dict.newsletter.unavailable);
+    if (locale === "fr") {
+      await newsletter.screenshot({ path: testInfo.outputPath("newsletter.png") });
+    }
+    await newsletter.getByRole("button", { name: dict.nav.close, exact: true }).click();
+    await expect(newsletter).toBeHidden();
+    await expect(newsletterTrigger).toBeFocused();
+    await newsletterTrigger.press("Enter");
+    await expect(newsletter).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(newsletter).toBeHidden();
+    await expect(newsletterTrigger).toBeFocused();
   }
 
   await page.goto("/fr/contact");
@@ -50,7 +99,7 @@ test("localized navigation, consent and brand survive the template update", asyn
   }
   await expect(page).toHaveURL(/\/fr\/a-propos$/);
   await expect(page.locator("h1")).toBeVisible();
-  await page.getByRole("button", { name: fr.nav.language, exact: true }).click();
+  await page.getByRole("button", { name: `${fr.nav.language} : FR`, exact: true }).click();
   await page.getByRole("menuitem", { name: "English" }).click();
   await expect(page).toHaveURL(/\/en\/a-propos$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");

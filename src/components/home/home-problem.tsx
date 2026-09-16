@@ -1,6 +1,6 @@
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { IMAGES, srcSetFor } from "@/lib/constants";
 import type { Dictionary } from "@/lib/i18n";
 import { type Locale } from "@/lib/i18n/config";

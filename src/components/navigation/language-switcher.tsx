@@ -1,12 +1,12 @@
 "use client";
 
-import { Globe, Check } from "lucide-react";
+import { Check, Globe } from "lucide-react";
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
 } from "#/components/ui/dropdown-menu";
 import { Link } from "#/components/ui/link";
 import { usePathname } from "#/components/ui/use-location";
@@ -35,7 +35,7 @@ export function LanguageSwitcher({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label={ariaLabel}
+        aria-label={`${ariaLabel} : ${localeShort[locale] ?? locale.toUpperCase()}`}
         className={cn(
           "inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-ring",
           className,

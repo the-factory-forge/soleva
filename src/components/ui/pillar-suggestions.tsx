@@ -1,7 +1,7 @@
 import { ArrowRight, type LucideIcon } from "lucide-react";
 
-import { Link } from "@/components/ui/link";
 import { FadeUp as Reveal } from "@/components/animations-lazy";
+import { Link } from "@/components/ui/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/navigation";

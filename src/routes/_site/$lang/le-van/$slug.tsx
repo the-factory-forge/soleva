@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowRight, Check, Home } from "lucide-react";
+import { Check, Home } from "lucide-react";
 
 import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
@@ -10,7 +10,7 @@ import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
 import { SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
-import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
+import { getServiceBySlug } from "@/lib/data/services";
 import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { buildMetadata } from "@/lib/seo/build-metadata";

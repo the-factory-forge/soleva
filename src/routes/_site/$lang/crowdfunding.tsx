@@ -6,6 +6,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { CopyIbanButton } from "@/components/ui/copy-iban-button";
 import { CtaBand } from "@/components/ui/cta-band";
 import { CtaExternal } from "@/components/ui/cta-button";
+import { YoutubeVideo } from "@/components/ui/youtube-video";
 import { Lightbox } from "@/components/ui/lightbox";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { DONATION, IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
@@ -127,14 +128,7 @@ function CrowdfundingPage() {
         <div className="container-premium section-padding">
           <SectionHeading title={t.video_title} />
           <div className="mx-auto mt-10 aspect-video max-w-3xl overflow-hidden rounded-2xl">
-            <iframe
-              className="h-full w-full"
-              src="https://www.youtube.com/embed/ZGMaSStYKDw"
-              title="Soleva - Crowdfunding"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <YoutubeVideo videoId="ZGMaSStYKDw" title="Soleva - Crowdfunding" poster={IMAGES.vanExterior} playLabel={dict.home.hero.play_video} />
           </div>
           <div className="mt-8 flex justify-center">
             <CtaExternal

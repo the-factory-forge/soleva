@@ -41,7 +41,7 @@ export function PageHero({
         <div className="absolute inset-0 -z-10 bg-dark" />
       )}
 
-      <div className="[&_a]:text-dark-foreground/70 [&_a:hover]:text-secondary [&_span]:text-dark-foreground [&_svg]:text-dark-foreground/40">
+      <div className="[&_a]:text-dark-foreground/70 [&_a:hover]:text-primary [&_span]:text-dark-foreground [&_svg]:text-dark-foreground/40">
         <Breadcrumb
           locale={locale}
           homeLabel={homeLabel}
@@ -53,7 +53,7 @@ export function PageHero({
       <div className="container-premium pt-10 pb-20 md:pt-12 md:pb-28">
         <div className="max-w-3xl">
           {eyebrow ? (
-            <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-secondary uppercase">
+            <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-primary uppercase">
               {eyebrow}
             </p>
           ) : null}

@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
 } from "@/components/ui/accordion";
 import { faqs, type FaqCategory } from "@/lib/data/faqs";
 import type { Locale } from "@/lib/i18n/config";

@@ -123,7 +123,9 @@
       "title": "The solar electric van",
       "subtitle": "Soleva converts an old van into a solar-powered electric camper. A Swiss demonstrator for a new way of traveling, reducing environmental impact, and making the energy transition tangible.",
       "primary_cta": "Contact us",
-      "secondary_cta": "Discover the van"
+      "secondary_cta": "Discover the van",
+      "pause_video": "Pause video",
+      "play_video": "Play video"
     },
     "figures": {
       "title": "The project in figures",
@@ -458,7 +460,9 @@
     "analyticsTitle": "Statistics",
     "analyticsDescription": "Google Analytics helps us understand how visitors interact with the site (data transferred to the United States).",
     "marketingTitle": "Marketing",
-    "marketingDescription": "Marketing tools (e.g. Google Ads) measure conversions and personalize advertising, only with your consent (data transferred to the United States)."
+    "marketingDescription": "Marketing tools (e.g. Google Ads) measure conversions and personalize advertising, only with your consent (data transferred to the United States).",
+    "customize": "Customize",
+    "cancel": "Cancel"
   },
   "not_found": {
     "title": "This road isn't on our solar map yet.",
@@ -636,5 +640,11 @@
     "description": "All Soleva pages: the solar van, the association, news and ways to support the project.",
     "search": "Find a page",
     "empty": "No pages match your search."
+  },
+  "newsletter": {
+    "title": "Follow the Soleva adventure",
+    "description": "News from the solar van, updates from the road and upcoming events.",
+    "comingSoon": "Coming soon",
+    "unavailable": "Signups will open soon. No email addresses are collected at this time."
   }
 }

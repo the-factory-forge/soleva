@@ -28,13 +28,13 @@ export function HabitatHero({
         </div>
       )}
 
-      <div className="[&_a]:text-dark-foreground/70 [&_a:hover]:text-secondary [&_span]:text-dark-foreground [&_svg]:text-dark-foreground/40">
+      <div className="[&_a]:text-dark-foreground/70 [&_a:hover]:text-primary [&_span]:text-dark-foreground [&_svg]:text-dark-foreground/40">
         {breadcrumb}
       </div>
 
       <div className="container-premium pt-12 pb-24 md:pt-16 md:pb-32">
         <div className="max-w-3xl">
-          <p className="hero-enter mb-4 text-sm font-semibold tracking-[0.18em] text-secondary uppercase">
+          <p className="hero-enter mb-4 text-sm font-semibold tracking-[0.18em] text-primary uppercase">
             {hero.eyebrow}
           </p>
           <h1 className="hero-enter font-heading text-4xl leading-[1.07] font-extrabold text-balance sm:text-5xl lg:text-6xl">
@@ -63,7 +63,7 @@ export function HabitatHero({
               href={discoverHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-dark-foreground/25 px-7 py-3.5 text-sm font-semibold text-dark-foreground transition-colors hover:border-secondary hover:text-secondary"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-dark-foreground/25 px-7 py-3.5 text-sm font-semibold text-dark-foreground transition-colors hover:border-secondary hover:text-primary"
             >
               {hero.ctaSecondary}
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

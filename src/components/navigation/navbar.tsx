@@ -1,8 +1,9 @@
 "use client";
 
-import { MenuIcon, ChevronDownIcon } from "lucide-react";
-import { lazy, Suspense, useState, useEffect } from "react";
+import { ChevronDownIcon, MenuIcon } from "lucide-react";
+import { lazy, Suspense, useEffect, useState } from "react";
 
+import { NewsletterButton } from "#/components/layout/newsletter";
 import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { Link } from "@/components/ui/link";
@@ -55,7 +56,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           ? "text-foreground hover:text-primary"
           : "text-white hover:bg-white/10 hover:text-white",
       )}
-      aria-label={dict.nav.language}
+      aria-label={`${dict.nav.language} : ${localeShort[locale]}`}
       onClick={() => setLangOpen(true)}
     >
       {localeShort[locale]}
@@ -67,7 +68,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       variant="ghost"
       size="icon"
       className={cn(
-        "lg:hidden",
+        "xl:hidden",
         onLight ? "text-foreground" : "text-white hover:bg-white/10 hover:text-white",
       )}
       aria-label={dict.nav.menu}
@@ -87,7 +88,11 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       )}
     >
       <nav className="container-premium flex h-16 items-center justify-between gap-4 md:h-20">
-        <Link href={withLocale(locale, "/")} className="flex items-center" aria-label="Soleva">
+        <Link
+          href={withLocale(locale, "/")}
+          className="flex shrink-0 items-center"
+          aria-label="Soleva"
+        >
           <Image
             src="/images/soleva-logo.webp"
             alt=""
@@ -99,7 +104,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </Link>
 
         {/* Desktop nav */}
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-1 xl:flex">
           {mainNav.map((item) => {
             const parentActive =
               isActive(item.href) || item.children?.some((c) => isActive(c.href));
@@ -112,7 +117,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                     className={cn(
                       "inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                       parentActive
-                        ? "text-primary"
+                        ? onLight ? "text-primary" : "text-primary"
                         : onLight
                           ? "text-foreground/80 hover:text-primary"
                           : "text-white/85 hover:text-white",
@@ -154,7 +159,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                   className={cn(
                     "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                     parentActive
-                      ? "text-primary"
+                      ? onLight ? "text-primary" : "text-primary"
                       : onLight
                         ? "text-foreground/80 hover:text-primary"
                         : "text-white/85 hover:text-white",
@@ -168,6 +173,16 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </ul>
 
         <div className="flex items-center gap-2">
+          <NewsletterButton
+            key={locale}
+            locale={locale}
+            dict={dict}
+            className={cn(
+              onLight
+                ? "text-foreground hover:text-primary"
+                : "text-white hover:bg-white/10 hover:text-white",
+            )}
+          />
           {/* Language switcher (lazy: Base UI dropdown chunk off the critical path) */}
           <Suspense fallback={languageTrigger}>
             {langOpen ? (

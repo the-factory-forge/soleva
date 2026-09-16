@@ -1,7 +1,7 @@
 "use client";
 
-import { Share2, Check } from "lucide-react";
-import { useState, useRef } from "react";
+import { Check, Share2 } from "lucide-react";
+import { useRef, useState } from "react";
 
 import { cn } from "#/lib/utils";
 

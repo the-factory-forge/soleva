@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 import { ManageCookiesButton } from "#/components/navigation/manage-cookies-button";
 import { Image } from "#/components/ui/image";
@@ -110,7 +110,7 @@ export function Footer({
 
   const colorClass = (color: "accent" | "primary" | "secondary" | "foreground" | undefined) =>
     color === "primary"
-      ? "text-primary"
+      ? dark ? "text-primary" : "text-primary"
       : color === "secondary"
         ? "text-secondary"
         : color === "foreground"
@@ -126,7 +126,7 @@ export function Footer({
 
   const brandName =
     brandNameColor === "primary"
-      ? "text-primary"
+      ? dark ? "text-primary" : "text-primary"
       : dark
         ? "text-dark-foreground"
         : "text-foreground";
@@ -134,15 +134,15 @@ export function Footer({
   const heading = accentClass;
   const icon = iconsColor ? colorClass(iconsColor) : accentClass;
   const link = dark
-    ? "text-dark-foreground/70 transition-colors hover:text-secondary"
+    ? "text-dark-foreground/70 transition-colors hover:text-primary"
     : "text-muted-foreground transition-colors hover:text-primary";
   const socialIcon = dark
-    ? "text-dark-foreground/80 transition-colors hover:text-secondary"
+    ? "text-dark-foreground/80 transition-colors hover:text-primary"
     : "text-muted-foreground transition-colors hover:text-primary";
   const bottomBorder = dark ? "border-dark-foreground/10" : "border-border";
   const bottomText = dark ? "text-dark-foreground/60" : "text-muted-foreground";
   const bottomLink = dark
-    ? "transition-colors hover:text-secondary"
+    ? "transition-colors hover:text-primary"
     : "transition-colors hover:text-primary";
 
   const inputClass = dark
@@ -170,7 +170,9 @@ export function Footer({
                   {brand.initial ?? brand.name.charAt(0)}
                 </span>
               )}
-              <span className={cn("font-heading text-lg font-bold", brandName)}>{brand.name}</span>
+              {!brand.logo && (
+                <span className={cn("font-heading text-lg font-bold", brandName)}>{brand.name}</span>
+              )}
             </div>
             {brand.tagline && (
               <p
@@ -357,7 +359,7 @@ export function Footer({
                 <Link
                   key={linkItem.href}
                   href={linkItem.href}
-                  className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-secondary")}
+                  className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-primary")}
                 >
                   {linkItem.label}
                 </Link>
@@ -367,7 +369,7 @@ export function Footer({
                   label={manageCookiesLabel}
                   manageEvent={manageCookiesEvent}
                   size="xs"
-                  className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-secondary")}
+                  className={cn(bottomLink, dark && "text-dark-foreground/70 hover:text-primary")}
                 />
               )}
             </nav>

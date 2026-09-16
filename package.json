@@ -27,7 +27,6 @@
     "auth:migrate": "vpr auth:generate && vpr db generate && vpr db migrate",
     "skills": "pnpm dlx skills@latest",
     "intent": "pnpm dlx @tanstack/intent@latest",
-    "registry:pull": "node scripts/pull-registry.mjs",
     "images:variants": "node scripts/generate-image-variants.mjs",
     "scrape:soleva": "node scripts/scrape-soleva-org.mjs",
     "db:start": "docker compose up",

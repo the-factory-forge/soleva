@@ -1,8 +1,8 @@
-import { Zap, Sun, Home, ArrowRight } from "lucide-react";
+import { ArrowRight, Home, Sun, Zap } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { Image } from "@/components/ui/image";
 import { Link } from "@/components/ui/link";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, srcSetFor } from "@/lib/constants";
 import type { Dictionary } from "@/lib/i18n";

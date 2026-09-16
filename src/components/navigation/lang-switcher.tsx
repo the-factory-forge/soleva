@@ -4,14 +4,14 @@ import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@/components/ui/link";
 import type { Dictionary } from "@/lib/i18n";
-import { locales, localeNames, localeShort, type Locale } from "@/lib/i18n/config";
+import { localeNames, locales, localeShort, type Locale } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
 
 interface LangSwitcherProps {
@@ -35,7 +35,7 @@ export function LangSwitcher({ locale, pathWithoutLocale, onLight, dict, default
                 ? "text-foreground hover:text-primary"
                 : "text-white hover:bg-white/10 hover:text-white",
             )}
-            aria-label={dict.nav.language}
+            aria-label={`${dict.nav.language} : ${localeShort[locale]}`}
           />
         }
       >

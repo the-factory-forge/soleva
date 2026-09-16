@@ -39,6 +39,25 @@ Docker entrypoint load server settings through Varlock at startup.
 The latest template reconciliation, preserved adaptations, and validation results
 are recorded in [docs/template-sync.md](docs/template-sync.md).
 
+## Registry components
+
+Install individual Forge components with `vpr ui add @forge/<name>`.
+The `@forge` namespace in `components.json` uses the current `public/r` registry;
+the retired aggregate `registry:pull` script has been removed.
+
+Cookie banner and newsletter were installed from registry revision
+`8846c1ad6ee36b6c5dfaf613ac59184491c8745b` on 2026-09-16. Shared components live
+under `src/components/forge/`, with Soleva's translations and analytics wiring
+in `src/components/layout/`. They reuse the site's existing `cn` utility.
+When updating the cookie component, preserve its `onConsentChange` callback,
+restoration of saved preferences, and handling of disabled consent categories.
+
+The reusable `NewsletterButton` opens a lazy-loaded dialog from the navbar,
+immediately before the language picker. Its form is deliberately disabled and
+labelled as coming soon in all four languages. It does not collect, store, or send email addresses. Enable
+it only after a real subscription destination is connected; the registry demo
+with simulated success is not used.
+
 ## Site content
 
 - `src/lib/site/constants.ts` - identity, contact, socials

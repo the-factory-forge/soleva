@@ -123,7 +123,9 @@
       "title": "Le van électrique solaire",
       "subtitle": "Soleva transforme un ancien van en camper électrique alimenté par le soleil. Un démonstrateur suisse pour voyager autrement, réduire l'impact environnemental et rendre la transition énergétique concrète.",
       "primary_cta": "Nous contacter",
-      "secondary_cta": "Découvrir le van"
+      "secondary_cta": "Découvrir le van",
+      "pause_video": "Mettre la vidéo en pause",
+      "play_video": "Lire la vidéo"
     },
     "figures": {
       "title": "Le projet en chiffres",
@@ -458,7 +460,9 @@
     "analyticsTitle": "Statistiques",
     "analyticsDescription": "Google Analytics nous aide à comprendre comment les visiteurs interagissent avec le site (données transférées aux États-Unis).",
     "marketingTitle": "Marketing",
-    "marketingDescription": "Les outils publicitaires (ex. Google Ads) mesurent les conversions et personnalisent la publicite, uniquement avec votre consentement (donnees transferees aux Etats-Unis)."
+    "marketingDescription": "Les outils publicitaires (ex. Google Ads) mesurent les conversions et personnalisent la publicite, uniquement avec votre consentement (donnees transferees aux Etats-Unis).",
+    "customize": "Personnaliser",
+    "cancel": "Annuler"
   },
   "not_found": {
     "title": "Cette route n'est pas encore sur notre carte solaire.",
@@ -636,5 +640,11 @@
     "description": "Toutes les pages de Soleva : le van solaire, l’association, les actualités et les possibilités de soutien.",
     "search": "Rechercher une page",
     "empty": "Aucune page ne correspond à votre recherche."
+  },
+  "newsletter": {
+    "title": "Suivez l’aventure Soleva",
+    "description": "Les nouvelles du van solaire, les étapes du voyage et les prochains événements.",
+    "comingSoon": "Bientôt disponible",
+    "unavailable": "Les inscriptions ouvriront bientôt. Aucune adresse email n’est collectée pour le moment."
   }
 }

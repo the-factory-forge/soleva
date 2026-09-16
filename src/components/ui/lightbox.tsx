@@ -2,7 +2,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import { Image } from "#/components/ui/image";
@@ -35,19 +35,20 @@ export function Lightbox({
   children,
 }: LightboxProps) {
   const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const openModal = useCallback(() => setOpen(true), []);
   const closeModal = useCallback(() => setOpen(false), []);
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeModal();
-    };
-    document.addEventListener("keydown", onKey);
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
     document.body.style.overflow = "hidden";
     return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
     };
   }, [open, closeModal]);
 
@@ -83,11 +84,15 @@ export function Lightbox({
 
       {open &&
         createPortal(
-          <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
-            role="dialog"
-            aria-modal="true"
-            onClick={closeModal}
+          <dialog
+            ref={dialogRef}
+            className="fixed inset-0 m-0 h-full max-h-none w-full max-w-none items-center justify-center bg-black/90 p-4 backdrop-blur-sm open:flex"
+            aria-label={alt || enlargeLabel}
+            onCancel={closeModal}
+            onClose={closeModal}
+            onClick={(event) => {
+              if (event.target === event.currentTarget) closeModal();
+            }}
           >
             <button
               type="button"
@@ -101,9 +106,8 @@ export function Lightbox({
               src={src}
               alt={alt}
               className="max-h-[90vh] max-w-[90vw] rounded-lg bg-white object-contain"
-              onClick={(e) => e.stopPropagation()}
             />
-          </div>,
+          </dialog>,
           document.body,
         )}
     </>

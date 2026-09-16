@@ -3,10 +3,9 @@ import { Mail, MapPin, Share2 } from "lucide-react";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { buttonVariants } from "@/components/ui/button";
-import { CONTACT, SOCIALS, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { CONTACT, SITE_NAME, SITE_URL, SOCIALS } from "@/lib/constants";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
-import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 import { cn } from "@/lib/utils";

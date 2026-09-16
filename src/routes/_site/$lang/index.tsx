@@ -11,6 +11,7 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
+import { YoutubeVideo } from "@/components/ui/youtube-video";
 import { IMAGES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { partnerCategories } from "@/lib/data/partners";
 import { getDictionary } from "@/lib/i18n";
@@ -206,7 +207,7 @@ function HomePage() {
       </section>
 
       {/* Documentaire */}
-      <section className="bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
+      <section className="bg-muted/50 text-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding text-center">
           <Reveal>
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/20 text-secondary">
@@ -215,18 +216,11 @@ function HomePage() {
             <h2 className="mt-6 font-heading text-2xl font-bold sm:text-3xl">
               {dict.home.documentary.title}
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-dark-foreground/70">
+            <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
               {dict.home.documentary.subtitle}
             </p>
             <div className="mx-auto mt-8 aspect-video max-w-3xl overflow-hidden rounded-2xl">
-              <iframe
-                className="h-full w-full"
-                src="https://www.youtube.com/embed/6ScnYhFPv5w"
-                title="Soleva - L'aventure Soleva"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              <YoutubeVideo videoId="6ScnYhFPv5w" title="Soleva - L’aventure Soleva" poster={IMAGES.hero} playLabel={dict.home.hero.play_video} />
             </div>
           </Reveal>
         </div>

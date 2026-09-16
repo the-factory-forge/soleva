@@ -123,7 +123,9 @@
       "title": "Il van elettrico solare",
       "subtitle": "Soleva trasforma un vecchio furgone in un camper elettrico alimentato dal sole. Un dimostratore svizzero per viaggiare in modo diverso, ridurre l'impatto ambientale e rendere concreta la transizione energetica.",
       "primary_cta": "Contattaci",
-      "secondary_cta": "Scopri il van"
+      "secondary_cta": "Scopri il van",
+      "pause_video": "Metti in pausa il video",
+      "play_video": "Riproduci il video"
     },
     "figures": {
       "title": "Il progetto in cifre",
@@ -458,7 +460,9 @@
     "analyticsTitle": "Statistiche",
     "analyticsDescription": "Google Analytics ci aiuta a capire come i visitatori interagiscono con il sito (dati trasferiti negli Stati Uniti).",
     "marketingTitle": "Marketing",
-    "marketingDescription": "Gli strumenti pubblicitari (es. Google Ads) misurano le conversioni e personalizzano la pubblicita, solo con il vostro consenso (dati trasferiti negli Stati Uniti)."
+    "marketingDescription": "Gli strumenti pubblicitari (es. Google Ads) misurano le conversioni e personalizzano la pubblicita, solo con il vostro consenso (dati trasferiti negli Stati Uniti).",
+    "customize": "Personalizza",
+    "cancel": "Annulla"
   },
   "not_found": {
     "title": "Questa strada non è ancora sulla nostra mappa solare.",
@@ -636,5 +640,11 @@
     "description": "Tutte le pagine Soleva: il van solare, l’associazione, le notizie e come sostenere il progetto.",
     "search": "Cerca una pagina",
     "empty": "Nessuna pagina corrisponde alla ricerca."
+  },
+  "newsletter": {
+    "title": "Seguite l’avventura Soleva",
+    "description": "Novità dal van solare, aggiornamenti dal viaggio e prossimi eventi.",
+    "comingSoon": "Prossimamente",
+    "unavailable": "Le iscrizioni apriranno presto. Per il momento non viene raccolto alcun indirizzo email."
   }
 }

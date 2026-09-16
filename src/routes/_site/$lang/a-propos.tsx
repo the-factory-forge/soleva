@@ -7,18 +7,17 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import {
-  IMAGES,
-  MENTOR_PHOTOS,
-  PRESS_LOGOS,
-  SITE_NAME,
-  SITE_URL,
-  srcSetFor,
-  TEAM_PHOTOS,
+    IMAGES,
+    MENTOR_PHOTOS,
+    PRESS_LOGOS,
+    SITE_NAME,
+    SITE_URL,
+    srcSetFor,
+    TEAM_PHOTOS,
 } from "@/lib/constants";
 import { pressAppearances } from "@/lib/data/press";
 import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
-import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 
