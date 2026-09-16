@@ -37,7 +37,11 @@ export function Lightbox({
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const openModal = useCallback(() => setOpen(true), []);
-  const closeModal = useCallback(() => setOpen(false), []);
+  const closeModal = useCallback(() => {
+    // Close while still mounted so the browser restores focus to the opener.
+    dialogRef.current?.close();
+    setOpen(false);
+  }, []);
 
   useEffect(() => {
     if (!open) return;

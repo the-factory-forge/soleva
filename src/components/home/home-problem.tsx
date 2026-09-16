@@ -26,7 +26,7 @@ export function HomeProblem({ dict }: { locale: Locale; dict: Dictionary }) {
           </Reveal>
           <Reveal delay={0.1}>
             <div>
-              <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+              <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-secondary uppercase">
                 {dict.home.problem.eyebrow}
               </p>
               <h2 className="font-heading text-3xl leading-tight font-extrabold text-pretty sm:text-4xl">

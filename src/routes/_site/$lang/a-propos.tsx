@@ -7,13 +7,13 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import {
-    IMAGES,
-    MENTOR_PHOTOS,
-    PRESS_LOGOS,
-    SITE_NAME,
-    SITE_URL,
-    srcSetFor,
-    TEAM_PHOTOS,
+  IMAGES,
+  MENTOR_PHOTOS,
+  PRESS_LOGOS,
+  SITE_NAME,
+  SITE_URL,
+  srcSetFor,
+  TEAM_PHOTOS,
 } from "@/lib/constants";
 import { pressAppearances } from "@/lib/data/press";
 import { getDictionary, t } from "@/lib/i18n";
@@ -145,7 +145,7 @@ function AboutPage() {
           <div className="grid gap-6 md:grid-cols-2">
             <Reveal>
               <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-8">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-secondary">
                   <Target className="h-6 w-6" aria-hidden="true" />
                 </span>
                 <h2 className="mt-5 font-heading text-2xl font-bold">{a.mission_title}</h2>
@@ -185,7 +185,7 @@ function AboutPage() {
             </Reveal>
             <Reveal delay={0.1}>
               <div>
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-secondary">
                   <Sparkles className="h-6 w-6" aria-hidden="true" />
                 </span>
                 <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">
@@ -274,7 +274,7 @@ function AboutPage() {
                   {member.email && (
                     <a
                       href={`mailto:${member.email}`}
-                      className="mt-2 text-xs text-primary hover:underline"
+                      className="mt-2 text-xs text-secondary hover:underline"
                     >
                       {member.email}
                     </a>
@@ -344,7 +344,7 @@ function AboutPage() {
                   </div>
                   {item.url && item.linkStatus !== "broken" ? (
                     <a
-                      className="font-heading text-xs font-bold text-primary hover:underline"
+                      className="font-heading text-xs font-bold text-secondary hover:underline"
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -357,7 +357,7 @@ function AboutPage() {
                   <span className="text-xs text-muted-foreground">
                     {t(dict, `about.pressTypes.${item.type}`)}
                   </span>
-                  <span className="text-xs text-muted-foreground/70">
+                  <span className="text-xs text-muted-foreground">
                     {[item.date, item.language].filter(Boolean).join(" · ")}
                   </span>
                 </div>

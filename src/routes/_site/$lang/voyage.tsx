@@ -77,7 +77,7 @@ function VoyagePage() {
             <Reveal delay={0.1}>
               <div>
                 <SectionHeading align="left" title={t.tour_title} subtitle={t.tour_body} />
-                <p className="mt-8 font-heading text-2xl font-bold text-primary">{t.dates}</p>
+                <p className="mt-8 font-heading text-2xl font-bold text-secondary">{t.dates}</p>
               </div>
             </Reveal>
           </div>
@@ -139,7 +139,7 @@ function VoyagePage() {
                 href={POLAR_STEPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-primary underline underline-offset-2"
+                className="font-semibold text-secondary underline underline-offset-2"
               >
                 Polar Steps
               </a>

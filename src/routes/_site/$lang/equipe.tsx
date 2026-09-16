@@ -89,12 +89,12 @@ function TeamPage() {
                       {t(dict, `equipe.roles.${member.roleKey}`)}
                     </p>
                     {bio ? (
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground/90">{bio}</p>
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{bio}</p>
                     ) : null}
                     {member.email ? (
                       <a
                         href={`mailto:${member.email}`}
-                        className="mt-3 text-xs text-primary hover:underline"
+                        className="mt-3 text-xs text-secondary hover:underline"
                       >
                         {member.email}
                       </a>
@@ -104,7 +104,7 @@ function TeamPage() {
                         href={member.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-flex items-center justify-center gap-1 text-xs text-primary hover:underline"
+                        className="mt-2 inline-flex items-center justify-center gap-1 text-xs text-secondary hover:underline"
                       >
                         <LinkedinIcon className="h-3.5 w-3.5" aria-hidden="true" />
                         LinkedIn
@@ -144,14 +144,14 @@ function TeamPage() {
                       {t(dict, `equipe.mentorRoles.${mentor.roleKey}`)}
                     </p>
                     {bio ? (
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground/90">{bio}</p>
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{bio}</p>
                     ) : null}
                     {mentor.linkedin ? (
                       <a
                         href={mentor.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-flex items-center justify-center gap-1 text-xs text-primary hover:underline"
+                        className="mt-3 inline-flex items-center justify-center gap-1 text-xs text-secondary hover:underline"
                       >
                         <LinkedinIcon className="h-3.5 w-3.5" aria-hidden="true" />
                         LinkedIn

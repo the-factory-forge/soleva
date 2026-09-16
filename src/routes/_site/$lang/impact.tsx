@@ -71,7 +71,7 @@ function ImpactPage() {
               return (
                 <Reveal key={`card-${i}`} delay={i * 0.06}>
                   <article className="flex h-full flex-col rounded-3xl border border-border bg-card p-8">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-secondary">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h2 className="mt-5 font-heading text-xl font-bold text-foreground">

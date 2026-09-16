@@ -42,7 +42,7 @@ export function MobileNav({
                     href={withLocale(locale, item.href)}
                     className={cn(
                       "rounded-md px-3 py-3 text-base font-medium transition-colors hover:bg-muted",
-                      isActive(item.href) ? "text-primary" : "text-foreground",
+                      isActive(item.href) ? "text-secondary" : "text-foreground",
                     )}
                   />
                 }
@@ -59,7 +59,7 @@ export function MobileNav({
                           href={withLocale(locale, child.href)}
                           className={cn(
                             "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
-                            isActive(child.href) ? "text-primary" : "text-foreground/80",
+                            isActive(child.href) ? "text-secondary" : "text-foreground/80",
                           )}
                         />
                       }

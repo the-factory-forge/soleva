@@ -11,7 +11,7 @@ import { withLocale } from "@/lib/navigation";
 
 export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState(true);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -42,12 +42,10 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
         <video
           ref={videoRef}
           id="home-background-video"
-          autoPlay
           muted
           loop
           playsInline
-          preload="auto"
-          poster={IMAGES.videoPoster}
+          preload="none"
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
           onPause={() => setPaused(true)}

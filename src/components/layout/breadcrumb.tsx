@@ -41,7 +41,7 @@ export function Breadcrumb({
                 <>
                   <Link
                     href={withLocale(locale, crumb.href)}
-                    className="transition-colors hover:text-primary"
+                    className="transition-colors hover:text-secondary"
                   >
                     {crumb.label}
                   </Link>

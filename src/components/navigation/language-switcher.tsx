@@ -3,10 +3,10 @@
 import { Check, Globe } from "lucide-react";
 
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "#/components/ui/dropdown-menu";
 import { Link } from "#/components/ui/link";
 import { usePathname } from "#/components/ui/use-location";
@@ -37,7 +37,7 @@ export function LanguageSwitcher({
       <DropdownMenuTrigger
         aria-label={`${ariaLabel} : ${localeShort[locale] ?? locale.toUpperCase()}`}
         className={cn(
-          "inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-ring",
+          "inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors outline-none hover:text-secondary focus-visible:ring-2 focus-visible:ring-ring",
           className,
         )}
       >
@@ -49,7 +49,7 @@ export function LanguageSwitcher({
           <DropdownMenuItem key={l} asChild className="justify-between">
             <Link href={`/${l}${pathnameWithoutLocale}`}>
               {localeNames[l] ?? l}
-              {l === locale && <Check className="h-4 w-4 text-primary" aria-hidden="true" />}
+              {l === locale && <Check className="h-4 w-4 text-secondary" aria-hidden="true" />}
             </Link>
           </DropdownMenuItem>
         ))}

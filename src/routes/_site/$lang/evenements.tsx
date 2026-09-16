@@ -70,7 +70,7 @@ function EventsPage() {
                   <h3 className="font-heading text-lg font-semibold">{event.name[locale]}</h3>
                   {i === 0 && (
                     <Link
-                      className="mt-3 inline-block text-sm text-primary underline"
+                      className="mt-3 inline-block text-sm text-secondary underline"
                       href={withLocale(
                         locale,
                         "/blog#solar-openair-cinema-soleva-documentary-unveiling",

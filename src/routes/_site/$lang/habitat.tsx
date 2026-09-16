@@ -88,7 +88,7 @@ function HabitatPage() {
               return (
                 <Reveal key={`concept-${i}`} delay={i * 0.06}>
                   <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-secondary">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h3 className="mt-5 font-heading text-lg font-bold">{point.title}</h3>
@@ -230,15 +230,17 @@ function HabitatPage() {
           </Reveal>
           <dl className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {c.technical.specs.map((spec, i) => (
-              <Reveal key={`spec-${i}`} delay={i * 0.05}>
-                <div className="flex flex-col rounded-2xl border border-border bg-card p-6 text-center">
-                  <dt className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                    {spec.label}
-                  </dt>
-                  <dd className="mt-2 font-heading text-xl font-bold text-foreground">
-                    {spec.value}
-                  </dd>
-                </div>
+              <Reveal
+                key={`spec-${i}`}
+                delay={i * 0.05}
+                className="flex flex-col rounded-2xl border border-border bg-card p-6 text-center"
+              >
+                <dt className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
+                  {spec.label}
+                </dt>
+                <dd className="mt-2 font-heading text-xl font-bold text-foreground">
+                  {spec.value}
+                </dd>
               </Reveal>
             ))}
           </dl>
@@ -258,7 +260,7 @@ function HabitatPage() {
                   <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                     {faq.question}
                     <span
-                      className="ml-4 text-primary transition-transform group-open:rotate-45"
+                      className="ml-4 text-secondary transition-transform group-open:rotate-45"
                       aria-hidden="true"
                     >
                       +

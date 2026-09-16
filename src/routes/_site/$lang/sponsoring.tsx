@@ -127,9 +127,9 @@ function SponsoringPage() {
           <div className="mt-12 space-y-12">
             {/* Sponsors */}
             <div>
-              <h3 className="text-center text-sm font-semibold tracking-wider text-primary uppercase">
+              <h2 className="text-center text-sm font-semibold tracking-wider text-secondary uppercase">
                 {s.categories.sponsors}
-              </h3>
+              </h2>
               <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {sponsors.map((item, i) => (
                   <Reveal key={`sponsor-${item.name}-${i}`} delay={i * 0.06}>
@@ -141,9 +141,9 @@ function SponsoringPage() {
 
             {/* Collaborations */}
             <div>
-              <h3 className="text-center text-sm font-semibold tracking-wider text-primary uppercase">
+              <h2 className="text-center text-sm font-semibold tracking-wider text-secondary uppercase">
                 {s.categories.collaborations}
-              </h3>
+              </h2>
               <div className="mx-auto mt-4 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
                 {collaborations.map((item, i) => (
                   <Reveal key={`collaboration-${item.name}-${i}`} delay={i * 0.06}>
@@ -155,9 +155,9 @@ function SponsoringPage() {
 
             {/* Media partners */}
             <div>
-              <h3 className="text-center text-sm font-semibold tracking-wider text-primary uppercase">
+              <h2 className="text-center text-sm font-semibold tracking-wider text-secondary uppercase">
                 {s.categories.media}
-              </h3>
+              </h2>
               <div className="mx-auto mt-4 grid max-w-2xl grid-cols-2 gap-4">
                 {media.map((item, i) => (
                   <Reveal key={`media-${item.name}-${i}`} delay={i * 0.06}>

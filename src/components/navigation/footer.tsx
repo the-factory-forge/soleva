@@ -110,14 +110,16 @@ export function Footer({
 
   const colorClass = (color: "accent" | "primary" | "secondary" | "foreground" | undefined) =>
     color === "primary"
-      ? dark ? "text-primary" : "text-primary"
+      ? dark
+        ? "text-primary"
+        : "text-secondary"
       : color === "secondary"
         ? "text-secondary"
         : color === "foreground"
           ? "text-foreground"
           : dark
             ? "text-accent"
-            : "text-primary";
+            : "text-secondary";
 
   const headingsColor = colors?.headings ?? accentColor;
   const iconsColor = colors?.icons ?? iconColor;
@@ -126,7 +128,9 @@ export function Footer({
 
   const brandName =
     brandNameColor === "primary"
-      ? dark ? "text-primary" : "text-primary"
+      ? dark
+        ? "text-primary"
+        : "text-secondary"
       : dark
         ? "text-dark-foreground"
         : "text-foreground";
@@ -135,15 +139,15 @@ export function Footer({
   const icon = iconsColor ? colorClass(iconsColor) : accentClass;
   const link = dark
     ? "text-dark-foreground/70 transition-colors hover:text-primary"
-    : "text-muted-foreground transition-colors hover:text-primary";
+    : "text-muted-foreground transition-colors hover:text-secondary";
   const socialIcon = dark
     ? "text-dark-foreground/80 transition-colors hover:text-primary"
-    : "text-muted-foreground transition-colors hover:text-primary";
+    : "text-muted-foreground transition-colors hover:text-secondary";
   const bottomBorder = dark ? "border-dark-foreground/10" : "border-border";
   const bottomText = dark ? "text-dark-foreground/60" : "text-muted-foreground";
   const bottomLink = dark
-    ? "transition-colors hover:text-primary"
-    : "transition-colors hover:text-primary";
+    ? "inline-flex min-h-6 items-center transition-colors hover:text-primary"
+    : "inline-flex min-h-6 items-center transition-colors hover:text-secondary";
 
   const inputClass = dark
     ? "border-dark-foreground/20 bg-dark-foreground/10 text-dark-foreground placeholder:text-dark-foreground/50"
@@ -171,7 +175,9 @@ export function Footer({
                 </span>
               )}
               {!brand.logo && (
-                <span className={cn("font-heading text-lg font-bold", brandName)}>{brand.name}</span>
+                <span className={cn("font-heading text-lg font-bold", brandName)}>
+                  {brand.name}
+                </span>
               )}
             </div>
             {brand.tagline && (
@@ -390,7 +396,7 @@ export function Footer({
                     width={16}
                     height={16}
                     unoptimized
-                    className="h-4 w-4"
+                    className={cn("h-4 w-4", dark && "brightness-0 invert")}
                     aria-hidden="true"
                   />
                 )}

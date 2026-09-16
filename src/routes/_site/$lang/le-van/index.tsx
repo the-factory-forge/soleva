@@ -79,7 +79,7 @@ function VanPage() {
                       </Lightbox>
                     </div>
                     <div className={reversed ? "lg:order-1" : ""}>
-                      <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-secondary">
                         <Icon className="h-6 w-6" aria-hidden="true" />
                       </span>
                       <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">
@@ -146,7 +146,7 @@ function VanPage() {
                 <p className="mt-4 leading-relaxed text-muted-foreground">
                   {habitatContent[locale].hero.subtitle}
                 </p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-secondary">
                   {dict.common.learn_more}
                   <ArrowRight
                     className="h-4 w-4 transition-transform group-hover:translate-x-1"

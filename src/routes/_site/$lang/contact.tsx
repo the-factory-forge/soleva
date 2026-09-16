@@ -53,7 +53,7 @@ function ContactPage() {
         <div className="container-premium section-padding">
           <div className="grid gap-12 lg:grid-cols-[1fr_22rem] lg:gap-16">
             <div className="flex flex-col items-center justify-center rounded-3xl border border-border bg-card p-10 text-center">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-secondary">
                 <Mail className="h-7 w-7" />
               </span>
               <h2 className="mt-5 font-heading text-2xl font-bold text-foreground">
@@ -73,14 +73,14 @@ function ContactPage() {
               <h2 className="font-heading text-xl font-bold text-foreground">{t.info.title}</h2>
 
               <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-secondary">
                   <Mail className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="text-sm font-medium text-foreground">{t.info.email_label}</p>
                   <a
                     href={`mailto:${CONTACT.email}`}
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className="text-sm text-muted-foreground transition-colors hover:text-secondary"
                   >
                     {CONTACT.email}
                   </a>
@@ -88,7 +88,7 @@ function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-secondary">
                   <MapPin className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div>
@@ -104,7 +104,7 @@ function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-secondary">
                   <Share2 className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div>
@@ -114,7 +114,7 @@ function ContactPage() {
                       href={SOCIALS.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className="text-sm text-muted-foreground transition-colors hover:text-secondary"
                     >
                       Instagram
                     </a>
@@ -122,7 +122,7 @@ function ContactPage() {
                       href={SOCIALS.facebook}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className="text-sm text-muted-foreground transition-colors hover:text-secondary"
                     >
                       Facebook
                     </a>
@@ -130,7 +130,7 @@ function ContactPage() {
                       href={SOCIALS.youtube}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className="text-sm text-muted-foreground transition-colors hover:text-secondary"
                     >
                       YouTube
                     </a>

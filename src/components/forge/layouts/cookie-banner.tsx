@@ -219,7 +219,7 @@ export function CookieBanner({
             {text}{" "}
             <a
               href={privacyHref}
-              className="font-semibold text-primary underline underline-offset-2"
+              className="font-semibold text-secondary underline underline-offset-2"
             >
               {policyLabel}
             </a>

@@ -21,7 +21,7 @@ export function ManageCookiesButton({
       onClick={() => window.dispatchEvent(new Event(manageEvent))}
       className={cn(
         size === "xs" ? "text-xs" : "text-sm",
-        "text-muted-foreground transition-colors hover:text-primary",
+        "text-muted-foreground transition-colors hover:text-secondary",
         className,
       )}
     >

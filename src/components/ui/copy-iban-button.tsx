@@ -23,7 +23,7 @@ export function CopyIbanButton({
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-primary/10 hover:text-secondary"
     >
       {copied ? (
         <>

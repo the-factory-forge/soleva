@@ -6,9 +6,9 @@ import { PageHero } from "@/components/layout/page-hero";
 import { CopyIbanButton } from "@/components/ui/copy-iban-button";
 import { CtaBand } from "@/components/ui/cta-band";
 import { CtaExternal } from "@/components/ui/cta-button";
-import { YoutubeVideo } from "@/components/ui/youtube-video";
 import { Lightbox } from "@/components/ui/lightbox";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { YoutubeVideo } from "@/components/ui/youtube-video";
 import { DONATION, IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { getDictionary } from "@/lib/i18n";
 import { type Locale } from "@/lib/i18n/config";
@@ -98,10 +98,10 @@ function CrowdfundingPage() {
               return (
                 <Reveal key={`fact-${i}`} delay={i * 0.06}>
                   <div className="flex h-full flex-col items-center rounded-2xl bg-dark-foreground/5 p-6 text-center">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/15 text-secondary">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 text-primary">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
-                    <p className="mt-4 font-heading text-xl font-extrabold text-secondary">
+                    <p className="mt-4 font-heading text-xl font-extrabold text-primary">
                       {fact.value}
                     </p>
                     <p className="mt-2 text-sm text-dark-foreground/70">{fact.label}</p>
@@ -128,7 +128,12 @@ function CrowdfundingPage() {
         <div className="container-premium section-padding">
           <SectionHeading title={t.video_title} />
           <div className="mx-auto mt-10 aspect-video max-w-3xl overflow-hidden rounded-2xl">
-            <YoutubeVideo videoId="ZGMaSStYKDw" title="Soleva - Crowdfunding" poster={IMAGES.vanExterior} playLabel={dict.home.hero.play_video} />
+            <YoutubeVideo
+              videoId="ZGMaSStYKDw"
+              title="Soleva - Crowdfunding"
+              poster={IMAGES.vanExterior}
+              playLabel={dict.home.hero.play_video}
+            />
           </div>
           <div className="mt-8 flex justify-center">
             <CtaExternal

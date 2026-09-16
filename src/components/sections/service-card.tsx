@@ -74,7 +74,7 @@ export function ServiceCard({
         <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
-        <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors group-hover:gap-2">
+        <span className="inline-flex items-center gap-1 text-sm font-semibold text-secondary transition-colors group-hover:gap-2">
           {readMoreLabel}
           <ArrowRight
             className="h-4 w-4 transition-transform group-hover:translate-x-1"

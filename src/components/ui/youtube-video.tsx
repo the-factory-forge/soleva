@@ -32,7 +32,14 @@ export function YoutubeVideo({
       aria-label={`${playLabel} : ${title}`}
       className="group relative flex h-full w-full items-center justify-center bg-muted focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-primary"
     >
-      <Image src={poster} srcSet={srcSetFor(poster)} sizes="(max-width: 768px) 100vw, 768px" alt="" fill className="object-cover" />
+      <Image
+        src={poster}
+        srcSet={srcSetFor(poster)}
+        sizes="(max-width: 768px) 100vw, 768px"
+        alt=""
+        fill
+        className="object-cover"
+      />
       <span className="relative flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:scale-110">
         <PlayIcon className="size-7" aria-hidden="true" />
       </span>

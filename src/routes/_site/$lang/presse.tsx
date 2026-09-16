@@ -72,7 +72,7 @@ function PressPage() {
                   <span className="text-xs text-muted-foreground">
                     {t(dict, `presse.pressTypes.${item.type}`)}
                   </span>
-                  <span className="text-xs text-muted-foreground/70">
+                  <span className="text-xs text-muted-foreground">
                     {item.date ? `${item.date} · ` : ""}
                     {item.language}
                   </span>
@@ -81,7 +81,7 @@ function PressPage() {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-semibold text-primary hover:underline"
+                      className="text-xs font-semibold text-secondary hover:underline"
                       aria-label={`${p.read_label} ${item.media}`}
                     >
                       {p.read_label}

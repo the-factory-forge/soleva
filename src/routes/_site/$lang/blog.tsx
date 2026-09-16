@@ -63,7 +63,7 @@ function BlogPage() {
                   id={post.slug}
                   className="flex h-full flex-col rounded-2xl border border-border bg-card p-6"
                 >
-                  <span className="inline-flex self-start rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                  <span className="inline-flex self-start rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-secondary">
                     {post.date}
                   </span>
                   <h2 className="mt-4 font-heading text-lg font-semibold text-foreground">
@@ -74,7 +74,7 @@ function BlogPage() {
                   </p>
                   {post.body && (
                     <details className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                      <summary className="cursor-pointer font-semibold text-primary">
+                      <summary className="cursor-pointer font-semibold text-secondary">
                         {dict.common.learn_more}
                       </summary>
                       <div className="mt-3 space-y-3">

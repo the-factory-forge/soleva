@@ -118,7 +118,7 @@ function ServiceDetailPage() {
             </Reveal>
             <Reveal delay={0.1}>
               <div>
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-secondary">
                   <Icon className="h-6 w-6" aria-hidden="true" />
                 </span>
                 <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">
@@ -190,14 +190,17 @@ function ServiceDetailPage() {
           </Reveal>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {content.features.map((feature, i) => (
-              <Reveal key={`feature-${i}`} delay={i * 0.05}>
-                <li className="flex items-start gap-3 rounded-2xl bg-card p-5 shadow-sm">
+              <li key={`feature-${i}`}>
+                <Reveal
+                  delay={i * 0.05}
+                  className="flex items-start gap-3 rounded-2xl bg-card p-5 shadow-sm"
+                >
                   <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary">
                     <Check className="h-4 w-4" aria-hidden="true" />
                   </span>
                   <span className="text-sm leading-relaxed text-foreground/90">{feature}</span>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ul>
         </div>
@@ -213,17 +216,20 @@ function ServiceDetailPage() {
           </Reveal>
           <ol className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {content.process.map((step, i) => (
-              <Reveal key={step.step} delay={i * 0.08}>
-                <li className="relative flex h-full flex-col rounded-2xl border border-border bg-card p-6">
-                  <span className="font-heading text-4xl font-bold text-primary/20">
+              <li key={step.step}>
+                <Reveal
+                  delay={i * 0.08}
+                  className="relative flex h-full flex-col rounded-2xl border border-border bg-card p-6"
+                >
+                  <span className="font-heading text-4xl font-bold text-secondary">
                     {String(step.step).padStart(2, "0")}
                   </span>
                   <h3 className="mt-2 font-heading text-lg font-semibold">{step.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {step.description}
                   </p>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ol>
         </div>
@@ -244,7 +250,7 @@ function ServiceDetailPage() {
                   <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                     {faq.question}
                     <span
-                      className="ml-4 text-primary transition-transform group-open:rotate-45"
+                      className="ml-4 text-secondary transition-transform group-open:rotate-45"
                       aria-hidden="true"
                     >
                       +

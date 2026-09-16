@@ -125,9 +125,9 @@ function PartnersPage() {
           <div className="mt-12 space-y-10">
             {/* Partenaires techniques */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
+              <h2 className="text-sm font-semibold tracking-wider text-secondary uppercase">
                 {p.technical}
-              </h3>
+              </h2>
               <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {technical.map((item, i) => (
                   <Reveal key={`partner-technical-${i}`} delay={i * 0.06}>
@@ -139,9 +139,9 @@ function PartnersPage() {
 
             {/* Soutiens institutionnels */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
+              <h2 className="text-sm font-semibold tracking-wider text-secondary uppercase">
                 {p.institutional}
-              </h3>
+              </h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 {institutional.map((item, i) => (
                   <Reveal key={`partner-institutional-${i}`} delay={i * 0.06}>
@@ -153,9 +153,9 @@ function PartnersPage() {
 
             {/* Prix */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
+              <h2 className="text-sm font-semibold tracking-wider text-secondary uppercase">
                 {p.awards}
-              </h3>
+              </h2>
               <div className="mt-4">
                 {awards.map((item, i) => (
                   <Reveal key={`partner-awards-${i}`}>

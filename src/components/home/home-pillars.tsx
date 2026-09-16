@@ -56,12 +56,12 @@ export function HomePillars({ locale, dict }: { locale: Locale; dict: Dictionary
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-7">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-secondary">
                     <pillar.Icon className="h-6 w-6" aria-hidden="true" />
                   </span>
                   <h3 className="mt-5 font-heading text-xl font-bold">{pillar.title}</h3>
                   <p className="mt-3 flex-1 text-muted-foreground">{pillar.desc}</p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary">
                     {dict.common.learn_more}
                     <ArrowRight
                       className="h-4 w-4 transition-transform group-hover:translate-x-1"

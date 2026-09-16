@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 import { faqs, type FaqCategory } from "@/lib/data/faqs";
 import type { Locale } from "@/lib/i18n/config";
@@ -37,7 +37,7 @@ export function FaqList({
             className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               active === cat
                 ? "bg-primary text-primary-foreground"
-                : "border border-border bg-card text-foreground/70 hover:border-primary hover:text-primary"
+                : "border border-border bg-card text-foreground/70 hover:border-primary hover:text-secondary"
             }`}
           >
             {categoryLabels[cat]}
@@ -45,6 +45,7 @@ export function FaqList({
         ))}
       </div>
 
+      <h2 className="sr-only">{categoryLabels[active]}</h2>
       <Accordion className="mt-8 flex flex-col gap-3">
         {visible.map((faq, i) => (
           <AccordionItem

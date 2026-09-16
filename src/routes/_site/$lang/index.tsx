@@ -111,7 +111,7 @@ function HomePage() {
           <div className="mt-12 space-y-10">
             {/* Partenaires techniques */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
+              <h3 className="text-sm font-semibold tracking-wider text-secondary uppercase">
                 {dict.home.partners.technical}
               </h3>
               <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -141,7 +141,7 @@ function HomePage() {
 
             {/* Soutiens institutionnels */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
+              <h3 className="text-sm font-semibold tracking-wider text-secondary uppercase">
                 {dict.home.partners.institutional}
               </h3>
               <div className="mt-4 grid grid-cols-2 gap-4">
@@ -173,7 +173,7 @@ function HomePage() {
 
             {/* Prix */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wider text-primary uppercase">
+              <h3 className="text-sm font-semibold tracking-wider text-secondary uppercase">
                 {dict.home.partners.awards}
               </h3>
               <div className="mt-4">
@@ -220,7 +220,12 @@ function HomePage() {
               {dict.home.documentary.subtitle}
             </p>
             <div className="mx-auto mt-8 aspect-video max-w-3xl overflow-hidden rounded-2xl">
-              <YoutubeVideo videoId="6ScnYhFPv5w" title="Soleva - L’aventure Soleva" poster={IMAGES.hero} playLabel={dict.home.hero.play_video} />
+              <YoutubeVideo
+                videoId="6ScnYhFPv5w"
+                title="Soleva - L’aventure Soleva"
+                poster={IMAGES.hero}
+                playLabel={dict.home.hero.play_video}
+              />
             </div>
           </Reveal>
         </div>

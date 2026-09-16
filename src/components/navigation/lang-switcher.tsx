@@ -4,10 +4,10 @@ import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@/components/ui/link";
 import type { Dictionary } from "@/lib/i18n";
@@ -21,7 +21,13 @@ interface LangSwitcherProps {
   dict: Dictionary;
 }
 
-export function LangSwitcher({ locale, pathWithoutLocale, onLight, dict, defaultOpen = false }: LangSwitcherProps & { defaultOpen?: boolean }) {
+export function LangSwitcher({
+  locale,
+  pathWithoutLocale,
+  onLight,
+  dict,
+  defaultOpen = false,
+}: LangSwitcherProps & { defaultOpen?: boolean }) {
   return (
     <DropdownMenu defaultOpen={defaultOpen}>
       <DropdownMenuTrigger
@@ -32,7 +38,7 @@ export function LangSwitcher({ locale, pathWithoutLocale, onLight, dict, default
             className={cn(
               "gap-1 px-2",
               onLight
-                ? "text-foreground hover:text-primary"
+                ? "text-foreground hover:text-secondary"
                 : "text-white hover:bg-white/10 hover:text-white",
             )}
             aria-label={`${dict.nav.language} : ${localeShort[locale]}`}
@@ -49,7 +55,7 @@ export function LangSwitcher({ locale, pathWithoutLocale, onLight, dict, default
             render={
               <Link
                 href={`/${l}${pathWithoutLocale === "/" ? "" : pathWithoutLocale}`}
-                className={cn("cursor-pointer", l === locale && "font-semibold text-primary")}
+                className={cn("cursor-pointer", l === locale && "font-semibold text-secondary")}
               />
             }
           >

@@ -106,7 +106,7 @@ export function Newsletter({
     >
       <div className="space-y-2">
         {eyebrow ? (
-          <p className="font-eyebrow text-xs font-semibold tracking-[0.14em] text-primary uppercase">
+          <p className="font-eyebrow text-xs font-semibold tracking-[0.14em] text-secondary uppercase">
             {eyebrow}
           </p>
         ) : null}

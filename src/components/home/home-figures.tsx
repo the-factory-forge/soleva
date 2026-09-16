@@ -22,7 +22,7 @@ export function HomeFigures({ dict }: { locale: Locale; dict: Dictionary }) {
           {figures.map((figure, i) => (
             <Reveal key={`figure-${i}`} delay={i * 0.05}>
               <div className="flex h-full flex-col items-center justify-center bg-card px-6 py-10 text-center">
-                <span className="font-heading text-2xl font-extrabold text-primary sm:text-3xl lg:text-4xl">
+                <span className="font-heading text-2xl font-extrabold text-secondary sm:text-3xl lg:text-4xl">
                   {figure.value}
                 </span>
                 <span className="mt-2 text-sm font-medium text-muted-foreground">

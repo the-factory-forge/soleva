@@ -53,7 +53,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       className={cn(
         "gap-1 px-2",
         onLight
-          ? "text-foreground hover:text-primary"
+          ? "text-foreground hover:text-secondary"
           : "text-white hover:bg-white/10 hover:text-white",
       )}
       aria-label={`${dict.nav.language} : ${localeShort[locale]}`}
@@ -117,9 +117,11 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                     className={cn(
                       "inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                       parentActive
-                        ? onLight ? "text-primary" : "text-primary"
+                        ? onLight
+                          ? "text-secondary"
+                          : "text-primary"
                         : onLight
-                          ? "text-foreground/80 hover:text-primary"
+                          ? "text-foreground/80 hover:text-secondary"
                           : "text-white/85 hover:text-white",
                     )}
                   >
@@ -138,8 +140,8 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                             className={cn(
                               "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
                               isActive(child.href)
-                                ? "bg-muted text-primary"
-                                : "text-foreground/80 hover:bg-muted hover:text-primary",
+                                ? "bg-muted text-secondary"
+                                : "text-foreground/80 hover:bg-muted hover:text-secondary",
                             )}
                           >
                             {navLabel(child.key)}
@@ -159,9 +161,11 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                   className={cn(
                     "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                     parentActive
-                      ? onLight ? "text-primary" : "text-primary"
+                      ? onLight
+                        ? "text-secondary"
+                        : "text-primary"
                       : onLight
-                        ? "text-foreground/80 hover:text-primary"
+                        ? "text-foreground/80 hover:text-secondary"
                         : "text-white/85 hover:text-white",
                   )}
                 >
@@ -179,7 +183,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             dict={dict}
             className={cn(
               onLight
-                ? "text-foreground hover:text-primary"
+                ? "text-foreground hover:text-secondary"
                 : "text-white hover:bg-white/10 hover:text-white",
             )}
           />

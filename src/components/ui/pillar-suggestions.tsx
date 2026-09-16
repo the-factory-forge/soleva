@@ -42,14 +42,14 @@ export function PillarSuggestions({
               href={withLocale(locale, item.href)}
               className="group flex flex-col rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-lg"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-secondary">
                 <item.icon className="h-5 w-5" aria-hidden="true" />
               </span>
               <h3 className="mt-4 font-heading text-lg font-semibold">{item.title}</h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
-              <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-secondary">
                 {dict.van.explore}
                 <ArrowRight
                   className="h-4 w-4 transition-transform group-hover:translate-x-1"

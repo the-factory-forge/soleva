@@ -111,7 +111,7 @@ function SupportPage() {
                     {way.cta && way.href ? (
                       <Link
                         href={way.href.startsWith("#") ? way.href : withLocale(locale, way.href)}
-                        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-secondary transition-colors hover:text-secondary/80"
                       >
                         {way.cta}
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -149,7 +149,7 @@ function SupportPage() {
               const badges = [
                 "bg-muted-foreground/10 text-muted-foreground",
                 "bg-secondary/15 text-secondary",
-                "bg-primary/10 text-primary",
+                "bg-primary/10 text-secondary",
               ];
               return (
                 <Reveal key={tier.key} delay={i * 0.08}>
@@ -198,7 +198,7 @@ function SupportPage() {
               { label: cf.backers, value: String(KEY_FIGURES.crowdfundingBackers) },
             ].map((stat, i) => (
               <div key={`stat-${i}`} className="rounded-2xl bg-dark-foreground/5 p-6 text-center">
-                <p className="font-heading text-3xl font-extrabold text-secondary">{stat.value}</p>
+                <p className="font-heading text-3xl font-extrabold text-primary">{stat.value}</p>
                 <p className="mt-2 text-sm text-dark-foreground/70">{stat.label}</p>
               </div>
             ))}
