@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { IMAGES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { services } from "@/lib/data/services";
@@ -23,10 +23,11 @@ export const Route = createFileRoute("/_site/$lang/le-van/")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.van.title} | ${SITE_NAME}`,
         description: dict.meta.van.description,
         path: "/le-van",

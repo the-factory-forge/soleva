@@ -1,19 +1,18 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowRight, Check, Home } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { FaqJsonLd } from "@/components/seo/json-ld";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getRelatedServices, getServiceBySlug } from "@/lib/data/services";
 import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
-import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 
@@ -29,13 +28,14 @@ export const Route = createFileRoute("/_site/$lang/le-van/$slug")({
     return { locale, dict, slug };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    const service = getServiceBySlug(loaderData!.slug);
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    const service = getServiceBySlug(loaderData.slug);
     if (!service) throw notFound();
-    const content = service.content[loaderData!.locale];
+    const content = service.content[loaderData.locale];
     return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${content.title} | ${SITE_NAME}`,
         description: content.shortDescription,
         path: `/le-van/${service.slug}`,
@@ -59,7 +59,7 @@ function ServiceDetailPage() {
         const c = svc.content[locale];
         return {
           key: relSlug,
-          href: withLocale(locale, `/le-van/${relSlug}`),
+          href: `/le-van/${relSlug}`,
           icon: svc.icon,
           title: c.title,
           description: c.shortDescription,
@@ -69,7 +69,7 @@ function ServiceDetailPage() {
       if (relSlug === "habitat") {
         return {
           key: "habitat",
-          href: withLocale(locale, "/habitat"),
+          href: "/habitat",
           icon: Home,
           title: dict.breadcrumb.habitat,
           description: habitatContent[locale].hero.subtitle,
@@ -124,12 +124,59 @@ function ServiceDetailPage() {
                 <h2 className="mt-5 font-heading text-2xl font-bold sm:text-3xl">
                   {content.title}
                 </h2>
-                <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                <p className="mt-4 text-lg leading-relaxed whitespace-pre-line text-muted-foreground">
                   {content.fullDescription}
                 </p>
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-background">
+        <div className="container-premium space-y-12 section-padding">
+          <h2 className="font-heading text-2xl font-bold sm:text-3xl">
+            {dict.service_detail.diagrams_title}
+          </h2>
+          {content.diagrams.map((diagram) => (
+            <figure key={diagram.image} className="space-y-4">
+              <h3 className="font-heading text-xl font-semibold">{diagram.title}</h3>
+              <Lightbox src={diagram.image} alt={diagram.title}>
+                <Image
+                  src={diagram.image}
+                  alt={diagram.title}
+                  width={1800}
+                  height={1050}
+                  className="h-auto w-full rounded-2xl bg-white"
+                  sizes="100vw"
+                />
+              </Lightbox>
+              <figcaption className="max-w-4xl leading-relaxed text-muted-foreground">
+                {diagram.description}
+              </figcaption>
+            </figure>
+          ))}
+          {service.gallery && (
+            <div>
+              <h3 className="font-heading text-xl font-semibold">
+                {dict.service_detail.gallery_title}
+              </h3>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {service.gallery.map((src, index) => (
+                  <Lightbox key={src} src={src} alt={`${content.title} — ${index + 1}`}>
+                    <Image
+                      src={src}
+                      alt={`${content.title} — ${index + 1}`}
+                      width={800}
+                      height={600}
+                      className="aspect-[4/3] w-full rounded-xl object-cover"
+                      sizes="(min-width: 1024px) 33vw, 100vw"
+                    />
+                  </Lightbox>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

@@ -22,11 +22,22 @@ Phase 3.16 of the factory roadmap).
 ## Dev
 
 ```sh
-pnpm install
-pnpm dev          # http://localhost:3000
-vpr check         # lint + type-check
-vpr build && pnpm start
+vp install        # also generates Varlock environment types
+vpr dev           # http://localhost:3000
+vpr lint          # lint + type-check
+vpr test          # unit tests
+vpr test:e2e      # production build + browser checks on port 3100
+vpr build && vpr start
 ```
+
+Environment variables are declared in `.env.schema` and read through `ENV` from
+`varlock/env`. Validate local setup with `vp exec varlock load --agent`.
+Auth stays disabled until both `DATABASE_URL` and `BETTER_AUTH_SECRET` are set.
+Keep public `VITE_*` values consistent at build and runtime; `vpr start` and the
+Docker entrypoint load server settings through Varlock at startup.
+
+The latest template reconciliation, preserved adaptations, and validation results
+are recorded in [docs/template-sync.md](docs/template-sync.md).
 
 ## Site content
 

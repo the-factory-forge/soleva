@@ -1,0 +1,45 @@
+{
+  "lang": "fr",
+  "slug": "partners",
+  "url": "https://soleva.org/fr/partners",
+  "title": "Partenariat avec Soleva · Soleva Website",
+  "h1": [],
+  "h2": [],
+  "h3": [],
+  "paragraphs": [
+    "home > partners Home partners"
+  ],
+  "listItems": [
+    "home > partners Home partners"
+  ],
+  "links": {
+    "internal": [
+      "/"
+    ],
+    "external": [],
+    "mailto": [],
+    "tel": []
+  },
+  "images": [
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/41c4eba1ac410e0ff50e7584f77d06f734bdf3ead41633bd9156e21c0dc494b0-112688.webp"
+  ],
+  "cmsMeta": {
+    "id": 760,
+    "title": "Partners",
+    "slug": "/partners",
+    "published": true,
+    "publishedDate": "2022-06-10T12:09:54.000Z",
+    "seo": {
+      "title": "Partnership with Soleva",
+      "keywords": "sponsor, partner, collaboration, climate, solutions, green, sustainable, mobility",
+      "description": ""
+    },
+    "attributes": {
+      "title": "Our partners",
+      "slug": "/partners"
+    },
+    "attachments": []
+  },
+  "ok": true,
+  "error": null
+}

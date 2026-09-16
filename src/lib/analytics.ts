@@ -1,9 +1,11 @@
+import { ENV } from "varlock/env";
+
 // Google tag (gtag.js) is loaded lazily, ONLY after the visitor grants
 // analytics/marketing consent in the cookie banner (nLPD: nothing is loaded,
 // no cookies, no pings before consent). The inline dataLayer stub in __root
 // queues gtag() calls; once the library loads they replay in order.
-const GA4_ID = import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined;
-const ADS_ID = import.meta.env.VITE_GOOGLE_ADS_ID as string | undefined;
+const GA4_ID = ENV.VITE_GA_MEASUREMENT_ID;
+const ADS_ID = ENV.VITE_GOOGLE_ADS_ID;
 
 declare global {
   interface Window {
@@ -46,13 +48,12 @@ export function loadGtag() {
 //   anything else -> VITE_ADS_CONVERSION_LABEL (legacy fallback).
 // Label format: "/XXXXXXXXX" (the conversion label from Google Ads).
 const ADS_LABELS: Record<string, string | undefined> = {
-  phone: import.meta.env.VITE_ADS_PHONE_LABEL as string | undefined,
-  email: import.meta.env.VITE_ADS_MAIL_LABEL as string | undefined,
+  phone: ENV.VITE_ADS_PHONE_LABEL,
+  email: ENV.VITE_ADS_MAIL_LABEL,
 };
 
 export function trackAdsConversion(action: string) {
-  const label =
-    ADS_LABELS[action] ?? (import.meta.env.VITE_ADS_CONVERSION_LABEL as string | undefined);
+  const label = ADS_LABELS[action] || ENV.VITE_ADS_CONVERSION_LABEL;
   if (!ADS_ID || !label) return;
   ensureDataLayer();
   window.gtag?.("event", "conversion", {

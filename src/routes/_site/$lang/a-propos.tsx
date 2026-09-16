@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Eye, Sparkles, Target } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import {
   IMAGES,
   MENTOR_PHOTOS,
@@ -15,6 +15,7 @@ import {
   srcSetFor,
   TEAM_PHOTOS,
 } from "@/lib/constants";
+import { pressAppearances } from "@/lib/data/press";
 import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
@@ -99,65 +100,6 @@ const MENTORS = [
   },
 ];
 
-const PRESS_ITEMS = [
-  {
-    media: "RTS 19h30",
-    typeKey: "tvNational",
-    date: "23.06.2024",
-    lang: "FR",
-    logo: PRESS_LOGOS["RTS 19h30"],
-  },
-  {
-    media: "SRF Schweiz Aktuell",
-    typeKey: "tvNational",
-    date: "29.08.2024",
-    lang: "DE",
-    logo: PRESS_LOGOS["SRF Schweiz Aktuell"],
-  },
-  {
-    media: "24Heures",
-    typeKey: "pressWritten",
-    date: "12.06.2024",
-    lang: "FR",
-    logo: PRESS_LOGOS["24Heures"],
-  },
-  {
-    media: "Télé Vaud-Fribourg",
-    typeKey: "tvRegional",
-    date: "06.04.2022",
-    lang: "FR",
-    logo: PRESS_LOGOS["Télé Vaud-Fribourg"],
-  },
-  {
-    media: "RTS Radio Matinale",
-    typeKey: "radioNational",
-    date: "24.06.2022",
-    lang: "FR",
-    logo: PRESS_LOGOS["RTS Radio Matinale"],
-  },
-  {
-    media: "Rouge FM",
-    typeKey: "radio",
-    date: "30.06.2022",
-    lang: "FR",
-    logo: PRESS_LOGOS["Rouge FM"],
-  },
-  {
-    media: "LFM",
-    typeKey: "radio",
-    date: "06.03.2022",
-    lang: "FR",
-    logo: PRESS_LOGOS["LFM"],
-  },
-  {
-    media: "La Côte",
-    typeKey: "pressWritten",
-    date: "01.03.2022",
-    lang: "FR",
-    logo: PRESS_LOGOS["La Côte"],
-  },
-];
-
 export const Route = createFileRoute("/_site/$lang/a-propos")({
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
@@ -165,10 +107,11 @@ export const Route = createFileRoute("/_site/$lang/a-propos")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.about.title} | ${SITE_NAME}`,
         description: dict.meta.about.description,
         path: "/a-propos",
@@ -252,6 +195,29 @@ function AboutPage() {
                 <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{a.story_body}</p>
               </div>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-muted">
+        <div className="container-premium section-padding">
+          <h2 className="font-heading text-2xl font-bold sm:text-3xl">{a.education_title}</h2>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
+            {a.education_body}
+          </p>
+          <h2 className="mt-12 font-heading text-2xl font-bold sm:text-3xl">{a.today_title}</h2>
+          <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">{a.today_body}</p>
+          <div className="mt-6">
+            <Lightbox src="/images/soleva-today.webp" alt={a.today_title}>
+              <Image
+                src="/images/soleva-today.webp"
+                alt={a.today_title}
+                width={1813}
+                height={940}
+                className="h-auto w-full rounded-2xl bg-white"
+                sizes="100vw"
+              />
+            </Lightbox>
           </div>
         </div>
       </section>
@@ -365,24 +331,35 @@ function AboutPage() {
             </p>
           </Reveal>
           <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {PRESS_ITEMS.map((item, i) => (
+            {pressAppearances.map((item, i) => (
               <Reveal key={`press-${i}`} delay={i * 0.03}>
                 <div className="flex flex-col items-center gap-2 rounded-xl border border-border bg-card p-4 text-center">
                   <div className="relative h-10 w-20">
                     <Image
-                      src={item.logo || "/placeholder.svg"}
+                      src={PRESS_LOGOS[item.media] || "/images/soleva-icon.webp"}
                       alt={item.media}
                       fill
                       className="object-contain"
                       sizes="80px"
                     />
                   </div>
-                  <span className="font-heading text-xs font-bold">{item.media}</span>
+                  {item.url && item.linkStatus !== "broken" ? (
+                    <a
+                      className="font-heading text-xs font-bold text-primary hover:underline"
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {item.media}
+                    </a>
+                  ) : (
+                    <span className="font-heading text-xs font-bold">{item.media}</span>
+                  )}
                   <span className="text-xs text-muted-foreground">
-                    {t(dict, `about.pressTypes.${item.typeKey}`)}
+                    {t(dict, `about.pressTypes.${item.type}`)}
                   </span>
                   <span className="text-xs text-muted-foreground/70">
-                    {item.date} · {item.lang}
+                    {[item.date, item.language].filter(Boolean).join(" · ")}
                   </span>
                 </div>
               </Reveal>

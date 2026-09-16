@@ -1,3 +1,5 @@
+import fontRegular from "@fontsource/montserrat/files/montserrat-latin-400-normal.woff2?url";
+import fontExtraBold from "@fontsource/montserrat/files/montserrat-latin-800-normal.woff2?url";
 import { a11yDevtoolsPlugin } from "@tanstack/devtools-a11y/react";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
@@ -6,6 +8,7 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
+  redirect,
   useRouterState,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
@@ -13,6 +16,7 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { Toaster } from "@/components/ui/toast";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
+import { legacyRedirect } from "@/lib/site/redirects";
 
 import appCss from "@/styles.css?url";
 
@@ -33,6 +37,15 @@ const websiteJsonLd = {
 };
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  beforeLoad: ({ location }) => {
+    const target = legacyRedirect(location.pathname);
+    if (target) {
+      throw redirect({
+        href: `${target}${location.searchStr}${location.hash ? `#${location.hash}` : ""}`,
+        statusCode: 301,
+      });
+    }
+  },
   head: () => ({
     meta: [
       {
@@ -58,20 +71,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       {
         rel: "preload",
-        href: "/assets/montserrat-latin-400-normal-BLhwKU8k.woff2",
+        href: fontRegular,
         as: "font",
         type: "font/woff2",
         crossOrigin: "anonymous",
       },
       {
         rel: "preload",
-        href: "/assets/montserrat-latin-800-normal-axpkC1rd.woff2",
+        href: fontExtraBold,
         as: "font",
         type: "font/woff2",
         crossOrigin: "anonymous",
       },
-      { rel: "icon", href: "https://assets.the-corner.io/logos/the_corner-icon.png" },
-      { rel: "apple-touch-icon", href: "https://assets.the-corner.io/logos/the_corner-icon.png" },
+      { rel: "icon", href: "/images/soleva-icon.webp", type: "image/webp" },
+      { rel: "apple-touch-icon", href: "/images/soleva-icon.png" },
     ],
     scripts: [
       {

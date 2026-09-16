@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Aperture, Camera } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { HomeFigures } from "@/components/home/home-figures";
 import { HomeHero } from "@/components/home/home-hero";
 import { HomePillars } from "@/components/home/home-pillars";
@@ -10,30 +11,13 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
-import { IMAGES, PARTNER_LOGOS, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
+import { IMAGES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { partnerCategories } from "@/lib/data/partners";
+import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
-import { getDictionary } from "@/lib/i18n";
-
-const TECHNICAL_LOGO_MAP: Record<string, string> = {
-  CSEM: PARTNER_LOGOS.csem,
-  "EPFL PV-Lab": PARTNER_LOGOS.epfl,
-  "Studer Innotec": PARTNER_LOGOS.studer,
-  "BRUSA HyPower": PARTNER_LOGOS.brusa,
-};
-
-const INSTITUTIONAL_LOGO_MAP: Record<string, string> = {
-  "Canton de Vaud": PARTNER_LOGOS.cantonVaud,
-  "Services industriels de Lausanne (SiL)": PARTNER_LOGOS.sil,
-};
-
-const AWARDS_LOGO_MAP: Record<string, string> = {
-  "Energy Lab Winner 2022": PARTNER_LOGOS.energyLab,
-};
 
 export const Route = createFileRoute("/_site/$lang/")({
   loader: async ({ location }) => {
@@ -42,10 +26,11 @@ export const Route = createFileRoute("/_site/$lang/")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.home.title} | ${SITE_NAME}`,
         description: dict.meta.home.description,
         path: "/",
@@ -132,7 +117,7 @@ function HomePage() {
                 {partnerCategories
                   .find((c) => c.key === "technical")
                   ?.partners.map((item, i) => {
-                    const logo = TECHNICAL_LOGO_MAP[item.name];
+                    const logo = item.logo;
                     return (
                       <Reveal key={`partner-technical-${i}`} delay={i * 0.06}>
                         <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card p-5">
@@ -162,7 +147,7 @@ function HomePage() {
                 {partnerCategories
                   .find((c) => c.key === "institutional")
                   ?.partners.map((item, i) => {
-                    const logo = INSTITUTIONAL_LOGO_MAP[item.name];
+                    const logo = item.logo;
                     return (
                       <Reveal key={`partner-institutional-${i}`} delay={i * 0.06}>
                         <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card p-5">
@@ -194,7 +179,7 @@ function HomePage() {
                 {partnerCategories
                   .find((c) => c.key === "awards")
                   ?.partners.map((item, i) => {
-                    const logo = AWARDS_LOGO_MAP[item.name];
+                    const logo = item.logo;
                     return (
                       <Reveal key={`partner-awards-${i}`}>
                         <div className="mx-auto flex max-w-xs flex-col items-center justify-center gap-3 rounded-2xl border border-secondary/30 bg-secondary/5 p-5">

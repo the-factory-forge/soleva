@@ -11,7 +11,12 @@ Don't build after every change. If lint passes; assume changes work.
 
 ## Testing
 
-Vitest hasn't been set up yet. Prefer lint checks for now.
+- `vpr test`: Run all Vitest unit and local integration tests once
+- `vpr test watch`: Run Vitest in watch mode
+- `vpr test:e2e`: Build the app and run its local Chromium end-to-end tests against the built server
+- `vpx playwright install chromium`: Install the E2E browser once per machine
+
+Run the narrowest tests relevant to the changed behavior. Playwright remains separate from the default lint/check loop; use it whenever a change affects a covered browser journey. Its configuration owns the production build and built-server lifecycle, so do not start a development server or run a separate build first. See [Testing](./testing.md) for test selection and design guidance.
 
 ## Formatting
 

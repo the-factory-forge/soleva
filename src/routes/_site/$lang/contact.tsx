@@ -4,12 +4,12 @@ import { Mail, MapPin, Share2 } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT, SOCIALS, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 import { cn } from "@/lib/utils";
-import { getDictionary } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_site/$lang/contact")({
   loader: async ({ location }) => {
@@ -18,10 +18,11 @@ export const Route = createFileRoute("/_site/$lang/contact")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.contact.title} | ${SITE_NAME}`,
         description: dict.meta.contact.description,
         path: "/contact",
@@ -139,7 +140,7 @@ function ContactPage() {
               </div>
               <div className="overflow-hidden rounded-2xl border border-border bg-muted">
                 <iframe
-                  src={`https://maps.google.com/maps?q=${CONTACT.geo.latitude},${CONTACT.geo.longitude}&z=15&output=embed`}
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(`${CONTACT.address.street}, ${CONTACT.address.zip} ${CONTACT.address.city}`)}&z=15&output=embed`}
                   width="100%"
                   height="220"
                   style={{ border: 0 }}

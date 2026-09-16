@@ -9,7 +9,6 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: () => {
-        const now = new Date().toISOString();
         const urls: string[] = [];
 
         for (const locale of locales) {
@@ -22,7 +21,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               )
               .join("");
             urls.push(
-              `<url><loc>${full}</loc><lastmod>${now}</lastmod><changefreq>${
+              `<url><loc>${full}</loc><changefreq>${
                 path === "" ? "weekly" : "monthly"
               }</changefreq><priority>${path === "" ? "1.0" : "0.7"}</priority>${alternates}</url>`,
             );
@@ -37,7 +36,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               )
               .join("");
             urls.push(
-              `<url><loc>${full}</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>${alternates}</url>`,
+              `<url><loc>${full}</loc><changefreq>monthly</changefreq><priority>0.7</priority>${alternates}</url>`,
             );
           }
         }

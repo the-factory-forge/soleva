@@ -9,9 +9,9 @@ export function HomeFigures({ dict }: { locale: Locale; dict: Dictionary }) {
     { value: String(KEY_FIGURES.foundedYear), label: dict.home.figures.founded },
     { value: KEY_FIGURES.autonomy, label: dict.home.figures.autonomy },
     { value: KEY_FIGURES.carbonReduction, label: dict.home.figures.carbon },
-    { value: KEY_FIGURES.crowdfundingPercent, label: dict.home.figures.crowdfunding },
-    { value: KEY_FIGURES.volunteers, label: dict.home.figures.volunteers },
-    { value: KEY_FIGURES.communesVisited, label: dict.home.figures.communes },
+    { value: KEY_FIGURES.crowdfundingAmount, label: dict.home.figures.crowdfunding },
+    { value: KEY_FIGURES.batteryCapacity, label: dict.home.figures.battery },
+    { value: KEY_FIGURES.solarPower, label: dict.home.figures.solar },
   ];
 
   return (
@@ -22,7 +22,7 @@ export function HomeFigures({ dict }: { locale: Locale; dict: Dictionary }) {
           {figures.map((figure, i) => (
             <Reveal key={`figure-${i}`} delay={i * 0.05}>
               <div className="flex h-full flex-col items-center justify-center bg-card px-6 py-10 text-center">
-                <span className="font-heading text-4xl font-extrabold text-primary md:text-5xl">
+                <span className="font-heading text-2xl font-extrabold text-primary sm:text-3xl lg:text-4xl">
                   {figure.value}
                 </span>
                 <span className="mt-2 text-sm font-medium text-muted-foreground">

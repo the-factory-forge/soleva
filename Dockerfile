@@ -5,13 +5,13 @@
 #   ARG VITE_BASE_URL - required for correct canonical/OG URLs
 
 FROM node:24-alpine AS deps
-RUN corepack enable && corepack prepare pnpm@11.20.0 --activate
+RUN corepack enable && corepack prepare pnpm@12.3.4 --activate
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json .npmrc ./
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --ignore-scripts --frozen-lockfile
 
 FROM node:24-alpine AS build
-RUN corepack enable && corepack prepare pnpm@11.20.0 --activate
+RUN corepack enable && corepack prepare pnpm@12.3.4 --activate
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -20,11 +20,16 @@ COPY . .
 ARG VITE_BASE_URL
 ARG VITE_GA_MEASUREMENT_ID
 ARG VITE_GOOGLE_ADS_ID
+ARG VITE_ADS_CONVERSION_LABEL
+ARG VITE_ADS_PHONE_LABEL
+ARG VITE_ADS_MAIL_LABEL
 ENV VITE_BASE_URL=$VITE_BASE_URL \
     VITE_GA_MEASUREMENT_ID=$VITE_GA_MEASUREMENT_ID \
-    VITE_GOOGLE_ADS_ID=$VITE_GOOGLE_ADS_ID
+    VITE_GOOGLE_ADS_ID=$VITE_GOOGLE_ADS_ID \
+    VITE_ADS_CONVERSION_LABEL=$VITE_ADS_CONVERSION_LABEL \
+    VITE_ADS_PHONE_LABEL=$VITE_ADS_PHONE_LABEL \
+    VITE_ADS_MAIL_LABEL=$VITE_ADS_MAIL_LABEL
 
-# pnpm 11 verify-deps-before-run spawns an internal install that inherits ENV, not CLI flags - this skips the root `prepare` lifecycle in the image (no git).
 RUN pnpm_config_ignore_scripts=true pnpm build
 
 FROM node:24-alpine AS runtime

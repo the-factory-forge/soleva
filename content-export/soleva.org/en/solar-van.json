@@ -1,0 +1,53 @@
+{
+  "lang": "en",
+  "slug": "solar-van",
+  "url": "https://soleva.org/en/solar-van",
+  "title": "Deployable solar array · Soleva Website",
+  "h1": [],
+  "h2": [
+    "A MOBILE SOLAR PLANT ON WHEELS #",
+    "HIGH EFFICIENCY & LIGHT-WEIGHT SOLAR PANELS #",
+    "FOR MORE THAN JUST DRIVING : SOLAR POWER FOR V2X ANYWHERE #"
+  ],
+  "h3": [],
+  "paragraphs": [
+    "Integrating solar energy onto a vehicle to such a massive scale represents huge challenges. It requires the highest possible efficiency while remaining ultra lightweight. It has to be durable and withstand harsh weather and wind conditions. All these requirements were uniquely combined in this demonstrator.",
+    "Our design optimises the energy conversion efficiency from solar to battery and propulsion, allowing for high autonomy while minimizing the amount of batteries required. We are collaborating with the CSEM institute, who has built the solar PV panels for the SolarImpulse plane, to build the best solution possible.",
+    "Thanks to innovative technology, we can use our self-generated solar power not only for the vehicle, but we can power events, festivals, utilities and much more. It is the future of V2X power anywhere you need."
+  ],
+  "listItems": [],
+  "links": {
+    "internal": [],
+    "external": [],
+    "mailto": [],
+    "tel": []
+  },
+  "images": [
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a18dc77a1c2b27c2c2a1204cf514e8c053aa435754f839cf711a94a6742f8266-114028.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/8ea7feb6fcdca2c290403cd6453a5a3cf0e69a1aa21b84e90229384efcbd4ed9-114046.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/ae989d1d85540e16ff422e0d4acf935dc371b8a15cb72e0991e09d6977fe4e51-255479.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/2ce7d5024ecc7e26d599f59c738b831125a7b67aa0d21094bf62b794700a684d-255484.webp"
+  ],
+  "cmsMeta": {
+    "id": 2831,
+    "title": "Solar powered van",
+    "slug": "/solar-van",
+    "published": true,
+    "publishedDate": "2023-03-27T21:52:07.000Z",
+    "seo": {
+      "title": "Deployable solar array",
+      "keywords": "VIPV,vehicle integrated PV,transformation,solar,PV,electric,EV,specifications,technology,solar energy",
+      "description": "Discover our innovative, deployable solar PV array for post-integration to any van."
+    },
+    "attributes": {
+      "title": "Solar Van Technology",
+      "layout": "fullWidth",
+      "hideHeader": true,
+      "attachments": [],
+      "slug": "/solar-van"
+    },
+    "attachments": []
+  },
+  "ok": true,
+  "error": null
+}

@@ -3,7 +3,15 @@
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 
-export function CopyIbanButton({ iban }: { iban: string }) {
+export function CopyIbanButton({
+  iban,
+  copyLabel = "Copier l'IBAN",
+  copiedLabel = "Copié",
+}: {
+  iban: string;
+  copyLabel?: string;
+  copiedLabel?: string;
+}) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -20,12 +28,12 @@ export function CopyIbanButton({ iban }: { iban: string }) {
       {copied ? (
         <>
           <Check className="h-3.5 w-3.5" />
-          Copié
+          {copiedLabel}
         </>
       ) : (
         <>
           <Copy className="h-3.5 w-3.5" />
-          Copier l'IBAN
+          {copyLabel}
         </>
       )}
     </button>

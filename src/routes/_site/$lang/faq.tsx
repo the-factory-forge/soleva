@@ -20,10 +20,11 @@ export const Route = createFileRoute("/_site/$lang/faq")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.faq.title} | ${SITE_NAME}`,
         description: dict.meta.faq.description,
         path: "/faq",

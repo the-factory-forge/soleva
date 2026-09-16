@@ -21,7 +21,8 @@ export function AuthScreen({ locale, dict, children, siteName }: AuthScreenProps
     <div className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-background p-6 md:p-10">
       {/* Back to home - top left */}
       <Link
-        to={`/${locale}`}
+        to="/$lang"
+        params={{ lang: locale }}
         className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         <ArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
@@ -47,7 +48,8 @@ export function AuthScreen({ locale, dict, children, siteName }: AuthScreenProps
 
       <div className="relative w-full max-w-sm">
         <Link
-          to={`/${locale}`}
+          to="/$lang"
+          params={{ lang: locale }}
           className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md"
           aria-label={siteName}
         >

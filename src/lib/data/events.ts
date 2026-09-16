@@ -28,12 +28,12 @@ export const pastEvents: Event[] = [
   {
     name: {
       fr: "Congrès photovoltaïque Suisse",
-      en: "Swiss Photovoltaic Congress",
-      de: "Schweizer Photovoltaik-Kongress",
-      it: "Congresso fotovoltaico svizzero",
+      en: "Annual Swiss Photovoltaics meeting",
+      de: "Schweizer Photovoltaik-Treffen",
+      it: "Incontro fotovoltaico svizzero",
     },
     location: "Suisse",
-    date: "03.2024",
+    date: "21-22.03.2024",
   },
   {
     name: {
@@ -45,6 +45,18 @@ export const pastEvents: Event[] = [
     location: "Suisse",
     date: "11.2023",
   },
+  {
+    // fr: source EN (pas de FR source) - l'événement n'apparaît pas dans le
+    // fichier FR exporté, seul le titre EN est fourni.
+    name: {
+      fr: "Conférence internationale PVinMotion",
+      en: "International PVinMotion conference",
+      de: "Internationale PVinMotion-Konferenz",
+      it: "Conferenza internazionale PVinMotion",
+    },
+    location: "Neuchâtel",
+    date: "06-08.03.2024",
+  },
 ];
 
-export const POLAR_STEPS_URL = "https://www.polarsteps.com/Soleva";
+export const POLAR_STEPS_URL = "https://www.polarsteps.com/SolevaSolarVan/11946872-the-swiss-tour";

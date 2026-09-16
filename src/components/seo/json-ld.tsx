@@ -6,6 +6,7 @@ export function OrganizationJsonLd({ locale, dict }: { locale: Locale; dict: Dic
   const data = {
     "@context": "https://schema.org",
     "@type": "NGO",
+    "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
     url: `${SITE_URL}/${locale}`,
     logo: `${SITE_URL}/images/soleva-logo.webp`,
@@ -19,12 +20,7 @@ export function OrganizationJsonLd({ locale, dict }: { locale: Locale; dict: Dic
       addressRegion: CONTACT.address.canton,
       addressCountry: "CH",
     },
-    telephone: `+41${CONTACT.phone.replace(/[^\d]/g, "")}`,
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: CONTACT.geo.latitude,
-      longitude: CONTACT.geo.longitude,
-    },
+    telephone: CONTACT.phone.replace(/\s/g, ""),
     foundingLocation: {
       "@type": "Place",
       address: {
@@ -34,7 +30,7 @@ export function OrganizationJsonLd({ locale, dict }: { locale: Locale; dict: Dic
         addressCountry: "CH",
       },
     },
-    sameAs: [SOCIALS.instagram, SOCIALS.facebook, SOCIALS.youtube],
+    sameAs: Object.values(SOCIALS),
   };
 
   return (

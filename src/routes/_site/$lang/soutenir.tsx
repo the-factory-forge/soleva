@@ -1,22 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Handshake, Heart, Share2, Users } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { Button } from "@/components/ui/button";
 import { CopyIbanButton } from "@/components/ui/copy-iban-button";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Lightbox } from "@/components/ui/lightbox";
 import { Link } from "@/components/ui/link";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ShareButton } from "@/components/ui/share-button";
 import { DONATION, IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { sponsorTiers } from "@/lib/data/sponsor-tiers";
+import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
-import { getDictionary } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_site/$lang/soutenir")({
   loader: async ({ location }) => {
@@ -25,10 +25,11 @@ export const Route = createFileRoute("/_site/$lang/soutenir")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.support.title} | ${SITE_NAME}`,
         description: dict.meta.support.description,
         path: "/soutenir",
@@ -116,7 +117,12 @@ function SupportPage() {
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
                       </Link>
                     ) : way.cta ? (
-                      <ShareButton label={way.cta} />
+                      <ShareButton
+                        title={SITE_NAME}
+                        text={dict.meta.home.description}
+                        shareLabel={way.cta}
+                        copiedLabel={dict.common.copied}
+                      />
                     ) : null}
                   </article>
                 </Reveal>
@@ -153,7 +159,7 @@ function SupportPage() {
                     >
                       {tier.key}
                     </div>
-                    <p className="mt-4 font-heading text-3xl font-extrabold">{tier.price}</p>
+
                     <p className="mt-1 text-xs tracking-wide text-muted-foreground uppercase">
                       {t.sponsor_features}
                     </p>
@@ -186,11 +192,9 @@ function SupportPage() {
       <section className="bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
           <SectionHeading inverted title={cf.title} subtitle={cf.body} />
-          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-6 md:grid-cols-4">
+          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
             {[
-              { label: cf.goal, value: KEY_FIGURES.crowdfundingGoal },
               { label: cf.raised, value: KEY_FIGURES.crowdfundingAmount },
-              { label: cf.percent, value: KEY_FIGURES.crowdfundingPercent },
               { label: cf.backers, value: String(KEY_FIGURES.crowdfundingBackers) },
             ].map((stat, i) => (
               <div key={`stat-${i}`} className="rounded-2xl bg-dark-foreground/5 p-6 text-center">
@@ -210,9 +214,6 @@ function SupportPage() {
               }
             />
           </div>
-          <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-dark-foreground/60 italic">
-            {cf.todo}
-          </p>
         </div>
       </section>
 
@@ -256,7 +257,11 @@ function SupportPage() {
                       <span className="font-mono text-sm text-foreground">
                         {DONATION.ibanFormatted}
                       </span>
-                      <CopyIbanButton iban={DONATION.iban} />
+                      <CopyIbanButton
+                        iban={DONATION.iban}
+                        copyLabel={dict.common.copy_iban}
+                        copiedLabel={dict.common.copied}
+                      />
                     </dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">

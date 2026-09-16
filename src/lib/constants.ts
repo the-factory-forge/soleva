@@ -1,7 +1,7 @@
 // src/lib/constants.ts - adapted to Soleva
-// IMPORTANT: Many values below are placeholders pending client validation.
+// Public contact details and prototype figures checked against soleva.org (September 2026).
 
-export const SITE_URL = "https://soleva.the-corner.io";
+export { SITE_URL } from "./site/constants";
 export const SITE_NAME = "Soleva";
 
 // CTAs point to the internal /contact page. No external booking URL.
@@ -14,15 +14,11 @@ export const CONTACT = {
   email: "info@soleva.org",
   ceoEmail: "curdin.wuethrich@soleva.org",
   address: {
-    street: "Rue de Lausanne 64",
-    zip: "1020",
-    city: "Renens VD",
+    street: "Avenue de Cour 19",
+    zip: "1007",
+    city: "Lausanne",
     canton: "Vaud",
     country: "Suisse",
-  },
-  geo: {
-    latitude: 46.5354, // Renens
-    longitude: 6.5886,
   },
   legalForm: "Association",
   IDE: "",
@@ -31,7 +27,7 @@ export const CONTACT = {
 export const SOCIALS = {
   instagram: "https://instagram.com/soleva_solar_van",
   facebook: "https://facebook.com/solevavan",
-  // TODO: LinkedIn page does not exist (company/soleva redirects to another company). Add real URL when client provides it.
+  linkedin: "https://www.linkedin.com/company/solevavanproject/",
   youtube: "https://youtube.com/channel/UCmw0pPduN1XgIyguDNtcv0w",
 } as const;
 
@@ -41,8 +37,7 @@ export const THE_CORNER = {
 } as const;
 
 export const SITE = {
-  // TODO: Client must provide a favicon. Using The Corner placeholder for now.
-  faviconUrl: "https://assets.the-corner.io/logos/the_corner-icon.png",
+  faviconUrl: "/images/soleva-icon.webp",
 } as const;
 
 // All images served locally (migrated from Megaphone CDN - June 2026).
@@ -139,7 +134,7 @@ export const MENTOR_PHOTOS: Record<string, string> = {
 export const PRESS_LOGOS: Record<string, string> = {
   "RTS 19h30": "/images/press/rts.webp",
   "SRF Schweiz Aktuell": "/images/press/srf.webp",
-  "RSI Telegiornale": "/images/press/srf.webp",
+  "RSI Telegiornale": "/images/press/rsi.webp",
   "24Heures": "/images/press/24heures.webp",
   "Télé Vaud-Fribourg": "/images/press/tele-vaud-fribourg.webp",
   "RTS Radio Matinale": "/images/press/rts-radio.webp",
@@ -148,23 +143,20 @@ export const PRESS_LOGOS: Record<string, string> = {
   "La Côte": "/images/press/la-cote.webp",
 };
 
-// Key figures - TODO: ALL technical figures MUST be validated by Soleva.
+// Published prototype specifications: /en/electric-conversion-van diagrams.
+// The 250 km overview and >300 km at 80 km/h schematic use different conditions.
 export const KEY_FIGURES = {
   foundedYear: 2021,
-  crowdfundingAmount: "CHF 29'583",
-  crowdfundingPercent: "147%",
-  crowdfundingBackers: 130,
-  crowdfundingGoal: "CHF 20'000",
+  crowdfundingAmount: "≈ CHF 30'000",
+  crowdfundingBackers: "130+",
   crowdfundingPlatform: "Wemakeit",
   crowdfundingUrl: "https://wemakeit.com/projects/soleva-solar-electric-van",
-  batteryCapacity: "55 kWh",
+  batteryCapacity: "58 kWh",
   autonomy: "~250 km",
   solarChargePerDay: "150 km",
-  carbonReduction: "80%",
-  volunteers: "40+",
-  communesVisited: "100+",
+  carbonReduction: "81%",
   vehicleOrigin: "Peugeot J9, 1987",
-  solarPower: "1 350 W",
+  solarPower: "5 kW",
 } as const;
 
 // TODO: Client must provide GA4 Measurement ID via NEXT_PUBLIC_GA_MEASUREMENT_ID.

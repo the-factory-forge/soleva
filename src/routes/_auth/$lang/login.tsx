@@ -21,7 +21,7 @@ export const Route = createFileRoute("/_auth/$lang/login")({
     const user = await $getUser();
     if (user) {
       const locale = localeFromPathname(location.pathname);
-      throw redirect({ to: `/${locale}/app` });
+      throw redirect({ to: "/$lang/app", params: { lang: locale } });
     }
   },
   loader: async ({ location }) => {
@@ -139,7 +139,11 @@ function LoginPage() {
 
         <div className="text-center text-sm">
           {t(dict, "auth.dontHaveAccount")}{" "}
-          <Link to={`/${locale}/signup`} className="underline underline-offset-4">
+          <Link
+            to="/$lang/signup"
+            params={{ lang: locale }}
+            className="underline underline-offset-4"
+          >
             {t(dict, "auth.signUpLink")}
           </Link>
         </div>

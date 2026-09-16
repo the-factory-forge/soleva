@@ -22,7 +22,7 @@ export const Route = createFileRoute("/_auth/$lang/signup")({
     const user = await $getUser();
     if (user) {
       const locale = localeFromPathname(location.pathname);
-      throw redirect({ to: `/${locale}/app` });
+      throw redirect({ to: "/$lang/app", params: { lang: locale } });
     }
   },
   loader: async ({ location }) => {
@@ -56,7 +56,7 @@ function SignupPage() {
           },
           onSuccess: () => {
             queryClient.removeQueries({ queryKey: authQueryOptions().queryKey });
-            navigate({ to: `/${locale}/app` });
+            navigate({ to: "/$lang/app", params: { lang: locale } });
           },
         },
       );
@@ -168,7 +168,11 @@ function SignupPage() {
 
         <div className="text-center text-sm">
           {t(dict, "auth.alreadyHaveAccount")}{" "}
-          <Link to={`/${locale}/login`} className="underline underline-offset-4">
+          <Link
+            to="/$lang/login"
+            params={{ lang: locale }}
+            className="underline underline-offset-4"
+          >
             {t(dict, "auth.loginLink")}
           </Link>
         </div>

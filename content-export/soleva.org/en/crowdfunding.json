@@ -1,0 +1,95 @@
+{
+  "lang": "en",
+  "slug": "crowdfunding",
+  "url": "https://soleva.org/en/crowdfunding",
+  "title": "Your support for the soleva project · Soleva Website",
+  "h1": [
+    "Crowdfunding"
+  ],
+  "h2": [
+    "Your contribution remains essential for the success of the project #",
+    "Public crowdfunding campaign 2022 has collected more then 29'000.-! #",
+    "Watch the crowdfunding presentation movie #",
+    "You are a business and would like to sponsor the Soleva project? #"
+  ],
+  "h3": [
+    "Gain visibility in the fields of renewable energies, green mobility and sustainable living"
+  ],
+  "paragraphs": [
+    "home > Support Soleva > Crowdfunding Your contribution remains essential for the success of the project # Despite the large crowdfunding campaign on wemakeit back in 2022, donations to the Soleva Association remain essential and help it to achieve its goals and mission. ASSOCIATION SOLEVA",
+    "Rue de Lausanne 64",
+    "1020 Renens VD",
+    "IBAN: CH3600767000L55322287",
+    "BIC/SWIFT: BCVLCH2LXXX",
+    "Banque: Banque Cantonale Vaudoise",
+    "Description: Donation to Soleva project",
+    "Thanks to the great support of more than 130 contributors, our crowdfunding campaign at the beginning of the project was a full success. The Wemakeit campaign was running during 1 month in summer 2022 and we were able to collect almost 30'000.- to start the construction of our first demonstration vehicle."
+  ],
+  "listItems": [],
+  "links": {
+    "internal": [
+      "/sponsoring",
+      "/crowdfunding"
+    ],
+    "external": [],
+    "mailto": [],
+    "tel": []
+  },
+  "images": [
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/41c4eba1ac410e0ff50e7584f77d06f734bdf3ead41633bd9156e21c0dc494b0-112688.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/e659e5c6e16cb7fa809013fadb5a4b8670cf2a456e020b890259596134acc4ac-211082.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/6ed9653a20302bc9f3b01d7974baae191dd4cee2f1599532cce308a8f8926b90-211084.webp",
+    "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/a18dc77a1c2b27c2c2a1204cf514e8c053aa435754f839cf711a94a6742f8266-114028.webp"
+  ],
+  "cmsMeta": {
+    "id": 751,
+    "title": "Crowdfunding",
+    "slug": "/crowdfunding",
+    "published": true,
+    "publishedDate": "2022-06-10T12:09:54.000Z",
+    "seo": {
+      "title": "Your support for the soleva project",
+      "keywords": "donate,support,crowdfunding,contribute,support",
+      "description": "Become part of the Solar electric camper van project and support it through crowdfunding and donation."
+    },
+    "attributes": {
+      "list": [],
+      "slug": "/crowdfunding",
+      "title": "Crowdfunding",
+      "attachments": [
+        {
+          "id": 211083,
+          "path": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/ad1a80f1cbb832eb16c30ba353b1a19aaa1473c34070805178f4b0a8d27b95d1-211083.jpeg",
+          "size": 290485,
+          "type": "image/jpeg",
+          "order": 1,
+          "sizes": [],
+          "title": "Soleva_crowdfunding_events.jpg",
+          "private": false,
+          "creationDate": "2025-05-27T00:00:00.000Z",
+          "optimizedPath": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/ad1a80f1cbb832eb16c30ba353b1a19aaa1473c34070805178f4b0a8d27b95d1-211083.webp"
+        }
+      ],
+      "hideSidebar": true,
+      "backgroundPosition": "bottom"
+    },
+    "attachments": [
+      {
+        "id": 211083,
+        "path": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/ad1a80f1cbb832eb16c30ba353b1a19aaa1473c34070805178f4b0a8d27b95d1-211083.jpeg",
+        "size": 290485,
+        "type": "image/jpeg",
+        "order": 1,
+        "sizes": [],
+        "title": "Soleva_crowdfunding_events.jpg",
+        "private": false,
+        "creationDate": "2025-05-27T00:00:00.000Z",
+        "optimizedPath": "https://d1oh1gq3c6bbc1.cloudfront.net/public/media/ad1a80f1cbb832eb16c30ba353b1a19aaa1473c34070805178f4b0a8d27b95d1-211083.webp"
+      }
+    ],
+    "hideSidebar": true,
+    "backgroundPosition": "bottom"
+  },
+  "ok": true,
+  "error": null
+}

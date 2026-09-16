@@ -4,7 +4,6 @@ import { PageHero } from "@/components/layout/page-hero";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
-import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 
@@ -15,10 +14,11 @@ export const Route = createFileRoute("/_site/$lang/mentions-legales")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.legal.title} | ${SITE_NAME}`,
         description: dict.meta.legal.description,
         path: "/mentions-legales",
@@ -61,9 +61,6 @@ function LegalPage() {
                 <p className="mt-2 leading-relaxed text-muted-foreground">{s.body}</p>
               </div>
             ))}
-            <p className="rounded-2xl border border-dashed border-border bg-muted p-4 text-sm text-muted-foreground">
-              {lg.todo}
-            </p>
           </div>
         </div>
       </section>

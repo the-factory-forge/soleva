@@ -1,7 +1,7 @@
 import { createServerFn, createServerOnlyFn } from "@tanstack/react-start";
 import { getRequest, setResponseHeader } from "@tanstack/react-start/server";
+import { ENV } from "varlock/env";
 
-import { env } from "#/env/server";
 import { auth } from "#/lib/auth/auth";
 
 /**
@@ -18,8 +18,8 @@ export const $isAuthEnabled = createServerFn({ method: "GET" }).handler(() => ({
  * Login/signup pages render a social button only for configured providers.
  */
 export const $getAuthProviders = createServerFn({ method: "GET" }).handler(() => ({
-  github: Boolean(env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET),
-  google: Boolean(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET),
+  github: Boolean(ENV.GITHUB_CLIENT_ID && ENV.GITHUB_CLIENT_SECRET),
+  google: Boolean(ENV.GOOGLE_CLIENT_ID && ENV.GOOGLE_CLIENT_SECRET),
 }));
 
 /**

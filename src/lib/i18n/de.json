@@ -14,7 +14,7 @@
     },
     "solaire": {
       "title": "Solarsystem an Bord - CSEM- & EPFL-Module",
-      "description": "Ein ausfahrbares Photovoltaikdach mit 1'350 W, entwickelt mit dem CSEM und dem EPFL PV-Lab, um die Energie der Reise zu erzeugen."
+      "description": "Ein ausfahrbares Photovoltaikdach mit 5 kW, entwickelt mit dem CSEM und dem EPFL PV-Lab, um die Energie der Reise zu erzeugen."
     },
     "habitat": {
       "title": "CO₂-armer mobiler Wohnraum - Leben an Bord",
@@ -26,11 +26,11 @@
     },
     "voyage": {
       "title": "Die Reise - Schweizer Solartour",
-      "description": "Begleiten Sie Solevas Demonstration durch die Schweiz, ihre Stationen, Events und laden Sie den Van zu Ihrer Veranstaltung ein."
+      "description": "Vom 15. Juni bis 3. August 2024 reiste Soleva mit seinem ersten Solarprototyp durch die Schweiz und besuchte die Öffentlichkeit, Schulen und Partner."
     },
     "support": {
       "title": "Soleva unterstützen - spenden, sponsern, mithelfen",
-      "description": "Unterstützen Sie Soleva mit einer Spende, einem Sponsoring oder als Freiwillige. Entdecken Sie unsere erfolgreiche Crowdfunding-Kampagne mit 147%."
+      "description": "Soleva kommt dank einer Gemeinschaft von Freiwilligen, Partnern, Sponsoren und Spendern voran."
     },
     "about": {
       "title": "Über uns - der Verein Soleva",
@@ -38,7 +38,7 @@
     },
     "contact": {
       "title": "Kontakt - an Soleva schreiben",
-      "description": "Eine Frage, eine Idee oder eine Event-Einladung? Erreichen Sie das Soleva-Team über das Formular oder unter info@soleva.org."
+      "description": "Eine Frage, eine Idee, ein Partnerschaftsvorschlag oder eine Event-Einladung? Schreiben Sie uns direkt an info@soleva.org."
     },
     "faq": {
       "title": "FAQ - häufige Fragen zu Soleva",
@@ -51,6 +51,34 @@
     "privacy": {
       "title": "Datenschutzerklärung",
       "description": "Wie Soleva mit Ihren persönlichen Daten umgeht (DSG / DSGVO)."
+    },
+    "equipe": {
+      "title": "Das Soleva-Team - die Gesichter hinter dem Projekt",
+      "description": "Lernen Sie das Team und die Mentoren kennen, die den Solar-Van Soleva bauen: Ingenieure, Enthusiasten und externe Berater."
+    },
+    "partenaires": {
+      "title": "Partner - Soleva",
+      "description": "Die technischen, institutionellen und akademischen Partner, die das Projekt Soleva ermöglichen."
+    },
+    "presse": {
+      "title": "Presse & Medien - Soleva",
+      "description": "Soleva in den Medien: TV, Radio, Print und Web. Sehen Sie die Beiträge über den Solar-Van."
+    },
+    "blog": {
+      "title": "Blog - Soleva",
+      "description": "Neuigkeiten und Einblicke in das Projekt Soleva: Events, Konferenzen, Messen und Meilensteine des Solar-Vans."
+    },
+    "evenements": {
+      "title": "Veranstaltungen - Soleva",
+      "description": "Soleva-Veranstaltungen und Tour-Stopps: Messen, Konferenzen, Filmvorführungen und Begegnungen rund um solare Mobilität."
+    },
+    "sponsoring": {
+      "title": "Sponsoring - Soleva unterstützen",
+      "description": "Werden Sie Sponsor oder Partner des Projekts Soleva und gewinnen Sie Sichtbarkeit in solarer Mobilität, Kreislaufwirtschaft und erneuerbaren Energien."
+    },
+    "crowdfunding": {
+      "title": "Crowdfunding - Soleva unterstützen",
+      "description": "Unterstützen Sie das Projekt Soleva: Die Kampagne 2022 sammelte dank über 130 Unterstützern fast 30'000 CHF."
     }
   },
   "nav": {
@@ -65,6 +93,15 @@
     "about": "Über uns",
     "contact": "Kontakt",
     "faq": "FAQ",
+    "projet": "Das Projekt",
+    "actualites": "Aktuelles",
+    "equipe": "Das Team",
+    "partenaires": "Partner",
+    "blog": "Blog",
+    "presse": "Presse & Medien",
+    "evenements": "Veranstaltungen",
+    "sponsoring": "Sponsoring",
+    "crowdfunding": "Crowdfunding",
     "language": "Sprache",
     "menu": "Menü",
     "close": "Schliessen"
@@ -76,7 +113,9 @@
     "back_to_top": "Nach oben",
     "back_home": "Zurück zur Startseite",
     "support_project": "Projekt unterstützen",
-    "all_pillars": "Alle Säulen"
+    "all_pillars": "Alle Säulen",
+    "copy_iban": "IBAN kopieren",
+    "copied": "Kopiert"
   },
   "home": {
     "hero": {
@@ -89,13 +128,15 @@
     "figures": {
       "title": "Das Projekt in Zahlen",
       "subtitle": "Konkrete Daten, die die Geschichte von Soleva erzählen.",
-      "disclaimer": "Geschätzte technische Werte, derzeit in Validierung.",
+      "disclaimer": "Von Soleva veröffentlichte Angaben zum ersten Prototyp. Die Leistung hängt von Fahrbedingungen und Sonneneinstrahlung ab.",
       "founded": "Gründungsjahr",
       "autonomy": "Geschätzte Reichweite",
       "carbon": "CO₂-Reduktion vs. Diesel",
-      "crowdfunding": "Crowdfunding erreicht",
+      "crowdfunding": "Crowdfunding 2022",
       "volunteers": "Mobilisierte Freiwillige",
-      "communes": "Besuchte Gemeinden"
+      "communes": "Besuchte Gemeinden",
+      "battery": "Batteriekapazität",
+      "solar": "Ausgefahrene Solarleistung"
     },
     "problem": {
       "eyebrow": "Warum Soleva",
@@ -118,7 +159,7 @@
     },
     "new_start": {
       "title": "Neuanfang",
-      "body": "Trotz des Brandes, der die Werkstatt verwüstete und Sunny, den ersten Solar-Van, zerstörte, geht das Soleva-Abenteuer weiter. Die Sicherheitssysteme des Vans funktionierten einwandfrei und bewiesen die Zuverlässigkeit des Konzepts. Nachdem das Team tausende Menschen während der Schweiz-Tour inspiriert hat, weigert es sich, diesen Traum sterben zu lassen. Ein neuer Solar-Van ist in Vorbereitung, getragen von der Leidenschaft des Teams und der Unterstützung der Gemeinschaft.",
+      "body": "Trotz des Brandes, der die Werkstatt verwüstete und Sunny, den ersten Solar-Van, zerstörte, geht das Soleva-Abenteuer weiter. Die Sicherheitssysteme des Vans funktionierten einwandfrei und bewiesen die Zuverlässigkeit des Konzepts. Nachdem das Team viele Menschen während der Schweiz-Tour inspiriert hat, weigert es sich, diesen Traum sterben zu lassen. Ein neuer Solar-Van ist in Vorbereitung, getragen von der Leidenschaft des Teams und der Unterstützung der Gemeinschaft.",
       "subtitle": "Unterstützen Sie den neuen Van",
       "cta": "Das Projekt unterstützen"
     },
@@ -154,7 +195,9 @@
     "related_title": "Die anderen Säulen",
     "cta_title": "Eine Frage zum Van?",
     "cta_body": "Unser Team beantwortet gerne Ihre technischen Fragen oder stellt Ihnen das Projekt vor.",
-    "disclaimer": "Die technischen Angaben sind geschätzt und derzeit in Validierung."
+    "disclaimer": "Von Soleva veröffentlichte Angaben zum ersten Prototyp. Die Leistung hängt von Fahrbedingungen und Sonneneinstrahlung ab.",
+    "diagrams_title": "Der Prototyp im Detail",
+    "gallery_title": "Der Umbau in Bildern"
   },
   "impact": {
     "hero": {
@@ -162,38 +205,42 @@
       "title": "Eine konkrete Umweltwirkung",
       "subtitle": "Soleva ist nicht nur ein Fahrzeug: Es ist ein Beweis, dass Mobilität schlichter, kreislauforientiert und von der Sonne angetrieben sein kann."
     },
-    "disclaimer": "Alle Wirkungsschätzungen müssen vor der Veröffentlichung von Soleva validiert werden.",
+    "disclaimer": "Von Soleva veröffentlichter Vergleich für den ersten Prototyp bei 100 % solarer Ladung.",
     "cards": {
       "carbon_title": "Emissionsreduktion",
-      "carbon_desc": "Durch den Umbau eines bestehenden Fahrzeugs und den Solarbetrieb strebt das Projekt rund 80% weniger Emissionen an als ein neuer Diesel-Camper.",
+      "carbon_desc": "Soleva hat seinen Prototyp mit Elektrofahrzeugen und herkömmlichen Diesel-Vans auf dem europäischen Markt verglichen. Laut diesem Vergleich reduziert der Retrofit mit rein solarer Ladung die CO₂-Emissionen gegenüber einem herkömmlichen Diesel-Van um 81 %, einschliesslich der grauen Energie von Batterien und Elektromotor.",
       "circular_title": "Kreislaufwirtschaft",
       "circular_desc": "Der Retrofit verlängert die Lebensdauer eines Fahrzeugs von 1987, statt ein neues zu bauen, und vermeidet so die Auswirkungen der industriellen Produktion.",
       "solar_title": "Lokale, erneuerbare Energie",
       "solar_desc": "Die Energie der Reise wird dank der Photovoltaikmodule an Bord direkt von der Sonne erzeugt.",
       "awareness_title": "Sensibilisierung",
       "awareness_desc": "Über die Technik hinaus teilt Soleva seine Erkenntnisse mit der Öffentlichkeit, Schulen und Institutionen."
-    }
+    },
+    "chart_title": "Vergleich des CO₂-Fussabdrucks"
   },
   "voyage": {
     "hero": {
       "eyebrow": "Die Reise",
       "title": "Eine Schweizer Solartour",
-      "subtitle": "Soleva reist durch die Schweiz, um solare Mobilität zu demonstrieren und die Öffentlichkeit, Schulen und Partner zu treffen."
+      "subtitle": "Vom 15. Juni bis 3. August 2024 reiste Soleva mit seinem ersten Solarprototyp durch die Schweiz und besuchte die Öffentlichkeit, Schulen und Partner."
     },
     "tour_title": "Die Demonstration auf der Strasse",
-    "tour_body": "Der Van hat mehr als 100 Gemeinden in der ganzen Schweiz besucht, von Lausanne bis Zürich, über Davos, Lugano und Sion. An jeder Station teilt das Team die Technologie und das Abenteuer des Projekts.",
+    "tour_body": "Um die Möglichkeiten nachhaltiger Solarmobilität zu zeigen, bereisten wir im Sommer 2024 die Schweiz. Veranstaltungen, Schulbesuche, Festivals und Präsentationen demonstrierten die Fähigkeiten des Soleva-Vans.",
     "invite_title": "Soleva zu Ihrer Veranstaltung einladen",
     "invite_body": "Festival, Messe, Schule, Unternehmen oder Gemeinde: Soleva kann den Van und sein Projekt vorstellen. Kontaktieren Sie uns, um die Möglichkeiten gemeinsam zu prüfen.",
     "invite_cta": "Soleva einladen",
-    "stops_title": "Einige Stationen",
+    "stops_title": "Vollständiges Tourprogramm 2024",
     "events_title": "Vergangene Veranstaltungen",
     "events_cta": "Haben Sie eine Veranstaltung im Sinn? Laden Sie Soleva ein!",
-    "polar_title": "Verfolgen Sie die Reise live",
-    "polar_body": "Verfolgen Sie die Soleva-Tour in Echtzeit über Polar Steps.",
-    "polar_tracking_before": "Verfolgen Sie das Live-Tracking auf",
-    "polar_tracking_after": ". Die mobile App ermöglicht es, die Position des Vans während der Tour in Echtzeit zu verfolgen.",
-    "map_title": "Karte der Tour",
-    "map_subtitle": "Von Lausanne nach Zürich, über Davos, Lugano und Sion."
+    "polar_title": "Die Schweiz-Tour nacherleben",
+    "polar_body": "Entdecken Sie die Stationen und Geschichten der Schweiz-Tour 2024 auf Polarsteps.",
+    "polar_tracking_before": "Das Reisetagebuch finden Sie auf",
+    "polar_tracking_after": ". Die Route dokumentiert die 2024 abgeschlossene Tour.",
+    "map_title": "Stationen der Tour 2024",
+    "map_subtitle": "Das veröffentlichte Programm und die Karte der Schweiz-Tour des ersten Prototyps.",
+    "dates": "15. Juni – 3. August 2024",
+    "awareness_title": "Bewusstsein schaffen",
+    "awareness_body": "Präsentationen in Schulen, Institutionen und Gemeinden, Messeauftritte, Videos über Technik und Bau sowie Treffen mit Unternehmen und Behörden fördern erneuerbare Energien, nachhaltige Mobilität und langsames Reisen."
   },
   "support": {
     "hero": {
@@ -217,7 +264,7 @@
     },
     "crowdfunding": {
       "title": "Ein erfolgreiches Crowdfunding",
-      "body": "2022 übertraf Solevas Kampagne auf Wemakeit ihr Ziel, getragen von einer treuen Gemeinschaft.",
+      "body": "Dank über 130 Unterstützern sammelte die einmonatige Wemakeit-Kampagne im Sommer 2022 fast CHF 30’000 für den ersten Prototyp.",
       "goal": "Ziel",
       "raised": "Gesammelt",
       "percent": "Erreicht",
@@ -237,7 +284,7 @@
       "description_value": "Spende an das Soleva-Projekt"
     },
     "sponsor_tiers_title": "Sponsoring-Pakete",
-    "sponsor_tiers_subtitle": "Drei Möglichkeiten, das Soleva-Projekt zu unterstützen und Sichtbarkeit zu gewinnen.",
+    "sponsor_tiers_subtitle": "Entdecken Sie die Vorteile von Silver, Gold und Platinum. Kontaktieren Sie das Team für Konditionen und Beiträge.",
     "sponsor_cta": "Sponsoring besprechen",
     "sponsor_features": "Vorteile",
     "qr_alt": "QR-Code für eine Banküberweisung an Soleva",
@@ -287,7 +334,11 @@
       "tvRegional": "Regionales Fernsehen",
       "radioNational": "Nationales Radio",
       "radio": "Radio"
-    }
+    },
+    "education_title": "Bildung und nachhaltige Technologie",
+    "education_body": "Soleva bildet heutige und zukünftige Ingenieurinnen und Ingenieure aus, nimmt an Veranstaltungen zu erneuerbaren Energien teil und vermittelt nachhaltiges Reisen. Das Projekt fördert langsames Reisen und zeigt Low-Tech-Lösungen für ein kleines Zuhause auf Rädern.",
+    "today_title": "Projektzahlen — Bilanz des ersten Prototyps",
+    "today_body": "Mehr als 13 Beteiligte, 8 Studierendenprojekte, über 30 Medienauftritte, 11 Sponsoren und Partner, mehr als CHF 120’000 gesammelte Mittel und über 130 Crowdfunding-Unterstützer: Solevas veröffentlichte Bilanz des ersten Prototyps."
   },
   "contact": {
     "hero": {
@@ -329,7 +380,7 @@
   "legal": {
     "title": "Impressum",
     "editor_title": "Herausgeber der Website",
-    "editor_body": "ASSOCIATION SOLEVA, Rue de Lausanne 64, 1020 Renens VD, Schweiz. E-Mail: info@soleva.org. Telefon: +41 77 420 74 40.",
+    "editor_body": "ASSOCIATION SOLEVA, Avenue de Cour 19, 1007 Lausanne, Schweiz. E-Mail: info@soleva.org. Telefon: +41 77 420 74 40.",
     "form_title": "Rechtsform",
     "form_body": "Verein.",
     "hosting_title": "Hosting",
@@ -342,7 +393,7 @@
     "title": "Datenschutzerklärung",
     "intro": "Diese Erklärung beschreibt, wie Soleva mit Ihren persönlichen Daten umgeht, gemäss dem Schweizer DSG und der europäischen DSGVO.",
     "controller_title": "Verantwortlicher",
-    "controller_body": "Verein Soleva\nRue de Lausanne 64\n1020 Renens VD\nSchweiz\nE-Mail: info@soleva.org",
+    "controller_body": "Verein Soleva\nVerantwortlich: Curdin Wüthrich\nAvenue de Cour 19\n1007 Lausanne\nSchweiz\nE-Mail: info@soleva.org\nTelefon: +41 77 420 74 40",
     "data_title": "Datenerhebung",
     "data_body": "Wir erheben nur Daten, die für den Betrieb der Website erforderlich sind, und mit Ihrer Einwilligung Nutzungsstatistiken über Google Analytics (Google LLC, USA).",
     "purposes_title": "Zwecke",
@@ -350,10 +401,14 @@
     "analytics_title": "Reichweitenmessung",
     "analytics_body": "Wir verwenden Google Analytics 4 im Consent-Modus. Vor Ihrer ausdrücklichen Zustimmung werden keine Analysedaten erhoben. Daten können in die USA übertragen und dort verarbeitet werden.",
     "retention_title": "Aufbewahrungsdauer",
-    "retention_body": "Google-Analytics-Daten werden von Google nach 14 Monaten automatisch gelöscht (Standard-Aufbewahrungsfrist von Google Analytics). Kontaktdaten (E-Mail) werden während der Dauer unserer Beziehung und als Kontaktregister so lange aufbewahrt, wie der Verein besteht. Sie können deren Löschung jederzeit verlangen.",
+    "retention_body": "Serverprotokolle werden aus Sicherheitsgründen höchstens sieben Tage gespeichert und danach gelöscht. Als Beweismittel benötigte Daten werden bis zur Klärung des Vorfalls aufbewahrt. Für Kontaktanfragen gelten die gesetzlichen Archivierungspflichten.",
     "rights_title": "Ihre Rechte",
     "rights_body": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Übertragbarkeit Ihrer personenbezogenen Daten sowie das Recht, Ihre Einwilligung jederzeit zu widerrufen. Kontaktieren Sie uns unter info@soleva.org. Aggregierte Navigationsdaten (Google Analytics) erlauben keine Identifizierung einer einzelnen Person.",
-    "updatedAt": "2026-07-31"
+    "updatedAt": "2026-09-16",
+    "logs_title": "Zugriffsdaten und Serverprotokolle",
+    "logs_body": "Der Server kann aufgerufene Seiten und Dateien, Datum und Uhrzeit, übertragene Datenmenge, Ergebnis der Anfrage, Browser, Betriebssystem, Herkunftsseite, IP-Adresse und Internetanbieter protokollieren. Diese Angaben dienen der Sicherheit und der Aufklärung von Missbrauch.",
+    "social_title": "Soziale Netzwerke",
+    "social_body": "Beim Besuch unserer Social-Media-Seiten gelten die Bedingungen und Datenschutzrichtlinien der jeweiligen Betreiber. Wir verarbeiten die dort mit uns geteilten Informationen, um Ihre Nachrichten zu beantworten."
   },
   "breadcrumb": {
     "home": "Start",
@@ -367,6 +422,13 @@
     "legal": "Impressum",
     "privacy": "Datenschutz",
     "habitat": "Wohnraum",
+    "equipe": "Das Team",
+    "partenaires": "Partner",
+    "presse": "Presse & Medien",
+    "blog": "Blog",
+    "evenements": "Veranstaltungen",
+    "sponsoring": "Sponsoring",
+    "crowdfunding": "Crowdfunding",
     "ariaLabel": "Brotkrumen-Navigation"
   },
   "footer": {
@@ -432,5 +494,147 @@
     "loginError": "Beim Anmelden ist ein Fehler aufgetreten.",
     "signupError": "Beim Registrieren ist ein Fehler aufgetreten.",
     "passwordsMismatch": "Die Passworter stimmen nicht uberein."
+  },
+  "presse": {
+    "hero": {
+      "eyebrow": "Presse & Medien",
+      "title": "Die Presse spricht über Soleva",
+      "subtitle": "Entdecken Sie die Reportagen, Artikel, Radio- und TV-Beiträge rund um den Solar-Van."
+    },
+    "title": "In den Medien",
+    "intro": "Entdecken Sie die Menschen, Zeitungen, Artikel, Radiosender und TV-Sender, die über das Soleva-Projekt sprechen.",
+    "read_label": "Lesen",
+    "pressTypes": {
+      "tvNational": "Nationales TV",
+      "pressWritten": "Printpresse",
+      "tvRegional": "Regionales TV",
+      "radioNational": "Nationalradio",
+      "radio": "Radio"
+    }
+  },
+  "evenements": {
+    "hero": {
+      "eyebrow": "Veranstaltungen",
+      "title": "Veranstaltungen und Etappen",
+      "subtitle": "Soleva nimmt an Messen, Konferenzen, Vorführungen und Treffen teil, um den Solar-Van vorzustellen."
+    },
+    "intro": "Hier finden Sie die Messen, Konferenzen, Vorführungen und Treffen, an denen Soleva teilgenommen hat.",
+    "past_title": "Vergangene Veranstaltungen",
+    "cta": {
+      "title": "Soleva zu Ihrer Veranstaltung einladen",
+      "body": "Festival, Messe, Schule, Unternehmen oder Gemeinde: Kontaktieren Sie uns, um den Solar-Van einzuladen.",
+      "button": "Kontakt aufnehmen"
+    }
+  },
+  "equipe": {
+    "hero": {
+      "eyebrow": "Das Team",
+      "title": "Das Team hinter Soleva",
+      "subtitle": "Lernen Sie das Team und die Mentoren kennen, die den Solar-Van von Soleva bauen: Ingenieure, Enthusiasten und externe Berater."
+    },
+    "team_title": "DAS TEAM",
+    "mentors_title": "MENTOREN UND EXTERNE BERATER",
+    "roles": {
+      "curdin": "CEO und Mitgründer",
+      "matthieu": "CTO und Leiter mechanische Integration",
+      "max": "Leiter Finanzen & Batteriemanagement",
+      "tobia": "Mitgründer und Leiter Solarintegration",
+      "sara": "Mitgründerin und Leiterin Kommunikation und Wohnraum",
+      "sevane": "Leiterin Recht",
+      "lucanael": "Projektleiter mechanische Integration",
+      "roman": "Projektleiter Elektrifizierung",
+      "nicola": "Leiter Bau nachhaltiger Wohnräume"
+    },
+    "mentorRoles": {
+      "marc": "Gründer ICARE, Präsident Impact Living",
+      "andre": "Dozent und Forscher EPFL, Elektromotoren",
+      "louis": "Gründer SolarTaxi, SolarButterfly, WAVE",
+      "werner": "HTW Berlin, Advanced Automotive Concepts"
+    },
+    "join": {
+      "title": "Inspiriert vom Projekt und möchtest du Teil des Teams werden?",
+      "body": "Kontaktiere uns und wir finden gemeinsam einen Weg, wie du mitmachen kannst.",
+      "button": "Kontakt aufnehmen"
+    }
+  },
+  "partenaires": {
+    "hero": {
+      "eyebrow": "Partner",
+      "title": "Unsere Partner",
+      "subtitle": "Die technischen, institutionellen und akademischen Partner, die das Projekt Soleva ermöglichen."
+    },
+    "intro": "Technische, institutionelle und akademische Partner, die das Projekt möglich machen.",
+    "technical": "Technische Partner",
+    "institutional": "Institutionelle Unterstützung",
+    "awards": "Auszeichnungen und Anerkennungen",
+    "external_label": "Website besuchen"
+  },
+  "blog": {
+    "hero": {
+      "eyebrow": "Blog",
+      "title": "Neuigkeiten & Hinter den Kulissen",
+      "subtitle": "Events, Konferenzen, Messen und Meilensteine des Soleva-Solarvans."
+    },
+    "intro": "Verfolgen Sie die Projektnews: unsere Events, unsere Begegnungen und die neuesten Nachrichten aus dem Soleva-Abenteuer.",
+    "date_label": "Veröffentlicht",
+    "cta": {
+      "title": "Möchten Sie uns unterwegs treffen?",
+      "body": "Kontaktieren Sie uns, um Soleva zu Ihrer Veranstaltung einzuladen oder die nächste Etappe zu erfahren.",
+      "button": "Kontakt aufnehmen"
+    }
+  },
+  "sponsoring": {
+    "hero": {
+      "eyebrow": "Sponsoring",
+      "title": "Soleva sponsern & unterstützen",
+      "subtitle": "Werden Sie Partner des Projekts und gewinnen Sie Sichtbarkeit in der Solarmobilität, der Kreislaufwirtschaft und den erneuerbaren Energien."
+    },
+    "categories": {
+      "sponsors": "Sponsoren",
+      "collaborations": "Kooperationen",
+      "media": "Medienpartner"
+    },
+    "external_label": "Website besuchen",
+    "cta": {
+      "title": "INTERESSIERT, PARTNER ZU WERDEN?",
+      "body": "Kontaktieren Sie uns, um zu erfahren, wie Ihr Unternehmen das Soleva-Projekt unterstützen kann.",
+      "button": "Kontakt aufnehmen"
+    },
+    "brochure": "Projektbroschüre ansehen"
+  },
+  "crowdfunding": {
+    "hero": {
+      "eyebrow": "Crowdfunding",
+      "title": "Crowdfunding und Spenden",
+      "subtitle": "Unterstützen Sie das Projekt des solaren Vans von Soleva durch eine Crowdfunding-Kampagne oder eine Spende."
+    },
+    "story_title": "Die öffentliche Crowdfunding-Kampagne 2022 hat mehr als 29'000.- gesammelt!",
+    "facts": {
+      "title": "Die Kampagne in Zahlen",
+      "campaign": "Kampagne",
+      "campaign_value": "Wemakeit 2022",
+      "duration": "Dauer",
+      "duration_value": "1 Monat im Sommer 2022",
+      "contributors": "Unterstützer",
+      "contributors_value": "über 130",
+      "raised": "Gesammelt",
+      "raised_value": "fast 30'000.-"
+    },
+    "video_title": "Sehen Sie sich das Crowdfunding-Video von Soleva an",
+    "documentary_label": "Dokumentation ansehen",
+    "cta_wemakeit": "Zur Wemakeit-Kampagne",
+    "donation_title": "Ihr Beitrag bleibt für den Erfolg des Projekts unerlässlich",
+    "donation_body": "Auch wenn die grosse Crowdfunding-Kampagne auf wemakeit 2022 beendet ist, bleiben Spenden an den Verein Soleva unerlässlich und helfen ihm, seine Ziele und seine Mission zu erreichen.",
+    "sponsor_cta": {
+      "title": "Sie sind ein Unternehmen und möchten das Projekt Soleva sponsern?",
+      "body": "Gewinnen Sie Sichtbarkeit in den Bereichen erneuerbare Energien, grüne Mobilität und nachhaltiges Wohnen.",
+      "button": "Sponsor werden"
+    }
+  },
+  "directory": {
+    "title": "Seitenübersicht",
+    "description": "Alle Soleva-Seiten: Solar-Van, Verein, Neuigkeiten und Unterstützungsmöglichkeiten.",
+    "search": "Seite suchen",
+    "empty": "Keine Seite entspricht Ihrer Suche."
   }
 }
