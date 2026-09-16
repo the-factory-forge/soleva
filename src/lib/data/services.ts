@@ -22,24 +22,39 @@ export interface ServiceContent {
   features: string[];
   process: ServiceProcessStep[];
   faqs: ServiceFAQ[];
+  diagrams: { image: string; title: string; description: string }[];
 }
 
 export interface Service {
   slug: string;
   icon: LucideIcon;
   heroImage: string;
+  gallery?: string[];
   relatedServices: string[];
   seoKeywords: string[];
   content: Record<Locale, ServiceContent>;
 }
 
-// IMPORTANT: All technical figures below are estimates and MUST be validated by
-// Soleva before publication. // TODO: Replace with real client data where noted.
+// Specifications transcribed from the source diagrams on soleva.org.
+// See docs/migration-media-sources.json for their provenance.
 export const services: Service[] = [
   {
     slug: "conversion-electrique",
     icon: Zap,
     heroImage: IMAGES.conversion,
+    gallery: [
+      "/images/conversion/gallery-9.webp",
+      "/images/conversion/gallery-10.webp",
+      "/images/conversion/gallery-11.webp",
+      "/images/conversion/gallery-12.webp",
+      "/images/conversion/gallery-13.webp",
+      "/images/conversion/gallery-14.webp",
+      "/images/conversion/gallery-15.webp",
+      "/images/conversion/gallery-16.webp",
+      "/images/conversion/gallery-17.webp",
+      "/images/conversion/gallery-18.webp",
+      "/images/conversion/gallery-19.webp",
+    ],
     relatedServices: ["systeme-solaire", "habitat"],
     seoKeywords: [
       "retrofit van électrique Suisse",
@@ -49,43 +64,68 @@ export const services: Service[] = [
     ],
     content: {
       fr: {
+        diagrams: [
+          {
+            image: "/images/technical-specifications.webp",
+            title: "Caractéristiques du premier prototype",
+            description:
+              "Le visuel de présentation annonce 250 km d’autonomie, 5 kW de puissance solaire, 24 m² de surface déployée et 3 places. La recharge solaire complète annoncée est de 11 heures, soit environ deux journées moyennes en Europe centrale.",
+          },
+          {
+            image: "/images/charging-modes.webp",
+            title: "Quatre modes de recharge",
+            description:
+              "Solaire, charge AC de 6,6 kW (9 h), charge DC de 50 kW (1 h 20) et récupération en descente. Le schéma indique 8 batteries Volkswagen, 58 kWh à 400 V, un moteur et un onduleur Nissan Leaf, et plus de 300 km à 80 km/h. Cette dernière valeur décrit une condition différente des 250 km du visuel de présentation.",
+          },
+          {
+            image: "/images/conversion-before-after.webp",
+            title: "Avant et après le rétrofit",
+            description:
+              "Pour démontrer que notre conversion électrique solaire est possible avec n'importe quelle voiture, nous avons choisi une fourgonnette Peugeot J9 emblématique particulièrement ancienne (depuis plus de 35 ans en circulation) pour notre prototype. À cette époque, les véhicules étaient construits sans une tonne d'ajouts et de caractéristiques inutiles, ce qui les rendaient relativement légers. Son élément le plus lourd : le moteur diesel de 190 kg.",
+          },
+        ],
         title: "Conversion électrique",
         shortTitle: "Retrofit électrique",
         shortDescription:
           "Un ancien van thermique transformé en véhicule 100% électrique grâce au retrofit.",
         fullDescription:
-          "Plutôt que de produire un véhicule neuf, Soleva mise sur le retrofit : conserver un Peugeot J9 de 1987, retirer le moteur diesel et le réservoir, et intégrer une chaîne de traction électrique complète. Cette approche prolonge la durée de vie du véhicule et réduit l'impact lié à la fabrication.",
+          "Plutôt que de produire un véhicule neuf, Soleva mise sur le retrofit : conserver un Peugeot J9 de 1987, retirer le moteur thermique et le réservoir, et intégrer une chaîne de traction électrique complète. Cette approche prolonge la durée de vie du véhicule et réduit l'impact lié à la fabrication.",
         features: [
-          "Remplacement du moteur thermique par un moteur électrique (Nissan, seconde main)",
-          "8 modules de batterie Volkswagen reconditionnés - 55 kWh",
+          "Remplacement du moteur thermique par un moteur électrique (Nissan Leaf)",
+          "8 modules de batterie Volkswagen reconditionnés — 58 kWh à 400 V",
           "Autonomie estimée : environ 250 km",
           "Architecture de contrôle et gestion énergétique embarquée",
-          "Homologation et certification route réalisées",
-          "Réduction de l'empreinte carbone de 80% vs camping-car diesel neuf",
+          "Réduction de l'empreinte carbone de 81% par rapport à un van diesel conventionnel",
         ],
         process: [
           {
             step: 1,
-            title: "Démontage",
+            title: "Suppression de tous les éléments thermiques",
             description:
-              "Retrait du moteur essence, du réservoir et des composants thermiques du Peugeot J9 d'origine.",
+              "Tous les éléments polluants contenant de l'huile comme le moteur, l'échappement et le réservoir de carburant sont retirés du fourgon.",
           },
           {
             step: 2,
-            title: "Intégration électrique",
+            title: "Intégration des composants électriques",
             description:
-              "Installation du moteur électrique, des batteries, du convertisseur et du système de gestion énergétique.",
+              "Un moteur électrique est nettement plus léger, plus propre et plus simple. Tous les appareils sont intégrés au système du véhicule existant.",
           },
           {
             step: 3,
-            title: "Tests et sécurité",
+            title: "Intégration du pack batterie",
             description:
-              "Tests de sécurité électrique, calibration et vérification de l'ensemble du système.",
+              "Intégration des modules de batterie sous le véhicule. Nous utilisons des batteries remises à neuf mais entièrement fonctionnelles pour une plus grande durabilité.",
           },
           {
             step: 4,
-            title: "Homologation",
-            description: "Certification route et immatriculation du véhicule converti.",
+            title: "Ajout du système solaire déployable",
+            description:
+              "La surface du toit est remplie de panneaux solaires à haute efficacité et légers qui peuvent être déployés et inclinés pour maximiser l'énergie.",
+          },
+          {
+            step: 5,
+            title: "Transformation de l'intérieur en un habitacle durable",
+            description: "Dans une dernière étape, l'espace de vie est intégré au véhicule.",
           },
         ],
         faqs: [
@@ -100,51 +140,71 @@ export const services: Service[] = [
             answer:
               "L'autonomie estimée est d'environ 250 km grâce aux batteries, avec la possibilité de recharger via les panneaux solaires embarqués ou des bornes de recharge.",
           },
-          {
-            question: "Le van est-il homologué pour la route ?",
-            answer:
-              "Oui. Le véhicule a passé les tests de sécurité électrique et a été certifié pour la circulation routière en Suisse.",
-          },
         ],
       },
       en: {
+        diagrams: [
+          {
+            image: "/images/technical-specifications.webp",
+            title: "First prototype specifications",
+            description:
+              "The overview states a 250 km range, 5 kW of solar power, 24 m² of deployed surface and room for 3 people. A full solar charge is stated as 11 hours, or roughly two average days in central Europe.",
+          },
+          {
+            image: "/images/charging-modes.webp",
+            title: "Four ways to charge",
+            description:
+              "Solar, 6.6 kW AC charging (9 h), 50 kW DC charging (1 h 20) and downhill energy recovery. The schematic specifies 8 Volkswagen batteries, 58 kWh at 400 V, a Nissan Leaf motor and inverter, and over 300 km at 80 km/h. This last figure describes a different condition from the overview’s 250 km range.",
+          },
+          {
+            image: "/images/conversion-before-after.webp",
+            title: "Before and after the retrofit",
+            description:
+              "To demonstrate that our solar electric conversion is possible with any car, we selected a particularly old (more than 35 years in circulation) iconic Peugeot J9 van for our prototype. It was an era where vehicles were built without a ton of unnecessary add-ons and features, making it relatively light-weight. It's heaviest element: the 190kg diesel engine.",
+          },
+        ],
         title: "Electric conversion",
         shortTitle: "Electric retrofit",
         shortDescription:
           "An old combustion van transformed into a 100% electric vehicle through retrofit.",
         fullDescription:
-          "Rather than producing a new vehicle, Soleva relies on retrofit: keeping a 1987 Peugeot J9, removing the diesel engine and tank, and integrating a complete electric powertrain. This approach extends the vehicle's lifespan and reduces the impact related to manufacturing.",
+          "Rather than producing a new vehicle, Soleva relies on retrofit: keeping a 1987 Peugeot J9, removing the combustion engine and tank, and integrating a complete electric powertrain. This approach extends the vehicle's lifespan and reduces the impact related to manufacturing.",
         features: [
-          "Combustion engine replaced by an electric motor (Nissan, second-hand)",
-          "8 refurbished Volkswagen battery modules - 55 kWh",
+          "Combustion engine replaced by an electric motor (Nissan Leaf)",
+          "8 refurbished Volkswagen battery modules — 58 kWh at 400 V",
           "Estimated range: around 250 km",
           "On-board control architecture and energy management",
-          "Road homologation and certification completed",
-          "80% lower carbon footprint vs a new diesel campervan",
+          "81% lower carbon footprint compared with a conventional diesel van",
         ],
         process: [
           {
             step: 1,
-            title: "Disassembly",
+            title: "Remove all thermal elements",
             description:
-              "Removing the petrol engine, the tank and the combustion components of the original Peugeot J9.",
+              "All polluting, oil containing elements like the engine, the exhaust and the fuel tank are removed from the van.",
           },
           {
             step: 2,
-            title: "Electric integration",
+            title: "Integrate the electric components",
             description:
-              "Installing the electric motor, batteries, converter and energy management system.",
+              "An electric motor is significantly lighter, cleaner and simpler. All devices are integrated to the existing vehicle system.",
           },
           {
             step: 3,
-            title: "Tests and safety",
+            title: "Incorporate the battery pack",
             description:
-              "Electrical safety tests, calibration and verification of the entire system.",
+              "Integrate the battery modules underneath the vehicle. We use refurbished but fully functional batteries for the highest sustainability.",
           },
           {
             step: 4,
-            title: "Homologation",
-            description: "Road certification and registration of the converted vehicle.",
+            title: "Add the deployable solar array",
+            description:
+              "The roof surface gets filled with high efficiency and light-weight solar panels that can be deployed and tilted to maximize the energy.",
+          },
+          {
+            step: 5,
+            title: "Transform the interior to a sustainable habitat",
+            description: "In a last step, the living space gets integrated into the vehicle.",
           },
         ],
         faqs: [
@@ -158,51 +218,71 @@ export const services: Service[] = [
             answer:
               "The estimated range is around 250 km thanks to the batteries, with the possibility of recharging via the on-board solar panels or charging stations.",
           },
-          {
-            question: "Is the van road-legal?",
-            answer:
-              "Yes. The vehicle has passed electrical safety tests and has been certified for road use in Switzerland.",
-          },
         ],
       },
       de: {
+        diagrams: [
+          {
+            image: "/images/technical-specifications.webp",
+            title: "Technische Daten des ersten Prototyps",
+            description:
+              "Die Übersicht nennt 250 km Reichweite, 5 kW Solarleistung, 24 m² ausgefahrene Fläche und Platz für 3 Personen. Eine vollständige Solarladung wird mit 11 Stunden angegeben, entsprechend etwa zwei durchschnittlichen Tagen in Mitteleuropa.",
+          },
+          {
+            image: "/images/charging-modes.webp",
+            title: "Vier Lademöglichkeiten",
+            description:
+              "Solar, 6,6 kW AC-Ladung (9 h), 50 kW DC-Ladung (1 h 20) und Energierückgewinnung bergab. Das Schema nennt 8 Volkswagen-Batterien, 58 kWh bei 400 V, einen Nissan-Leaf-Motor mit Wechselrichter und über 300 km bei 80 km/h. Diese Angabe gilt unter anderen Bedingungen als die 250 km in der Übersicht.",
+          },
+          {
+            image: "/images/conversion-before-after.webp",
+            title: "Vor und nach dem Retrofit",
+            description:
+              "Der Peugeot J9 von 1987 wurde gewählt, um die Umrüstung eines mehr als 35 Jahre alten Fahrzeugs zu demonstrieren. Die einfache Bauweise ohne zahlreiche Zusatzfunktionen hält das Gewicht niedrig; sein schwerstes Bauteil war der 190 kg schwere Dieselmotor.",
+          },
+        ],
         title: "Elektroumbau",
         shortTitle: "Elektro-Retrofit",
         shortDescription:
           "Ein alter Verbrenner-Van, durch Retrofit in ein 100% elektrisches Fahrzeug verwandelt.",
         fullDescription:
-          "Statt ein neues Fahrzeug zu bauen, setzt Soleva auf Retrofit: einen Peugeot J9 von 1987 behalten, den Dieselmotor und den Tank entfernen und einen kompletten elektrischen Antriebsstrang integrieren. Dieser Ansatz verlängert die Lebensdauer des Fahrzeugs und reduziert die Auswirkungen der Herstellung.",
+          "Statt ein neues Fahrzeug zu bauen, setzt Soleva auf Retrofit: einen Peugeot J9 von 1987 behalten, den Verbrennungsmotor und den Tank entfernen und einen kompletten elektrischen Antriebsstrang integrieren. Dieser Ansatz verlängert die Lebensdauer des Fahrzeugs und reduziert die Auswirkungen der Herstellung.",
         features: [
-          "Verbrennungsmotor ersetzt durch einen Elektromotor (Nissan, gebraucht)",
-          "8 aufbereitete Volkswagen-Batteriemodule - 55 kWh",
+          "Verbrennungsmotor ersetzt durch einen Elektromotor (Nissan Leaf)",
+          "8 aufbereitete Volkswagen-Batteriemodule — 58 kWh bei 400 V",
           "Geschätzte Reichweite: rund 250 km",
           "Steuerungsarchitektur und Energiemanagement an Bord",
-          "Strassenzulassung und Zertifizierung abgeschlossen",
-          "80% kleinerer CO₂-Fussabdruck als ein neuer Diesel-Camper",
+          "81% kleinerer CO₂-Fussabdruck als ein konventioneller Diesel-Van",
         ],
         process: [
           {
             step: 1,
-            title: "Demontage",
+            title: "Thermische Bauteile entfernen",
             description:
-              "Entfernung des Benzinmotors, des Tanks und der Verbrennungskomponenten des originalen Peugeot J9.",
+              "Motor, Auspuff und Kraftstofftank sowie alle ölhaltigen, umweltschädlichen Bauteile werden aus dem Van entfernt.",
           },
           {
             step: 2,
-            title: "Elektrische Integration",
+            title: "Elektrische Komponenten integrieren",
             description:
-              "Einbau des Elektromotors, der Batterien, des Konverters und des Energiemanagementsystems.",
+              "Ein Elektromotor ist deutlich leichter, sauberer und einfacher. Alle Geräte werden in das bestehende Fahrzeugsystem integriert.",
           },
           {
             step: 3,
-            title: "Tests und Sicherheit",
+            title: "Batteriepaket einbauen",
             description:
-              "Elektrische Sicherheitstests, Kalibrierung und Überprüfung des gesamten Systems.",
+              "Die Batteriemodule werden unter dem Fahrzeug eingebaut. Wiederaufbereitete, voll funktionsfähige Batterien erhöhen die Nachhaltigkeit.",
           },
           {
             step: 4,
-            title: "Zulassung",
-            description: "Strassenzertifizierung und Zulassung des umgebauten Fahrzeugs.",
+            title: "Ausfahrbare Solarmodule montieren",
+            description:
+              "Leichte, hocheffiziente Solarmodule bedecken das Dach. Sie lassen sich ausfahren und neigen, um den Energieertrag zu maximieren.",
+          },
+          {
+            step: 5,
+            title: "Nachhaltigen Wohnraum einrichten",
+            description: "Zum Schluss wird der Wohnraum in das Fahrzeug integriert.",
           },
         ],
         faqs: [
@@ -216,51 +296,71 @@ export const services: Service[] = [
             answer:
               "Die geschätzte Reichweite liegt dank der Batterien bei rund 250 km, mit der Möglichkeit, über die Solarmodule an Bord oder Ladestationen zu laden.",
           },
-          {
-            question: "Ist der Van strassenzugelassen?",
-            answer:
-              "Ja. Das Fahrzeug hat die elektrischen Sicherheitstests bestanden und wurde für den Strassenverkehr in der Schweiz zertifiziert.",
-          },
         ],
       },
       it: {
+        diagrams: [
+          {
+            image: "/images/technical-specifications.webp",
+            title: "Specifiche del primo prototipo",
+            description:
+              "La panoramica indica 250 km di autonomia, 5 kW di potenza solare, 24 m² di superficie dispiegata e posto per 3 persone. Una ricarica solare completa è indicata in 11 ore, circa due giornate medie nell’Europa centrale.",
+          },
+          {
+            image: "/images/charging-modes.webp",
+            title: "Quattro modalità di ricarica",
+            description:
+              "Solare, ricarica AC da 6,6 kW (9 h), ricarica DC da 50 kW (1 h 20) e recupero energetico in discesa. Lo schema indica 8 batterie Volkswagen, 58 kWh a 400 V, motore e inverter Nissan Leaf e oltre 300 km a 80 km/h. Quest’ultimo dato descrive condizioni diverse dai 250 km della panoramica.",
+          },
+          {
+            image: "/images/conversion-before-after.webp",
+            title: "Prima e dopo il retrofit",
+            description:
+              "Il Peugeot J9 del 1987 è stato scelto per dimostrare la conversione di un veicolo con oltre 35 anni di circolazione. La costruzione semplice, priva di numerosi accessori, ne limita il peso: il componente più pesante era il motore diesel da 190 kg.",
+          },
+        ],
         title: "Conversione elettrica",
         shortTitle: "Retrofit elettrico",
         shortDescription:
           "Un vecchio furgone a combustione trasformato in un veicolo 100% elettrico tramite retrofit.",
         fullDescription:
-          "Invece di produrre un veicolo nuovo, Soleva punta sul retrofit: mantenere un Peugeot J9 del 1987, rimuovere il motore diesel e il serbatoio e integrare una catena di trazione elettrica completa. Questo approccio prolunga la vita del veicolo e riduce l'impatto legato alla fabbricazione.",
+          "Invece di produrre un veicolo nuovo, Soleva punta sul retrofit: mantenere un Peugeot J9 del 1987, rimuovere il motore a combustione e il serbatoio e integrare una catena di trazione elettrica completa. Questo approccio prolunga la vita del veicolo e riduce l'impatto legato alla fabbricazione.",
         features: [
-          "Motore a combustione sostituito da un motore elettrico (Nissan, di seconda mano)",
-          "8 moduli di batteria Volkswagen ricondizionati - 55 kWh",
+          "Motore a combustione sostituito da un motore elettrico (Nissan Leaf)",
+          "8 moduli di batteria Volkswagen ricondizionati — 58 kWh a 400 V",
           "Autonomia stimata: circa 250 km",
           "Architettura di controllo e gestione energetica a bordo",
-          "Omologazione e certificazione stradale completate",
-          "80% in meno di impronta di carbonio rispetto a un camper diesel nuovo",
+          "81% in meno di impronta di carbonio rispetto a un van diesel convenzionale",
         ],
         process: [
           {
             step: 1,
-            title: "Smontaggio",
+            title: "Rimuovere gli elementi termici",
             description:
-              "Rimozione del motore a benzina, del serbatoio e dei componenti a combustione del Peugeot J9 originale.",
+              "Il motore, lo scarico, il serbatoio e tutti gli elementi inquinanti contenenti olio vengono rimossi dal furgone.",
           },
           {
             step: 2,
-            title: "Integrazione elettrica",
+            title: "Integrare i componenti elettrici",
             description:
-              "Installazione del motore elettrico, delle batterie, del convertitore e del sistema di gestione energetica.",
+              "Un motore elettrico è molto più leggero, pulito e semplice. Tutti i dispositivi sono integrati nel sistema esistente del veicolo.",
           },
           {
             step: 3,
-            title: "Test e sicurezza",
+            title: "Installare il pacco batterie",
             description:
-              "Test di sicurezza elettrica, calibrazione e verifica dell'intero sistema.",
+              "I moduli vengono installati sotto il veicolo. Batterie ricondizionate ma pienamente funzionanti migliorano la sostenibilità.",
           },
           {
             step: 4,
-            title: "Omologazione",
-            description: "Certificazione stradale e immatricolazione del veicolo convertito.",
+            title: "Aggiungere i pannelli solari dispiegabili",
+            description:
+              "Il tetto viene coperto da pannelli leggeri ad alta efficienza, dispiegabili e inclinabili per massimizzare l’energia.",
+          },
+          {
+            step: 5,
+            title: "Creare un abitacolo sostenibile",
+            description: "Nell’ultima fase, lo spazio abitativo viene integrato nel veicolo.",
           },
         ],
         faqs: [
@@ -274,11 +374,6 @@ export const services: Service[] = [
             question: "Qual è l'autonomia del van?",
             answer:
               "L'autonomia stimata è di circa 250 km grazie alle batterie, con la possibilità di ricaricare tramite i pannelli solari a bordo o le colonnine di ricarica.",
-          },
-          {
-            question: "Il van è omologato per la strada?",
-            answer:
-              "Sì. Il veicolo ha superato i test di sicurezza elettrica ed è stato certificato per la circolazione stradale in Svizzera.",
           },
         ],
       },
@@ -297,18 +392,32 @@ export const services: Service[] = [
     ],
     content: {
       fr: {
+        diagrams: [
+          {
+            image: "/images/solar-system.webp",
+            title: "Une surface solaire déployable et orientable",
+            description:
+              "Une surface principale rigide en nid d’abeille reste active lorsque les panneaux sont repliés. Les surfaces légères déployables utilisent des cellules bifaciales ; l’inclinaison motorisée permet le suivi du soleil. La surface déployée de 24 m² est environ quatre fois celle du toit.",
+          },
+          {
+            image: "/images/solar-v2x.webp",
+            title: "Du solaire pour rouler et alimenter d’autres usages",
+            description:
+              "Le schéma de Soleva annonce environ 150 km de recharge solaire par jour à l’arrêt, panneaux déployés et inclinés, contre 30 km avec les panneaux repliés à plat en roulant, sur la base de l’irradiation annuelle moyenne suisse. Un onduleur DC/AC de 3,5 kW alimente aussi l’habitat et des événements externes (V2X).",
+          },
+        ],
         title: "Système solaire embarqué",
         shortTitle: "Énergie solaire",
         shortDescription:
           "Une toiture photovoltaïque déployable pour produire l'énergie du voyage directement grâce au soleil.",
         fullDescription:
-          "Le cœur technologique de Soleva est son système photovoltaïque innovant. Développés par le CSEM en collaboration avec le PV-Lab de l'EPFL, les panneaux solaires légers et déployables permettent de produire l'énergie nécessaire au déplacement et à la vie à bord. Grâce à la technologie V2X (Vehicle-to-Everything), le van devient une centrale solaire mobile capable d'alimenter des événements, festivals et services publics.",
+          "Intégrer une telle surface solaire sur un véhicule exige un rendement élevé, un poids très faible et une résistance au vent et aux intempéries. Le système optimise la conversion de l’énergie solaire vers les batteries et la propulsion pour maximiser l’autonomie tout en limitant les batteries nécessaires. Soleva collabore avec le CSEM, qui a construit les panneaux photovoltaïques de l’avion Solar Impulse. L’énergie produite alimente aussi des événements, des festivals et des équipements grâce au V2X.",
         features: [
           "Panneaux solaires haute performance développés par le CSEM et l'EPFL PV-Lab",
-          "1 350 W de puissance solaire embarquée",
+          "5 kW de puissance solaire embarquée",
           "Structure légère, renforcée, résistante à la grêle",
           "Système déployable pour maximiser la surface de captation",
-          "Recharge jusqu'à 150 km d'autonomie par jour de soleil",
+          "Environ 150 km de recharge solaire par jour à l’arrêt, panneaux déployés",
           "Technologie V2X : alimentation externe d'événements et de services",
           "Convertisseur DC-DC BRUSA HyPower optimisant le flux panneaux → batterie",
         ],
@@ -357,18 +466,32 @@ export const services: Service[] = [
         ],
       },
       en: {
+        diagrams: [
+          {
+            image: "/images/solar-system.webp",
+            title: "A deployable, tilting solar array",
+            description:
+              "A rigid honeycomb main surface keeps charging when the panels are folded. Lightweight deployable surfaces use bifacial cells, with motorized inclination for solar tracking. The 24 m² deployed surface is about four times the roof area.",
+          },
+          {
+            image: "/images/solar-v2x.webp",
+            title: "Solar power for driving and other uses",
+            description:
+              "Soleva’s schematic states around 150 km of solar charge per day while parked with panels deployed and tilted, versus 30 km with panels folded flat while driving, based on annual average Swiss irradiance. A 3.5 kW DC/AC inverter also powers the living space and external events (V2X).",
+          },
+        ],
         title: "On-board solar system",
         shortTitle: "Solar energy",
         shortDescription:
           "A deployable photovoltaic roof to produce the energy of the journey directly from the sun.",
         fullDescription:
-          "The technological heart of Soleva is its innovative photovoltaic system. Developed by CSEM in collaboration with the EPFL PV-Lab, the lightweight, deployable solar panels produce the energy needed for driving and life on board. Thanks to V2X (Vehicle-to-Everything) technology, the van becomes a mobile solar power station capable of powering events, festivals and public services.",
+          "Integrating solar energy onto a vehicle to such a massive scale represents huge challenges. It requires the highest possible efficiency while remaining ultra lightweight. It has to be durable and withstand harsh weather and wind conditions. All these requirements were uniquely combined in this demonstrator.\n\nOur design optimises the energy conversion efficiency from solar to battery and propulsion, allowing for high autonomy while minimizing the amount of batteries required. We are collaborating with the CSEM institute, who has built the solar PV panels for the SolarImpulse plane, to build the best solution possible.\n\nThanks to innovative technology, we can use our self-generated solar power not only for the vehicle, but we can power events, festivals, utilities and much more. It is the future of V2X power anywhere you need.",
         features: [
           "High-performance solar panels developed by CSEM and the EPFL PV-Lab",
-          "1,350 W of on-board solar power",
+          "5 kW of on-board solar power",
           "Lightweight, reinforced, hail-resistant structure",
           "Deployable system to maximize the capture surface",
-          "Recharges up to 150 km of range per sunny day",
+          "Around 150 km of solar charge per day while parked with panels deployed",
           "V2X technology: external power for events and services",
           "BRUSA HyPower DC-DC converter optimizing the panels → battery flow",
         ],
@@ -417,18 +540,32 @@ export const services: Service[] = [
         ],
       },
       de: {
+        diagrams: [
+          {
+            image: "/images/solar-system.webp",
+            title: "Ausfahrbare und neigbare Solarmodule",
+            description:
+              "Eine starre Hauptfläche in Wabenbauweise lädt auch bei eingefahrenen Modulen. Leichte ausfahrbare Flächen nutzen bifaziale Zellen; die motorisierte Neigung ermöglicht die Sonnennachführung. Die ausgefahrenen 24 m² entsprechen etwa der vierfachen Dachfläche.",
+          },
+          {
+            image: "/images/solar-v2x.webp",
+            title: "Solarstrom für Mobilität und weitere Anwendungen",
+            description:
+              "Solevas Schema nennt rund 150 km Solarladung pro Tag im Stand mit ausgefahrenen, geneigten Modulen, gegenüber 30 km mit flach eingefahrenen Modulen während der Fahrt, basierend auf der durchschnittlichen jährlichen Sonneneinstrahlung in der Schweiz. Ein 3,5-kW-DC/AC-Wechselrichter versorgt auch den Wohnraum und externe Veranstaltungen (V2X).",
+          },
+        ],
         title: "Solarsystem an Bord",
         shortTitle: "Solarenergie",
         shortDescription:
           "Ein ausfahrbares Photovoltaikdach, um die Energie der Reise direkt aus der Sonne zu erzeugen.",
         fullDescription:
-          "Das technologische Herz von Soleva ist sein innovatives Photovoltaiksystem. Entwickelt vom CSEM in Zusammenarbeit mit dem EPFL PV-Lab, erzeugen die leichten, ausfahrbaren Solarmodule die Energie für Fahrt und Leben an Bord. Dank V2X-Technologie (Vehicle-to-Everything) wird der Van zu einem mobilen Solarkraftwerk, das Veranstaltungen, Festivals und öffentliche Dienste mit Strom versorgen kann.",
+          "Eine so grosse Solarfläche am Fahrzeug verlangt höchste Effizienz, sehr geringes Gewicht und Widerstandsfähigkeit gegen Wind und Wetter. Das System optimiert die Energieumwandlung von den Solarzellen zu Batterien und Antrieb und minimiert so den Batteriebedarf. Soleva arbeitet mit dem CSEM zusammen, das die Solarmodule für das Flugzeug Solar Impulse gebaut hat. Die erzeugte Energie kann dank V2X auch Veranstaltungen, Festivals und Geräte versorgen.",
         features: [
           "Hochleistungs-Solarmodule, entwickelt vom CSEM und dem EPFL PV-Lab",
-          "1'350 W Solarleistung an Bord",
+          "5 kW Solarleistung an Bord",
           "Leichte, verstärkte, hagelresistente Struktur",
           "Ausfahrbares System zur Maximierung der Auffangfläche",
-          "Lädt bis zu 150 km Reichweite pro Sonnentag",
+          "Rund 150 km Solarladung pro Tag im Stand mit ausgefahrenen Modulen",
           "V2X-Technologie: externe Stromversorgung für Events und Dienste",
           "BRUSA HyPower DC-DC-Konverter zur Optimierung des Flusses Module → Batterie",
         ],
@@ -477,18 +614,32 @@ export const services: Service[] = [
         ],
       },
       it: {
+        diagrams: [
+          {
+            image: "/images/solar-system.webp",
+            title: "Pannelli solari dispiegabili e orientabili",
+            description:
+              "Una superficie principale rigida a nido d’ape continua a caricare con i pannelli ripiegati. Le superfici leggere dispiegabili usano celle bifacciali; l’inclinazione motorizzata consente di seguire il sole. I 24 m² dispiegati sono circa quattro volte la superficie del tetto.",
+          },
+          {
+            image: "/images/solar-v2x.webp",
+            title: "Energia solare per viaggiare e altri usi",
+            description:
+              "Lo schema Soleva indica circa 150 km di ricarica solare al giorno da fermi con pannelli dispiegati e inclinati, contro 30 km con pannelli ripiegati in piano durante la guida, sulla base dell’irraggiamento medio annuo svizzero. Un inverter DC/AC da 3,5 kW alimenta anche l’abitacolo ed eventi esterni (V2X).",
+          },
+        ],
         title: "Sistema solare a bordo",
         shortTitle: "Energia solare",
         shortDescription:
           "Un tetto fotovoltaico estensibile per produrre l'energia del viaggio direttamente dal sole.",
         fullDescription:
-          "Il cuore tecnologico di Soleva è il suo sistema fotovoltaico innovativo. Sviluppati dal CSEM in collaborazione con il PV-Lab dell'EPFL, i pannelli solari leggeri ed estensibili producono l'energia necessaria per la guida e la vita a bordo. Grazie alla tecnologia V2X (Vehicle-to-Everything), il van diventa una centrale solare mobile in grado di alimentare eventi, festival e servizi pubblici.",
+          "Integrare una superficie solare così ampia su un veicolo richiede alta efficienza, peso minimo e resistenza al vento e alle intemperie. Il sistema ottimizza la conversione dell’energia solare verso batterie e propulsione, limitando le batterie necessarie. Soleva collabora con il CSEM, che ha costruito i pannelli fotovoltaici dell’aereo Solar Impulse. Grazie al V2X, l’energia prodotta alimenta anche eventi, festival e attrezzature.",
         features: [
           "Pannelli solari ad alte prestazioni sviluppati dal CSEM e dal PV-Lab dell'EPFL",
-          "1'350 W di potenza solare a bordo",
+          "5 kW di potenza solare a bordo",
           "Struttura leggera, rinforzata, resistente alla grandine",
           "Sistema estensibile per massimizzare la superficie di captazione",
-          "Ricarica fino a 150 km di autonomia per giornata di sole",
+          "Circa 150 km di ricarica solare al giorno da fermi con pannelli dispiegati",
           "Tecnologia V2X: alimentazione esterna per eventi e servizi",
           "Convertitore DC-DC BRUSA HyPower che ottimizza il flusso pannelli → batteria",
         ],

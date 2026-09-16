@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ExternalLink } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
+import { CtaExternal } from "@/components/ui/cta-button";
 import { Image } from "@/components/ui/image";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
+import { Lightbox } from "@/components/ui/lightbox";
 import { IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { sponsorCategories, sponsoringIntro, type Sponsor } from "@/lib/data/sponsors";
 import { getDictionary } from "@/lib/i18n";
@@ -22,13 +24,7 @@ function SponsorCard({ item, label }: { item: Sponsor; label: string }) {
     <>
       {item.logo ? (
         <div className="relative h-14 w-24">
-          <Image
-            src={item.logo}
-            alt={item.name}
-            fill
-            className="object-contain"
-            sizes="96px"
-          />
+          <Image src={item.logo} alt={item.name} fill className="object-contain" sizes="96px" />
         </div>
       ) : null}
       <span className="text-sm font-semibold text-foreground">{item.name}</span>
@@ -62,10 +58,11 @@ export const Route = createFileRoute("/_site/$lang/sponsoring")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
     return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.sponsoring.title} | ${SITE_NAME}`,
         description: dict.meta.sponsoring.description,
         path: "/sponsoring",
@@ -104,6 +101,29 @@ function SponsoringPage() {
             {sponsoringIntro[locale]}
           </p>
 
+          <div className="mx-auto mt-10 max-w-4xl">
+            <Lightbox
+              src="/images/sponsorship-packages.webp"
+              alt={dict.support.sponsor_tiers_title}
+            >
+              <Image
+                src="/images/sponsorship-packages.webp"
+                alt={dict.support.sponsor_tiers_title}
+                width={2150}
+                height={1309}
+                className="h-auto w-full rounded-2xl bg-white p-4"
+                sizes="100vw"
+              />
+            </Lightbox>
+            <p className="mt-4 text-center text-muted-foreground">
+              {dict.support.sponsor_tiers_subtitle}
+            </p>
+            <div className="mt-6 text-center">
+              <CtaExternal href="https://drive.google.com/file/d/1ZSKZJLHM0KCXjtGPnQJSe1QDb3Pf9n1V/view">
+                {s.brochure}
+              </CtaExternal>
+            </div>
+          </div>
           <div className="mt-12 space-y-12">
             {/* Sponsors */}
             <div>

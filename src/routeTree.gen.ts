@@ -35,6 +35,7 @@ import { Route as SiteLangHabitatRouteImport } from './routes/_site/$lang/habita
 import { Route as SiteLangImpactRouteImport } from './routes/_site/$lang/impact'
 import { Route as SiteLangMentionsLegalesRouteImport } from './routes/_site/$lang/mentions-legales'
 import { Route as SiteLangPartenairesRouteImport } from './routes/_site/$lang/partenaires'
+import { Route as SiteLangPlanDuSiteRouteImport } from './routes/_site/$lang/plan-du-site'
 import { Route as SiteLangPresseRouteImport } from './routes/_site/$lang/presse'
 import { Route as SiteLangSoutenirRouteImport } from './routes/_site/$lang/soutenir'
 import { Route as SiteLangSponsoringRouteImport } from './routes/_site/$lang/sponsoring'
@@ -172,6 +173,11 @@ const SiteLangPartenairesRoute = SiteLangPartenairesRouteImport.update({
   path: '/partenaires',
   getParentRoute: () => SiteLangRoute,
 } as any)
+const SiteLangPlanDuSiteRoute = SiteLangPlanDuSiteRouteImport.update({
+  id: '/plan-du-site',
+  path: '/plan-du-site',
+  getParentRoute: () => SiteLangRoute,
+} as any)
 const SiteLangPresseRoute = SiteLangPresseRouteImport.update({
   id: '/presse',
   path: '/presse',
@@ -236,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/$lang/impact': typeof SiteLangImpactRoute
   '/$lang/mentions-legales': typeof SiteLangMentionsLegalesRoute
   '/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/$lang/plan-du-site': typeof SiteLangPlanDuSiteRoute
   '/$lang/presse': typeof SiteLangPresseRoute
   '/$lang/soutenir': typeof SiteLangSoutenirRoute
   '/$lang/sponsoring': typeof SiteLangSponsoringRoute
@@ -268,6 +275,7 @@ export interface FileRoutesByTo {
   '/$lang/impact': typeof SiteLangImpactRoute
   '/$lang/mentions-legales': typeof SiteLangMentionsLegalesRoute
   '/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/$lang/plan-du-site': typeof SiteLangPlanDuSiteRoute
   '/$lang/presse': typeof SiteLangPresseRoute
   '/$lang/soutenir': typeof SiteLangSoutenirRoute
   '/$lang/sponsoring': typeof SiteLangSponsoringRoute
@@ -304,6 +312,7 @@ export interface FileRoutesById {
   '/_site/$lang/impact': typeof SiteLangImpactRoute
   '/_site/$lang/mentions-legales': typeof SiteLangMentionsLegalesRoute
   '/_site/$lang/partenaires': typeof SiteLangPartenairesRoute
+  '/_site/$lang/plan-du-site': typeof SiteLangPlanDuSiteRoute
   '/_site/$lang/presse': typeof SiteLangPresseRoute
   '/_site/$lang/soutenir': typeof SiteLangSoutenirRoute
   '/_site/$lang/sponsoring': typeof SiteLangSponsoringRoute
@@ -339,6 +348,7 @@ export interface FileRouteTypes {
     | '/$lang/impact'
     | '/$lang/mentions-legales'
     | '/$lang/partenaires'
+    | '/$lang/plan-du-site'
     | '/$lang/presse'
     | '/$lang/soutenir'
     | '/$lang/sponsoring'
@@ -371,6 +381,7 @@ export interface FileRouteTypes {
     | '/$lang/impact'
     | '/$lang/mentions-legales'
     | '/$lang/partenaires'
+    | '/$lang/plan-du-site'
     | '/$lang/presse'
     | '/$lang/soutenir'
     | '/$lang/sponsoring'
@@ -406,6 +417,7 @@ export interface FileRouteTypes {
     | '/_site/$lang/impact'
     | '/_site/$lang/mentions-legales'
     | '/_site/$lang/partenaires'
+    | '/_site/$lang/plan-du-site'
     | '/_site/$lang/presse'
     | '/_site/$lang/soutenir'
     | '/_site/$lang/sponsoring'
@@ -612,6 +624,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteLangPartenairesRouteImport
       parentRoute: typeof SiteLangRoute
     }
+    '/_site/$lang/plan-du-site': {
+      id: '/_site/$lang/plan-du-site'
+      path: '/plan-du-site'
+      fullPath: '/$lang/plan-du-site'
+      preLoaderRoute: typeof SiteLangPlanDuSiteRouteImport
+      parentRoute: typeof SiteLangRoute
+    }
     '/_site/$lang/presse': {
       id: '/_site/$lang/presse'
       path: '/presse'
@@ -724,6 +743,7 @@ interface SiteLangRouteChildren {
   SiteLangImpactRoute: typeof SiteLangImpactRoute
   SiteLangMentionsLegalesRoute: typeof SiteLangMentionsLegalesRoute
   SiteLangPartenairesRoute: typeof SiteLangPartenairesRoute
+  SiteLangPlanDuSiteRoute: typeof SiteLangPlanDuSiteRoute
   SiteLangPresseRoute: typeof SiteLangPresseRoute
   SiteLangSoutenirRoute: typeof SiteLangSoutenirRoute
   SiteLangSponsoringRoute: typeof SiteLangSponsoringRoute
@@ -747,6 +767,7 @@ const SiteLangRouteChildren: SiteLangRouteChildren = {
   SiteLangImpactRoute: SiteLangImpactRoute,
   SiteLangMentionsLegalesRoute: SiteLangMentionsLegalesRoute,
   SiteLangPartenairesRoute: SiteLangPartenairesRoute,
+  SiteLangPlanDuSiteRoute: SiteLangPlanDuSiteRoute,
   SiteLangPresseRoute: SiteLangPresseRoute,
   SiteLangSoutenirRoute: SiteLangSoutenirRoute,
   SiteLangSponsoringRoute: SiteLangSponsoringRoute,

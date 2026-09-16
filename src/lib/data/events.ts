@@ -59,4 +59,4 @@ export const pastEvents: Event[] = [
   },
 ];
 
-export const POLAR_STEPS_URL = "https://www.polarsteps.com/Soleva";
+export const POLAR_STEPS_URL = "https://www.polarsteps.com/SolevaSolarVan/11946872-the-swiss-tour";

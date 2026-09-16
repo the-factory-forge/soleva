@@ -1,14 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
 
-import { PageHero } from "@/components/layout/page-hero";
 import { FadeUp as Reveal } from "@/components/animations-lazy";
+import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
+import { Link } from "@/components/ui/link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { pastEvents } from "@/lib/data/events";
 import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
+import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 
@@ -19,10 +21,11 @@ export const Route = createFileRoute("/_site/$lang/evenements")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
     return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.evenements.title} | ${SITE_NAME}`,
         description: dict.meta.evenements.description,
         path: "/evenements",
@@ -65,6 +68,17 @@ function EventsPage() {
               <Reveal key={`event-${i}`} delay={i * 0.06}>
                 <div className="rounded-2xl border border-border bg-card p-6">
                   <h3 className="font-heading text-lg font-semibold">{event.name[locale]}</h3>
+                  {i === 0 && (
+                    <Link
+                      className="mt-3 inline-block text-sm text-primary underline"
+                      href={withLocale(
+                        locale,
+                        "/blog#solar-openair-cinema-soleva-documentary-unveiling",
+                      )}
+                    >
+                      {dict.common.learn_more}
+                    </Link>
+                  )}
                   <div className="mt-2 flex items-center gap-4 text-sm text-muted-foreground">
                     <span className="inline-flex items-center gap-1">
                       <MapPin className="h-3.5 w-3.5" />

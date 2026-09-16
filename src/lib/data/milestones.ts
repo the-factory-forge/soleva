@@ -34,10 +34,10 @@ export const milestones: Milestone[] = [
       it: "Crowdfunding e inizio costruzione",
     },
     description: {
-      fr: "CHF 29'583 récoltés via Wemakeit (147%, 130 contributeurs). Début de la construction du premier prototype « Sunny ».",
-      en: 'CHF 29,583 raised via Wemakeit (147%, 130 backers). Construction of the first prototype "Sunny" begins.',
-      de: "CHF 29'583 gesammelt über Wemakeit (147%, 130 Unterstützer). Baubeginn des ersten Prototyps « Sunny ».",
-      it: 'CHF 29\'583 raccolti via Wemakeit (147%, 130 sostenitori). Inizio della costruzione del primo prototipo "Sunny".',
+      fr: "CHF ~30’000 récoltés via Wemakeit (plus de 130 contributeurs). Début de la construction du premier prototype « Sunny ».",
+      en: 'nearly CHF 30,000 raised via Wemakeit (over 130 backers). Construction of the first prototype "Sunny" begins.',
+      de: "CHF ~30’000 gesammelt über Wemakeit (über 130 Unterstützer). Baubeginn des ersten Prototyps « Sunny ».",
+      it: 'quasi CHF 30.000 raccolti via Wemakeit (oltre 130 sostenitori). Inizio della costruzione del primo prototipo "Sunny".',
     },
   },
   {
@@ -50,10 +50,10 @@ export const milestones: Milestone[] = [
       it: "Partenariato CSEM & EPFL PV-Lab",
     },
     description: {
-      fr: "Intégration de panneaux solaires haute performance (1 350 W). Partenariat avec BRUSA HyPower.",
-      en: "Integration of high-performance solar panels (1,350 W). Partnership with BRUSA HyPower.",
-      de: "Integration von Hochleistungs-Solarmodulen (1'350 W). Partnerschaft mit BRUSA HyPower.",
-      it: "Integrazione di pannelli solari ad alte prestazioni (1'350 W). Partenariato con BRUSA HyPower.",
+      fr: "Intégration de panneaux solaires haute performance (5 kW). Partenariat avec BRUSA HyPower.",
+      en: "Integration of high-performance solar panels (5 kW). Partnership with BRUSA HyPower.",
+      de: "Integration von Hochleistungs-Solarmodulen (5 kW). Partnerschaft mit BRUSA HyPower.",
+      it: "Integrazione di pannelli solari ad alte prestazioni (5 kW). Partenariato con BRUSA HyPower.",
     },
   },
   {
@@ -66,10 +66,10 @@ export const milestones: Milestone[] = [
       it: "Soleva 2.0 e Tour della Svizzera",
     },
     description: {
-      fr: "Construction communautaire (40+ bénévoles). Tour de Suisse du 15 juin au 3 août 2024, 100+ communes. Couverture RTS, SRF, RSI, 24Heures.",
-      en: "Community build (40+ volunteers). Swiss Tour from June 15 to August 3, 2024, 100+ towns. Coverage by RTS, SRF, RSI, 24Heures.",
-      de: "Gemeinschaftsbau (40+ Freiwillige). Schweiz-Tour vom 15. Juni bis 3. August 2024, 100+ Gemeinden. Berichterstattung von RTS, SRF, RSI, 24Heures.",
-      it: "Costruzione comunitaria (40+ volontari). Tour della Svizzera dal 15 giugno al 3 agosto 2024, 100+ comuni. Copertura di RTS, SRF, RSI, 24Heures.",
+      fr: "Construction communautaire (bénévoles). Tour de Suisse du 15 juin au 3 août 2024. Couverture RTS, SRF, RSI, 24Heures.",
+      en: "Community build (volunteers). Swiss Tour from June 15 to August 3, 2024. Coverage by RTS, SRF, RSI, 24Heures.",
+      de: "Gemeinschaftsbau (Freiwillige). Schweiz-Tour vom 15. Juni bis 3. August 2024. Berichterstattung von RTS, SRF, RSI, 24Heures.",
+      it: "Costruzione comunitaria (volontari). Tour della Svizzera dal 15 giugno al 3 agosto 2024. Copertura di RTS, SRF, RSI, 24Heures.",
     },
   },
   {

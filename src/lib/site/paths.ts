@@ -20,4 +20,14 @@ export const STATIC_PATHS = [
   "/crowdfunding",
   "/mentions-legales",
   "/confidentialite",
+  "/plan-du-site",
 ] as const;
+
+export const PAGE_META_KEYS: Record<string, string> = {
+  "": "home",
+  "/a-propos": "about",
+  "/le-van": "van",
+  "/soutenir": "support",
+  "/mentions-legales": "legal",
+  "/confidentialite": "privacy",
+};

@@ -4,7 +4,7 @@ import { env as clientEnv } from "@/env/client";
 
 export const SITE_NAME = "Soleva";
 // Site URL is derived from VITE_BASE_URL (build arg + runtime env, one source of truth).
-export const SITE_URL = clientEnv.VITE_BASE_URL;
+export const SITE_URL = clientEnv.VITE_BASE_URL.replace(/\/+$/, "");
 export const SITE_DESCRIPTION =
   "Soleva transforme un ancien van en camper électrique alimenté par le soleil. Un démonstrateur suisse de mobilité durable, retrofit et énergie solaire.";
 
@@ -13,8 +13,8 @@ export const CONTACT = {
   fullName: "ASSOCIATION SOLEVA",
   phone: "+41 77 420 74 40",
   email: "info@soleva.org",
-  address: "Rue de Lausanne 64, 1020 Renens VD, Suisse",
-  mapsUrl: "https://maps.google.com/?q=Rue+de+Lausanne+64,+1020+Renens",
+  address: "Avenue de Cour 19, 1007 Lausanne, Suisse",
+  mapsUrl: "https://maps.google.com/?q=Avenue+de+Cour+19,+1007+Lausanne",
   mapsEmbed: "",
 };
 

@@ -1,20 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Check } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { HabitatHero } from "@/components/habitat/habitat-hero";
 import { Breadcrumb } from "@/components/layout/breadcrumb";
 import { FaqJsonLd } from "@/components/seo/json-ld";
 import { Image } from "@/components/ui/image";
 import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, KEY_FIGURES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getServiceBySlug } from "@/lib/data/services";
 import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
-import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 
@@ -28,7 +27,8 @@ export const Route = createFileRoute("/_site/$lang/habitat")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
     const { locale } = loaderData;
     const c = habitatContent[locale];
     return metadataToHead(

@@ -110,10 +110,10 @@ export const faqs: FAQ[] = [
       it: "Qual è l'autonomia?",
     },
     answer: {
-      fr: "Environ 250 km sur une charge complète. (Estimation à valider.)",
-      en: "Approximately 250 km on a full charge. (Estimate to be validated.)",
-      de: "Etwa 250 km bei voller Ladung. (Schätzung zu validieren.)",
-      it: "Circa 250 km con una carica completa. (Stima da validare.)",
+      fr: "Environ 250 km sur une charge complète. (Valeur annoncée pour le premier prototype.)",
+      en: "Approximately 250 km on a full charge. (Published figure for the first prototype.)",
+      de: "Etwa 250 km bei voller Ladung. (Veröffentlichte Angabe zum ersten Prototyp.)",
+      it: "Circa 250 km con una carica completa. (Dato pubblicato per il primo prototipo.)",
     },
   },
   {
@@ -155,10 +155,10 @@ export const faqs: FAQ[] = [
       it: "Il crowdfunding originale è ancora attivo?",
     },
     answer: {
-      fr: "La campagne Wemakeit s'est terminée en 2022 (CHF 29'583 récoltés). Les dons à l'association restent les bienvenus.",
-      en: "The Wemakeit campaign ended in 2022 (CHF 29,583 raised). Donations to the association remain welcome.",
-      de: "Die Wemakeit-Kampagne endete 2022 (CHF 29'583 gesammelt). Spenden an den Verein sind weiterhin willkommen.",
-      it: "La campagna Wemakeit si è conclusa nel 2022 (CHF 29'583 raccolti). Le donazioni all'associazione restano benvenute.",
+      fr: "La campagne Wemakeit s'est terminée en 2022 (près de CHF 30’000 récoltés). Les dons à l'association restent les bienvenus.",
+      en: "The Wemakeit campaign ended in 2022 (nearly CHF 30,000 raised). Donations to the association remain welcome.",
+      de: "Die Wemakeit-Kampagne endete 2022 (fast CHF 30’000 gesammelt). Spenden an den Verein sind weiterhin willkommen.",
+      it: "La campagna Wemakeit si è conclusa nel 2022 (quasi CHF 30.000 raccolti). Le donazioni all'associazione restano benvenute.",
     },
   },
   {
@@ -200,10 +200,10 @@ export const faqs: FAQ[] = [
       it: "Quali batterie usa il van?",
     },
     answer: {
-      fr: "8 modules de batterie Volkswagen, 55 kWh au total. (À valider.)",
-      en: "8 Volkswagen battery modules, 55 kWh total. (To be validated.)",
-      de: "8 Volkswagen-Batteriemodule, insgesamt 55 kWh. (Zu validieren.)",
-      it: "8 moduli di batteria Volkswagen, 55 kWh in totale. (Da validare.)",
+      fr: "8 modules de batterie Volkswagen, 58 kWh au total.",
+      en: "8 Volkswagen battery modules, 58 kWh total.",
+      de: "8 Volkswagen-Batteriemodule, insgesamt 58 kWh.",
+      it: "8 moduli di batteria Volkswagen, 58 kWh in totale.",
     },
   },
   {
@@ -215,10 +215,10 @@ export const faqs: FAQ[] = [
       it: "Quale motore alimenta il van?",
     },
     answer: {
-      fr: "Un moteur électrique Nissan de seconde main. (À valider.)",
-      en: "A second-hand Nissan electric motor. (To be validated.)",
-      de: "Ein gebrauchter Nissan-Elektromotor. (Zu validieren.)",
-      it: "Un motore elettrico Nissan di seconda mano. (Da validare.)",
+      fr: "Un moteur électrique Nissan de seconde main.",
+      en: "A second-hand Nissan electric motor.",
+      de: "Ein gebrauchter Nissan-Elektromotor.",
+      it: "Un motore elettrico Nissan di seconda mano.",
     },
   },
   {

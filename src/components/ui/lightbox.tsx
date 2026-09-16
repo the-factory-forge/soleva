@@ -85,24 +85,24 @@ export function Lightbox({
         createPortal(
           <div
             className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          onClick={closeModal}
-        >
-          <button
-            type="button"
+            role="dialog"
+            aria-modal="true"
             onClick={closeModal}
-            className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-            aria-label={closeLabel}
           >
-            <X className="h-5 w-5" />
-          </button>
-          <img
-            src={src}
-            alt={alt}
-            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
+            <button
+              type="button"
+              onClick={closeModal}
+              className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+              aria-label={closeLabel}
+            >
+              <X className="h-5 w-5" />
+            </button>
+            <img
+              src={src}
+              alt={alt}
+              className="max-h-[90vh] max-w-[90vw] rounded-lg bg-white object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
           </div>,
           document.body,
         )}

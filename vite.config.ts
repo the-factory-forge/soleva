@@ -146,74 +146,80 @@ export default defineConfig({
     // Dev server warmup: pre-transform the site's own modules at startup so
     // pages render instantly on first visit (on-demand transform is slow in
     // this stack - see TanStack Start dev-server docs).
-    warmup: {
-      clientFiles: [
-        "./src/routes/__root.tsx",
-        "./src/routes/_site.tsx",
-        "./src/routes/_site/$lang.tsx",
-      ],
-      ssrFiles: [
-        "./src/routes/__root.tsx",
-        "./src/routes/_site.tsx",
-        "./src/routes/_site/$lang.tsx",
-        "./src/routes/_site/$lang/index.tsx",
-        "./src/routes/_site/$lang/a-propos.tsx",
-        "./src/routes/_site/$lang/le-van/index.tsx",
-        "./src/routes/_site/$lang/le-van/$slug.tsx",
-        "./src/routes/_site/$lang/habitat.tsx",
-        "./src/routes/_site/$lang/impact.tsx",
-        "./src/routes/_site/$lang/voyage.tsx",
-        "./src/routes/_site/$lang/soutenir.tsx",
-        "./src/routes/_site/$lang/contact.tsx",
-        "./src/routes/_site/$lang/faq.tsx",
-        "./src/routes/_site/$lang/mentions-legales.tsx",
-        "./src/routes/_site/$lang/confidentialite.tsx",
-      ],
-    },
+    warmup: process.env.VITEST
+      ? undefined
+      : {
+          clientFiles: [
+            "./src/routes/__root.tsx",
+            "./src/routes/_site.tsx",
+            "./src/routes/_site/$lang.tsx",
+          ],
+          ssrFiles: [
+            "./src/routes/__root.tsx",
+            "./src/routes/_site.tsx",
+            "./src/routes/_site/$lang.tsx",
+            "./src/routes/_site/$lang/index.tsx",
+            "./src/routes/_site/$lang/a-propos.tsx",
+            "./src/routes/_site/$lang/le-van/index.tsx",
+            "./src/routes/_site/$lang/le-van/$slug.tsx",
+            "./src/routes/_site/$lang/habitat.tsx",
+            "./src/routes/_site/$lang/impact.tsx",
+            "./src/routes/_site/$lang/voyage.tsx",
+            "./src/routes/_site/$lang/soutenir.tsx",
+            "./src/routes/_site/$lang/contact.tsx",
+            "./src/routes/_site/$lang/faq.tsx",
+            "./src/routes/_site/$lang/mentions-legales.tsx",
+            "./src/routes/_site/$lang/confidentialite.tsx",
+          ],
+        },
   },
-  plugins: lazyPlugins(() => [
-    devtools({
-      // https://tanstack.com/devtools/latest/docs/vite-plugin#console-piping
-      consolePiping: { enabled: false },
-      // injectSource walks the AST of every transformed module to build
-      // sourcemaps (client + SSR) - a constant per-module cost in dev.
-      // Disabled: devtools still work, transforms are faster.
-      injectSource: { enabled: false },
-    }),
-    tanstackStart(),
-    // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
-    nitro({
-      // Runtime compression lives in server/plugins/compression.ts (nitro picks
-      // up the directory via serverDir).
-      serverDir: "server",
-      // Pre-compress .output/public assets (gzip+brotli) at build time.
-      compressPublicAssets: true,
-      // Static images are immutable-ish (hash-less names, but rarely change):
-      // 7-day browser cache avoids re-downloads across pages/sessions.
-      routeRules: {
-        "/images/**": {
-          headers: { "cache-control": "public, max-age=604800" },
-        },
-        "/assets/**": {
-          headers: {
-            "cache-control": "public, max-age=31536000, immutable",
+  plugins: lazyPlugins(() =>
+    process.env.VITEST
+      ? []
+      : [
+          devtools({
+            // https://tanstack.com/devtools/latest/docs/vite-plugin#console-piping
+            consolePiping: { enabled: false },
+            // injectSource walks the AST of every transformed module to build
+            // sourcemaps (client + SSR) - a constant per-module cost in dev.
+            // Disabled: devtools still work, transforms are faster.
+            injectSource: { enabled: false },
+          }),
+          tanstackStart(),
+          // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
+          nitro({
+            // Runtime compression lives in server/plugins/compression.ts (nitro picks
+            // up the directory via serverDir).
+            serverDir: "server",
+            // Pre-compress .output/public assets (gzip+brotli) at build time.
+            compressPublicAssets: true,
+            // Static images are immutable-ish (hash-less names, but rarely change):
+            // 7-day browser cache avoids re-downloads across pages/sessions.
+            routeRules: {
+              "/images/**": {
+                headers: { "cache-control": "public, max-age=604800" },
+              },
+              "/assets/**": {
+                headers: {
+                  "cache-control": "public, max-age=31536000, immutable",
+                },
+              },
+            },
+          }),
+          // React plugin (Babel) is required by TanStack Start's React Refresh
+          // runtime in dev. React Compiler is build-only (below) so dev transforms
+          // stay as fast as the stack allows.
+          viteReact(),
+          // React Compiler is a build-time optimization - applying it in dev slows
+          // down every module transform (babel). Build-only keeps dev fast.
+          // https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#react-compiler
+          {
+            ...babel({
+              presets: [reactCompilerPreset()],
+            }),
+            apply: "build",
           },
-        },
-      },
-    }),
-    // React plugin (Babel) is required by TanStack Start's React Refresh
-    // runtime in dev. React Compiler is build-only (below) so dev transforms
-    // stay as fast as the stack allows.
-    viteReact(),
-    // React Compiler is a build-time optimization - applying it in dev slows
-    // down every module transform (babel). Build-only keeps dev fast.
-    // https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#react-compiler
-    {
-      ...babel({
-        presets: [reactCompilerPreset()],
-      }),
-      apply: "build",
-    },
-    tailwindcss(),
-  ]),
+          tailwindcss(),
+        ],
+  ),
 });

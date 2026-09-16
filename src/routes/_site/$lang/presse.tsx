@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { PageHero } from "@/components/layout/page-hero";
 import { FadeUp as Reveal } from "@/components/animations-lazy";
+import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -19,10 +19,11 @@ export const Route = createFileRoute("/_site/$lang/presse")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
     return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.presse.title} | ${SITE_NAME}`,
         description: dict.meta.presse.description,
         path: "/presse",

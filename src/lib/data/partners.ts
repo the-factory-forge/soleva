@@ -62,7 +62,7 @@ export const partnerCategories: PartnerCategory[] = [
       {
         name: "Energy Lab Winner 2022",
         logo: PARTNER_LOGOS.energyLab,
-        url: "https://energylab.site",
+        url: "https://www.linkedin.com/showcase/swiss-energy-lab/",
         linkStatus: "ok",
       },
     ],

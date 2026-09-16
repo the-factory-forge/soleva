@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, ChevronDown } from "lucide-react";
+import { MenuIcon, ChevronDownIcon } from "lucide-react";
 import { lazy, Suspense, useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -15,9 +15,7 @@ import { cn } from "@/lib/utils";
 const LangSwitcher = lazy(() =>
   import("./lang-switcher").then((m) => ({ default: m.LangSwitcher })),
 );
-const MobileNav = lazy(() =>
-  import("./mobile-nav").then((m) => ({ default: m.MobileNav })),
-);
+const MobileNav = lazy(() => import("./mobile-nav").then((m) => ({ default: m.MobileNav })));
 
 export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const pathname = usePathname();
@@ -46,6 +44,38 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   // Over the dark hero the bar is transparent → use light text; once scrolled onto
   // the white background → use dark text.
   const onLight = scrolled;
+
+  const languageTrigger = (
+    <Button
+      variant="ghost"
+      size="sm"
+      className={cn(
+        "gap-1 px-2",
+        onLight
+          ? "text-foreground hover:text-primary"
+          : "text-white hover:bg-white/10 hover:text-white",
+      )}
+      aria-label={dict.nav.language}
+      onClick={() => setLangOpen(true)}
+    >
+      {localeShort[locale]}
+      <ChevronDownIcon className="h-4 w-4" aria-hidden="true" />
+    </Button>
+  );
+  const mobileTrigger = (
+    <Button
+      variant="ghost"
+      size="icon"
+      className={cn(
+        "lg:hidden",
+        onLight ? "text-foreground" : "text-white hover:bg-white/10 hover:text-white",
+      )}
+      aria-label={dict.nav.menu}
+      onClick={() => setOpen(true)}
+    >
+      <MenuIcon className="h-6 w-6" aria-hidden="true" />
+    </Button>
+  );
 
   return (
     <header
@@ -89,7 +119,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                     )}
                   >
                     {navLabel(item.key)}
-                    <ChevronDown
+                    <ChevronDownIcon
                       className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180"
                       aria-hidden="true"
                     />
@@ -139,26 +169,8 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
         <div className="flex items-center gap-2">
           {/* Language switcher (lazy: Base UI dropdown chunk off the critical path) */}
-          <Suspense
-            fallback={
-              <Button
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  "gap-1 px-2",
-                  onLight
-                    ? "text-foreground hover:text-primary"
-                    : "text-white hover:bg-white/10 hover:text-white",
-                )}
-                aria-label={dict.nav.language}
-                onClick={() => setLangOpen(true)}
-              >
-                {localeShort[locale]}
-                <ChevronDown className="h-4 w-4" aria-hidden="true" />
-              </Button>
-            }
-          >
-            {langOpen && (
+          <Suspense fallback={languageTrigger}>
+            {langOpen ? (
               <LangSwitcher
                 locale={locale}
                 pathWithoutLocale={pathWithoutLocale}
@@ -166,6 +178,8 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                 dict={dict}
                 defaultOpen
               />
+            ) : (
+              languageTrigger
             )}
           </Suspense>
 
@@ -178,32 +192,21 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           </Button>
 
           {/* Mobile menu (lazy: Base UI sheet chunk off the critical path) */}
-          <Suspense
-            fallback={
-              <Button
-                variant="ghost"
-                size="icon"
-                className={cn(
-                  "lg:hidden",
-                  onLight ? "text-foreground" : "text-white hover:bg-white/10 hover:text-white",
-                )}
-                aria-label={dict.nav.menu}
-                onClick={() => setOpen(true)}
-              >
-                <Menu className="h-6 w-6" aria-hidden="true" />
-              </Button>
-            }
-          >
-            {open && <MobileNav
-              locale={locale}
-              dict={dict}
-              open={open}
-              onOpenChange={setOpen}
-              isActive={isActive}
-              navLabel={navLabel}
-              mainNav={mainNav}
-              onLight={onLight}
-            />}
+          <Suspense fallback={mobileTrigger}>
+            {open ? (
+              <MobileNav
+                locale={locale}
+                dict={dict}
+                open={open}
+                onOpenChange={setOpen}
+                isActive={isActive}
+                navLabel={navLabel}
+                mainNav={mainNav}
+                onLight={onLight}
+              />
+            ) : (
+              mobileTrigger
+            )}
           </Suspense>
         </div>
       </nav>

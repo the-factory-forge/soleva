@@ -2,10 +2,8 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/auth/app-shell";
 import { $getUser } from "@/lib/auth/functions";
-import { localeFromPathname } from "@/lib/i18n/pathname";
-import { SITE_NAME } from "@/lib/site/constants";
-import { getNavbarProps } from "@/lib/site/navigation";
 import { getDictionary } from "@/lib/i18n";
+import { localeFromPathname } from "@/lib/i18n/pathname";
 
 export const Route = createFileRoute("/_auth/$lang/app")({
   beforeLoad: async ({ location }) => {
@@ -13,7 +11,7 @@ export const Route = createFileRoute("/_auth/$lang/app")({
     const user = await $getUser();
     if (!user) {
       const locale = localeFromPathname(location.pathname);
-      throw redirect({ to: `/${locale}/login` });
+      throw redirect({ to: "/$lang/login", params: { lang: locale } });
     }
   },
   loader: async ({ location }) => {
@@ -26,10 +24,9 @@ export const Route = createFileRoute("/_auth/$lang/app")({
 
 function AppLayout() {
   const { locale, dict } = Route.useLoaderData();
-  const navbarProps = getNavbarProps(locale, dict);
 
   return (
-    <AppShell siteName={SITE_NAME} navbarProps={navbarProps} locale={locale} dict={dict}>
+    <AppShell locale={locale} dict={dict}>
       <Outlet />
     </AppShell>
   );

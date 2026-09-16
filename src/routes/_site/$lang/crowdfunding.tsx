@@ -1,16 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Clock, Megaphone, Sun, Users } from "lucide-react";
 
-import { PageHero } from "@/components/layout/page-hero";
 import { FadeUp as Reveal } from "@/components/animations-lazy";
+import { PageHero } from "@/components/layout/page-hero";
+import { CopyIbanButton } from "@/components/ui/copy-iban-button";
 import { CtaBand } from "@/components/ui/cta-band";
 import { CtaExternal } from "@/components/ui/cta-button";
-import { CopyIbanButton } from "@/components/ui/copy-iban-button";
 import { Lightbox } from "@/components/ui/lightbox";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { DONATION, IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
-import { type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n/config";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
@@ -22,10 +22,11 @@ export const Route = createFileRoute("/_site/$lang/crowdfunding")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
     return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.crowdfunding.title} | ${SITE_NAME}`,
         description: dict.meta.crowdfunding.description,
         path: "/crowdfunding",
@@ -178,7 +179,9 @@ function CrowdfundingPage() {
                     </dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
-                    <dt className="text-sm font-semibold text-muted-foreground">{iban.iban_label}</dt>
+                    <dt className="text-sm font-semibold text-muted-foreground">
+                      {iban.iban_label}
+                    </dt>
                     <dd className="flex items-center gap-2">
                       <span className="font-mono text-sm text-foreground">
                         {DONATION.ibanFormatted}
@@ -191,7 +194,9 @@ function CrowdfundingPage() {
                     </dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">
-                    <dt className="text-sm font-semibold text-muted-foreground">{iban.bic_label}</dt>
+                    <dt className="text-sm font-semibold text-muted-foreground">
+                      {iban.bic_label}
+                    </dt>
                     <dd className="font-mono text-sm text-foreground">{DONATION.bic}</dd>
                   </div>
                   <div className="grid grid-cols-2 gap-2 rounded-xl bg-muted p-4">

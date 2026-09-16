@@ -13,13 +13,11 @@ import { Navbar } from "@/components/navigation/navbar";
 import { authClient } from "@/lib/auth/auth-client";
 import { authQueryOptions } from "@/lib/auth/queries";
 import { t, type Dictionary } from "@/lib/i18n";
-import { locales, localeNames, localeShort, type Locale } from "@/lib/i18n/config";
+import { type Locale } from "@/lib/i18n/config";
 
 const SIDEBAR_COLLAPSE_KEY = "sidebar-collapsed";
 
 interface AppShellProps {
-  siteName: string;
-  navbarProps: Parameters<typeof Navbar>[0];
   locale: Locale;
   dict: Dictionary;
   children: React.ReactNode;
@@ -30,7 +28,7 @@ interface AppShellProps {
  * on the left. Used for the dashboard AND for site pages while signed in
  * (tc-website AuthenticatedShell pattern).
  */
-export function AppShell({ siteName, navbarProps, locale, dict, children }: AppShellProps) {
+export function AppShell({ locale, dict, children }: AppShellProps) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
@@ -60,13 +58,7 @@ export function AppShell({ siteName, navbarProps, locale, dict, children }: AppS
   return (
     <div className="flex min-h-svh flex-col bg-background">
       {/* Site navbar (top) - with theme/font switchers */}
-      <Navbar
-        {...navbarProps}
-        locale={locale}
-        locales={[...locales]}
-        localeNames={localeNames}
-        localeShort={localeShort}
-      />
+      <Navbar locale={locale} dict={dict} />
 
       <div className="flex flex-1">
         {/* User sidebar (left, collapsible) */}
@@ -96,7 +88,8 @@ export function AppShell({ siteName, navbarProps, locale, dict, children }: AppS
             )}
 
             <Link
-              to={`/${locale}/app`}
+              to="/$lang/app"
+              params={{ lang: locale }}
               title={t(dict, "auth.dashboard")}
               className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
             >
@@ -104,7 +97,8 @@ export function AppShell({ siteName, navbarProps, locale, dict, children }: AppS
               {!collapsed && t(dict, "auth.dashboard")}
             </Link>
             <Link
-              to={`/${locale}`}
+              to="/$lang"
+              params={{ lang: locale }}
               title={t(dict, "auth.backHome")}
               className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >

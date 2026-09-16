@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { blogPosts } from "@/lib/data/blog";
 import { getDictionary } from "@/lib/i18n";
@@ -17,10 +17,11 @@ export const Route = createFileRoute("/_site/$lang/blog")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
     return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.blog.title} | ${SITE_NAME}`,
         description: dict.meta.blog.description,
         path: "/blog",
@@ -58,16 +59,31 @@ function BlogPage() {
           <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
             {blogPosts.map((post, i) => (
               <Reveal key={post.slug} delay={i * 0.06}>
-                <article className="flex h-full flex-col rounded-2xl border border-border bg-card p-6">
+                <article
+                  id={post.slug}
+                  className="flex h-full flex-col rounded-2xl border border-border bg-card p-6"
+                >
                   <span className="inline-flex self-start rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                     {post.date}
                   </span>
-                  <h3 className="mt-4 font-heading text-lg font-semibold text-foreground">
+                  <h2 className="mt-4 font-heading text-lg font-semibold text-foreground">
                     {post.title[locale]}
-                  </h3>
+                  </h2>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {post.excerpt[locale]}
                   </p>
+                  {post.body && (
+                    <details className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                      <summary className="cursor-pointer font-semibold text-primary">
+                        {dict.common.learn_more}
+                      </summary>
+                      <div className="mt-3 space-y-3">
+                        {post.body[locale].map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </details>
+                  )}
                 </article>
               </Reveal>
             ))}

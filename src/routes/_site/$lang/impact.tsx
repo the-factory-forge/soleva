@@ -1,20 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GraduationCap, Home, Leaf, Recycle, Sun } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
+import { Lightbox } from "@/components/ui/lightbox";
 import { PillarSuggestions } from "@/components/ui/pillar-suggestions";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { IMAGES, SITE_NAME, SITE_URL, srcSetFor } from "@/lib/constants";
 import { habitatContent } from "@/lib/data/habitat";
 import { getServiceBySlug } from "@/lib/data/services";
+import { getDictionary } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
-import { getDictionary } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_site/$lang/impact")({
   loader: async ({ location }) => {
@@ -23,10 +24,11 @@ export const Route = createFileRoute("/_site/$lang/impact")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.impact.title} | ${SITE_NAME}`,
         description: dict.meta.impact.description,
         path: "/impact",
@@ -88,6 +90,18 @@ function ImpactPage() {
           <p className="mx-auto mt-12 max-w-3xl text-center text-sm text-muted-foreground italic">
             {t.disclaimer}
           </p>
+          <figure className="mx-auto mt-8 max-w-4xl">
+            <Lightbox src="/images/impact-comparison.jpg" alt={t.chart_title}>
+              <Image
+                src="/images/impact-comparison.jpg"
+                alt={t.chart_title}
+                width={2250}
+                height={1305}
+                className="h-auto w-full rounded-2xl"
+                sizes="100vw"
+              />
+            </Lightbox>
+          </figure>
         </div>
       </section>
 

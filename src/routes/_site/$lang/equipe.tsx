@@ -1,18 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { SVGProps } from "react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
-import {
-  IMAGES,
-  MENTOR_PHOTOS,
-  SITE_NAME,
-  SITE_URL,
-  TEAM_PHOTOS,
-} from "@/lib/constants";
+import { IMAGES, MENTOR_PHOTOS, SITE_NAME, SITE_URL, TEAM_PHOTOS } from "@/lib/constants";
 import { mentors, teamMembers } from "@/lib/data/team";
 import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
@@ -36,10 +30,11 @@ export const Route = createFileRoute("/_site/$lang/equipe")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
     return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.equipe.title} | ${SITE_NAME}`,
         description: dict.meta.equipe.description,
         path: "/equipe",
@@ -104,17 +99,17 @@ function TeamPage() {
                         {member.email}
                       </a>
                     ) : null}
-                  {member.linkedin ? (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 inline-flex items-center justify-center gap-1 text-xs text-primary hover:underline"
-                    >
-                      <LinkedinIcon className="h-3.5 w-3.5" aria-hidden="true" />
-                      LinkedIn
-                    </a>
-                  ) : null}
+                    {member.linkedin ? (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-flex items-center justify-center gap-1 text-xs text-primary hover:underline"
+                      >
+                        <LinkedinIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                        LinkedIn
+                      </a>
+                    ) : null}
                   </div>
                 </Reveal>
               );

@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ExternalLink } from "lucide-react";
 
+import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Image } from "@/components/ui/image";
-import { FadeUp as Reveal } from "@/components/animations-lazy";
 import { IMAGES, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { partnerCategories, type Partner } from "@/lib/data/partners";
 import { getDictionary } from "@/lib/i18n";
@@ -16,7 +16,15 @@ type LogoVariant = "technical" | "institutional" | "awards";
 
 // Replicates the home page partner logo-card markup, but links the whole card
 // to the partner URL when one is present (with an external-link indicator).
-function PartnerCard({ item, variant, label }: { item: Partner; variant: LogoVariant; label: string }) {
+function PartnerCard({
+  item,
+  variant,
+  label,
+}: {
+  item: Partner;
+  variant: LogoVariant;
+  label: string;
+}) {
   const outer =
     variant === "awards"
       ? "mx-auto flex max-w-xs flex-col items-center justify-center gap-3 rounded-2xl border border-secondary/30 bg-secondary/5 p-5"
@@ -71,10 +79,11 @@ export const Route = createFileRoute("/_site/$lang/partenaires")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
     return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.partenaires.title} | ${SITE_NAME}`,
         description: dict.meta.partenaires.description,
         path: "/partenaires",

@@ -4,7 +4,6 @@ import { PageHero } from "@/components/layout/page-hero";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { getDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
-import { withLocale } from "@/lib/navigation";
 import { buildMetadata } from "@/lib/seo/build-metadata";
 import { metadataToHead } from "@/lib/seo/head";
 
@@ -15,10 +14,11 @@ export const Route = createFileRoute("/_site/$lang/confidentialite")({
     return { locale, dict };
   },
   head: ({ loaderData }) => {
-    const dict = loaderData!.dict;
-    return     metadataToHead(
+    if (!loaderData) return {};
+    const dict = loaderData.dict;
+    return metadataToHead(
       buildMetadata({
-        locale: loaderData!.locale,
+        locale: loaderData.locale,
         title: `${dict.meta.privacy.title} | ${SITE_NAME}`,
         description: dict.meta.privacy.description,
         path: "/confidentialite",
@@ -38,10 +38,12 @@ function PrivacyPage() {
   const sections = [
     { title: p.controller_title, body: p.controller_body },
     { title: p.data_title, body: p.data_body },
+    { title: p.logs_title, body: p.logs_body },
     { title: p.purposes_title, body: p.purposes_body },
     { title: p.analytics_title, body: p.analytics_body },
     { title: p.retention_title, body: p.retention_body },
     { title: p.rights_title, body: p.rights_body },
+    { title: p.social_title, body: p.social_body },
   ];
 
   return (

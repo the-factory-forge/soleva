@@ -10,10 +10,7 @@
 // brief. `linkStatus` records whether a URL was verified ("ok"), is
 // known-broken ("broken"), or was not individually checked ("unverified").
 //
-// NOTE on logos: no logo URL was mapped for this page. The live page could not
-// be fetched here and the export image list carries no name->URL mapping, so
-// `logo` stays undefined and the cards render name-only.
-// TODO localize via scripts/scrape-soleva-org.mjs --media
+// Logos recovered from the live source; provenance in docs/migration-media-sources.json.
 
 import { PARTNER_LOGOS } from "@/lib/constants";
 import { type Locale } from "@/lib/i18n/config";
@@ -53,7 +50,12 @@ export const sponsorCategories: SponsorCategory[] = [
         linkStatus: "unverified",
         logo: PARTNER_LOGOS.csem,
       },
-      { name: "Loterie Romande", url: "https://www.loro.ch/", linkStatus: "ok" },
+      {
+        name: "Loterie Romande",
+        logo: "/images/logos/loterie-romande.webp",
+        url: "https://www.loro.ch/",
+        linkStatus: "ok",
+      },
       {
         name: "Studer Innotec",
         url: "https://studer-innotec.com/",
@@ -68,7 +70,7 @@ export const sponsorCategories: SponsorCategory[] = [
       },
       {
         name: "Energy Lab Winner 2022",
-        url: "https://energylab.site",
+        url: "https://www.linkedin.com/showcase/swiss-energy-lab/",
         linkStatus: "ok",
         logo: PARTNER_LOGOS.energyLab,
       },
@@ -84,18 +86,54 @@ export const sponsorCategories: SponsorCategory[] = [
         linkStatus: "ok",
         logo: PARTNER_LOGOS.epfl,
       },
-      { name: "Soutenu par Renens", url: "https://www.renens.ch", linkStatus: "ok" },
-      { name: "cork-shop", url: "https://cork-shop.com/", linkStatus: "ok" },
-      { name: "evshop", url: "https://evshop.eu/en/", linkStatus: "ok" },
+      {
+        name: "Soutenu par Renens",
+        logo: "/images/logos/renens.webp",
+        url: "https://www.renens.ch",
+        linkStatus: "ok",
+      },
+      {
+        name: "cork-shop",
+        logo: "/images/logos/cork-shop.webp",
+        url: "https://cork-shop.com/",
+        linkStatus: "ok",
+      },
+      {
+        name: "evshop",
+        logo: "/images/logos/evshop.webp",
+        url: "https://evshop.eu/en/",
+        linkStatus: "ok",
+      },
       {
         name: "Peugeot Grandjean Lausanne",
+        logo: "/images/logos/peugeot.png",
         url: "https://dealers.peugeot.ch/grandjean-mt-sur-lausanne/accueil/",
         linkStatus: "unverified",
       },
-      { name: "Swiss Graphics Services", url: "https://swissgraphicservices.com/en/", linkStatus: "ok" },
-      { name: "Shematic", url: "https://shematic.ch/", linkStatus: "ok" },
-      { name: "Tiny Stove", url: "https://www.tiny-stove.com/", linkStatus: "ok" },
-      { name: "vanmade", url: "https://www.vanmade.de/en/", linkStatus: "ok" },
+      {
+        name: "Swiss Graphics Services",
+        logo: "/images/logos/swiss-graphics.webp",
+        url: "https://swissgraphicservices.com/en/",
+        linkStatus: "ok",
+      },
+      {
+        name: "Shematic",
+        logo: "/images/logos/shematic.png",
+        url: "https://shematic.ch/",
+        linkStatus: "ok",
+      },
+      {
+        name: "Tiny Stove",
+        logo: "/images/logos/tiny-stove.webp",
+        url: "https://www.tiny-stove.com/",
+        linkStatus: "ok",
+      },
+      {
+        name: "vanmade",
+        logo: "/images/logos/vanmade.webp",
+        url: "https://www.vanmade.de/en/",
+        linkStatus: "ok",
+      },
     ],
   },
   {
@@ -103,20 +141,32 @@ export const sponsorCategories: SponsorCategory[] = [
     items: [
       {
         name: "Energiegenossenschaft Schweiz",
+        logo: "/images/logos/energiegenossenschaft.webp",
         url: "https://www.energiegenossenschaft.ch/wp2/",
         linkStatus: "unverified",
       },
-      { name: "iai heig-vd", url: "https://heig-vd.ch/", linkStatus: "ok" },
-      { name: "CSM" },
-      { name: "BioLite" },
+      {
+        name: "iai heig-vd",
+        logo: "/images/logos/heig-vd.webp",
+        url: "https://heig-vd.ch/",
+        linkStatus: "ok",
+      },
+      { name: "CSM", logo: "/images/logos/csm.webp" },
+      { name: "BioLite", logo: "/images/logos/biolite.webp" },
     ],
   },
   {
     key: "media",
     items: [
-      { name: "Megaphone", url: "https://megaphone.info/", linkStatus: "ok" },
+      {
+        name: "Megaphone",
+        logo: "/images/logos/megaphone.png",
+        url: "https://megaphone.info/",
+        linkStatus: "ok",
+      },
       {
         name: "Justin Burks Design",
+        logo: "/images/logos/justin-burks.png",
         url: "https://www.birdhousebranding.com/",
         linkStatus: "broken",
       },
