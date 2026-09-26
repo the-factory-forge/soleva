@@ -4,7 +4,7 @@
 
 - `vpr build`: Only for build/bundler issues or verifying production output
 - `vpr lint`: Covers both type-aware linting and type checking. No need to run `tsc --noEmit`
-- `vpr dev` runs indefinitely in watch mode
+- `vpr dev` runs through Portless; use its printed URL and preserve the unique package name
 - `vpr db` for Drizzle Kit commands (e.g. `vpr db generate` to generate a migration)
 
 Don't build after every change. If lint passes; assume changes work.

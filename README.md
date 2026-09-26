@@ -1,6 +1,28 @@
 # Soleva
 
-> **Production status** : **validated 28.08.2026** (visual parity, video hero autoplay, lightbox galleries, i18n fr/en/de/it, responsive). **Merged to `main` (`7f2c3c4`, pushed)**. Lighthouse mobile: **73 Performance / 96 Accessibility / 100 Best Practices / 100 SEO / 3-3 Agentic Browsing** (video LCP accepted by decision). Remaining: redeploy the current build to `soleva.the-corner.io` (prod was a 2-week-old build, 43→~73 expected), verify Range support on the prod server (Safari/Firefox video), client data (email/IDE).
+## September 2026 template sync
+
+The project is reconciled with template `b81b90ec0c58d5dc6cd57d383864cb811464f4b4`.
+See [the sync record and VPS environment actions](docs/template-sync.md#2026-09-26-bulk-sync).
+Use `vp install` and `vpr dev` with the pinned toolchain. Leave `VITE_BASE_URL`
+unset locally so Portless supplies it; set the actual public HTTPS origin explicitly
+at build time and runtime on the VPS. Do not set `PORTLESS_URL` on the VPS.
+`ENV.SITE_NAME` names infrastructure; the site's public display name remains unchanged.
+
+The owner will reset this site's local and VPS databases. This release replaces
+old migrations with a fresh baseline, including the site's current modules.
+Reset the complete site database and its Drizzle migration history before deploying
+this baseline; do not apply it over the old schema. Then run `vpr db:migrate`
+(or let the Docker entrypoint apply it). The empty database receives
+`admin@example.com` / `admin`; change those credentials during setup.
+The reset has not been performed by the sync agent. This instruction supersedes
+older incremental-migration notes below; future changes preserve applied migrations.
+The shared auth flow has Google OAuth, password recovery and administrator-managed
+employees, with no public signup. Private credentials are loaded at runtime through
+Varlock's `init-only` integration, matching the Docker build/start boundary.
+
+
+> **Historical validation (site is not live; owner confirmed 2026-09-26)** : **validated 28.08.2026** (visual parity, video hero autoplay, lightbox galleries, i18n fr/en/de/it, responsive). **Merged to `main` (`7f2c3c4`, pushed)**. Lighthouse mobile: **73 Performance / 96 Accessibility / 100 Best Practices / 100 SEO / 3-3 Agentic Browsing** (video LCP accepted by decision). Remaining: redeploy the current build to `soleva.the-corner.io` (prod was a 2-week-old build, 43→~73 expected), verify Range support on the prod server (Safari/Firefox video), client data (email/IDE).
 
 Website of **Soleva** - ASSOCIATION SOLEVA (Renens VD, Suisse). Soleva transforms an
 old van into a solar-powered electric camper: a Swiss demonstrator of sustainable
@@ -23,7 +45,7 @@ Phase 3.16 of the factory roadmap).
 
 ```sh
 vp install        # also generates Varlock environment types
-vpr dev           # http://localhost:3000
+vpr dev           # use the Portless URL printed in the terminal
 vpr lint          # lint + type-check
 vpr test          # unit tests
 vpr test:e2e      # production build + browser checks on port 3100
@@ -78,7 +100,7 @@ Status of the SEO/perf adaptation (branch `seo-adaptation`).
 | --- | ---------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | Runtime compression (br/gzip, skips <1KB)                  | ✅     | `server/plugins/compression.ts`                                                                                                                         |
 | 2   | Cache `public, max-age=604800` on `/images/**`             | ✅     | `vite.config.ts` `routeRules`                                                                                                                           |
-| 3   | Docker build skips root `prepare` (pnpm 11 verify-deps)    | ✅     | `Dockerfile` `pnpm_config_ignore_scripts=true`                                                                                                          |
+| 3   | Docker build skips root `prepare` (pnpm 12 verify-deps)    | ✅     | `Dockerfile` `pnpm_config_ignore_scripts=true`                                                                                                          |
 | 4   | Font preload (montserrat latin 400 woff2)                  | ✅     | `src/routes/__root.tsx`                                                                                                                                 |
 | 5   | `content-visibility:auto` on below-fold sections           | ✅     | 37 sections, heroes excluded                                                                                                                            |
 | 6   | Lazy images (default `loading=lazy`)                       | ✅     | `src/components/ui/image.tsx` shim                                                                                                                      |

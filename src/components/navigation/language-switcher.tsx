@@ -19,6 +19,7 @@ export interface LanguageSwitcherProps {
   localeShort: Record<string, string>;
   ariaLabel?: string;
   className?: string;
+  search?: string;
 }
 
 export function LanguageSwitcher({
@@ -28,6 +29,7 @@ export function LanguageSwitcher({
   localeShort,
   ariaLabel = "Language",
   className,
+  search = "",
 }: LanguageSwitcherProps) {
   const pathname = usePathname();
   const pathnameWithoutLocale = pathname.replace(new RegExp(`^/(${locales.join("|")})`), "") || "";
@@ -47,7 +49,7 @@ export function LanguageSwitcher({
       <DropdownMenuContent align="end" className="w-40">
         {locales.map((l) => (
           <DropdownMenuItem key={l} asChild className="justify-between">
-            <Link href={`/${l}${pathnameWithoutLocale}`}>
+            <Link href={`/${l}${pathnameWithoutLocale}${search}`}>
               {localeNames[l] ?? l}
               {l === locale && <Check className="h-4 w-4 text-secondary" aria-hidden="true" />}
             </Link>

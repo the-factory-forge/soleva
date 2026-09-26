@@ -5,13 +5,13 @@
 #   ARG VITE_BASE_URL - required for correct canonical/OG URLs
 
 FROM node:24-alpine AS deps
-RUN corepack enable && corepack prepare pnpm@12.3.4 --activate
+RUN corepack enable && corepack prepare pnpm@12.6.0 --activate
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json .npmrc ./
 RUN pnpm install --ignore-scripts --frozen-lockfile
 
 FROM node:24-alpine AS build
-RUN corepack enable && corepack prepare pnpm@12.3.4 --activate
+RUN corepack enable && corepack prepare pnpm@12.6.0 --activate
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

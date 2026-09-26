@@ -1,5 +1,23 @@
 # Agent Guidelines
 
+## Template foundation updates
+
+Use the current Forge template toolchain and auth flow. Older local implementations
+must be migrated, while customer content, styles, integrations and migration history
+remain site-owned. Public-only sites keep authentication absent.
+Read `../forge-spec/AGENTS.md` and its `the-forge`, `template-stack` and `site-template`
+specs before implementation. See `docs/template-sync.md` for this site's history.
+
+- Run `vpr dev` through Portless; keep the unique customer package name and use its printed URL.
+- Leave local `VITE_BASE_URL` overrides unset so `PORTLESS_URL` supplies the development origin.
+  Deployment still sets the confirmed public origin. Never read local env files;
+  validate with `vp exec varlock load --agent`.
+- Runtime tests keep port 3100. Direct checks use
+  `VITE_BASE_URL=http://localhost:3100 PORTLESS=0 vpr dev --port 3100 --strictPort`.
+  Never stop another site's server or proxy or occupy port 3000.
+- `ENV.SITE_NAME` is an infrastructure slug; public display-name constants stay customer-owned.
+
+
 ## Essentials
 
 - Stack: TypeScript + React (TanStack Start), with Drizzle ORM, shadcn/ui, and Better Auth.
@@ -9,7 +27,6 @@
 - Use `lucide-react` for UI icons (use `Icon` suffix, e.g. `import { Loader2Icon } from "lucide-react"`); for brand icons use `@icons-pack/react-simple-icons` (e.g. `SiGithub`).
 - Don't build after every little change. If `vpr lint` passes; assume changes work.
 - For running scripts, use `vpr`, which is a shorthand for `vp run`.
-- Port convention: port 3000 = Elias' local dev server. For runtime tests, serve on `PORT=3100` - never occupy 3000.
 
 ## Session learnings (28.08.2026 - validated)
 
@@ -89,7 +106,7 @@ share it via `context.queryClient`, components via hooks.
 Rules:
 
 - **queryOptions factory per domain**: one `src/lib/<domain>/queries.ts` exporting
-  `queryOptions` factories (e.g. `authQueryOptions()` in `src/lib/auth/queries.ts`).
+  `queryOptions` factories (e.g. `authQueryOptions()` in `src/intranet/auth/queries.ts`).
   Server data comes from server functions (`src/lib/<domain>/functions.ts`).
 - **Read navigation-critical data in loaders** (SSR + client): `await context.queryClient.query(options())`.
 - **Read in components**: `useQuery` / `useSuspenseQuery` with the same options object
@@ -100,11 +117,10 @@ Rules:
 
 ## Auth routes are localized
 
-Auth routes live under `/_auth/$lang` (pathless `_auth` + locale layout):
-`/fr/login`, `/en/signup`, `/de/app`... They render WITHOUT the site navbar
-(full-screen `AuthScreen` for login/signup, `AppShell` = site navbar on top +
-user sidebar on the left for the dashboard). The site navbar login link points
-to `/{locale}/login`. Guards redirect with the locale preserved.
+The shared intranet lives under `src/intranet`: `/{locale}/login`, password recovery
+and `/{locale}/intranet`. Public signup is disabled; administrators manage employees.
+The public footer links to the intranet only when configured. Preserve Soleva's
+light-only public shell and inline dictionaries; use the template auth/session flow.
 
 ## Template adaptations to preserve
 
@@ -112,5 +128,5 @@ to `/{locale}/login`. Guards redirect with the locale preserved.
 - Keep inline dictionary loader data: the out-of-stream approach was measured and reverted here.
 - Preserve per-action Ads conversion labels, deferred consent loading, site-owned registry skips, and all four locales.
 - Keep `prepare` (Vite+ hooks and Varlock codegen). Docker installs with `--ignore-scripts`, includes `.env.schema`, and builds with `pnpm_config_ignore_scripts=true`. The entrypoint adds local executables to PATH before running Varlock. Keep the Vite integration in `init-only` mode: `resolved-env` overrides runtime auth/DB values with build-time values.
-- Preserve applied migrations. The nullable legacy `account.issuer` field retains historical data across the Better Auth upgrade.
+- The September 2026 sync uses a fresh database baseline by explicit owner instruction. The owner resets local and VPS databases before applying it; never apply it over the previous schema. Subsequent releases preserve applied migrations.
 - Record template reconciliation decisions and verified revisions in `docs/template-sync.md`.

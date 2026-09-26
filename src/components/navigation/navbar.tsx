@@ -18,7 +18,15 @@ const LangSwitcher = lazy(() =>
 );
 const MobileNav = lazy(() => import("./mobile-nav").then((m) => ({ default: m.MobileNav })));
 
-export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function Navbar({
+  locale,
+  dict,
+  embedded = false,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  embedded?: boolean;
+}) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -44,7 +52,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
   // Over the dark hero the bar is transparent → use light text; once scrolled onto
   // the white background → use dark text.
-  const onLight = scrolled;
+  const onLight = scrolled || embedded;
 
   const languageTrigger = (
     <Button
@@ -81,8 +89,9 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-all duration-300",
-        scrolled
+        "z-40 transition-all duration-300",
+        embedded ? "relative" : "fixed inset-x-0 top-0",
+        onLight
           ? "border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
           : "bg-transparent",
       )}

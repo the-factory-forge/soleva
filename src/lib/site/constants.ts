@@ -23,3 +23,6 @@ export const SOCIALS = {
   facebook: "https://facebook.com/solevavan",
   youtube: "https://youtube.com/channel/UCmw0pPduN1XgIyguDNtcv0w",
 } as const;
+
+export const SITE_LOGO = "/images/soleva-logo.webp";
+export const SITE_LOGO_MARK = SITE_LOGO;

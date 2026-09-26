@@ -1,0 +1,234 @@
+"use client";
+import { Avatar } from "@base-ui/react/avatar";
+import { ChevronLeftIcon, ChevronRightIcon, ShieldCheckIcon, ShieldOffIcon } from "lucide-react";
+
+import {
+  EmployeeActions,
+  type EmployeeActionCallbacks,
+} from "#/intranet/components/forge/plugins/employees/employee-actions.tsx";
+import { EmployeeCreateDialog } from "#/intranet/components/forge/plugins/employees/employee-create-dialog.tsx";
+import {
+  employeeLabels,
+  type EmployeeLabels,
+} from "#/intranet/components/forge/plugins/employees/labels.ts";
+import {
+  EMPLOYEE_PAGE_SIZE,
+  isEmployeeAdmin,
+  type CreateEmployee,
+  type Employee,
+} from "#/intranet/components/forge/plugins/employees/schema.ts";
+import { outlineButtonClass } from "#/intranet/components/forge/plugins/employees/styles.ts";
+import { cn } from "#/intranet/forge/utils.ts";
+export { EmployeeCreateDialog } from "#/intranet/components/forge/plugins/employees/employee-create-dialog.tsx";
+export type {
+  Employee,
+  CreateEmployee,
+  UpdateEmployee,
+  VerificationResult,
+} from "#/intranet/components/forge/plugins/employees/schema.ts";
+export type { EmployeeLabels } from "#/intranet/components/forge/plugins/employees/labels.ts";
+export interface EmployeesPageProps extends EmployeeActionCallbacks {
+  employees: readonly Employee[];
+  currentUserId: string;
+  /** Role from the host's authenticated session. Missing or non-admin roles render nothing. */
+  currentUserRole: string | null | undefined;
+  total: number;
+  offset: number;
+  onOffsetChange: (offset: number) => void;
+  onCreate: (values: CreateEmployee) => Promise<void>;
+  loading?: boolean;
+  error?: boolean;
+  labels?: Partial<EmployeeLabels>;
+  className?: string;
+}
+export function EmployeesPage({
+  employees,
+  currentUserId,
+  currentUserRole,
+  total,
+  offset,
+  onOffsetChange,
+  onCreate,
+  loading = false,
+  error = false,
+  onUpdate,
+  onDelete,
+  onSendVerification,
+  labels: overrides,
+  className,
+}: EmployeesPageProps) {
+  if (!isEmployeeAdmin(currentUserRole)) return null;
+  const labels = { ...employeeLabels, ...overrides };
+  return (
+    <section
+      className={cn(
+        "mx-auto w-full max-w-7xl min-w-0 rounded-xl border border-border bg-card py-6 text-card-foreground",
+        className,
+      )}
+      aria-label={labels.title}
+    >
+      <header className="flex flex-wrap items-center justify-between gap-4 px-6 pb-6">
+        <h1 className="font-sans text-base font-semibold">{labels.title}</h1>
+        <EmployeeCreateDialog
+          currentUserRole={currentUserRole}
+          onCreate={onCreate}
+          labels={labels}
+        />
+      </header>
+      <div className="px-6">
+        {loading ? (
+          <output>{labels.loading}</output>
+        ) : error ? (
+          <p role="alert" className="text-destructive">
+            {labels.error}
+          </p>
+        ) : (
+          <>
+            <div className="min-w-0 overflow-x-auto">
+              <table className="w-full caption-bottom text-sm">
+                <thead className="[&_tr]:border-b">
+                  <tr className="border-b border-border transition-colors hover:bg-muted/50">
+                    <th
+                      scope="col"
+                      className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap"
+                    >
+                      {labels.name}
+                    </th>
+                    <th
+                      scope="col"
+                      className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap"
+                    >
+                      {labels.email}
+                    </th>
+                    <th
+                      scope="col"
+                      className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap"
+                    >
+                      {labels.role}
+                    </th>
+                    <th
+                      scope="col"
+                      className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap"
+                    >
+                      {labels.status}
+                    </th>
+                    <th
+                      scope="col"
+                      className="sticky right-0 z-10 bg-card p-2 text-right align-middle whitespace-nowrap"
+                    >
+                      {labels.actions}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="[&_tr:last-child]:border-0">
+                  {employees.map((employee) => (
+                    <tr key={employee.id} className="border-b border-border hover:bg-muted/50">
+                      <td aria-label={employee.name} className="p-2 align-middle whitespace-nowrap">
+                        <div className="flex items-center gap-3">
+                          <Avatar.Root className="relative flex size-8 shrink-0 overflow-hidden rounded-full bg-muted">
+                            <Avatar.Image
+                              className="size-full object-cover"
+                              src={employee.image ?? undefined}
+                              alt=""
+                            />
+                            <Avatar.Fallback className="flex size-full items-center justify-center text-xs">
+                              {employee.name
+                                .trim()
+                                .split(/\s+/)
+                                .slice(0, 2)
+                                .map((part) => part.charAt(0))
+                                .join("")
+                                .toUpperCase()}
+                            </Avatar.Fallback>
+                          </Avatar.Root>
+                          <span className="max-w-48 truncate font-medium" title={employee.name}>
+                            {employee.name}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="p-2 align-middle whitespace-nowrap">
+                        <div className="flex items-center gap-3">
+                          <span
+                            role="img"
+                            aria-label={
+                              employee.emailVerified ? labels.verified : labels.unverified
+                            }
+                            title={employee.emailVerified ? labels.verified : labels.unverified}
+                            className={
+                              employee.emailVerified
+                                ? "text-green-600 dark:text-green-400"
+                                : "text-muted-foreground"
+                            }
+                          >
+                            {employee.emailVerified ? (
+                              <ShieldCheckIcon className="size-4" aria-hidden="true" />
+                            ) : (
+                              <ShieldOffIcon className="size-4" aria-hidden="true" />
+                            )}
+                          </span>
+                          <span className="max-w-72 truncate" title={employee.email}>
+                            {employee.email}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="p-2 align-middle whitespace-nowrap">
+                        {isEmployeeAdmin(employee.role) ? labels.roleAdmin : labels.roleUser}
+                      </td>
+                      <td className="p-2 align-middle whitespace-nowrap">
+                        {employee.banned ? labels.disabled : labels.active}
+                      </td>
+                      <td className="sticky right-0 z-10 bg-card p-2 text-right align-middle whitespace-nowrap">
+                        <EmployeeActions
+                          employee={employee}
+                          currentUserId={currentUserId}
+                          labels={labels}
+                          onUpdate={onUpdate}
+                          onDelete={onDelete}
+                          onSendVerification={onSendVerification}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                  {employees.length === 0 && (
+                    <tr className="border-b border-border transition-colors hover:bg-muted/50">
+                      <td colSpan={5} className="p-2">
+                        {labels.empty}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            <footer className="mt-5 flex flex-wrap items-center justify-end gap-3">
+              <span className="text-sm text-muted-foreground">
+                {total} {labels.total}
+              </span>
+              <button
+                type="button"
+                className={outlineButtonClass}
+                disabled={offset === 0}
+                onClick={() => onOffsetChange(offset - EMPLOYEE_PAGE_SIZE)}
+                aria-label={labels.previous}
+              >
+                <ChevronLeftIcon aria-hidden="true" />
+              </button>
+              <span className="min-w-9 text-center text-sm text-muted-foreground tabular-nums">
+                {offset / EMPLOYEE_PAGE_SIZE + 1}/
+                {Math.max(1, Math.ceil(total / EMPLOYEE_PAGE_SIZE))}
+              </span>
+              <button
+                type="button"
+                className={outlineButtonClass}
+                disabled={offset + EMPLOYEE_PAGE_SIZE >= total}
+                onClick={() => onOffsetChange(offset + EMPLOYEE_PAGE_SIZE)}
+                aria-label={labels.next}
+              >
+                <ChevronRightIcon aria-hidden="true" />
+              </button>
+            </footer>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}

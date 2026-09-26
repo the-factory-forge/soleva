@@ -1,15 +1,8 @@
-import {
-  CookieBanner as RegistryCookieBanner,
-  type ConsentState,
-} from "#/components/forge/layouts/cookie-banner";
-import { loadGtag } from "#/lib/analytics";
+import { CookieBanner as RegistryCookieBanner } from "#/components/forge/layouts/cookie-banner";
+import { applyCookieConsent } from "#/lib/analytics";
 import { COOKIE_CONSENT_KEY } from "#/lib/constants";
 import type { Dictionary, Locale } from "#/lib/i18n";
 import { withLocale } from "#/lib/navigation";
-
-function loadConsentedAnalytics(state: ConsentState) {
-  if (state.analytics || state.marketing) loadGtag();
-}
 
 interface CookieBannerProps {
   locale: Locale;
@@ -43,7 +36,7 @@ export function CookieBanner({
       marketingDescription={dict.cookies.marketingDescription}
       showAnalytics={showAnalytics}
       showMarketing={showMarketing}
-      onConsentChange={loadConsentedAnalytics}
+      onConsentChange={applyCookieConsent}
     />
   );
 }

@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -194,32 +196,23 @@ export default defineConfig(({ mode }) => ({
           // start/entrypoint use `varlock run`; read validated runtime settings.
           // resolved-env would freeze optional auth to its build-time state.
           varlockVitePlugin({ ssrInjectMode: "init-only" }),
-          tanstackStart(),
-          // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
-          nitro({
-            // Runtime compression lives in server/plugins/compression.ts (nitro picks
-            // up the directory via serverDir).
-            serverDir: "server",
-            // Pre-compress .output/public assets (gzip+brotli) at build time.
-            compressPublicAssets: true,
-            // Static images are immutable-ish (hash-less names, but rarely change):
-            // 7-day browser cache avoids re-downloads across pages/sessions.
-            routeRules: {
-              "/images/**": {
-                headers: {
-                  "cache-control": "public, max-age=604800",
-                  "access-control-allow-origin": "*",
-                },
+          tanstackStart({
+            router: {
+              routesDirectory: ".",
+              virtualRouteConfig: {
+                type: "root",
+                file: "routes/__root.tsx",
+                children: [
+                  { type: "physical", directory: "routes", pathPrefix: "" },
+                  ...(existsSync(new URL("./src/intranet/routes", import.meta.url))
+                    ? [{ type: "physical" as const, directory: "intranet/routes", pathPrefix: "" }]
+                    : []),
+                ],
               },
-              "/assets/**": {
-                headers: {
-                  "cache-control": "public, max-age=31536000, immutable",
-                  "access-control-allow-origin": "*",
-                },
-              },
-              "/fonts/**": { headers: { "access-control-allow-origin": "*" } },
             },
           }),
+          // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
+          nitro(),
           viteReact({ compiler: true }),
           tailwindcss(),
         ],

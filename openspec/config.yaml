@@ -1,0 +1,30 @@
+schema: spec-driven
+
+context: |
+  This application uses The Forge's forge-template foundation: TanStack Start,
+  React, Tailwind, shadcn source, localized public pages and an optional intranet.
+  Read AGENTS.md and ../forge-spec/AGENTS.md, then the-forge, site-template and
+  relevant registry-distribution/shared-ui specs in ../forge-spec/openspec/specs/.
+  For CSS/Tailwind work, read shared-ui and reuse existing semantic tokens,
+  typography, spacing, radii and layout utilities with Tailwind CSS 4.
+  If the sibling is absent, use the supplied checkout or canonical repository:
+  https://github.com/the-factory-forge/forge-spec. Report unavailable context.
+  The host owns routes, dictionaries, metadata, auth, queries and configuration.
+  Preserve adapters when installing @forge items through shadcn; inspect diffs
+  and relocate intranet files into src/intranet as described in the local guide.
+  Public pages work without auth/database credentials. Intranet code stays
+  removable. Authorize employee operations server-side and preserve migrations.
+  Use semantic theme tokens. Read .env.schema, never secret env files; use ENV
+  from varlock/env and validate with vp exec varlock load --agent when needed.
+  Read local topic/testing guides and current scripts. Use vpr (vp run) scripts;
+  runtime checks use port 3100. Keep customer-specific behavior in the host.
+  Use this root for application-only changes and forge-spec for shared contracts,
+  naming affected repositories without duplicating change proposals.
+
+rules:
+  proposal:
+    - Identify affected routes, integrations and registry contracts; state customer scope.
+  design:
+    - Preserve host adapters, public-only behavior, locale/SSR and server boundaries.
+  tasks:
+    - Include relevant lint/tests and consumer journeys, using disposable local data.

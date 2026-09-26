@@ -12,6 +12,8 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { createMiddleware } from "@tanstack/react-start";
+import { evlogErrorHandler } from "evlog/nitro/v3";
 
 import { Toaster } from "@/components/ui/toast";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
@@ -46,6 +48,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       });
     }
   },
+  server: { middleware: [createMiddleware().server(evlogErrorHandler)] },
   head: () => ({
     meta: [
       {
@@ -90,24 +93,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         type: "application/ld+json",
         children: JSON.stringify(websiteJsonLd),
-      },
-      {
-        // Consent Mode v2 - default-deny before anything loads. The Google tag
-        // (gtag.js) itself is NOT loaded here: it is injected dynamically by
-        // loadGtag() (src/lib/analytics.ts) only after the visitor accepts in
-        // the cookie banner (nLPD - nothing loads before consent).
-        children: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          window.gtag = window.gtag || gtag;
-          gtag('consent', 'default', {
-            ad_storage: 'denied',
-            analytics_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            wait_for_update: 500,
-          });
-        `,
       },
     ],
   }),

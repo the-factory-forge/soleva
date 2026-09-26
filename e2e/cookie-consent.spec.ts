@@ -6,7 +6,13 @@ test("cookie preferences persist, cancel safely and gate analytics", async ({ pa
   const tags: string[] = [];
   await page.route("**/*", (route) => {
     const url = new URL(route.request().url());
-    if (url.hostname === "www.googletagmanager.com") tags.push(url.href);
+    if (url.hostname === "www.googletagmanager.com") {
+      tags.push(url.href);
+      return route.fulfill({
+        contentType: "application/javascript",
+        body: "/* local consent test */",
+      });
+    }
     return url.hostname === "localhost" ? route.continue() : route.abort();
   });
   const savedConsent = () =>
@@ -41,10 +47,10 @@ test("cookie preferences persist, cancel safely and gate analytics", async ({ pa
   await confirm();
   await expect(cookies).toBeHidden();
   expect(await savedConsent()).toEqual({ necessary: true, analytics: true, marketing: false });
-  await expect.poll(() => tags.length).toBe(2);
+  await expect.poll(() => tags.length).toBe(1);
 
   await page.reload();
-  await expect.poll(() => tags.length).toBe(4);
+  await expect.poll(() => tags.length).toBe(2);
   await expect(cookies).toBeHidden();
   await reopen();
   await customize();
@@ -74,10 +80,10 @@ test("cookie preferences persist, cancel safely and gate analytics", async ({ pa
   await page.reload();
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(cookies).toBeHidden();
-  expect(tags).toHaveLength(4);
+  expect(tags).toHaveLength(2);
 
   await reopen();
   await cookies.getByRole("button", { name: fr.cookies.acceptAll, exact: true }).click();
   expect(await savedConsent()).toEqual({ necessary: true, analytics: true, marketing: true });
-  await expect.poll(() => tags.length).toBe(6);
+  await expect.poll(() => tags.length).toBe(3);
 });

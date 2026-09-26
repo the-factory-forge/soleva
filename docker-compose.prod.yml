@@ -4,7 +4,7 @@
 
 services:
   app:
-    container_name: ${CONTAINER_NAME:-factory-template}
+    container_name: ${SITE_NAME:-${CONTAINER_NAME:-soleva}}
     build:
       context: .
       dockerfile: Dockerfile

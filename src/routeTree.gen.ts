@@ -10,17 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as AuthRouteRouteImport } from './intranet/routes/_auth/route'
+import { Route as GuestRouteRouteImport } from './intranet/routes/_guest/route'
 import { Route as SiteRouteImport } from './routes/_site'
-import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
-import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as AuthLangRouteImport } from './routes/_auth/$lang'
+import { Route as LlmsChar91DotChar93txtRouteImport } from './routes/llms[.]txt'
+import { Route as RobotsChar91DotChar93txtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapChar91DotChar93xmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AuthLangRouteImport } from './intranet/routes/_auth/$lang'
+import { Route as GuestAppRouteImport } from './intranet/routes/_guest/app'
+import { Route as GuestIntranetRouteImport } from './intranet/routes/_guest/intranet'
+import { Route as GuestLoginRouteImport } from './intranet/routes/_guest/login'
 import { Route as SiteLangRouteImport } from './routes/_site/$lang'
-import { Route as ApiDataDotjsonRouteImport } from './routes/api/data[.]json'
-import { Route as AuthLangAppRouteRouteImport } from './routes/_auth/$lang/app/route'
-import { Route as AuthLangLoginRouteImport } from './routes/_auth/$lang/login'
-import { Route as AuthLangSignupRouteImport } from './routes/_auth/$lang/signup'
+import { Route as ApiDataChar91DotChar93jsonRouteImport } from './routes/api/data[.]json'
+import { Route as AuthLangAccessDeniedRouteImport } from './intranet/routes/_auth/$lang/access-denied'
+import { Route as AuthLangAppRouteImport } from './intranet/routes/_auth/$lang/app'
+import { Route as AuthLangChangePasswordRouteImport } from './intranet/routes/_auth/$lang/change-password'
+import { Route as AuthLangForgotPasswordRouteImport } from './intranet/routes/_auth/$lang/forgot-password'
+import { Route as AuthLangIntranetRouteRouteImport } from './intranet/routes/_auth/$lang/intranet/route'
+import { Route as AuthLangLoginRouteImport } from './intranet/routes/_auth/$lang/login'
+import { Route as AuthLangResetPasswordRouteImport } from './intranet/routes/_auth/$lang/reset-password'
 import { Route as SiteLangIndexRouteImport } from './routes/_site/$lang/index'
 import { Route as SiteLangSplatRouteImport } from './routes/_site/$lang/$'
 import { Route as SiteLangAProposRouteImport } from './routes/_site/$lang/a-propos'
@@ -40,10 +48,12 @@ import { Route as SiteLangPresseRouteImport } from './routes/_site/$lang/presse'
 import { Route as SiteLangSoutenirRouteImport } from './routes/_site/$lang/soutenir'
 import { Route as SiteLangSponsoringRouteImport } from './routes/_site/$lang/sponsoring'
 import { Route as SiteLangVoyageRouteImport } from './routes/_site/$lang/voyage'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as AuthLangAppIndexRouteImport } from './routes/_auth/$lang/app/index'
+import { Route as ApiAuthSplatRouteImport } from './intranet/routes/api/auth/$'
+import { Route as AuthLangIntranetIndexRouteImport } from './intranet/routes/_auth/$lang/intranet/index'
 import { Route as SiteLangLeVanIndexRouteImport } from './routes/_site/$lang/le-van/index'
 import { Route as SiteLangLeVanSlugRouteImport } from './routes/_site/$lang/le-van/$slug'
+import { Route as AuthLangIntranetEmployeesIndexRouteImport } from './intranet/routes/_auth/$lang/intranet/employees/index'
+import { Route as AuthLangIntranetEmployeesNewRouteImport } from './intranet/routes/_auth/$lang/intranet/employees/new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,43 +64,85 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/_auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuestRouteRoute = GuestRouteRouteImport.update({
+  id: '/_guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+const LlmsChar91DotChar93txtRoute = LlmsChar91DotChar93txtRouteImport.update({
   id: '/llms.txt',
   path: '/llms.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
-  id: '/robots.txt',
-  path: '/robots.txt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const RobotsChar91DotChar93txtRoute =
+  RobotsChar91DotChar93txtRouteImport.update({
+    id: '/robots.txt',
+    path: '/robots.txt',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SitemapChar91DotChar93xmlRoute =
+  SitemapChar91DotChar93xmlRouteImport.update({
+    id: '/sitemap.xml',
+    path: '/sitemap.xml',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthLangRoute = AuthLangRouteImport.update({
   id: '/$lang',
   path: '/$lang',
   getParentRoute: () => AuthRouteRoute,
+} as any)
+const GuestAppRoute = GuestAppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => GuestRouteRoute,
+} as any)
+const GuestIntranetRoute = GuestIntranetRouteImport.update({
+  id: '/intranet',
+  path: '/intranet',
+  getParentRoute: () => GuestRouteRoute,
+} as any)
+const GuestLoginRoute = GuestLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => GuestRouteRoute,
 } as any)
 const SiteLangRoute = SiteLangRouteImport.update({
   id: '/$lang',
   path: '/$lang',
   getParentRoute: () => SiteRoute,
 } as any)
-const ApiDataDotjsonRoute = ApiDataDotjsonRouteImport.update({
-  id: '/api/data.json',
-  path: '/api/data.json',
-  getParentRoute: () => rootRouteImport,
+const ApiDataChar91DotChar93jsonRoute =
+  ApiDataChar91DotChar93jsonRouteImport.update({
+    id: '/api/data.json',
+    path: '/api/data.json',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthLangAccessDeniedRoute = AuthLangAccessDeniedRouteImport.update({
+  id: '/access-denied',
+  path: '/access-denied',
+  getParentRoute: () => AuthLangRoute,
 } as any)
-const AuthLangAppRouteRoute = AuthLangAppRouteRouteImport.update({
+const AuthLangAppRoute = AuthLangAppRouteImport.update({
   id: '/app',
   path: '/app',
+  getParentRoute: () => AuthLangRoute,
+} as any)
+const AuthLangChangePasswordRoute = AuthLangChangePasswordRouteImport.update({
+  id: '/change-password',
+  path: '/change-password',
+  getParentRoute: () => AuthLangRoute,
+} as any)
+const AuthLangForgotPasswordRoute = AuthLangForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => AuthLangRoute,
+} as any)
+const AuthLangIntranetRouteRoute = AuthLangIntranetRouteRouteImport.update({
+  id: '/intranet',
+  path: '/intranet',
   getParentRoute: () => AuthLangRoute,
 } as any)
 const AuthLangLoginRoute = AuthLangLoginRouteImport.update({
@@ -98,9 +150,9 @@ const AuthLangLoginRoute = AuthLangLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthLangRoute,
 } as any)
-const AuthLangSignupRoute = AuthLangSignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
+const AuthLangResetPasswordRoute = AuthLangResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => AuthLangRoute,
 } as any)
 const SiteLangIndexRoute = SiteLangIndexRouteImport.update({
@@ -203,10 +255,10 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthLangAppIndexRoute = AuthLangAppIndexRouteImport.update({
+const AuthLangIntranetIndexRoute = AuthLangIntranetIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthLangAppRouteRoute,
+  getParentRoute: () => AuthLangIntranetRouteRoute,
 } as any)
 const SiteLangLeVanIndexRoute = SiteLangLeVanIndexRouteImport.update({
   id: '/le-van/',
@@ -218,17 +270,36 @@ const SiteLangLeVanSlugRoute = SiteLangLeVanSlugRouteImport.update({
   path: '/le-van/$slug',
   getParentRoute: () => SiteLangRoute,
 } as any)
+const AuthLangIntranetEmployeesIndexRoute =
+  AuthLangIntranetEmployeesIndexRouteImport.update({
+    id: '/employees/',
+    path: '/employees/',
+    getParentRoute: () => AuthLangIntranetRouteRoute,
+  } as any)
+const AuthLangIntranetEmployeesNewRoute =
+  AuthLangIntranetEmployeesNewRouteImport.update({
+    id: '/employees/new',
+    path: '/employees/new',
+    getParentRoute: () => AuthLangIntranetRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/llms.txt': typeof LlmsDottxtRoute
-  '/robots.txt': typeof RobotsDottxtRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/llms.txt': typeof LlmsChar91DotChar93txtRoute
+  '/robots.txt': typeof RobotsChar91DotChar93txtRoute
+  '/sitemap.xml': typeof SitemapChar91DotChar93xmlRoute
   '/$lang': typeof SiteLangRouteWithChildren
-  '/api/data.json': typeof ApiDataDotjsonRoute
-  '/$lang/app': typeof AuthLangAppRouteRouteWithChildren
+  '/app': typeof GuestAppRoute
+  '/intranet': typeof GuestIntranetRoute
+  '/login': typeof GuestLoginRoute
+  '/api/data.json': typeof ApiDataChar91DotChar93jsonRoute
+  '/$lang/intranet': typeof AuthLangIntranetRouteRouteWithChildren
+  '/$lang/access-denied': typeof AuthLangAccessDeniedRoute
+  '/$lang/app': typeof AuthLangAppRoute
+  '/$lang/change-password': typeof AuthLangChangePasswordRoute
+  '/$lang/forgot-password': typeof AuthLangForgotPasswordRoute
   '/$lang/login': typeof AuthLangLoginRoute
-  '/$lang/signup': typeof AuthLangSignupRoute
+  '/$lang/reset-password': typeof AuthLangResetPasswordRoute
   '/$lang/$': typeof SiteLangSplatRoute
   '/$lang/a-propos': typeof SiteLangAProposRoute
   '/$lang/blog': typeof SiteLangBlogRoute
@@ -250,18 +321,27 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$lang/': typeof SiteLangIndexRoute
   '/$lang/le-van/$slug': typeof SiteLangLeVanSlugRoute
-  '/$lang/app/': typeof AuthLangAppIndexRoute
+  '/$lang/intranet/': typeof AuthLangIntranetIndexRoute
   '/$lang/le-van/': typeof SiteLangLeVanIndexRoute
+  '/$lang/intranet/employees/new': typeof AuthLangIntranetEmployeesNewRoute
+  '/$lang/intranet/employees/': typeof AuthLangIntranetEmployeesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/llms.txt': typeof LlmsDottxtRoute
-  '/robots.txt': typeof RobotsDottxtRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/llms.txt': typeof LlmsChar91DotChar93txtRoute
+  '/robots.txt': typeof RobotsChar91DotChar93txtRoute
+  '/sitemap.xml': typeof SitemapChar91DotChar93xmlRoute
   '/$lang': typeof SiteLangIndexRoute
-  '/api/data.json': typeof ApiDataDotjsonRoute
+  '/app': typeof GuestAppRoute
+  '/intranet': typeof GuestIntranetRoute
+  '/login': typeof GuestLoginRoute
+  '/api/data.json': typeof ApiDataChar91DotChar93jsonRoute
+  '/$lang/access-denied': typeof AuthLangAccessDeniedRoute
+  '/$lang/app': typeof AuthLangAppRoute
+  '/$lang/change-password': typeof AuthLangChangePasswordRoute
+  '/$lang/forgot-password': typeof AuthLangForgotPasswordRoute
   '/$lang/login': typeof AuthLangLoginRoute
-  '/$lang/signup': typeof AuthLangSignupRoute
+  '/$lang/reset-password': typeof AuthLangResetPasswordRoute
   '/$lang/$': typeof SiteLangSplatRoute
   '/$lang/a-propos': typeof SiteLangAProposRoute
   '/$lang/blog': typeof SiteLangBlogRoute
@@ -282,23 +362,33 @@ export interface FileRoutesByTo {
   '/$lang/voyage': typeof SiteLangVoyageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$lang/le-van/$slug': typeof SiteLangLeVanSlugRoute
-  '/$lang/app': typeof AuthLangAppIndexRoute
+  '/$lang/intranet': typeof AuthLangIntranetIndexRoute
   '/$lang/le-van': typeof SiteLangLeVanIndexRoute
+  '/$lang/intranet/employees/new': typeof AuthLangIntranetEmployeesNewRoute
+  '/$lang/intranet/employees': typeof AuthLangIntranetEmployeesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
+  '/_guest': typeof GuestRouteRouteWithChildren
   '/_site': typeof SiteRouteWithChildren
-  '/llms.txt': typeof LlmsDottxtRoute
-  '/robots.txt': typeof RobotsDottxtRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/llms.txt': typeof LlmsChar91DotChar93txtRoute
+  '/robots.txt': typeof RobotsChar91DotChar93txtRoute
+  '/sitemap.xml': typeof SitemapChar91DotChar93xmlRoute
   '/_auth/$lang': typeof AuthLangRouteWithChildren
+  '/_guest/app': typeof GuestAppRoute
+  '/_guest/intranet': typeof GuestIntranetRoute
+  '/_guest/login': typeof GuestLoginRoute
   '/_site/$lang': typeof SiteLangRouteWithChildren
-  '/api/data.json': typeof ApiDataDotjsonRoute
-  '/_auth/$lang/app': typeof AuthLangAppRouteRouteWithChildren
+  '/api/data.json': typeof ApiDataChar91DotChar93jsonRoute
+  '/_auth/$lang/intranet': typeof AuthLangIntranetRouteRouteWithChildren
+  '/_auth/$lang/access-denied': typeof AuthLangAccessDeniedRoute
+  '/_auth/$lang/app': typeof AuthLangAppRoute
+  '/_auth/$lang/change-password': typeof AuthLangChangePasswordRoute
+  '/_auth/$lang/forgot-password': typeof AuthLangForgotPasswordRoute
   '/_auth/$lang/login': typeof AuthLangLoginRoute
-  '/_auth/$lang/signup': typeof AuthLangSignupRoute
+  '/_auth/$lang/reset-password': typeof AuthLangResetPasswordRoute
   '/_site/$lang/$': typeof SiteLangSplatRoute
   '/_site/$lang/a-propos': typeof SiteLangAProposRoute
   '/_site/$lang/blog': typeof SiteLangBlogRoute
@@ -320,8 +410,10 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_site/$lang/': typeof SiteLangIndexRoute
   '/_site/$lang/le-van/$slug': typeof SiteLangLeVanSlugRoute
-  '/_auth/$lang/app/': typeof AuthLangAppIndexRoute
+  '/_auth/$lang/intranet/': typeof AuthLangIntranetIndexRoute
   '/_site/$lang/le-van/': typeof SiteLangLeVanIndexRoute
+  '/_auth/$lang/intranet/employees/new': typeof AuthLangIntranetEmployeesNewRoute
+  '/_auth/$lang/intranet/employees/': typeof AuthLangIntranetEmployeesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -331,10 +423,17 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/sitemap.xml'
     | '/$lang'
+    | '/app'
+    | '/intranet'
+    | '/login'
     | '/api/data.json'
+    | '/$lang/intranet'
+    | '/$lang/access-denied'
     | '/$lang/app'
+    | '/$lang/change-password'
+    | '/$lang/forgot-password'
     | '/$lang/login'
-    | '/$lang/signup'
+    | '/$lang/reset-password'
     | '/$lang/$'
     | '/$lang/a-propos'
     | '/$lang/blog'
@@ -356,8 +455,10 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/$lang/'
     | '/$lang/le-van/$slug'
-    | '/$lang/app/'
+    | '/$lang/intranet/'
     | '/$lang/le-van/'
+    | '/$lang/intranet/employees/new'
+    | '/$lang/intranet/employees/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -365,9 +466,16 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/sitemap.xml'
     | '/$lang'
+    | '/app'
+    | '/intranet'
+    | '/login'
     | '/api/data.json'
+    | '/$lang/access-denied'
+    | '/$lang/app'
+    | '/$lang/change-password'
+    | '/$lang/forgot-password'
     | '/$lang/login'
-    | '/$lang/signup'
+    | '/$lang/reset-password'
     | '/$lang/$'
     | '/$lang/a-propos'
     | '/$lang/blog'
@@ -388,22 +496,32 @@ export interface FileRouteTypes {
     | '/$lang/voyage'
     | '/api/auth/$'
     | '/$lang/le-van/$slug'
-    | '/$lang/app'
+    | '/$lang/intranet'
     | '/$lang/le-van'
+    | '/$lang/intranet/employees/new'
+    | '/$lang/intranet/employees'
   id:
     | '__root__'
     | '/'
     | '/_auth'
+    | '/_guest'
     | '/_site'
     | '/llms.txt'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/_auth/$lang'
+    | '/_guest/app'
+    | '/_guest/intranet'
+    | '/_guest/login'
     | '/_site/$lang'
     | '/api/data.json'
+    | '/_auth/$lang/intranet'
+    | '/_auth/$lang/access-denied'
     | '/_auth/$lang/app'
+    | '/_auth/$lang/change-password'
+    | '/_auth/$lang/forgot-password'
     | '/_auth/$lang/login'
-    | '/_auth/$lang/signup'
+    | '/_auth/$lang/reset-password'
     | '/_site/$lang/$'
     | '/_site/$lang/a-propos'
     | '/_site/$lang/blog'
@@ -425,18 +543,21 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/_site/$lang/'
     | '/_site/$lang/le-van/$slug'
-    | '/_auth/$lang/app/'
+    | '/_auth/$lang/intranet/'
     | '/_site/$lang/le-van/'
+    | '/_auth/$lang/intranet/employees/new'
+    | '/_auth/$lang/intranet/employees/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  GuestRouteRoute: typeof GuestRouteRouteWithChildren
   SiteRoute: typeof SiteRouteWithChildren
-  LlmsDottxtRoute: typeof LlmsDottxtRoute
-  RobotsDottxtRoute: typeof RobotsDottxtRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  ApiDataDotjsonRoute: typeof ApiDataDotjsonRoute
+  LlmsChar91DotChar93txtRoute: typeof LlmsChar91DotChar93txtRoute
+  RobotsChar91DotChar93txtRoute: typeof RobotsChar91DotChar93txtRoute
+  SitemapChar91DotChar93xmlRoute: typeof SitemapChar91DotChar93xmlRoute
+  ApiDataChar91DotChar93jsonRoute: typeof ApiDataChar91DotChar93jsonRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -456,6 +577,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_guest': {
+      id: '/_guest'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof GuestRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_site': {
       id: '/_site'
       path: ''
@@ -467,21 +595,21 @@ declare module '@tanstack/react-router' {
       id: '/llms.txt'
       path: '/llms.txt'
       fullPath: '/llms.txt'
-      preLoaderRoute: typeof LlmsDottxtRouteImport
+      preLoaderRoute: typeof LlmsChar91DotChar93txtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/robots.txt': {
       id: '/robots.txt'
       path: '/robots.txt'
       fullPath: '/robots.txt'
-      preLoaderRoute: typeof RobotsDottxtRouteImport
+      preLoaderRoute: typeof RobotsChar91DotChar93txtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      preLoaderRoute: typeof SitemapChar91DotChar93xmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth/$lang': {
@@ -490,6 +618,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/$lang'
       preLoaderRoute: typeof AuthLangRouteImport
       parentRoute: typeof AuthRouteRoute
+    }
+    '/_guest/app': {
+      id: '/_guest/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof GuestAppRouteImport
+      parentRoute: typeof GuestRouteRoute
+    }
+    '/_guest/intranet': {
+      id: '/_guest/intranet'
+      path: '/intranet'
+      fullPath: '/intranet'
+      preLoaderRoute: typeof GuestIntranetRouteImport
+      parentRoute: typeof GuestRouteRoute
+    }
+    '/_guest/login': {
+      id: '/_guest/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof GuestLoginRouteImport
+      parentRoute: typeof GuestRouteRoute
     }
     '/_site/$lang': {
       id: '/_site/$lang'
@@ -502,14 +651,42 @@ declare module '@tanstack/react-router' {
       id: '/api/data.json'
       path: '/api/data.json'
       fullPath: '/api/data.json'
-      preLoaderRoute: typeof ApiDataDotjsonRouteImport
+      preLoaderRoute: typeof ApiDataChar91DotChar93jsonRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_auth/$lang/access-denied': {
+      id: '/_auth/$lang/access-denied'
+      path: '/access-denied'
+      fullPath: '/$lang/access-denied'
+      preLoaderRoute: typeof AuthLangAccessDeniedRouteImport
+      parentRoute: typeof AuthLangRoute
     }
     '/_auth/$lang/app': {
       id: '/_auth/$lang/app'
       path: '/app'
       fullPath: '/$lang/app'
-      preLoaderRoute: typeof AuthLangAppRouteRouteImport
+      preLoaderRoute: typeof AuthLangAppRouteImport
+      parentRoute: typeof AuthLangRoute
+    }
+    '/_auth/$lang/change-password': {
+      id: '/_auth/$lang/change-password'
+      path: '/change-password'
+      fullPath: '/$lang/change-password'
+      preLoaderRoute: typeof AuthLangChangePasswordRouteImport
+      parentRoute: typeof AuthLangRoute
+    }
+    '/_auth/$lang/forgot-password': {
+      id: '/_auth/$lang/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/$lang/forgot-password'
+      preLoaderRoute: typeof AuthLangForgotPasswordRouteImport
+      parentRoute: typeof AuthLangRoute
+    }
+    '/_auth/$lang/intranet': {
+      id: '/_auth/$lang/intranet'
+      path: '/intranet'
+      fullPath: '/$lang/intranet'
+      preLoaderRoute: typeof AuthLangIntranetRouteRouteImport
       parentRoute: typeof AuthLangRoute
     }
     '/_auth/$lang/login': {
@@ -519,11 +696,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLangLoginRouteImport
       parentRoute: typeof AuthLangRoute
     }
-    '/_auth/$lang/signup': {
-      id: '/_auth/$lang/signup'
-      path: '/signup'
-      fullPath: '/$lang/signup'
-      preLoaderRoute: typeof AuthLangSignupRouteImport
+    '/_auth/$lang/reset-password': {
+      id: '/_auth/$lang/reset-password'
+      path: '/reset-password'
+      fullPath: '/$lang/reset-password'
+      preLoaderRoute: typeof AuthLangResetPasswordRouteImport
       parentRoute: typeof AuthLangRoute
     }
     '/_site/$lang/': {
@@ -666,12 +843,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth/$lang/app/': {
-      id: '/_auth/$lang/app/'
+    '/_auth/$lang/intranet/': {
+      id: '/_auth/$lang/intranet/'
       path: '/'
-      fullPath: '/$lang/app/'
-      preLoaderRoute: typeof AuthLangAppIndexRouteImport
-      parentRoute: typeof AuthLangAppRouteRoute
+      fullPath: '/$lang/intranet/'
+      preLoaderRoute: typeof AuthLangIntranetIndexRouteImport
+      parentRoute: typeof AuthLangIntranetRouteRoute
     }
     '/_site/$lang/le-van/': {
       id: '/_site/$lang/le-van/'
@@ -687,30 +864,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteLangLeVanSlugRouteImport
       parentRoute: typeof SiteLangRoute
     }
+    '/_auth/$lang/intranet/employees/': {
+      id: '/_auth/$lang/intranet/employees/'
+      path: '/employees'
+      fullPath: '/$lang/intranet/employees/'
+      preLoaderRoute: typeof AuthLangIntranetEmployeesIndexRouteImport
+      parentRoute: typeof AuthLangIntranetRouteRoute
+    }
+    '/_auth/$lang/intranet/employees/new': {
+      id: '/_auth/$lang/intranet/employees/new'
+      path: '/employees/new'
+      fullPath: '/$lang/intranet/employees/new'
+      preLoaderRoute: typeof AuthLangIntranetEmployeesNewRouteImport
+      parentRoute: typeof AuthLangIntranetRouteRoute
+    }
   }
 }
 
-interface AuthLangAppRouteRouteChildren {
-  AuthLangAppIndexRoute: typeof AuthLangAppIndexRoute
+interface AuthLangIntranetRouteRouteChildren {
+  AuthLangIntranetIndexRoute: typeof AuthLangIntranetIndexRoute
+  AuthLangIntranetEmployeesNewRoute: typeof AuthLangIntranetEmployeesNewRoute
+  AuthLangIntranetEmployeesIndexRoute: typeof AuthLangIntranetEmployeesIndexRoute
 }
 
-const AuthLangAppRouteRouteChildren: AuthLangAppRouteRouteChildren = {
-  AuthLangAppIndexRoute: AuthLangAppIndexRoute,
+const AuthLangIntranetRouteRouteChildren: AuthLangIntranetRouteRouteChildren = {
+  AuthLangIntranetIndexRoute: AuthLangIntranetIndexRoute,
+  AuthLangIntranetEmployeesNewRoute: AuthLangIntranetEmployeesNewRoute,
+  AuthLangIntranetEmployeesIndexRoute: AuthLangIntranetEmployeesIndexRoute,
 }
 
-const AuthLangAppRouteRouteWithChildren =
-  AuthLangAppRouteRoute._addFileChildren(AuthLangAppRouteRouteChildren)
+const AuthLangIntranetRouteRouteWithChildren =
+  AuthLangIntranetRouteRoute._addFileChildren(
+    AuthLangIntranetRouteRouteChildren,
+  )
 
 interface AuthLangRouteChildren {
-  AuthLangAppRouteRoute: typeof AuthLangAppRouteRouteWithChildren
+  AuthLangIntranetRouteRoute: typeof AuthLangIntranetRouteRouteWithChildren
+  AuthLangAccessDeniedRoute: typeof AuthLangAccessDeniedRoute
+  AuthLangAppRoute: typeof AuthLangAppRoute
+  AuthLangChangePasswordRoute: typeof AuthLangChangePasswordRoute
+  AuthLangForgotPasswordRoute: typeof AuthLangForgotPasswordRoute
   AuthLangLoginRoute: typeof AuthLangLoginRoute
-  AuthLangSignupRoute: typeof AuthLangSignupRoute
+  AuthLangResetPasswordRoute: typeof AuthLangResetPasswordRoute
 }
 
 const AuthLangRouteChildren: AuthLangRouteChildren = {
-  AuthLangAppRouteRoute: AuthLangAppRouteRouteWithChildren,
+  AuthLangIntranetRouteRoute: AuthLangIntranetRouteRouteWithChildren,
+  AuthLangAccessDeniedRoute: AuthLangAccessDeniedRoute,
+  AuthLangAppRoute: AuthLangAppRoute,
+  AuthLangChangePasswordRoute: AuthLangChangePasswordRoute,
+  AuthLangForgotPasswordRoute: AuthLangForgotPasswordRoute,
   AuthLangLoginRoute: AuthLangLoginRoute,
-  AuthLangSignupRoute: AuthLangSignupRoute,
+  AuthLangResetPasswordRoute: AuthLangResetPasswordRoute,
 }
 
 const AuthLangRouteWithChildren = AuthLangRoute._addFileChildren(
@@ -727,6 +932,22 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
+)
+
+interface GuestRouteRouteChildren {
+  GuestAppRoute: typeof GuestAppRoute
+  GuestIntranetRoute: typeof GuestIntranetRoute
+  GuestLoginRoute: typeof GuestLoginRoute
+}
+
+const GuestRouteRouteChildren: GuestRouteRouteChildren = {
+  GuestAppRoute: GuestAppRoute,
+  GuestIntranetRoute: GuestIntranetRoute,
+  GuestLoginRoute: GuestLoginRoute,
+}
+
+const GuestRouteRouteWithChildren = GuestRouteRoute._addFileChildren(
+  GuestRouteRouteChildren,
 )
 
 interface SiteLangRouteChildren {
@@ -794,11 +1015,12 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
+  GuestRouteRoute: GuestRouteRouteWithChildren,
   SiteRoute: SiteRouteWithChildren,
-  LlmsDottxtRoute: LlmsDottxtRoute,
-  RobotsDottxtRoute: RobotsDottxtRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
-  ApiDataDotjsonRoute: ApiDataDotjsonRoute,
+  LlmsChar91DotChar93txtRoute: LlmsChar91DotChar93txtRoute,
+  RobotsChar91DotChar93txtRoute: RobotsChar91DotChar93txtRoute,
+  SitemapChar91DotChar93xmlRoute: SitemapChar91DotChar93xmlRoute,
+  ApiDataChar91DotChar93jsonRoute: ApiDataChar91DotChar93jsonRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

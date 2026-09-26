@@ -1,9 +1,10 @@
+import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute, Outlet, notFound } from "@tanstack/react-router";
 
 import { DefaultNotFound } from "#/components/default-not-found";
+import { PublicShell } from "#/components/layouts/public-shell";
 import { CookieBanner } from "@/components/layout/cookie-banner";
 import { Footer, type SocialLink } from "@/components/navigation/footer";
-import { Navbar } from "@/components/navigation/navbar";
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { CONTACT, SOCIALS, SITE_NAME } from "@/lib/constants";
 import { getFooterProps } from "@/lib/footer-helpers";
@@ -12,7 +13,15 @@ import { isLocale, type Locale } from "@/lib/i18n/config";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 import { withLocale } from "@/lib/navigation";
 
-function buildFooterProps(locale: Locale, dict: Dictionary) {
+const intranet = Object.values(
+  import.meta.glob<{
+    load: (queryClient: QueryClient) => Promise<boolean>;
+    Shell: typeof PublicShell;
+  }>("/src/intranet/site-shell.tsx", { eager: true }),
+)[0];
+const SiteShell = intranet?.Shell ?? PublicShell;
+
+function buildFooterProps(locale: Locale, dict: Dictionary, authEnabled: boolean) {
   return getFooterProps({
     siteName: SITE_NAME,
     description: dict.footer.description,
@@ -66,6 +75,7 @@ function buildFooterProps(locale: Locale, dict: Dictionary) {
     copyright: `© {year} {name}. {rights}`,
     rights: dict.footer.rights,
     legalLinks: [
+      ...(authEnabled ? [{ label: t(dict, "auth.signIn"), href: `/${locale}/intranet` }] : []),
       { label: dict.breadcrumb.legal, href: withLocale(locale, "/mentions-legales") },
       { label: dict.breadcrumb.privacy, href: withLocale(locale, "/confidentialite") },
       { label: dict.directory.title, href: withLocale(locale, "/plan-du-site") },
@@ -82,7 +92,7 @@ function buildFooterProps(locale: Locale, dict: Dictionary) {
 }
 
 export const Route = createFileRoute("/_site/$lang")({
-  loader: async ({ location }) => {
+  loader: async ({ location, context }) => {
     // WORKAROUND: params are not parsed for leading-param routes in this
     // TanStack version - derive the locale from the pathname instead.
     const raw = (location.pathname.match(/^\/([^/]+)/) ?? [])[1] ?? "";
@@ -91,14 +101,19 @@ export const Route = createFileRoute("/_site/$lang")({
     }
     const locale = localeFromPathname(location.pathname);
     const dict = await getDictionary(locale);
-    return { locale, dict };
+    const authEnabled = (await intranet?.load(context.queryClient)) ?? false;
+    return { locale, dict, authEnabled };
+  },
+  head: async ({ loaderData }) => {
+    if (loaderData) await getDictionary(loaderData.locale);
+    return {};
   },
   notFoundComponent: DefaultNotFound,
   component: LangLayout,
 });
 
 function LangLayout() {
-  const { locale, dict } = Route.useLoaderData();
+  const { locale, dict, authEnabled } = Route.useLoaderData();
 
   return (
     <div lang={locale}>
@@ -108,14 +123,15 @@ function LangLayout() {
       >
         {t(dict, "a11y.skipToContent")}
       </a>
-      <Navbar locale={locale} dict={dict} />
-      <main id="main-content" lang={locale}>
-        <Outlet />
-      </main>
-      <Footer
-        {...buildFooterProps(locale, dict)}
-        manageCookiesLabel={t(dict, "footer.manage_cookies")}
-      />
+      <SiteShell locale={locale}>
+        <main id="main-content" lang={locale}>
+          <Outlet />
+        </main>
+        <Footer
+          {...buildFooterProps(locale, dict, authEnabled)}
+          manageCookiesLabel={t(dict, "footer.manage_cookies")}
+        />
+      </SiteShell>
       <CookieBanner locale={locale} dict={dict} showMarketing />
       <OrganizationJsonLd locale={locale} dict={dict} />
     </div>

@@ -2,14 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+import { applyGoogleConsent } from "#/components/utils/consent-analytics";
 import { cn } from "#/lib/utils";
-
-declare global {
-  interface Window {
-    gtag?: (...args: unknown[]) => void;
-    dataLayer?: object[];
-  }
-}
 
 export interface ConsentState {
   necessary: boolean;
@@ -22,16 +16,6 @@ const DEFAULT_CONSENT: ConsentState = {
   analytics: false,
   marketing: false,
 };
-
-function ensureGtag() {
-  if (typeof window === "undefined") return;
-  window.gtag =
-    window.gtag ||
-    ((...args: unknown[]) => {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(args);
-    });
-}
 
 function serialize(state: ConsentState): string {
   return JSON.stringify(state);
@@ -59,13 +43,7 @@ function deserialize(raw: string): ConsentState | null {
 }
 
 function applyConsent(state: ConsentState) {
-  ensureGtag();
-  window.gtag?.("consent", "update", {
-    ad_storage: state.marketing ? "granted" : "denied",
-    analytics_storage: state.analytics ? "granted" : "denied",
-    ad_user_data: state.marketing ? "granted" : "denied",
-    ad_personalization: state.marketing ? "granted" : "denied",
-  });
+  applyGoogleConsent(state);
 }
 
 export interface CookieBannerProps {

@@ -12,9 +12,30 @@ const dictionaries: Record<string, () => Promise<Dictionary>> = {
   it: () => import("./it.json").then((m) => m.default),
 };
 
+const loadedDictionaries: Partial<Record<Locale, Dictionary>> = {};
+const intranetDictionaries = import.meta.glob<Dictionary>("/src/intranet/i18n/*.json", {
+  import: "default",
+});
+
 export async function getDictionary(locale: Locale): Promise<Dictionary> {
+  if (loadedDictionaries[locale]) return loadedDictionaries[locale];
   const loader = dictionaries[locale] ?? dictionaries[defaultLocale];
-  return loader();
+  const [publicDictionary, intranetDictionary] = await Promise.all([
+    loader(),
+    intranetDictionaries[`/src/intranet/i18n/${locale}.json`]?.(),
+  ]);
+  const dictionary = { ...publicDictionary, ...intranetDictionary };
+  loadedDictionaries[locale] = dictionary;
+  return dictionary;
+}
+
+export const ensureDictionary = getDictionary;
+
+/** Route heads seed this cache before server rendering and client hydration. */
+export function useDictionary(locale: Locale): Dictionary {
+  const dictionary = loadedDictionaries[locale];
+  if (!dictionary) throw new Error(`Dictionary not loaded for ${locale}`);
+  return dictionary;
 }
 
 export function t(dictionary: Dictionary, key: string): string {
