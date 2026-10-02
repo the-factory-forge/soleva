@@ -177,3 +177,27 @@ Status: **reconciled locally** with the pinned target and documented adaptations
 Client changes remain reviewable on the sync branch; no push or VPS deployment was
 performed. Live deployment values remain unverified. The owner will perform the
 required local/VPS resets before applying this release where a database exists.
+
+## 2026-10-02 automatic local PostgreSQL
+
+Selective update from `the-factory-forge/forge-template` `main` at
+`dd6521a559f884e70e127a2d393a4eb1c8ad1e65`, verified against the remote HEAD.
+Starting site commit: `fe66648c47f92f40e6959eb92658eb836be07fcf`. Compared the template commit with its parent
+and manually applied only its local-database changes; this does not advance the
+previous full-sync baseline. Review branch: `agent/sync-forge-template-local-database`.
+
+- Adopted the Varlock resolver, automatic Docker startup, readiness wait and available
+  loopback port discovery, plus the `.env.local` Compose scripts and setup examples.
+- Preserved the existing uncommitted Compose changes to site-named containers,
+  databases and `postgres_${SITE_NAME}` volumes. No customer data was reset or migrated.
+- Preserved optional database/auth mode; the resolver is a local opt-in setting,
+  not a schema default. Existing explicit deployment URLs bypass Docker.
+- Existing local env files were not read or modified. Existing checkouts need
+  `DATABASE_URL=exec("node scripts/local-database.mjs")` and their existing `SITE_NAME`
+  in `.env.local`; see README. Public-only sites remain without database tooling.
+
+Validation: `node scripts/local-database.test.mjs` passed against a disposable Docker
+PostgreSQL instance, covering automatic startup, assigned ports, data reuse, explicit
+URL overrides and database-free mode. Test containers and volumes were cleaned up.
+Baseline and final `vpr lint` (including type checks) passed with the same existing
+warnings. JavaScript syntax checks and `git diff --check` passed.

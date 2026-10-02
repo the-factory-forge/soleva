@@ -1,5 +1,29 @@
 # Soleva
 
+## Local PostgreSQL
+
+Start Docker and copy `.env.example` to `.env.local` for a new checkout. For an
+existing checkout, keep the other settings and set:
+
+```dotenv
+SITE_NAME=soleva
+DATABASE_URL=exec("node scripts/local-database.mjs")
+```
+
+Keep an existing `SITE_NAME` if it names stored data. Varlock starts PostgreSQL,
+waits for readiness, and reads Docker's available loopback port. `vpr dev`,
+`vpr db migrate`, and `vpr db:studio` all use the resolved URL. The existing
+`postgres_${SITE_NAME}` volume is reused; startup does not apply migrations.
+Set `BETTER_AUTH_SECRET` to enable login. Leave `DATABASE_URL` empty for a
+public-only run without Docker.
+
+`vpr db:stop` stops this database; the next environment load starts it again.
+`vpr db:reset` also deletes its data. Production keeps its explicit PostgreSQL
+URL, which overrides the local resolver; `.env.local` is excluded from Docker
+images. Run `node scripts/local-database.test.mjs` to verify startup, assigned
+ports, data reuse, deployment overrides, and database-free mode with a disposable
+database.
+
 ## September 2026 template sync
 
 The project is reconciled with template `b81b90ec0c58d5dc6cd57d383864cb811464f4b4`.
