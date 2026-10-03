@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { applyGoogleConsent } from "#/components/utils/consent-analytics";
 import { cn } from "#/lib/utils";
@@ -16,10 +16,6 @@ const DEFAULT_CONSENT: ConsentState = {
   analytics: false,
   marketing: false,
 };
-
-function serialize(state: ConsentState): string {
-  return JSON.stringify(state);
-}
 
 function deserialize(raw: string): ConsentState | null {
   try {
@@ -42,10 +38,6 @@ function deserialize(raw: string): ConsentState | null {
   }
 }
 
-function applyConsent(state: ConsentState) {
-  applyGoogleConsent(state);
-}
-
 export interface CookieBannerProps {
   consentKey?: string;
   manageEvent?: string;
@@ -66,7 +58,20 @@ export interface CookieBannerProps {
   showMarketing?: boolean;
   dialogLabel?: string;
   hidden?: boolean;
-  onConsentChange?: (state: ConsentState) => void;
+  /** Called after consent updates on hydration, save, and cross-tab changes, never for draft edits.
+   * Keep this callback idempotent; load tracking scripts only for granted categories.
+   */
+  onConsentChange?: (consent: ConsentState) => void;
+}
+
+function readConsent(key: string): ConsentState | null {
+  try {
+    const stored = localStorage.getItem(key);
+    return stored ? deserialize(stored) : null;
+  } catch {
+    // Storage can be unavailable; consent still works for this mounted page.
+    return null;
+  }
 }
 
 export function CookieBanner({
@@ -76,7 +81,7 @@ export function CookieBanner({
   acceptAllLabel,
   acceptSelectionLabel,
   cancelLabel = "Cancel",
-  confirmLabel = "Confirm",
+  confirmLabel = "Confirm selection",
   policyLabel,
   privacyHref,
   necessaryTitle = "Necessary",
@@ -86,7 +91,7 @@ export function CookieBanner({
   marketingTitle = "Marketing",
   marketingDescription = "Measures conversions and personalizes advertising.",
   showAnalytics = true,
-  showMarketing = true,
+  showMarketing = false,
   dialogLabel = "Cookies",
   hidden = false,
   onConsentChange,
@@ -94,40 +99,45 @@ export function CookieBanner({
   const [visible, setVisible] = useState(false);
   const [customizing, setCustomizing] = useState(false);
   const [draft, setDraft] = useState(DEFAULT_CONSENT);
-
-  const updateConsent = useCallback(
-    (state: ConsentState) => {
-      applyConsent(state);
-      onConsentChange?.(state);
-    },
-    [onConsentChange],
-  );
-
-  const evaluate = useCallback(() => {
-    const stored = localStorage.getItem(consentKey);
-    if (stored) {
-      const parsed = deserialize(stored);
-      if (parsed) {
-        updateConsent(parsed);
-        setDraft(parsed);
-        setCustomizing(false);
-        setVisible(false);
-        return;
-      }
-    }
-    updateConsent(DEFAULT_CONSENT);
-    setDraft(DEFAULT_CONSENT);
-    setCustomizing(false);
-    setVisible(true);
-  }, [consentKey, updateConsent]);
+  const savedConsent = useRef(DEFAULT_CONSENT);
+  const consentCallback = useRef(onConsentChange);
 
   useEffect(() => {
-    // oxlint-disable-next-line react-hooks-js/set-state-in-effect -- reads stored consent during hydration
+    consentCallback.current = onConsentChange;
+  }, [onConsentChange]);
+
+  const normalizeConsent = useCallback(
+    (state: ConsentState): ConsentState => ({
+      necessary: true,
+      analytics: showAnalytics && state.analytics,
+      marketing: showMarketing && state.marketing,
+    }),
+    [showAnalytics, showMarketing],
+  );
+
+  const notifyConsent = useCallback((state: ConsentState) => {
+    savedConsent.current = state;
+    applyGoogleConsent(state);
+    consentCallback.current?.({ ...state });
+  }, []);
+
+  const evaluate = useCallback(() => {
+    const stored = readConsent(consentKey);
+    const state = normalizeConsent(stored ?? DEFAULT_CONSENT);
+    setDraft(state);
+    setCustomizing(false);
+    setVisible(stored === null);
+    notifyConsent(state);
+  }, [consentKey, normalizeConsent, notifyConsent]);
+
+  useEffect(() => {
+    // oxlint-disable-next-line react-hooks-js/set-state-in-effect -- hydrate saved consent and listen for external changes
     evaluate();
     const onStorage = (event: StorageEvent) => {
       if (event.key === consentKey || event.key === null) evaluate();
     };
     const onManage = () => {
+      setDraft(normalizeConsent(readConsent(consentKey) ?? savedConsent.current));
       setCustomizing(false);
       setVisible(true);
     };
@@ -137,52 +147,36 @@ export function CookieBanner({
       window.removeEventListener("storage", onStorage);
       window.removeEventListener(manageEvent, onManage);
     };
-  }, [evaluate, consentKey, manageEvent]);
+  }, [evaluate, consentKey, manageEvent, normalizeConsent]);
 
-  const acceptAll = () => {
-    const state: ConsentState = {
-      necessary: true,
-      analytics: showAnalytics,
-      marketing: showMarketing,
-    };
-    localStorage.setItem(consentKey, serialize(state));
-    updateConsent(state);
+  const saveConsent = (selection: ConsentState) => {
+    const state = normalizeConsent(selection);
+    try {
+      localStorage.setItem(consentKey, JSON.stringify(state));
+    } catch {
+      // Retain the choice in memory when persistence is blocked.
+    }
+    setDraft(state);
     setCustomizing(false);
     setVisible(false);
-  };
-
-  const openSelection = () => {
-    const stored = localStorage.getItem(consentKey);
-    setDraft(stored ? (deserialize(stored) ?? DEFAULT_CONSENT) : DEFAULT_CONSENT);
-    setCustomizing(true);
+    notifyConsent(state);
   };
 
   const cancelSelection = () => {
-    setDraft(DEFAULT_CONSENT);
+    setDraft(savedConsent.current);
     setCustomizing(false);
-  };
-
-  const confirmSelection = () => {
-    const state = {
-      necessary: true,
-      analytics: showAnalytics && draft.analytics,
-      marketing: showMarketing && draft.marketing,
-    };
-    localStorage.setItem(consentKey, serialize(state));
-    updateConsent(state);
-    setCustomizing(false);
-    setVisible(false);
   };
 
   if (hidden || !visible) return null;
 
   return (
-    <div
-      role="dialog"
+    <dialog
+      id="factory-cookie-banner"
+      open
       aria-label={dialogLabel}
       aria-live="polite"
       className={cn(
-        "fixed inset-x-0 bottom-0 z-[60] p-4 sm:p-6",
+        "fixed inset-x-0 top-auto bottom-0 z-[60] m-0 w-full max-w-none border-0 bg-transparent p-4 sm:p-6",
         "animate-in duration-300 fade-in slide-in-from-bottom-4",
       )}
     >
@@ -197,7 +191,7 @@ export function CookieBanner({
             {text}{" "}
             <a
               href={privacyHref}
-              className="font-semibold text-secondary underline underline-offset-2"
+              className="font-semibold text-primary underline underline-offset-2"
             >
               {policyLabel}
             </a>
@@ -234,7 +228,10 @@ export function CookieBanner({
                     type="checkbox"
                     checked={draft.analytics}
                     onChange={(event) =>
-                      setDraft((state) => ({ ...state, analytics: event.target.checked }))
+                      setDraft((state) => ({
+                        ...state,
+                        analytics: event.target.checked,
+                      }))
                     }
                     className="mt-0.5 size-4 shrink-0 rounded accent-primary"
                   />
@@ -258,7 +255,10 @@ export function CookieBanner({
                     type="checkbox"
                     checked={draft.marketing}
                     onChange={(event) =>
-                      setDraft((state) => ({ ...state, marketing: event.target.checked }))
+                      setDraft((state) => ({
+                        ...state,
+                        marketing: event.target.checked,
+                      }))
                     }
                     className="mt-0.5 size-4 shrink-0 rounded accent-primary"
                   />
@@ -278,22 +278,26 @@ export function CookieBanner({
           <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
             <button
               type="button"
-              onClick={customizing ? cancelSelection : openSelection}
+              onClick={customizing ? cancelSelection : () => setCustomizing(true)}
               aria-expanded={customizing}
-              className="inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-semibold text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40"
+              className="inline-flex h-10 cursor-pointer items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-semibold text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40 disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed"
             >
               {customizing ? cancelLabel : acceptSelectionLabel}
             </button>
             <button
               type="button"
-              onClick={customizing ? confirmSelection : acceptAll}
-              className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors outline-none hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-primary/40"
+              onClick={() =>
+                saveConsent(
+                  customizing ? draft : { necessary: true, analytics: true, marketing: true },
+                )
+              }
+              className="inline-flex h-10 cursor-pointer items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors outline-none hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-primary/40 disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed"
             >
               {customizing ? confirmLabel : acceptAllLabel}
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }
