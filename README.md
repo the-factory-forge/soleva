@@ -11,8 +11,10 @@ Build-only placeholders in Docker do not configure runtime credentials.
 Local setup uses `vpr auth:secret`, the existing site-specific `SITE_NAME`, and
 `DATABASE_URL=exec("node scripts/local-database.mjs")` in `.env.local` to start Docker
 and discover an available loopback port. Existing explicit URLs continue to work.
-Never copy local resolver syntax to production. Existing volumes and database names
-are retained; no local or VPS reset is part of this update.
+Never copy local resolver syntax to production. Local Compose now uses `SITE_NAME` for
+the container and database, with volume `postgres_${SITE_NAME}`. Previous volumes remain
+intact but are not reused; migrate any needed local data before switching. No local or
+VPS reset is part of this update.
 
 ## September 2026 template sync
 
