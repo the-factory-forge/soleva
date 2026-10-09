@@ -1,3 +1,5 @@
+import { randomBytes } from "node:crypto";
+
 import { defineConfig, devices, type PlaywrightTestConfig } from "@playwright/test";
 
 const baseURL = "http://localhost:3100";
@@ -8,8 +10,8 @@ export const webServer = {
     NODE_ENV: "production",
     PORT: "3100",
     VITE_BASE_URL: baseURL,
-    DATABASE_URL: "",
-    BETTER_AUTH_SECRET: "",
+    DATABASE_URL: process.env.E2E_DATABASE_URL ?? "postgresql://test:test@127.0.0.1:1/public_e2e",
+    BETTER_AUTH_SECRET: randomBytes(32).toString("base64url"),
     GITHUB_CLIENT_ID: "",
     GITHUB_CLIENT_SECRET: "",
     GOOGLE_CLIENT_ID: "",

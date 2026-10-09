@@ -89,3 +89,30 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
+
+/* Shared status roles remain independent of the customer palette. */
+@theme inline {
+  --color-status-success: var(--status-success);
+  --color-status-success-foreground: var(--status-success-foreground);
+  --color-status-pending: var(--status-pending);
+  --color-status-pending-foreground: var(--status-pending-foreground);
+  --color-status-not-started: var(--status-not-started);
+  --color-status-not-started-foreground: var(--status-not-started-foreground);
+  --color-status-canceled: var(--status-canceled);
+  --color-status-canceled-foreground: var(--status-canceled-foreground);
+  --color-status-info: var(--status-info);
+  --color-status-info-foreground: var(--status-info-foreground);
+}
+
+:root {
+  --status-success: #dcfce7;
+  --status-success-foreground: #166534;
+  --status-pending: #ffedd5;
+  --status-pending-foreground: #9a3412;
+  --status-not-started: #f3f4f6;
+  --status-not-started-foreground: #4b5563;
+  --status-canceled: #fee2e2;
+  --status-canceled-foreground: #991b1b;
+  --status-info: #dbeafe;
+  --status-info-foreground: #1e40af;
+}

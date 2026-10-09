@@ -9,13 +9,13 @@
 
 ## Route Guards
 
-- The `src/intranet/routes/_auth/route.tsx` layout redirects to `/` when the optional auth feature is disabled.
+- Authentication is active whenever `src/intranet/` is installed. `BETTER_AUTH_SECRET` is required; sites without authentication remove its code and environment declaration. The `src/intranet/routes/_auth/route.tsx` layout supplies auth-page metadata.
 - Protected app layout is `src/intranet/routes/_auth/$lang/intranet/route.tsx`.
   - It enforces auth in `beforeLoad` using TanStack Query and preserves the locale in redirects.
 - `src/intranet/routes/_auth/$lang/login.tsx` redirects authenticated users to their localized app.
 - `/login` redirects to the default locale. Public signup routes are absent.
 - Users with `mustChangePassword` must complete the localized password-change flow first.
-- Drizzle SQL migrations bootstrap `admin@example.com` / `admin` only when the user table is empty. The September 2026 prelaunch reset puts account creation in the fresh SQL baseline; later changes use incremental SQL migrations, not a TypeScript startup seed. Never change existing users or passwords, or seed merely because no admin exists. No forced password change is set; change the default password during handover. Drizzle records migrations once, so deleted users are not recreated on later restarts.
+- Drizzle SQL migrations bootstrap `admin@example.com` / `admin` only when the user table is empty. Keep account creation in an incremental SQL migration, not a TypeScript startup seed. Never change existing users or passwords, or seed merely because no admin exists. No forced password change is set; change the default password during handover. Drizzle records migrations once, so deleted users are not recreated on later restarts.
 
 ## Server Functions and Mutations
 

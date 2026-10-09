@@ -15,7 +15,7 @@ export default defineConfig({
     ...webServer,
     cwd: fileURLToPath(new URL("../../", import.meta.url)),
     command:
-      "DATABASE_URL= BETTER_AUTH_SECRET= EMAIL_API_KEY= EMAIL_FROM= GOOGLE_CLIENT_ID= GOOGLE_CLIENT_SECRET= vp run build && NODE_OPTIONS='--import=./src/intranet/e2e/resend-fake.mjs' vp run start:e2e",
+      "DATABASE_URL=postgresql://build:build@127.0.0.1:1/build BETTER_AUTH_SECRET=build-only-placeholder-not-for-runtime-123 EMAIL_API_KEY= EMAIL_FROM= GOOGLE_CLIENT_ID= GOOGLE_CLIENT_SECRET= vp run build && NODE_OPTIONS='--import=./src/intranet/e2e/resend-fake.mjs' vp run start:e2e",
     env: {
       ...webServer.env,
       BETTER_AUTH_SECRET: randomBytes(32).toString("base64url"),

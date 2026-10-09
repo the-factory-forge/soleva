@@ -5,18 +5,8 @@ import { auth } from "#/intranet/auth/auth";
 export const Route = createFileRoute("/api/auth/$")({
   server: {
     handlers: {
-      GET: ({ request }) => {
-        if (!auth) {
-          return new Response("Not Found", { status: 404 });
-        }
-        return auth.handler(request);
-      },
-      POST: ({ request }) => {
-        if (!auth) {
-          return new Response("Not Found", { status: 404 });
-        }
-        return auth.handler(request);
-      },
+      GET: ({ request }) => auth.handler(request),
+      POST: ({ request }) => auth.handler(request),
     },
   },
 });

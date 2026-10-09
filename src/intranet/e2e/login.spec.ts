@@ -310,7 +310,7 @@ test("sign-out failure retains the session and a successful retry revokes it", a
   ).toBe(true);
   await page.getByRole("button", { name: "Account menu", exact: true }).click();
   await page.getByRole("menuitem", { name: "Sign out", exact: true }).click();
-  await expect(page).toHaveURL(/\/en\/login$/);
+  await expect(page).toHaveURL(/\/en$/);
   expect(calls).toBe(2);
   expect(
     (await context.cookies()).some((cookie) => cookie.name === "better-auth.session_token"),

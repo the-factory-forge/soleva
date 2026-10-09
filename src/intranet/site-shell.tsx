@@ -5,19 +5,17 @@ import { PublicShell } from "#/components/layouts/public-shell";
 import { useDictionary } from "#/lib/i18n";
 import { SITE_NAME } from "#/lib/site/constants";
 
-import { authEnabledQueryOptions, authQueryOptions } from "./auth/queries";
+import { authQueryOptions } from "./auth/queries";
 import { AppShell } from "./components/app-shell";
 
 export async function load(queryClient: QueryClient) {
-  const { enabled } = await queryClient.query(authEnabledQueryOptions());
-  if (enabled) await queryClient.query(authQueryOptions());
-  return enabled;
+  await queryClient.query(authQueryOptions());
+  return true;
 }
 
 export function Shell(props: ComponentProps<typeof PublicShell>) {
   const dict = useDictionary(props.locale);
-  const { data: auth } = useQuery(authEnabledQueryOptions());
-  const { data: user } = useQuery({ ...authQueryOptions(), enabled: auth?.enabled === true });
+  const { data: user } = useQuery(authQueryOptions());
 
   if (user && !user.mustChangePassword) {
     return (

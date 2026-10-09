@@ -5,13 +5,13 @@
 #   ARG VITE_BASE_URL - required for correct canonical/OG URLs
 
 FROM node:24-alpine AS deps
-RUN corepack enable && corepack prepare pnpm@12.6.0 --activate
+RUN corepack enable && corepack prepare pnpm@12.10.1 --activate
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json .npmrc ./
 RUN pnpm install --ignore-scripts --frozen-lockfile
 
 FROM node:24-alpine AS build
-RUN corepack enable && corepack prepare pnpm@12.6.0 --activate
+RUN corepack enable && corepack prepare pnpm@12.10.1 --activate
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -30,10 +30,14 @@ ENV VITE_BASE_URL=$VITE_BASE_URL \
     VITE_ADS_PHONE_LABEL=$VITE_ADS_PHONE_LABEL \
     VITE_ADS_MAIL_LABEL=$VITE_ADS_MAIL_LABEL
 
-RUN pnpm_config_ignore_scripts=true pnpm build
+# Build-only placeholders; deployment supplies real credentials.
+RUN DATABASE_URL=postgresql://build:build@localhost:5432/build \
+    BETTER_AUTH_SECRET=build-only-placeholder-not-for-runtime-123 \
+    pnpm_config_ignore_scripts=true pnpm build
 
 FROM node:24-alpine AS runtime
 ENV NODE_ENV=production
+ENV PATH="/app/node_modules/.bin:$PATH"
 WORKDIR /app
 # Copy everything (pattern tc-website): the runtime needs node_modules
 # (drizzle-kit), drizzle.config.ts and the drizzle/ migrations to run

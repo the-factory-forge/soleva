@@ -1,5 +1,34 @@
 # Agent Guidelines
 
+## Product and design context
+
+Read [PRODUCT.md](PRODUCT.md) and [DESIGN.md](DESIGN.md) before product or UI work.
+They describe this customer's existing website. Impeccable uses the code-first
+workflow in `.impeccable/config.json`; preserve the site's identity, content,
+fonts, palette, assets and routes during refinements and template migrations.
+Update these records only when product or design decisions change. Do not copy
+Forge Template's product brief, default theme or sample page composition here.
+
+## Verified template updates
+
+The canonical remote is `https://github.com/the-factory-forge/forge-template.git`.
+Use `template/HEAD` to inspect its default branch and [the sync record](docs/template-sync.md)
+for this site's last reconciled immutable SHA and intentional differences.
+Git remotes are local configuration: on a fresh clone, add `template` if absent,
+then fetch and refresh its HEAD before selecting the next target:
+
+```sh
+git remote add template https://github.com/the-factory-forge/forge-template.git
+git fetch template
+git remote set-head template --auto
+git rev-parse template/HEAD
+```
+
+Skip `remote add` when the verified remote already exists. Follow
+[the site sync skill](.agents/skills/sync-forge-template/SKILL.md), use a dedicated
+branch and reconcile the recorded delta. Do not merge TanStarter or fabricate
+ancestry for a generated site. Keep customer migrations and data intact.
+
 ## Template foundation updates
 
 Use the current Forge template toolchain and auth flow. Older local implementations
@@ -16,7 +45,6 @@ specs before implementation. See `docs/template-sync.md` for this site's history
   `VITE_BASE_URL=http://localhost:3100 PORTLESS=0 vpr dev --port 3100 --strictPort`.
   Never stop another site's server or proxy or occupy port 3000.
 - `ENV.SITE_NAME` is an infrastructure slug; public display-name constants stay customer-owned.
-
 
 ## Essentials
 
@@ -130,3 +158,12 @@ light-only public shell and inline dictionaries; use the template auth/session f
 - Keep `prepare` (Vite+ hooks and Varlock codegen). Docker installs with `--ignore-scripts`, includes `.env.schema`, and builds with `pnpm_config_ignore_scripts=true`. The entrypoint adds local executables to PATH before running Varlock. Keep the Vite integration in `init-only` mode: `resolved-env` overrides runtime auth/DB values with build-time values.
 - The September 2026 sync uses a fresh database baseline by explicit owner instruction. The owner resets local and VPS databases before applying it; never apply it over the previous schema. Subsequent releases preserve applied migrations.
 - Record template reconciliation decisions and verified revisions in `docs/template-sync.md`.
+
+## Current intranet configuration
+
+The installed intranet follows the current template auth flow: `DATABASE_URL` and
+`BETTER_AUTH_SECRET` are required. Public-only operation requires removing the
+intranet through its documented boundary; empty credentials no longer disable it.
+Authentication entry is in the localized footer, with no header login button.
+Production uses Varlock `init-only` injection; retain dynamic mail/OAuth/storage
+fields and site-owned modules. Never run deployment migrations as a test.

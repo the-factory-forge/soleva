@@ -142,14 +142,14 @@ Unlocalized `/intranet` goes to the localized shared flow instead of starter dem
 Live env files were not read or modified; deployed values are **unverified**.
 Values below are nonsecret names/defaults, not a dump of deployment configuration.
 
-| Variable / contract | Before → after | VPS action and lifecycle |
-| --- | --- | --- |
-| `CONTAINER_NAME` → `SITE_NAME` | New schema default `soleva`; Compose accepts old `CONTAINER_NAME` while `SITE_NAME` is unset. | Set `SITE_NAME` to the existing container label to preserve identity, or use `soleva` for a new deployment. Rebuild/recreate service; old key may be removed once the new key is set. |
-| `PORTLESS_URL` (added), `VITE_BASE_URL` (resolution changed) | Portless supplies local origin; explicit `VITE_BASE_URL` wins. | `PORTLESS_URL` is development-only: leave it unset on VPS. Keep/set `VITE_BASE_URL` to the actual public HTTPS origin at both build and runtime; image rebuild required for changed `VITE_*` values. Locally remove stale explicit origin overrides when using Portless. |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (retired consumers) | GitHub OAuth → shared Google-only flow; old keys remain accepted for compatibility. | Remove unused GitHub keys after deployment. Optional `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` continue; register `<VITE_BASE_URL>/api/auth/callback/google`. Restart after credential changes. |
-| `EMAIL_API_KEY`, `EMAIL_FROM` (added) | Absent → optional Resend settings for reset/verification email. | Set both to enable mail; otherwise recovery remains unavailable. Runtime restart; no browser rebuild just for these private settings. |
-| Nonsecret server settings (`EMAIL_FROM`, `GOOGLE_CLIENT_ID`) | Build-inlined → runtime-dynamic resolution. | Keep their values; rebuild once for this fix, then restart after changing runtime settings. Private credentials remain runtime-only. |
-| `DATABASE_URL`, `BETTER_AUTH_SECRET` (values unchanged; schema reset required) | Same runtime keys with fresh database baseline and shared auth. | Owner resets the site database and Drizzle history, then rebuilds/redeploys and applies the baseline. Keep both configured to enable auth. Reset/setup is still outstanding; it was not a validation action. |
+| Variable / contract                                                            | Before → after                                                                                | VPS action and lifecycle                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `CONTAINER_NAME` → `SITE_NAME`                                                 | New schema default `soleva`; Compose accepts old `CONTAINER_NAME` while `SITE_NAME` is unset. | Set `SITE_NAME` to the existing container label to preserve identity, or use `soleva` for a new deployment. Rebuild/recreate service; old key may be removed once the new key is set.                                                                                    |
+| `PORTLESS_URL` (added), `VITE_BASE_URL` (resolution changed)                   | Portless supplies local origin; explicit `VITE_BASE_URL` wins.                                | `PORTLESS_URL` is development-only: leave it unset on VPS. Keep/set `VITE_BASE_URL` to the actual public HTTPS origin at both build and runtime; image rebuild required for changed `VITE_*` values. Locally remove stale explicit origin overrides when using Portless. |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (retired consumers)                 | GitHub OAuth → shared Google-only flow; old keys remain accepted for compatibility.           | Remove unused GitHub keys after deployment. Optional `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` continue; register `<VITE_BASE_URL>/api/auth/callback/google`. Restart after credential changes.                                                                        |
+| `EMAIL_API_KEY`, `EMAIL_FROM` (added)                                          | Absent → optional Resend settings for reset/verification email.                               | Set both to enable mail; otherwise recovery remains unavailable. Runtime restart; no browser rebuild just for these private settings.                                                                                                                                    |
+| Nonsecret server settings (`EMAIL_FROM`, `GOOGLE_CLIENT_ID`)                   | Build-inlined → runtime-dynamic resolution.                                                   | Keep their values; rebuild once for this fix, then restart after changing runtime settings. Private credentials remain runtime-only.                                                                                                                                     |
+| `DATABASE_URL`, `BETTER_AUTH_SECRET` (values unchanged; schema reset required) | Same runtime keys with fresh database baseline and shared auth.                               | Owner resets the site database and Drizzle history, then rebuilds/redeploys and applies the baseline. Keep both configured to enable auth. Reset/setup is still outstanding; it was not a validation action.                                                             |
 
 Shared auth forms retain Terminal60's POST fallback and use the installed router
 hydration signal to keep controls inactive until React can handle submission. This
@@ -177,3 +177,63 @@ Status: **reconciled locally** with the pinned target and documented adaptations
 Client changes remain reviewable on the sync branch; no push or VPS deployment was
 performed. Live deployment values remain unverified. The owner will perform the
 required local/VPS resets before applying this release where a database exists.
+
+---
+
+## Reconciliation — 2026-10-09
+
+- Source: <https://github.com/the-factory-forge/forge-template>, remote default branch `main`, verified with `git ls-remote --symref` and fetched into this repository.
+- Reconciled target: `143c1707bdfcd9a9854dfbb49027ade980e01a1e`.
+- Site starting commit: `f0177038a2ecc3e77617d8f2d3af27830cf4e0d2` on `main`; initially clean.
+- Review branch: `agent/sync-forge-template-20261009`.
+- Comparison evidence: `b81b90ec0c58d5dc6cd57d383864cb811464f4b4`, from this site’s previous completed selective-sync record.
+- Strategy: selective integration, preserving the site's independent history. No ancestry-only merge, reset, replacement lockfile or registry upgrade.
+- Status: reconciled with the customer differences below. Use this immutable target as the next comparison point while carrying those differences forward.
+
+### Integrated and preserved
+
+Updated overlapping dependencies to the pinned target, pnpm to 12.10.1 and Vite+ to 1.1.0; regenerated this site's own lockfile. Docker uses the same package manager. Production SSR uses Varlock `init-only` so runtime configuration is not baked into the server bundle; existing stronger runtime handling is retained.
+
+Updated the site sync and dependency-update guidance. Added customer-specific `PRODUCT.md`, `DESIGN.md` and Impeccable code-first configuration, and linked them from `AGENTS.md`. The template remote and `template/HEAD` resolve to the target locally. Remote configuration is not transmitted by a push: the instructions describe adding/fetching it and refreshing its HEAD after a fresh clone. The immutable record, not a moving HEAD alone, identifies applied work.
+
+Existing cookie consent behavior already includes the registry fixes and remains site-owned. Shared status colors were added where missing without replacing the customer palette. Public copy, contacts, media, fonts, locale choices, routes, SEO/analytics contracts and existing migration files were preserved. Template sample pages, demo controls, global layout/FAQ width changes and the template's own TanStarter upstream history are not imported. No production values or secret env files were read or edited.
+
+The installed intranet now follows the target's required database/signing-secret contract, direct auth/session loading, current guards and runtime mail/OAuth configuration. Footer entry and localized sign-out behavior are covered. Public-only mode means removing the intranet at its optional module boundary, not silently disabling an installed intranet with empty credentials. The bulk-sync instruction to migrate old auth takes precedence over older optional-auth language in the generic sync skill/spec. Existing migration history, module permissions and storage prefixes remain intact.
+
+### Environment migration / VPS handoff
+
+Deployed values are unverified. These are rollout instructions, not confirmation that a VPS deployment or production migration occurred. Rebuild the image and recreate/restart the app to take the code/toolchain changes. Keep current `VITE_BASE_URL` and analytics/Ads build arguments; changing any browser `VITE_*` value requires an image rebuild.
+
+| Variable or setting                   | Old → new                                                                                                         | Required VPS / local action                                                                                                                                                            | Restart / data impact                                                                                  |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `DATABASE_URL`, `BETTER_AUTH_SECRET`  | Optional installed auth → required                                                                                | Set/retain the real per-site PostgreSQL URL and stable signing secret in Dokploy runtime env before deploying. Do not use build placeholders or the local exec resolver in production. | Rebuild image and restart/recreate app; startup validates config and runs that site's migration chain. |
+| Local example `DATABASE_URL`          | Empty → `exec("node scripts/local-database.mjs")`                                                                 | Development only: opt in through `.env.local`; preserve an existing correct explicit URL. Production still needs the real URL.                                                         | No VPS change; local resolver discovers/reuses the Compose service.                                    |
+| Local Compose `DATABASE_PORT`         | Host and container shared port → loopback host port, fixed container `5432`; empty host selects an available port | Retain existing DB name/user/password and volume; clear the local example port if automatic allocation is wanted.                                                                      | Local service recreation only; do not delete the existing volume. No VPS mapping change is prescribed. |
+| `VITE_GA_MEASUREMENT_ID`              | Same optional value; schema example added                                                                         | No new value required; keep analytics/Ads settings.                                                                                                                                    | Public-value changes still need an image rebuild.                                                      |
+| `PORTLESS_URL`, site/storage identity | Existing development origin and identity preserved                                                                | Do not add Portless-only values to VPS env or rename existing S3 prefixes/volumes.                                                                                                     | No data movement required.                                                                             |
+
+### Validation
+
+- Frozen install and agent-safe Varlock load passed with synthetic validation credentials where required; deployed configuration was not inspected.
+- Lint/type check passed (pre-existing warnings remain); unit tests: 5 passed.
+- Public production-build/browser suite: 10 passed; desktop/mobile screenshots inspected. External requests were blocked; no real enquiries, email or analytics events were submitted.
+- Impeccable doctor reports no findings. Changed files were formatted; `git diff --check` passed.
+- Auth/profile/employees/bootstrap checks passed across the affected suites and focused reruns. Google initiation/failure is exercised with fake local credentials; password recovery uses a local mail fake. Builds use placeholder credentials and servers receive the disposable DB and mail config only at runtime.
+- Disposable local database resolver/start/reuse/port checks passed. Existing local and production volumes were not touched.
+
+`vp check` still reports formatting debt in unchanged files. These are not type/lint failures or unresolved template changes. The exact unchanged paths found in this run are:
+
+- `MECHANICS.md`
+- `docs/client-migration-report.md`
+- `docs/content-integration-plan.md`
+- `docs/content-recovery-plan.md`
+- `docs/template-sync.md`
+- `scripts/scrape-soleva-org.mjs`
+- `src/components/layouts/not-found-page.tsx`
+- `src/components/ui/accordion.tsx`
+- `src/components/ui/dialog.tsx`
+- `src/components/ui/dropdown-menu.tsx`
+- `src/components/ui/sheet.tsx`
+- `src/lib/data/team.ts`
+
+No live OAuth callback, production email delivery, external registry access, production Docker deployment or production DB migration was performed. Prior unrelated external/account follow-ups remain outside this sync. The independent Corner Factory website and dirty forge-spec work are excluded because they are not generated-site migrations.

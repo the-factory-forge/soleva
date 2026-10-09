@@ -1,7 +1,6 @@
 import "@tanstack/react-start/server-only";
 import { ENV } from "varlock/env";
 
-import { getDictionary, t } from "#/lib/i18n";
 import { localeFromPathname } from "#/lib/i18n/pathname";
 
 interface AuthEmail {
@@ -24,6 +23,8 @@ export async function sendPasswordResetEmail(data: AuthEmail) {
 
 async function sendAuthEmail({ user, url }: AuthEmail, subjectKey: string, bodyKey: string) {
   if (!ENV.EMAIL_API_KEY || !ENV.EMAIL_FROM) throw new Error("Email delivery is not configured.");
+  // The auth CLI loads this module without Vite's import.meta.glob transform.
+  const { getDictionary, t } = await import("#/lib/i18n");
   const callback = new URL(url).searchParams.get("callbackURL") ?? "/";
   const locale = localeFromPathname(new URL(callback, ENV.VITE_BASE_URL).pathname);
   const dict = await getDictionary(locale);

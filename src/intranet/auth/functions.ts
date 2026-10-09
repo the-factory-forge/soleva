@@ -11,20 +11,11 @@ import { db } from "#/intranet/db";
 import { user as userTable } from "#/intranet/db/schema";
 
 /**
- * Reports whether auth is enabled (DATABASE_URL + BETTER_AUTH_SECRET set).
- * Showcase sites redirect auth routes to the homepage until authentication is configured.
- */
-export const $isAuthEnabled = createServerFn({ method: "GET" }).handler(() => ({
-  enabled: auth !== null,
-}));
-
-/**
  * Public login capabilities, without exposing any credentials.
  */
 export const $getLoginOptions = createServerFn({ method: "GET" }).handler(() => ({
-  enabled: auth !== null,
-  passwordReset: Boolean(auth && ENV.EMAIL_API_KEY && ENV.EMAIL_FROM),
-  google: Boolean(auth && ENV.GOOGLE_CLIENT_ID && ENV.GOOGLE_CLIENT_SECRET),
+  passwordReset: Boolean(ENV.EMAIL_API_KEY && ENV.EMAIL_FROM),
+  google: Boolean(ENV.GOOGLE_CLIENT_ID && ENV.GOOGLE_CLIENT_SECRET),
 }));
 
 /**
@@ -43,7 +34,6 @@ export const $updateProfile = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
   .validator(z.object({ name: z.string().trim().min(1).max(200) }))
   .handler(async ({ data }) => {
-    if (!auth) throw new Error("Auth not configured");
     await auth.api.updateUser({ headers: getRequest().headers, body: data });
     return _getUser({ disableCookieCache: true });
   });
@@ -70,8 +60,6 @@ export const $changePassword = createServerFn({ method: "POST" })
   .validator(changePasswordSchema)
   .middleware([freshAuthMiddleware])
   .handler(async ({ data, context }) => {
-    if (!auth) throw new Error("Auth not configured");
-
     await auth.api.changePassword({
       headers: getRequest().headers,
       body: {
@@ -81,12 +69,10 @@ export const $changePassword = createServerFn({ method: "POST" })
       },
     });
 
-    if (db) {
-      await db
-        .update(userTable)
-        .set({ mustChangePassword: false })
-        .where(eq(userTable.id, context.user.id));
-    }
+    await db
+      .update(userTable)
+      .set({ mustChangePassword: false })
+      .where(eq(userTable.id, context.user.id));
 
     return { ...context.user, mustChangePassword: false };
   });

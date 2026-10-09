@@ -19,7 +19,6 @@ import {
 import { sendEmployeeVerificationSchema } from "./employees.schema";
 
 function employeeService(actor: EmployeeActor) {
-  if (!auth) throw new Error("Auth not configured");
   return createEmployeeService({
     api: auth.api,
     headers: getRequest().headers,

@@ -108,16 +108,15 @@ test("localized navigation, consent and brand survive the template update", asyn
   await page.screenshot({ path: testInfo.outputPath("soleva.png"), fullPage: true });
 });
 
-test("showcase auth stays disabled and public assets remain accessible", async ({ request }) => {
+test("intranet login and public assets remain accessible", async ({ request }) => {
   for (const locale of ["fr", "en", "de", "it"]) {
-    for (const route of ["login", "intranet", "app"]) {
-      const response = await request.get(`/${locale}/${route}`, { maxRedirects: 0 });
-      expect(response.status()).toBe(307);
-      expect(response.headers().location).toBe("/");
-    }
+    expect((await request.get(`/${locale}/login`)).status()).toBe(200);
+    const response = await request.get(`/${locale}/intranet`, { maxRedirects: 0 });
+    expect(response.status()).toBe(307);
+    expect(response.headers().location).toBe(`/${locale}/login`);
   }
   expect((await request.get("/fr/signup")).status()).toBe(404);
-  expect((await request.get("/api/auth/get-session")).status()).toBe(404);
+  expect(await (await request.get("/api/auth/get-session")).json()).toBeNull();
 
   const response = await request.get("/fr");
   const html = await response.text();

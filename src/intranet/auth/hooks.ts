@@ -1,6 +1,8 @@
 import { useQuery, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 
+import { localeFromPathname } from "#/lib/i18n/pathname";
+
 import { authClient } from "./auth-client";
 import { authQueryOptions } from "./queries";
 
@@ -28,11 +30,13 @@ export function useSignOut() {
   const queryClient = useQueryClient();
   const router = useRouter();
   return async () => {
+    const locale = localeFromPathname(router.state.location.pathname);
     const result = await authClient.signOut();
     if (result.error) throw new Error(result.error.message);
     await queryClient.cancelQueries();
     queryClient.clear();
     queryClient.setQueryData(authQueryOptions().queryKey, null);
+    await router.navigate({ to: "/$lang", params: { lang: locale }, replace: true });
     await router.invalidate({ sync: true });
   };
 }

@@ -43,7 +43,6 @@ function LoginPage() {
   return (
     <AuthScreen locale={locale} dict={dict} siteName={SITE_NAME}>
       <LoginForm
-        enabled={options.enabled}
         labels={dict.auth}
         forgotPasswordHref={`/${locale}/forgot-password`}
         onSignIn={async (credentials) => {

@@ -63,7 +63,7 @@ Continue the site's established selective-sync approach when that makes the chan
 
 ## Preserve Forge-specific adaptations
 
-- **Site identity:** retain the actual domain, the `VITE_BASE_URL`/`SITE_URL` connection, and the separate canonical-host middleware. Never introduce the template hostname, sample contact data, demo controls, or unwanted routes into the client site. Keep sitemap, robots, llms/data endpoints, and structured data aligned with real routes and content.
+- **Site identity:** retain the actual domain and the `VITE_BASE_URL`/`SITE_URL` connection for SEO and links. Domain and HTTPS redirects belong to Nginx/Dokploy; do not restore application-level canonical-host middleware. Never introduce the template hostname, sample contact data, demo controls, or unwanted routes into the client site. Keep sitemap, robots, llms/data endpoints, and structured data aligned with real routes and content.
 - **Languages and design:** preserve the site's configured locales and translations, font families, semantic colors, dark-mode behavior, and logo/favicon. Apply shared engine or CSS fixes without replacing translated copy or reintroducing demo theme presets as public defaults.
 - **Optional features:** preserve the site's auth, database, analytics, and marketing choices. Retain showcase mode when these are disabled; new template capability is not a reason to activate it. Preserve consent behavior and client conversion destinations.
 - **Environment:** inspect `.env.schema` and sanitized examples, not local secret-bearing env files or production values. Preserve Varlock validation/code generation and application `ENV` imports. Record new required variable names and setup needs without inventing credentials.

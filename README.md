@@ -1,5 +1,19 @@
 # Soleva
 
+## October 2026 template foundation
+
+This site follows the verified Forge template revision and retained differences in
+[docs/template-sync.md](docs/template-sync.md). The installed intranet now requires
+`DATABASE_URL` and `BETTER_AUTH_SECRET`; empty values no longer select showcase mode.
+Keep the real PostgreSQL URL and signing secret configured in Dokploy before deployment.
+Build-only placeholders in Docker do not configure runtime credentials.
+
+Local setup uses `vpr auth:secret`, the existing site-specific `SITE_NAME`, and
+`DATABASE_URL=exec("node scripts/local-database.mjs")` in `.env.local` to start Docker
+and discover an available loopback port. Existing explicit URLs continue to work.
+Never copy local resolver syntax to production. Existing volumes and database names
+are retained; no local or VPS reset is part of this update.
+
 ## September 2026 template sync
 
 The project is reconciled with template `b81b90ec0c58d5dc6cd57d383864cb811464f4b4`.
@@ -21,7 +35,6 @@ The shared auth flow has Google OAuth, password recovery and administrator-manag
 employees, with no public signup. Private credentials are loaded at runtime through
 Varlock's `init-only` integration, matching the Docker build/start boundary.
 
-
 > **Historical validation (site is not live; owner confirmed 2026-09-26)** : **validated 28.08.2026** (visual parity, video hero autoplay, lightbox galleries, i18n fr/en/de/it, responsive). **Merged to `main` (`7f2c3c4`, pushed)**. Lighthouse mobile: **73 Performance / 96 Accessibility / 100 Best Practices / 100 SEO / 3-3 Agentic Browsing** (video LCP accepted by decision). Remaining: redeploy the current build to `soleva.the-corner.io` (prod was a 2-week-old build, 43→~73 expected), verify Range support on the prod server (Safari/Firefox video), client data (email/IDE).
 
 Website of **Soleva** - ASSOCIATION SOLEVA (Renens VD, Suisse). Soleva transforms an
@@ -39,7 +52,7 @@ Phase 3.16 of the factory roadmap).
   [forge-registry](https://github.com/the-factory-forge/forge-registry)
 - Custom i18n dicts (fr/en/de/it) in `src/lib/i18n/`
 - GEO layer: JSON-LD, dynamic robots.txt/sitemap, llms.txt, `/api/data.json`
-- Auth/DB optional (Better Auth + Drizzle/Postgres) - off by default (showcase mode)
+- Installed intranet (Better Auth + Drizzle/Postgres) - database URL and signing secret required
 
 ## Dev
 

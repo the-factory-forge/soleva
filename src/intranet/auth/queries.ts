@@ -1,18 +1,11 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { $getLoginOptions, $getUser, $isAuthEnabled } from "./functions";
+import { $getLoginOptions, $getUser } from "./functions";
 
 export const loginOptionsQueryOptions = () =>
   queryOptions({
     queryKey: ["login-options"],
     queryFn: ({ signal }) => $getLoginOptions({ signal }),
-    staleTime: Infinity,
-  });
-
-export const authEnabledQueryOptions = () =>
-  queryOptions({
-    queryKey: ["auth-enabled"],
-    queryFn: ({ signal }) => $isAuthEnabled({ signal }),
     staleTime: Infinity,
   });
 
