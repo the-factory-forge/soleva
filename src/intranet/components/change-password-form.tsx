@@ -7,7 +7,7 @@ import {
   ChangePasswordForm as SharedChangePasswordForm,
   ChangePasswordPage,
   type ChangePasswordValues,
-} from "#/intranet/components/forge/plugins/login";
+} from "#/intranet/components/forge/plugins/auth";
 import type { Dictionary } from "#/lib/i18n";
 
 /** Host adapter keeps session/cache updates outside registry-managed UI. */

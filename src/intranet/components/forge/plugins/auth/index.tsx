@@ -13,8 +13,8 @@ import { Link, type LinkProps } from "#/components/ui/link";
 import {
   GoogleSignInButton,
   useAuthAction,
-} from "#/intranet/components/forge/plugins/login/auth-controls";
-import { loginLabels, type LoginLabels } from "#/intranet/components/forge/plugins/login/labels";
+} from "#/intranet/components/forge/plugins/auth/auth-controls";
+import { loginLabels, type LoginLabels } from "#/intranet/components/forge/plugins/auth/labels";
 import { cn } from "#/intranet/forge/utils";
 
 export {
@@ -22,13 +22,13 @@ export {
   SignOutButton,
   useAuthAction,
   type AuthControlProps,
-} from "#/intranet/components/forge/plugins/login/auth-controls";
-export type { LoginLabels } from "#/intranet/components/forge/plugins/login/labels";
+} from "#/intranet/components/forge/plugins/auth/auth-controls";
+export type { LoginLabels } from "#/intranet/components/forge/plugins/auth/labels";
 export {
   AuthLayout,
   type AuthLayoutProps,
   type AuthLayoutLabels,
-} from "#/intranet/components/forge/plugins/login/auth-layout";
+} from "#/intranet/components/forge/plugins/auth/auth-layout";
 export {
   ForgotPasswordForm,
   ResetPasswordForm,
@@ -39,13 +39,13 @@ export {
   type ChangePasswordFormProps,
   type ChangePasswordPageProps,
   type ChangePasswordValues,
-} from "#/intranet/components/forge/plugins/login/password-forms";
-export type { PasswordLabels } from "#/intranet/components/forge/plugins/login/password-labels";
+} from "#/intranet/components/forge/plugins/auth/password-forms";
+export type { PasswordLabels } from "#/intranet/components/forge/plugins/auth/password-labels";
 export {
   AccessDeniedPage,
   type AccessDeniedPageProps,
   type AccessDeniedLabels,
-} from "#/intranet/components/forge/plugins/login/access-denied-page";
+} from "#/intranet/components/forge/plugins/auth/access-denied-page";
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -249,3 +249,22 @@ export function LoginForm({
     </div>
   );
 }
+
+export {
+  AccountPage,
+  type AccountPageProps,
+} from "#/intranet/components/forge/plugins/auth/account-page";
+export {
+  AccountSecurity,
+  type AccountSecurityData,
+  type AccountSecurityProps,
+} from "#/intranet/components/forge/plugins/auth/account-security";
+export {
+  AgentKeys,
+  type AgentKey,
+  type AgentKeysProps,
+} from "#/intranet/components/forge/plugins/auth/agent-keys";
+export type {
+  AccountLabels,
+  SecurityLabels,
+} from "#/intranet/components/forge/plugins/auth/account-labels";

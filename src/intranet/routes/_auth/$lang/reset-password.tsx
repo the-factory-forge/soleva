@@ -6,7 +6,7 @@ import { Link } from "#/components/ui/link";
 import { authClient } from "#/intranet/auth/auth-client";
 import { authQueryOptions, loginOptionsQueryOptions } from "#/intranet/auth/queries";
 import { AuthScreen } from "#/intranet/components/auth-screen";
-import { ResetPasswordForm } from "#/intranet/components/forge/plugins/login";
+import { ResetPasswordForm } from "#/intranet/components/forge/plugins/auth";
 import { ensureDictionary, t, useDictionary } from "#/lib/i18n";
 import { localeFromPathname } from "#/lib/i18n/pathname";
 import { SITE_NAME } from "#/lib/site/constants";

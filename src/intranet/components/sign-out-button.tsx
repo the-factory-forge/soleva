@@ -2,7 +2,7 @@ import { useSignOut } from "#/intranet/auth/hooks";
 import {
   SignOutButton as SignOutControl,
   useAuthAction,
-} from "#/intranet/components/forge/plugins/login/auth-controls";
+} from "#/intranet/components/forge/plugins/auth/auth-controls";
 
 export function SignOutButton() {
   const signOut = useSignOut();

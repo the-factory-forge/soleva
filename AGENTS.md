@@ -46,6 +46,14 @@ specs before implementation. See `docs/template-sync.md` for this site's history
   Never stop another site's server or proxy or occupy port 3000.
 - `ENV.SITE_NAME` is an infrastructure slug; public display-name constants stay customer-owned.
 
+## Provider-owned maintenance
+
+For template updates, follow [the template sync procedure](.agents/skills/sync-forge-template/SKILL.md).
+For selected registry updates, use [sync-from-forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md).
+For dependency maintenance, use [update-dependencies](https://github.com/the-factory-forge/forge-skills/blob/main/skills/update-dependencies/SKILL.md).
+Read [.agents/copywriting.md](.agents/copywriting.md) before changing copy or translations.
+For filters and view state, read [ADR-0008](https://github.com/the-factory-forge/forge-spec/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md).
+
 ## Essentials
 
 - Stack: TypeScript + React (TanStack Start), with Drizzle ORM, shadcn/ui, and Better Auth.

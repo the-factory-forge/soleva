@@ -8,7 +8,7 @@ import { Link, type LinkProps } from "#/components/ui/link";
 import {
   passwordLabels,
   type PasswordLabels,
-} from "#/intranet/components/forge/plugins/login/password-labels";
+} from "#/intranet/components/forge/plugins/auth/password-labels";
 import { cn } from "#/intranet/forge/utils";
 
 const inputClass =

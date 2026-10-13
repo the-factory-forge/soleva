@@ -127,3 +127,20 @@ Status of the SEO/perf adaptation (branch `seo-adaptation`).
 | 12  | Hero lazy (video `preload="none"` + ~1s frame poster)      | ✅     | `src/components/home/home-hero.tsx`, `public/images/video-poster.webp`                                                                                  |
 | 13  | Logo sizing (651px → 300px q80, backup kept)               | ✅     | `public/images/soleva-logo.webp` (+`-651x267.webp` backup)                                                                                              |
 | 14  | Single JSON-LD                                             | ❌     | Multiple `application/ld+json` blocks (WebSite + Organization + FAQ/Breadcrumb); WebSite `@id` → `#organization` is not linked by the Organization node |
+
+## Foundation maintenance
+
+Template reconciliation and deployment actions are recorded in [the sync history](docs/template-sync.md).
+Use [sync-forge-template](.agents/skills/sync-forge-template/SKILL.md) for foundation changes,
+[the registry-owned sync procedure](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md) for selected registry items,
+and [forge-skills dependency maintenance](https://github.com/the-factory-forge/forge-skills/blob/main/skills/update-dependencies/SKILL.md) for package updates.
+
+The account Security tab now manages expiring agent keys and other active sessions.
+See [profile security](docs/profile-security.md). Apply the incremental `20261013131127_profile_security`
+migration through the existing deployment entrypoint; retain `BETTER_AUTH_SECRET` because it also
+encrypts stored agent keys. Keep current customer modules and storage prefixes.
+
+Local `vpr db:start` and the `DATABASE_URL=exec("node scripts/local-database.mjs")`
+resolver apply pending migrations before returning the local connection URL. Explicit
+`DATABASE_URL` values bypass the resolver and still require `vpr db:migrate`.
+The resolver is development-only; production retains its real database URL.

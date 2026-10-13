@@ -10,6 +10,7 @@ import { ENV } from "varlock/env";
 import { db } from "#/intranet/db";
 import * as schema from "#/intranet/db/schema";
 
+import { sessionSignInMethod } from "./sign-in-method";
 import { sendPasswordResetEmail, sendVerificationEmail } from "./verification-email";
 
 export const auth = betterAuth({
@@ -29,6 +30,24 @@ export const auth = betterAuth({
 
     tanstackStartCookies(),
   ],
+
+  session: {
+    additionalFields: {
+      signInMethod: { type: "string", required: false, input: false },
+    },
+  },
+  databaseHooks: {
+    session: {
+      create: {
+        before: async (session, context) => ({
+          data: {
+            ...session,
+            signInMethod: sessionSignInMethod(context?.path, context?.params?.id),
+          },
+        }),
+      },
+    },
+  },
 
   user: {
     additionalFields: {

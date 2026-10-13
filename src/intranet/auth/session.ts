@@ -13,7 +13,7 @@ interface GetUserServerQuery {
  *
  * For server app logic, consider using authMiddleware instead.
  */
-export const _getUser = createServerOnlyFn(async (query?: GetUserServerQuery) => {
+export const _getSession = createServerOnlyFn(async (query?: GetUserServerQuery) => {
   const session = await auth.api.getSession({
     headers: getRequest().headers,
     query,
@@ -26,5 +26,9 @@ export const _getUser = createServerOnlyFn(async (query?: GetUserServerQuery) =>
     setResponseHeader("Set-Cookie", cookies);
   }
 
-  return session.response?.user && !session.response.user.banned ? session.response.user : null;
+  return session.response?.user && !session.response.user.banned ? session.response : null;
 });
+
+export const _getUser = createServerOnlyFn(
+  async (query?: GetUserServerQuery) => (await _getSession(query))?.user ?? null,
+);

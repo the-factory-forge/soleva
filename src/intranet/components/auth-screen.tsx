@@ -1,7 +1,7 @@
 import { useLocation } from "@tanstack/react-router";
 
 import { LanguageSwitcher } from "#/components/navigation/language-switcher";
-import { AuthLayout } from "#/intranet/components/forge/plugins/login/auth-layout";
+import { AuthLayout } from "#/intranet/components/forge/plugins/auth/auth-layout";
 import { t, type Dictionary } from "#/lib/i18n";
 import { locales, localeNames, localeShort, type Locale } from "#/lib/i18n/config";
 import { SITE_LOGO } from "#/lib/site/constants";

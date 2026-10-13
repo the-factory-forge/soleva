@@ -204,13 +204,13 @@ The installed intranet now follows the target's required database/signing-secret
 
 Deployed values are unverified. These are rollout instructions, not confirmation that a VPS deployment or production migration occurred. Rebuild the image and recreate/restart the app to take the code/toolchain changes. Keep current `VITE_BASE_URL` and analytics/Ads build arguments; changing any browser `VITE_*` value requires an image rebuild.
 
-| Variable or setting                   | Old → new                                                                                                         | Required VPS / local action                                                                                                                                                            | Restart / data impact                                                                                  |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `DATABASE_URL`, `BETTER_AUTH_SECRET`  | Optional installed auth → required                                                                                | Set/retain the real per-site PostgreSQL URL and stable signing secret in Dokploy runtime env before deploying. Do not use build placeholders or the local exec resolver in production. | Rebuild image and restart/recreate app; startup validates config and runs that site's migration chain. |
-| Local example `DATABASE_URL`          | Empty → `exec("node scripts/local-database.mjs")`                                                                 | Development only: opt in through `.env.local`; preserve an existing correct explicit URL. Production still needs the real URL.                                                         | No VPS change; local resolver discovers/reuses the Compose service.                                    |
-| Local Compose port allocation        | Configurable host port → automatically assigned loopback port; container port stays `5432`                      | No port setting is needed; the local resolver discovers the assigned port. Preserve the existing database volume.                                                                    | Local service recreation only; do not delete the existing volume. No VPS mapping change is prescribed. |
-| `VITE_GA_MEASUREMENT_ID`              | Same optional value; schema example added                                                                         | No new value required; keep analytics/Ads settings.                                                                                                                                    | Public-value changes still need an image rebuild.                                                      |
-| `PORTLESS_URL`, site/storage identity | Existing development origin and identity preserved                                                                | Do not add Portless-only values to VPS env or rename existing S3 prefixes/volumes.                                                                                                     | No data movement required.                                                                             |
+| Variable or setting                   | Old → new                                                                                  | Required VPS / local action                                                                                                                                                            | Restart / data impact                                                                                  |
+| ------------------------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `DATABASE_URL`, `BETTER_AUTH_SECRET`  | Optional installed auth → required                                                         | Set/retain the real per-site PostgreSQL URL and stable signing secret in Dokploy runtime env before deploying. Do not use build placeholders or the local exec resolver in production. | Rebuild image and restart/recreate app; startup validates config and runs that site's migration chain. |
+| Local example `DATABASE_URL`          | Empty → `exec("node scripts/local-database.mjs")`                                          | Development only: opt in through `.env.local`; preserve an existing correct explicit URL. Production still needs the real URL.                                                         | No VPS change; local resolver discovers/reuses the Compose service.                                    |
+| Local Compose port allocation         | Configurable host port → automatically assigned loopback port; container port stays `5432` | No port setting is needed; the local resolver discovers the assigned port. Preserve the existing database volume.                                                                      | Local service recreation only; do not delete the existing volume. No VPS mapping change is prescribed. |
+| `VITE_GA_MEASUREMENT_ID`              | Same optional value; schema example added                                                  | No new value required; keep analytics/Ads settings.                                                                                                                                    | Public-value changes still need an image rebuild.                                                      |
+| `PORTLESS_URL`, site/storage identity | Existing development origin and identity preserved                                         | Do not add Portless-only values to VPS env or rename existing S3 prefixes/volumes.                                                                                                     | No data movement required.                                                                             |
 
 ### Validation
 
@@ -237,3 +237,90 @@ Deployed values are unverified. These are rollout instructions, not confirmation
 - `src/lib/data/team.ts`
 
 No live OAuth callback, production email delivery, external registry access, production Docker deployment or production DB migration was performed. Prior unrelated external/account follow-ups remain outside this sync. The independent Corner Factory website and dirty forge-spec work are excluded because they are not generated-site migrations.
+
+## Reconciliation — 2026-10-13
+
+- Source: <https://github.com/the-factory-forge/forge-template>, canonical default branch `main`.
+- Reconciled target: `e43657ee3023805b9f7afb50fa39c28e980476e6`, published `v0.0.0-rc.2`.
+- Provider release gates passed: the remote template tag peels to its main tip above; registry `v0.0.0-rc.4` peels to remote main `01d79062edf17fa26fd16e9f76216a270bed5263`. Rechecked after the user published rc.4. No release exception was needed. Dirty provider files are excluded.
+- Site starting commit: `1b07f0b18030671afc1c57400edfd77cf6a8915c` on `main`.
+- Review branch: `agent/sync-forge-template-20261013`, isolated from the original checkout.
+- Comparison base: `143c1707bdfcd9a9854dfbb49027ade980e01a1e`, from this site's own completed 2026-10-09 reconciliation. Verified that revision in template history and checked the current affected files independently: unchanged foundation instructions, session and middleware matched that base; later customer/module changes were compared separately.
+- Strategy: selective base-to-target reconciliation. No ancestry-only merge, reset, wholesale tree/lockfile replacement or unrelated dependency upgrade.
+- Status: reconciled with the intentional customer differences below. Use this immutable target as the next comparison point while carrying those differences forward. Deployment and existing unrelated follow-ups are not part of this completion marker.
+
+### Integrated and already present
+
+Added provider-owned maintenance/copywriting guidance and reconciled URL-owned filter guidance. Updated the site sync procedure. Retired only unchanged inherited skill copies removed by the template and their lock entries; preserved customized copies and already-absent skills. The site's pnpm 12.10.1 / Vite+ 1.1.0 toolchain already matched the target; dependency versions, lockfile, customer package identity and Docker wiring are unchanged.
+
+Renamed the installed Login plugin directory to Auth and updated its callers without discarding existing fixes. Added encrypted, expiring, user-owned agent keys; recorded the sign-in method for new sessions; added account/session metadata and revocation with fresh authorization and an impersonation guard. Older sessions remain valid with an unknown method. Account secrets and session controls reject unauthenticated, other-owner and impersonated access.
+
+Generated the site's own additive `20261013131127_profile_security` migration and snapshot, preserving every earlier migration and customer table. It creates `agent_key` with indexes/ownership foreign key and adds nullable `session.sign_in_method`. Better Auth schema generation verified the session field; unrelated schema declarations are preserved. Added only the Security translations for the site's installed locales. Local database startup now applies pending migrations before returning the URL, and db:start uses that resolver. Explicit database URLs retain their existing behavior.
+
+### Intentional differences and local work
+
+Keep the light-only Montserrat public design, company content, public routes, four intranet locales and employee module. The profile adapter matched the comparison base and now uses the target shared AccountPage. The separate uncommitted employee invitation work is excluded from this branch and must be retained when these branches are integrated.
+
+Public content, routes, contacts, locale choices, metadata, assets, fonts, styles, service configuration and storage identities are unchanged. Template sample pages, template release files, template-only migration history and provider registry installation receipts are not customer changes. The registry release was verified as a gate; this is not a general registry rc.4 upgrade.
+
+The original checkout and all its uncommitted changes remain untouched and are not in this sync commit. This sync does not depend on them. Preserve the following work when integrating the branch; overlapping auth hooks must compose the user/invitation hook with the new session hook, not replace either.
+
+```text
+M src/intranet/auth/auth.ts
+ M src/intranet/auth/functions.ts
+ M src/intranet/auth/verification-email.ts
+ M src/intranet/components/forge/plugins/employees/employee-actions.tsx
+ M src/intranet/components/forge/plugins/employees/employee-create-dialog.tsx
+ M src/intranet/components/forge/plugins/employees/index.tsx
+ M src/intranet/components/forge/plugins/employees/labels.ts
+ M src/intranet/components/forge/plugins/employees/schema.ts
+ M src/intranet/components/forge/plugins/employees/server/employees.server.ts
+ M src/intranet/e2e/employees.spec.ts
+ M src/intranet/e2e/login.spec.ts
+ M src/intranet/employees/employees.schema.ts
+ M src/intranet/employees/functions.ts
+ M src/intranet/i18n/de.json
+ M src/intranet/i18n/en.json
+ M src/intranet/i18n/fr.json
+ M src/intranet/i18n/it.json
+ M src/intranet/routes/_auth/$lang/intranet/employees/index.tsx
+ M src/intranet/routes/_auth/$lang/reset-password.tsx
+?? docs/registry-sync.md
+?? docs/registry-sync/
+?? src/intranet/e2e/invitations.spec.ts
+```
+
+### Environment migration / VPS handoff
+
+Deployed values are unverified; secret-bearing local env files were neither read nor copied. Rebuild the image and recreate the app to deploy this code. These actions have not been executed on a VPS. Keep existing browser VITE_* build arguments: changing them requires a rebuild, and a runtime-only restart is insufficient.
+
+| Variable or setting                                          | Old → new                                                        | Required VPS / local action                                                                                                       | Rebuild, restart and data impact                                                                     |
+| ------------------------------------------------------------ | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `BETTER_AUTH_SECRET`                                         | Same required key, now also encrypts stored agent keys           | Retain the existing stable secret; do not rotate it as part of this sync                                                          | Rebuild/recreate app; changing the secret would invalidate sessions and affect stored-key encryption |
+| `DATABASE_URL` / migration                                   | Same production URL; additive `20261013131127_profile_security`  | Keep the real production URL; let the existing startup entrypoint apply this migration (or run `vpr db:migrate` before app start) | Rebuild/recreate app; additive schema migration required, no reset or data copy                      |
+| Local `DATABASE_URL=exec("node scripts/local-database.mjs")` | Starts database → starts database and applies pending migrations | Development only; retain an explicit URL if already configured and run its migrations explicitly                                  | No VPS env change; local schema migration, existing data/credentials retained                        |
+| `PORTLESS_URL`, `VITE_*`                                     | Unchanged                                                        | PORTLESS_URL remains development-only; preserve production origin and analytics build arguments                                   | No new VPS value; changed browser values would require an image rebuild                              |
+
+### Validation and remaining limits
+
+- Frozen dependency installation passed with the destination toolchain; no manifest version or lockfile changes.
+- Baseline and final lint/type checks passed; existing warnings remain. Unit tests: 8 passed.
+- Agent-safe Varlock validation passed using synthetic local configuration.
+- Affected login/profile/security production-build/browser suite: 8 passed, 1 optional Google-provider test skipped. Existing E2E commands owned the build/server lifecycle on port 3100; suites were serialized. External browser requests were blocked and email delivery was faked locally.
+- Applied the complete migration chain to a disposable database; local resolver tests passed for automatic migrations, bootstrap credentials, restart/data preservation, no reseeding, failed migration handling and explicit deployment-URL override. Existing local/production volumes were not used.
+- Security browser checks covered creation, encryption/metadata secrecy, expiry/deletion, other-owner and anonymous denial, old OAuth sessions, revoking only other owned sessions, impersonation denial, configured locales and mobile/desktop layouts. Reviewed representative screenshots with the site's own styles and supported themes.
+- Full `vp check` still reports pre-existing formatting debt in otherwise unchanged files:
+  - `MECHANICS.md`
+  - `docs/client-migration-report.md`
+  - `docs/content-integration-plan.md`
+  - `docs/content-recovery-plan.md`
+  - `scripts/scrape-soleva-org.mjs`
+  - `src/components/layouts/not-found-page.tsx`
+  - `src/components/ui/accordion.tsx`
+  - `src/components/ui/dialog.tsx`
+  - `src/components/ui/dropdown-menu.tsx`
+  - `src/components/ui/sheet.tsx`
+  - `src/lib/data/team.ts`
+- Changed files are formatted; full diff review and `git diff --check` passed. Customer public source/assets and existing migration files were verified unchanged.
+
+No live OAuth callback, production email/storage integration, production Docker deployment or production database migration was performed. Optional skipped tests and unrelated prior follow-ups remain outside this sync; no production rollout is claimed.

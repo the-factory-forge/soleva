@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
-import { useAuthAction } from "#/intranet/components/forge/plugins/login/auth-controls";
+import { useAuthAction } from "#/intranet/components/forge/plugins/auth/auth-controls";
 import { Link } from "#/intranet/components/forge/ui/link.tsx";
 import { cn } from "#/intranet/forge/utils.ts";
 

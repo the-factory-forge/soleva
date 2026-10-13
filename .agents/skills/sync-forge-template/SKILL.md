@@ -18,9 +18,15 @@ The source is **https://github.com/the-factory-forge/forge-template**. The templ
 
 ## Resolve the target and comparison base
 
-**Target (`TARGET`):** discover the canonical template repository's current default branch, fetch it, and record its immutable commit SHA. An explicit user-requested release or commit takes precedence. A local `forge-template` checkout helps inspection but may be stale or dirty; inspect the fetched commit rather than treating its working tree as the latest release.
+**Target (`TARGET`):** an explicit user-selected release or commit takes precedence.
+Otherwise inspect canonical `forge-template` releases, select the latest suitable
+published stable release, and verify its tag's full commit SHA. If no verified
+release exists, discover/fetch the canonical default branch and explicitly label
+that immutable target unreleased. A package version or dirty template checkout
+is not a published baseline. Report inaccessible remote history instead of
+claiming a local target is latest.
 
-Use `git ls-remote --symref https://github.com/the-factory-forge/forge-template.git HEAD` to discover the branch. Fetch that verified branch into the client object database or a separate inspection clone. Resolve `FETCH_HEAD` immediately if using it; another fetch replaces it. Do not repoint the site's `origin` or an existing `upstream` remote. Reuse a named template remote only after verifying its URL.
+For an unreleased default-branch target, use `git ls-remote --symref https://github.com/the-factory-forge/forge-template.git HEAD` to discover the branch. Fetch that verified branch into the client object database or a separate inspection clone. Resolve `FETCH_HEAD` immediately if using it; another fetch replaces it. Do not repoint the site's `origin` or an existing `upstream` remote. Reuse a named template remote only after verifying its URL.
 
 If the remote cannot be checked, describe the last locally available revision as such. Continue useful inspection, but do not claim it is the latest template.
 
