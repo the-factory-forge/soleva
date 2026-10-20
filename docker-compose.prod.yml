@@ -4,6 +4,7 @@
 
 services:
   app:
+    restart: unless-stopped
     container_name: ${SITE_NAME:-${CONTAINER_NAME:-soleva}}
     build:
       context: .
