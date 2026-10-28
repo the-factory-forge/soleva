@@ -18,10 +18,12 @@ import { ensureDictionary, useDictionary } from "#/lib/i18n";
 import { localeFromPathname } from "#/lib/i18n/pathname";
 
 export const Route = createFileRoute("/_auth/$lang/intranet/employees/")({
-  validateSearch: z.object({
-    q: z.string().trim().max(200).default("").catch(""),
-    offset: z.coerce.number().int().min(0).default(0).catch(0),
-  }),
+  validateSearch: z
+    .object({
+      q: z.string().trim().max(200).optional().catch(undefined),
+      offset: z.coerce.number().int().min(0).optional().catch(undefined),
+    })
+    .passthrough(),
   beforeLoad: async ({ context, location }) => {
     const locale = localeFromPathname(location.pathname);
     const user = await context.queryClient.query(authQueryOptions());
@@ -45,10 +47,14 @@ function Employees() {
   const { locale } = Route.useLoaderData();
   const dict = useDictionary(locale);
   const { user } = useAuthSuspense();
-  const { q: search, offset } = Route.useSearch();
+  const { q: search = "", offset = 0 } = Route.useSearch();
   const navigate = Route.useNavigate();
   const setOffset = (value: number) =>
-    void navigate({ search: (previous) => ({ ...previous, offset: value }), replace: true });
+    void navigate({
+      search: (previous) => ({ ...previous, offset: value || undefined }),
+      hash: true,
+      resetScroll: false,
+    });
   const queryClient = useQueryClient();
   const employees = useQuery(employeesQueryOptions(offset, search));
   async function refreshEmployees() {
@@ -66,7 +72,14 @@ function Employees() {
       employees={employees.data?.users ?? []}
       total={employees.data?.total ?? 0}
       search={search}
-      onSearchChange={(value) => void navigate({ search: { q: value, offset: 0 } })}
+      onSearchChange={(value) =>
+        void navigate({
+          search: (previous) => ({ ...previous, q: value || undefined, offset: undefined }),
+          hash: true,
+          resetScroll: false,
+          replace: true,
+        })
+      }
       loading={employees.isFetching}
       error={employees.isError}
       offset={offset}

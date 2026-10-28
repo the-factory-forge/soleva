@@ -20,6 +20,12 @@ Comparison point: `1c4732ce4ab14565b6c0bc3d4feb0baeb43d1ad1`.
 - Reviewed production screenshots of mobile consent/newsletter and employee
   directory layouts. No horizontal document overflow on the employee journey.
 - The disposable PostgreSQL container was removed after verification.
+- Parent pre-review found incomplete preservation of URL state in the new
+  Employees callbacks. Fixed functional search updates, retained unrelated
+  parameters and fragments, disabled scroll reset, removed cleared filters and
+  kept pagination history while replacing live typing. The targeted production
+  browser regression passed on another disposable database with
+  `panel=retained#team`, reload, Back/Forward, cleared search and bulk deletion.
 - Full `vp check` detects pre-existing formatting debt outside this change;
   modified-file formatting and `git diff --check` are required separately.
 
