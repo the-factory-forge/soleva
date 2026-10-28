@@ -10,7 +10,7 @@ Comparison point: `1c4732ce4ab14565b6c0bc3d4feb0baeb43d1ad1`.
 - Public production browser journeys: six passed, covering consent persistence,
   cancel/reopen/analytics withdrawal, localized navigation, disabled newsletter,
   customer branding, mobile/desktop and intranet entry.
-- Intranet production browser journeys: 11 distinct tests passed across the
+- Intranet production browser journeys: 12 distinct tests passed across the
   initial run and targeted reruns; one configured-Google-provider test skipped.
   Includes one-hour/single-use invitation activation, stale-link resend rejection,
   delivery failure/retry, email verification and recipient-prefilled login,
@@ -31,13 +31,47 @@ Comparison point: `1c4732ce4ab14565b6c0bc3d4feb0baeb43d1ad1`.
 
 ## Standards
 
-Independent two-axis review pending.
+An independent read-only sub-agent reviewed `1c4732c...a35a335` against the
+documented standards and the full Fowler smell baseline.
+
+One P2 finding: the incoming bulk-deletion helper exposes an optimistic deletion
+flag and Employees used it to hide a row before server confirmation. This
+contradicted `.agents/data-flow.md`'s prohibition on optimistic destructive or
+security-sensitive mutations. Resolved in the Employees consumer: pending rows
+stay visible and controls remain disabled until the existing host callback
+refreshes canonical data. The shared helper's selection/retry behavior is intact.
+
+The regression holds the real deletion request at the HTTP boundary and verifies
+both rows remain visible until release, then checks both records were removed.
+No additional material standards violation or justified Fowler smell was found.
 
 ## Spec
 
-Independent two-axis review pending. The specification source is the sync request,
-the canonical `sync-from-forge-registry` skill, Registry RC6 Auth/Employees/consent
-guides and the shared Registry distribution/host/UI contracts.
+An independent read-only sub-agent reviewed the same fixed diff against the sync
+request, canonical `sync-from-forge-registry` skill, RC6 Auth/Employees/consent
+guides and shared Registry distribution/host/UI contracts.
+
+Two findings, both resolved:
+
+1. P2: invitation acceptance did not sign in automatically, as required by RC6
+   `docs/intranet-auth.md:326-331`. Added the existing Forge host pattern: derive
+   the recipient only from an eligible, unexpired token; call Better Auth reset
+   and sign-in; clear previous-account caches before navigation. Session failure
+   preserves activation success and the login fallback. Browser tests prove
+   automatic access, the correct recipient, stale-token rejection and recovery
+   after a deliberately failed sign-in.
+2. P3: the shared loading bar retained its default `top-0` instead of sitting
+   below the navbar, contrary to `shared-ui/spec.md`'s shared loading requirement.
+   The host now supplies responsive offsets. Computed positions were verified at
+   80px desktop and 64px mobile in the production browser test.
+
+The affected invitation, recovery, directory/bulk and fallback journeys passed
+across targeted reruns after these changes. Initial fixture selectors were
+adapted to the real pending label, and each test uses an independent synthetic
+client IP to avoid coupling through provider rate limits.
+
+Final unresolved findings: Standards 0, Spec 0. Initial findings were Standards 1
+with maximum P2, and Spec 2 with maximum P2. Parent review remains separate.
 
 `docs/agents/issue-tracker.md` is absent; `/setup-matt-pocock-skills` can configure
 that optional issue-tracker workflow. No originating external issue is required

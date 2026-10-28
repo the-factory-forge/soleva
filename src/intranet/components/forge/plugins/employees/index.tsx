@@ -226,10 +226,7 @@ function EmployeesPageContent({
                 (employee) => (
                   <tr
                     key={employee.id}
-                    hidden={
-                      selection.isDeleting(employee.id) ||
-                      !filteredEmployees.some((row) => row.id === employee.id)
-                    }
+                    hidden={!filteredEmployees.some((row) => row.id === employee.id)}
                     className={tableRowClass}
                   >
                     <td className="w-10 p-2">

@@ -23,7 +23,7 @@ export const Route = createFileRoute("/_auth/$lang/intranet/employees/")({
       q: z.string().trim().max(200).optional().catch(undefined),
       offset: z.coerce.number().int().min(0).optional().catch(undefined),
     })
-    .passthrough(),
+    .loose(),
   beforeLoad: async ({ context, location }) => {
     const locale = localeFromPathname(location.pathname);
     const user = await context.queryClient.query(authQueryOptions());

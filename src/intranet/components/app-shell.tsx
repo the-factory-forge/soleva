@@ -61,7 +61,7 @@ export function AppShell({ siteName, locale, dict, user, controls, children }: A
   return (
     <LoadingProvider>
       <ActionToastProvider closeLabel={t(dict, "common.close")}>
-        <LoadingIndicator label={t(dict, "employees.loading")} />
+        <LoadingIndicator label={t(dict, "employees.loading")} className="top-16! md:top-20!" />
         <IntranetShell
           brand={{
             name: siteName,

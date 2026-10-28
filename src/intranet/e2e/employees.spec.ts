@@ -38,16 +38,23 @@ async function invite(page: Page, email: string, name = "Invited employee") {
   return dialog;
 }
 
-async function activate(page: Page, url: string) {
+async function activate(page: Page, url: string, automatic = true) {
   await page.goto(url);
   await expect(
     page.getByRole("heading", { name: "Set up your account", exact: true }),
   ).toBeVisible();
+  const token = new URL(page.url()).searchParams.get("token");
   await page.getByLabel("New password", { exact: true }).fill(newPassword);
-  await page.getByRole("button", { name: "Save new password", exact: true }).click();
-  await expect(
-    page.getByRole("status").filter({ hasText: "Your password has been reset." }),
-  ).toBeVisible();
+  await page.getByRole("button", { name: "Activate account", exact: true }).click();
+  if (automatic) {
+    await expect(page).toHaveURL(/\/en\/intranet\/?$/);
+  } else {
+    await expect(
+      page.getByRole("status").filter({ hasText: "Your account is ready." }),
+    ).toBeVisible();
+    await expect(page.getByLabel("New password", { exact: true })).toHaveCount(0);
+  }
+  return token;
 }
 
 test.beforeAll(async () => {
@@ -60,8 +67,8 @@ test.afterAll(async () => {
   await sql.end();
 });
 
-test.beforeEach(async ({ context }) => {
-  await context.setExtraHTTPHeaders({ "x-forwarded-for": "192.0.2.81" });
+test.beforeEach(async ({ context }, testInfo) => {
+  await context.setExtraHTTPHeaders({ "x-forwarded-for": `192.0.2.${(testInfo.line % 200) + 1}` });
   await context.route(
     /^https?:\/\/(?!(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?(?:[/?#]|$))/,
     (route) => route.abort(),
@@ -105,8 +112,7 @@ test("invitations activate once, resend invalidates previous links and employees
     const recipient = await context.newPage();
     await recipient.goto(previous);
     await expect(recipient.getByRole("alert")).toBeVisible();
-    await activate(recipient, current);
-    const token = new URL(recipient.url()).searchParams.get("token");
+    const token = await activate(recipient, current);
     expect(
       (
         await context.request.post("/api/auth/reset-password", {
@@ -114,7 +120,8 @@ test("invitations activate once, resend invalidates previous links and employees
         })
       ).ok(),
     ).toBe(false);
-    await login(recipient, email, newPassword);
+    const signedIn = await (await context.request.get("/api/auth/get-session")).json();
+    expect(signedIn.user.email).toBe(email);
     expect((await context.request.get("/api/auth/admin/list-users")).status()).toBe(403);
     await recipient.goto("/it/intranet/employees");
     await expect(recipient).toHaveURL(/\/it\/access-denied$/);
@@ -177,6 +184,7 @@ test("delivery failure keeps the account for retry; editing, verification and de
       .getByRole("button", { name: "Send verification email to Renamed employee", exact: true })
       .click();
     await expect(page.getByText("Verification email sent.", { exact: true })).toBeVisible();
+    await context.clearCookies();
     await recipient.goto(await invitationURL(changedEmail));
     await expect(recipient).toHaveURL(/\/en\/login\?/);
     await expect(recipient.getByLabel("Email", { exact: true })).toHaveValue(changedEmail);
@@ -250,8 +258,10 @@ test("search filters the full directory before pagination and survives navigatio
   expect(retainedURL()).toEqual({ panel: "retained", hash: "#team" });
   await page.getByRole("button", { name: "Search employees", exact: true }).click();
   await search.fill("100%_");
+  await expect(page.locator('[data-slot="loading-indicator"]')).toHaveCSS("top", "80px");
   await page.screenshot({ path: test.info().outputPath("employees-desktop.png"), fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator('[data-slot="loading-indicator"]')).toHaveCSS("top", "64px");
   await page.screenshot({ path: test.info().outputPath("employees-mobile.png"), fullPage: true });
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
   await page.setViewportSize({ width: 1280, height: 720 });
@@ -260,9 +270,67 @@ test("search filters the full directory before pagination and survives navigatio
   await page.getByRole("checkbox", { name: "Select row: Directory 01", exact: true }).check();
   await page.getByRole("button", { name: "Delete selected items (2)", exact: true }).click();
   const confirmation = page.getByRole("dialog", { name: "Delete selected items?", exact: true });
+  let releaseDelete = () => {};
+  let notifyBlocked = () => {};
+  const released = new Promise<void>((resolve) => {
+    releaseDelete = resolve;
+  });
+  const blocked = new Promise<void>((resolve) => {
+    notifyBlocked = resolve;
+  });
+  await page.route("**/_serverFn/**", async (route) => {
+    if (route.request().method() === "POST") {
+      notifyBlocked();
+      await released;
+    }
+    await route.continue();
+  });
   await confirmation.getByRole("button", { name: "Delete", exact: true }).click();
+  await blocked;
+  try {
+    await expect(page.locator("tbody tr").filter({ hasText: "Directory 00" })).toBeVisible();
+    await expect(page.locator("tbody tr").filter({ hasText: "Directory 01" })).toBeVisible();
+    await expect(
+      confirmation.getByRole("button", { name: "Please wait…", exact: true }),
+    ).toBeDisabled();
+  } finally {
+    releaseDelete();
+  }
   await expect(confirmation).toHaveCount(0);
   expect(
     await sql`select id from "user" where email in (${`directory-0-${id}@example.test`}, ${`directory-1-${id}@example.test`})`,
   ).toHaveLength(0);
+});
+
+test("activated invitations offer login if only session creation fails", async ({
+  page,
+  browser,
+  baseURL,
+}) => {
+  const email = `fallback-${id}@example.test`;
+  await login(page);
+  await page.goto("/en/intranet/employees");
+  await expect(await invite(page, email, "Fallback employee")).toHaveCount(0);
+  const context = await browser.newContext({
+    baseURL,
+    extraHTTPHeaders: { "x-forwarded-for": "192.0.2.84" },
+  });
+  try {
+    const recipient = await context.newPage();
+    await recipient.route("**/api/auth/sign-in/email", (route) =>
+      route.fulfill({
+        status: 503,
+        contentType: "application/json",
+        body: JSON.stringify({ message: "Session temporarily unavailable" }),
+      }),
+    );
+    const token = await activate(recipient, await invitationURL(email), false);
+    expect(
+      await sql`select id from verification where identifier = ${`reset-password:${token}`}`,
+    ).toHaveLength(0);
+    await recipient.unroute("**/api/auth/sign-in/email");
+    await login(recipient, email, newPassword);
+  } finally {
+    await context.close();
+  }
 });

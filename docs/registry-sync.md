@@ -56,6 +56,11 @@ in template RC4; no template runtime code was adopted.
   available for resend and prevents accidental duplicate creation in the dialog.
   Resending invalidates the previous access link; admin account changes and a
   completed reset invalidate outstanding reset links.
+  Activation derives the recipient from the eligible, unexpired token, then uses
+  Better Auth to reset the password and sign in. Successful sign-in clears prior
+  account caches before the localized login guard selects the destination. If
+  only session creation fails, the activated account can log in with its new
+  password without retrying a consumed token.
 - The host retains fresh administrator checks, self-deletion prevention, disabled
   public signup, existing session/key rules and legacy forced-password onboarding.
   Incoming fake optimistic identities and speculative account edits/deletions are
@@ -64,6 +69,9 @@ in template RC4; no template runtime code was adopted.
   before pagination, with literal `%`, `_` and backslash handling. Search changes
   reset pagination in one host navigation. Background loads retain previous rows
   and disable mutations until the canonical result is available.
+  Both search and pagination retain unrelated parameters and the URL fragment
+  without resetting scroll. Live typing replaces history, page changes create
+  history entries, and clearing search removes its URL parameter.
 - Verification links return to the localized login with recipient and result
   feedback. Search values affect presentation only. The auth provider still
   validates the token; no account is verified from URL parameters.
@@ -71,6 +79,9 @@ in template RC4; no template runtime code was adopted.
   auth hydration guards and POST form fallback, light-only Montserrat design,
   host themes, the existing `#main-content` skip target, action-specific Ads
   labels and deferred consent controller.
+  The shared loading bar uses the site's 64px mobile and 80px desktop navbar
+  offsets. Pending bulk deletions retain their canonical rows and selection
+  until the host confirms each operation.
 - Cookie consent gains the translated close control without saving draft changes.
   Newsletter remains disabled until a real subscription destination is connected.
   No addresses are collected or sent by the placeholder.
