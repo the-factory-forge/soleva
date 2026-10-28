@@ -9,21 +9,16 @@ import "@tanstack/react-start/server-only";
 import { user as userTable, verification } from "#/intranet/db/schema";
 import { localeFromPathname } from "#/lib/i18n/pathname";
 
+import { verificationLoginCallback } from "./verification-callback";
+
 interface AuthEmail {
   user: { id: string; email: string };
   url: string;
 }
 
 export function sendVerificationEmail(data: AuthEmail) {
-  const link = new URL(data.url);
-  const previous = link.searchParams.get("callbackURL") ?? "/";
-  const locale = localeFromPathname(new URL(previous, ENV.VITE_BASE_URL).pathname);
-  const callback = new URL(`/${locale}/login`, ENV.VITE_BASE_URL);
-  callback.searchParams.set("email", data.user.email);
-  callback.searchParams.set("verified", "success");
-  link.searchParams.set("callbackURL", callback.toString());
   return sendAuthEmail(
-    { ...data, url: link.toString() },
+    { ...data, url: verificationLoginCallback(data.url, data.user.email, ENV.VITE_BASE_URL) },
     "employees.verificationSubject",
     "employees.verificationBody",
   );

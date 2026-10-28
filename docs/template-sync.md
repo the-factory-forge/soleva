@@ -324,3 +324,91 @@ Deployed values are unverified; secret-bearing local env files were neither read
 - Changed files are formatted; full diff review and `git diff --check` passed. Customer public source/assets and existing migration files were verified unchanged.
 
 No live OAuth callback, production email/storage integration, production Docker deployment or production database migration was performed. Optional skipped tests and unrelated prior follow-ups remain outside this sync; no production rollout is claimed.
+
+## Reconciliation — 2026-10-29 (Template RC4)
+
+Status: **source integrated; runtime validation and reviews pending**. This is not a deployment claim.
+
+- Source: <https://github.com/the-factory-forge/forge-template>, remotely verified
+  `v0.0.0-rc.4`, commit `f0301be5069c8eb69155ce726f22358677f0c35c`.
+- Site starting commit: `38d12fae8e623f911883620b7686b39a494cae3b`.
+- Review branch: `agent/sync-forge-template-rc4`, stacked on this site's reviewed
+  Registry RC6 branch.
+- Comparison base: `e43657ee3023805b9f7afb50fa39c28e980476e6` (Template RC2),
+  independently recorded in this site's completed 2026-10-13 reconciliation and
+  verified as an ancestor of the exact target in canonical Template history.
+- Registry remains RC6 `0b47bb77c2f88154eb62a26ce6e08b841bde5e16`. The owner's
+  explicit release exceptions cover missing GitHub Release metadata and Registry
+  main being above RC6. The frozen Template bundles RC5; this sync preserves
+  the site's RC6 source and host fixes. No Registry downgrade is applied.
+
+### Applied and already present
+
+Updated overlapping dependencies to the exact Template target, including pnpm
+12.15.0, Vite+ 1.4.0, React 19.3.1, Better Auth 1.7.12 and Drizzle RC5. Customer-only
+dependencies remain installed; this site's own lockfile is regenerated. Nitro
+traces React/framework dependencies as modules, and the client shares one React
+chunk. The inherited Nitro chunk-label adapter is included for the new bundler.
+
+Authentication uses the target factory, appends refreshed cookies without
+overwriting existing response cookies, and sends verification back to the
+localized login with its email and outcome. Auth schema generation writes a
+review candidate under `.cache`; the chained `auth:migrate` shortcut is removed
+so host schema reconciliation and migrations remain explicit. `db:push` requires
+strict confirmation. Public registration stays disabled.
+
+Soleva gains the migration-journal preflight in Docker and production `start`.
+Docker migrates first, then checks; standalone `start` checks without applying
+migrations. Pending-password onboarding now stays inside the profile, hiding
+module navigation until complete. The historical localized `change-password`
+URL redirects into that flow. Profile tabs are URL-owned. Router transitions
+participate in the existing loading queue; Auth screens share toast feedback.
+Invitation token lookup, automatic sign-in and its manual fallback were already
+present and are retained.
+
+Shared primitive cursor/focus behavior, semantic image fallbacks, reduced-motion
+service-card interactions and nondeprecated Motion staggering are reconciled.
+Deprecated heading/footer props are removed with affected callers adapted to
+preserve the existing appearance. Ownership guidance points to the providers.
+
+### Preserved and intentionally different
+
+Public routes, all four locales, project copy and photos/video, Montserrat, the
+light-only orange palette, contact/support actions and Leaflet remain site-owned.
+Navigation retains its lazy language/mobile chunks. The lightbox now uses the
+target's portaled Base UI dialog while preserving responsive thumbnail variants
+and its image background. Existing legacy auth redirects remain usable.
+
+Customer migration SQL and historical data are preserved; Template baseline
+migrations/snapshots, provider release notes, installation archives and starter
+content are not copied. No database reset, live migration, object move, provider
+change, secret-file read, publication or deployment is authorized by this update.
+
+### VPS environment migration
+
+No environment variable is added, renamed or removed by this Template delta.
+Deployed values were not read or verified.
+
+| Variable / behavior                                                       | Before → after                                    | Dokploy action                                                                  | Lifecycle / data impact                                                                                                                              |
+| ------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`                                                            | Same required per-site PostgreSQL URL             | Retain the existing dedicated service, database, role and credentials           | Rebuild/recreate app. Docker applies reviewed pending migrations and then validates the journal; standalone start refuses a stale journal. No reset. |
+| `BETTER_AUTH_SECRET`                                                      | Same required stable signing/encryption secret    | Retain it; do not replace it with build placeholders or rotate it for this sync | Rebuild/recreate app; rotating it would affect sessions and stored agent keys.                                                                       |
+| `EMAIL_API_KEY`, `EMAIL_FROM`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Same optional runtime providers                   | Preserve values and runtime injection; leave unused providers absent            | Config remains usable when omitted from the image build. Mail/OAuth production delivery is a separate check.                                         |
+| `VITE_BASE_URL`, browser `VITE_*` analytics/Ads settings                  | Same public build-time meaning                    | Preserve the confirmed production origin and existing tracking settings         | A changed browser value needs a rebuild; runtime restart alone is insufficient.                                                                      |
+| `PORTLESS_URL`, `SITE_NAME` and existing storage routing                  | Same development origin / infrastructure identity | Keep Portless development-only and retain the site's existing identity/prefixes | No storage transfer or deletion.                                                                                                                     |
+
+### Verification
+
+- Exact manifest installation and frozen/offline lockfile verification passed with
+  pnpm 12.15.0.
+- Lint/type checks passed with 19 pre-existing warnings.
+- Unit tests: 15 passed; 2 opt-in dependency tests skipped without disposable
+  services. Runtime fixtures will exercise the applicable skipped checks.
+- Agent-safe Varlock validation passed with explicit synthetic DB/auth values.
+- Changed files are formatted; `git diff --check` passed.
+- Customer assets, content dictionaries and styles are byte-identical to the site
+  starting commit; Registry RC6 source and the existing review are preserved.
+
+Production-build/browser tests, Drizzle RC5 snapshot compatibility on the site's
+own history and both review axes are still pending. No production behavior has
+been certified.

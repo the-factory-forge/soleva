@@ -13,8 +13,8 @@ export const Route = createFileRoute("/_auth/$lang/intranet")({
     const locale = localeFromPathname(location.pathname);
     const user = await context.queryClient.query(authQueryOptions());
     if (!user) throw redirect({ to: "/$lang/login", params: { lang: locale } });
-    if (user.mustChangePassword)
-      throw redirect({ to: "/$lang/change-password", params: { lang: locale } });
+    if (user.mustChangePassword && location.pathname.replace(/\/$/, "") !== `/${locale}/intranet`)
+      throw redirect({ to: "/$lang/intranet", params: { lang: locale } });
   },
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);

@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest, setResponseHeader, setResponseStatus } from "@tanstack/react-start/server";
-import { and, desc, eq, gt, sql } from "drizzle-orm";
+import { and, desc, eq, gt, lte } from "drizzle-orm";
 import { z } from "zod";
 
 import { auth } from "#/intranet/auth/auth";
@@ -84,7 +84,7 @@ export const $listAgentKeys = createServerFn({ method: "GET" })
         name: agentKey.name,
         createdAt: agentKey.createdAt,
         lastUsedAt: agentKey.lastUsedAt,
-        expired: sql<boolean>`${agentKey.expiresAt} <= now()`,
+        expired: lte(agentKey.expiresAt, new Date()).mapWith(Boolean),
         expiresAt: agentKey.expiresAt,
       })
       .from(agentKey)

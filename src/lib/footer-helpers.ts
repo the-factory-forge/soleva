@@ -13,8 +13,6 @@ export interface FooterOptions {
   initial?: string;
   /** Hide the monogram fallback when there is no logo. */
   hideMonogram?: boolean;
-  /** Brand name color - primary or foreground. */
-  brandColor?: "primary" | "foreground";
   /** Navigation columns. */
   columns: FooterProps["columns"];
   contact: {
@@ -74,7 +72,6 @@ export function getFooterProps(options: FooterOptions): FooterProps {
     logo,
     initial,
     hideMonogram,
-    brandColor,
     columns,
     contact,
     socials,
@@ -92,7 +89,7 @@ export function getFooterProps(options: FooterOptions): FooterProps {
   } = options;
 
   return {
-    brand: { name: siteName, description, tagline, logo, initial, hideMonogram, brandColor },
+    brand: { name: siteName, description, tagline, logo, initial, hideMonogram },
     columns,
     contact,
     socials,

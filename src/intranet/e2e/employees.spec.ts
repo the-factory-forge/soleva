@@ -165,7 +165,7 @@ test("delivery failure keeps the account for retry; editing, verification and de
     const recipient = await context.newPage();
     await activate(recipient, await invitationURL(email));
     await page.reload();
-    await expect(row.getByRole("button", { name: "Email verified", exact: true })).toBeVisible();
+    await expect(row.getByRole("img", { name: "Email verified", exact: true })).toBeVisible();
     await expect(
       row.getByRole("button", { name: "Send verification email to Managed employee", exact: true }),
     ).toBeDisabled();
@@ -174,7 +174,7 @@ test("delivery failure keeps the account for retry; editing, verification and de
     await editor.getByRole("textbox", { name: "Name", exact: true }).fill("Renamed employee");
     await editor.getByRole("button", { name: "Save changes", exact: true }).click();
     await expect(editor).toHaveCount(0);
-    await expect(row.getByRole("button", { name: "Email verified", exact: true })).toBeVisible();
+    await expect(row.getByRole("img", { name: "Email verified", exact: true })).toBeVisible();
     await row.getByRole("button", { name: "Edit Renamed employee", exact: true }).click();
     await editor.getByRole("textbox", { name: "Email", exact: true }).fill(changedEmail);
     await editor.getByRole("button", { name: "Save changes", exact: true }).click();

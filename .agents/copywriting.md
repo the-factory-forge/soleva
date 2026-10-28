@@ -4,8 +4,8 @@ Read this guide before writing or revising public page copy, UI messages,
 translations or metadata.
 
 The shared contracts live in forge-spec's
-[website creation spec](https://github.com/the-factory-forge/forge-spec/blob/main/openspec/specs/website-creation/spec.md)
-and [site template spec](https://github.com/the-factory-forge/forge-spec/blob/main/openspec/specs/site-template/spec.md).
+[website creation spec](https://github.com/the-factory-forge/forge-template/blob/main/openspec/specs/website-creation/spec.md)
+and [site template spec](https://github.com/the-factory-forge/forge-template/blob/main/openspec/specs/site-template/spec.md).
 This guide applies those contracts alongside the template's writing conventions.
 Keep customer-specific decisions in the customer's records.
 
@@ -31,7 +31,7 @@ Keep customer-specific decisions in the customer's records.
 - Choose sections and their order around the visitor's needs and next action.
   Remove sections that have no useful customer content.
 - When describing Forge itself, follow the
-  [Forge positioning and offer qualifiers](https://github.com/the-factory-forge/forge-spec/blob/main/openspec/specs/the-forge/spec.md#requirement-preserve-forge-positioning-and-offer-qualifiers).
+  [Forge positioning and offer qualifiers](https://github.com/the-factory-forge/forge-specs/blob/main/openspec/specs/the-forge/spec.md#requirement-preserve-forge-positioning-and-offer-qualifiers).
   Confirm current scope, prices and delivery commitments for the engagement.
 
 ## Use plain language

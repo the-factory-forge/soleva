@@ -1,6 +1,7 @@
 "use client";
 
-import { Check, Globe } from "lucide-react";
+import { GlobeIcon, CheckIcon } from "lucide-react";
+import type { ComponentType } from "react";
 
 import {
   DropdownMenu,
@@ -8,18 +9,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "#/components/ui/dropdown-menu";
-import { Link } from "#/components/ui/link";
+import { Link, type LinkProps } from "#/components/ui/link";
 import { usePathname } from "#/components/ui/use-location";
 import { cn } from "#/lib/utils";
 
 export interface LanguageSwitcherProps {
   locale: string;
-  locales: string[];
+  locales: readonly string[];
   localeNames: Record<string, string>;
   localeShort: Record<string, string>;
   ariaLabel?: string;
   className?: string;
   search?: string;
+  /** Translated routes, including localized slugs, supplied by the host. */
+  localeHrefs?: Record<string, string>;
+  onLocaleChange?: (locale: string) => void;
+  linkComponent?: ComponentType<LinkProps>;
 }
 
 export function LanguageSwitcher({
@@ -30,6 +35,9 @@ export function LanguageSwitcher({
   ariaLabel = "Language",
   className,
   search = "",
+  localeHrefs,
+  onLocaleChange,
+  linkComponent: HostLink = Link,
 }: LanguageSwitcherProps) {
   const pathname = usePathname();
   const pathnameWithoutLocale = pathname.replace(new RegExp(`^/(${locales.join("|")})`), "") || "";
@@ -37,22 +45,30 @@ export function LanguageSwitcher({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label={`${ariaLabel} : ${localeShort[locale] ?? locale.toUpperCase()}`}
+        aria-label={ariaLabel}
         className={cn(
-          "inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors outline-none hover:text-secondary focus-visible:ring-2 focus-visible:ring-ring",
+          "inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-ring",
           className,
         )}
       >
-        <Globe className="h-4 w-4" aria-hidden="true" />
+        <GlobeIcon className="h-4 w-4" aria-hidden="true" />
         <span>{localeShort[locale] ?? locale.toUpperCase()}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
         {locales.map((l) => (
-          <DropdownMenuItem key={l} asChild className="justify-between">
-            <Link href={`/${l}${pathnameWithoutLocale}${search}`}>
-              {localeNames[l] ?? l}
-              {l === locale && <Check className="h-4 w-4 text-secondary" aria-hidden="true" />}
-            </Link>
+          <DropdownMenuItem
+            key={l}
+            className="justify-between"
+            render={
+              <HostLink
+                href={localeHrefs?.[l] ?? `/${l}${pathnameWithoutLocale}${search}`}
+                onClick={() => onLocaleChange?.(l)}
+                aria-current={l === locale ? "true" : undefined}
+              />
+            }
+          >
+            {localeNames[l] ?? l}
+            {l === locale && <CheckIcon className="h-4 w-4 text-primary" aria-hidden="true" />}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

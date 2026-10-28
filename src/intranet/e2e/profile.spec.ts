@@ -121,7 +121,7 @@ test("employees can still replace their temporary password before entering profi
     await page.getByLabel("Email", { exact: true }).fill(employeeEmail);
     await page.getByLabel("Password", { exact: true }).fill(password);
     await page.getByRole("button", { name: "Sign in", exact: true }).click();
-    await expect(page).toHaveURL(/\/en\/change-password$/);
+    await expect(page).toHaveURL(/\/en\/intranet\/?$/);
     await page.getByLabel("Current password", { exact: true }).fill(password);
     await page.getByLabel("New password", { exact: true }).fill(replacementPassword);
     await page.getByRole("button", { name: "Change password", exact: true }).click();

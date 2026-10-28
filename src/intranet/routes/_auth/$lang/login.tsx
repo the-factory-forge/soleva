@@ -13,8 +13,8 @@ import { SITE_NAME } from "#/lib/site/constants";
 export const Route = createFileRoute("/_auth/$lang/login")({
   validateSearch: z.object({
     email: z.email().optional().catch(undefined),
-    verified: z.literal("success").optional().catch(undefined),
-    error: z.string().optional().catch(undefined),
+    verified: z.boolean().optional().catch(undefined),
+    error: z.string().max(200).optional().catch(undefined),
   }),
   beforeLoad: async ({ context, location }) => {
     const user = await context.queryClient.query(authQueryOptions());
@@ -52,7 +52,7 @@ function LoginPage() {
       <LoginForm
         key={email ?? "login"}
         defaultEmail={email}
-        verificationStatus={error ? "error" : verified}
+        verificationStatus={error ? "error" : verified ? "success" : undefined}
         labels={dict.auth}
         forgotPasswordHref={`/${locale}/forgot-password`}
         onSignIn={async (credentials) => {

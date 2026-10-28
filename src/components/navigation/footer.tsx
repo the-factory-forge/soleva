@@ -1,5 +1,6 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
+import { IconTooltip } from "#/components/icon-tooltip";
 import { ManageCookiesButton } from "#/components/navigation/manage-cookies-button";
 import { Image } from "#/components/ui/image";
 import { Link } from "#/components/ui/link";
@@ -49,8 +50,6 @@ export interface FooterProps {
     logo?: string;
     initial?: string;
     hideMonogram?: boolean;
-    /** @deprecated Use colors.brandName instead. */
-    brandColor?: "primary" | "foreground";
   };
   columns: FooterColumn[];
   contact: {
@@ -79,7 +78,7 @@ export interface FooterProps {
   accentColor?: "accent" | "primary" | "secondary" | "foreground";
   /** Contact icon color. */
   iconColor?: "accent" | "primary" | "secondary" | "foreground";
-  /** Grouped color overrides (preferred over accentColor/iconColor/brandColor). */
+  /** Grouped color overrides (preferred over accentColor/iconColor). */
   colors?: {
     headings?: "accent" | "primary" | "secondary" | "foreground";
     icons?: "accent" | "primary" | "secondary" | "foreground";
@@ -123,11 +122,10 @@ export function Footer({
 
   const headingsColor = colors?.headings ?? accentColor;
   const iconsColor = colors?.icons ?? iconColor;
-  const brandNameColor = colors?.brandName ?? brand.brandColor;
   const accentClass = colorClass(headingsColor);
 
   const brandName =
-    brandNameColor === "primary"
+    colors?.brandName === "primary"
       ? dark
         ? "text-primary"
         : "text-secondary"
@@ -196,20 +194,21 @@ export function Footer({
                 {socials.map((social) => {
                   const Icon = socialIconMap[social.platform];
                   return (
-                    <a
-                      key={social.platform}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        socialIcon,
-                        dark &&
-                          "flex h-9 w-9 items-center justify-center rounded-full bg-dark-foreground/10",
-                      )}
-                      aria-label={social.platform}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </a>
+                    <IconTooltip key={social.platform} label={social.platform}>
+                      <a
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          socialIcon,
+                          dark &&
+                            "flex h-9 w-9 items-center justify-center rounded-full bg-dark-foreground/10",
+                        )}
+                        aria-label={social.platform}
+                      >
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </a>
+                    </IconTooltip>
                   );
                 })}
               </div>
@@ -238,7 +237,7 @@ export function Footer({
                   />
                   <button
                     type="submit"
-                    className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground transition-colors outline-none hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-primary/40"
+                    className="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground transition-colors outline-none hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-primary/40"
                   >
                     {newsletter.buttonLabel}
                   </button>
