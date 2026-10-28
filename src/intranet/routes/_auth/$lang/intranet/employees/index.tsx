@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { useState } from "react";
+import { z } from "zod";
 
 import { useAuthSuspense } from "#/intranet/auth/hooks";
 import { isAdmin } from "#/intranet/auth/permissions";
@@ -18,6 +18,10 @@ import { ensureDictionary, useDictionary } from "#/lib/i18n";
 import { localeFromPathname } from "#/lib/i18n/pathname";
 
 export const Route = createFileRoute("/_auth/$lang/intranet/employees/")({
+  validateSearch: z.object({
+    q: z.string().trim().max(200).default("").catch(""),
+    offset: z.coerce.number().int().min(0).default(0).catch(0),
+  }),
   beforeLoad: async ({ context, location }) => {
     const locale = localeFromPathname(location.pathname);
     const user = await context.queryClient.query(authQueryOptions());
@@ -41,11 +45,17 @@ function Employees() {
   const { locale } = Route.useLoaderData();
   const dict = useDictionary(locale);
   const { user } = useAuthSuspense();
-  const [offset, setOffset] = useState(0);
+  const { q: search, offset } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const setOffset = (value: number) =>
+    void navigate({ search: (previous) => ({ ...previous, offset: value }), replace: true });
   const queryClient = useQueryClient();
-  const employees = useQuery(employeesQueryOptions(offset));
+  const employees = useQuery(employeesQueryOptions(offset, search));
   async function refreshEmployees() {
-    const result = await queryClient.query({ ...employeesQueryOptions(offset), staleTime: 0 });
+    const result = await queryClient.query({
+      ...employeesQueryOptions(offset, search),
+      staleTime: 0,
+    });
     if (offset > 0 && result.users.length === 0)
       setOffset(Math.max(0, offset - EMPLOYEE_PAGE_SIZE));
     await queryClient.invalidateQueries({ queryKey: ["employees"], refetchType: "none" });
@@ -55,7 +65,9 @@ function Employees() {
     <EmployeesPage
       employees={employees.data?.users ?? []}
       total={employees.data?.total ?? 0}
-      loading={employees.isPending}
+      search={search}
+      onSearchChange={(value) => void navigate({ search: { q: value, offset: 0 } })}
+      loading={employees.isFetching}
       error={employees.isError}
       offset={offset}
       onOffsetChange={setOffset}
@@ -63,9 +75,10 @@ function Employees() {
       currentUserRole={user.role}
       labels={dict.employees}
       onCreate={async (data) => {
-        await $createEmployee({ data });
+        const result = await $createEmployee({ data: { ...data, locale } });
         setOffset(0);
         await queryClient.invalidateQueries({ queryKey: ["employees"] });
+        return result;
       }}
       onUpdate={async (data) => {
         await $updateEmployee({ data });

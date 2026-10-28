@@ -13,6 +13,7 @@ import { SITE_NAME } from "#/lib/site/constants";
 
 export const Route = createFileRoute("/_auth/$lang/reset-password")({
   validateSearch: z.object({
+    invitation: z.coerce.boolean().optional().catch(false),
     token: z.string().min(1).max(256).optional().catch(undefined),
     error: z.string().optional().catch(undefined),
   }),
@@ -34,7 +35,7 @@ export const Route = createFileRoute("/_auth/$lang/reset-password")({
 
 function ResetPasswordPage() {
   const { locale } = Route.useLoaderData();
-  const { token, error } = Route.useSearch();
+  const { token, error, invitation } = Route.useSearch();
   const dict = useDictionary(locale);
   const { data: options } = useSuspenseQuery(loginOptionsQueryOptions());
   const queryClient = useQueryClient();
@@ -53,7 +54,15 @@ function ResetPasswordPage() {
     <AuthScreen locale={locale} dict={dict} siteName={SITE_NAME}>
       <ResetPasswordForm
         key={token ?? "invalid"}
-        labels={dict.auth}
+        labels={
+          invitation
+            ? {
+                ...dict.auth,
+                resetTitle: dict.employees.invitationTitle,
+                resetDescription: dict.employees.invitationDescription,
+              }
+            : dict.auth
+        }
         enabled={options.passwordReset}
         validLink={Boolean(token) && !error}
         loginHref={`/${locale}/login`}

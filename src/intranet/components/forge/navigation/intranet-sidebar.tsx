@@ -1,40 +1,32 @@
 "use client";
 
-import { Collapsible } from "@base-ui/react/collapsible";
 import { Dialog } from "@base-ui/react/dialog";
 import { Menu } from "@base-ui/react/menu";
 import {
-  ChevronDownIcon,
   ChevronsUpDownIcon,
   Loader2Icon,
   LogOutIcon,
   PanelLeftIcon,
+  XIcon,
   SettingsIcon,
 } from "lucide-react";
 import * as React from "react";
 
-import { useAuthAction } from "#/intranet/components/forge/plugins/auth/auth-controls";
+import { IconTooltip } from "#/components/forge/icon-tooltip.tsx";
+import { useAuthAction } from "#/intranet/components/forge/plugins/auth/auth-controls.tsx";
+import {
+  SidebarNavigation,
+  type SidebarLinkProps,
+  type SidebarNavItem,
+  type SidebarNavGroup,
+} from "#/intranet/components/forge/sidebar-navigation.tsx";
 import { Link } from "#/intranet/components/forge/ui/link.tsx";
+import { useSidebarMobile } from "#/intranet/components/forge/utils/use-sidebar-mobile.ts";
 import { cn } from "#/intranet/forge/utils.ts";
 
-import { itemIsActive } from "./intranet-sidebar-active";
-
-export type IntranetLinkProps = React.ComponentProps<"a"> & { href: string };
-
-type NavItemBase = { id: string; label: string; icon?: React.ReactNode };
-export type IntranetNavItem = NavItemBase &
-  (
-    | { href: string; exact?: boolean; items?: never; collapsible?: never }
-    | { items: IntranetNavItem[]; collapsible?: boolean; href?: string; exact?: boolean }
-  );
-
-export interface IntranetNavGroup {
-  id: string;
-  label?: string;
-  items: IntranetNavItem[];
-  /** Site-owned actions, such as opening an impersonation dialog. */
-  footer?: React.ReactNode;
-}
+export type IntranetLinkProps = SidebarLinkProps;
+export type IntranetNavItem = SidebarNavItem;
+export type IntranetNavGroup = SidebarNavGroup;
 
 export interface IntranetSidebarProps {
   /** Use a compact symbol-only logo; the site name is rendered separately. */
@@ -69,15 +61,6 @@ const defaultLabels = {
 
 const focusClassName = "outline-none focus-visible:ring-2 focus-visible:ring-ring";
 const sidebarFocusClassName = "outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring";
-const navClassName = `relative flex w-full items-center gap-2 rounded-lg border-l-2 border-transparent px-2 py-1.5 text-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground ${sidebarFocusClassName}`;
-const activeClassName =
-  "rounded-l-none border-sidebar-primary bg-sidebar-accent/40 font-semibold text-sidebar-primary";
-
-function subscribeMobile(onChange: () => void) {
-  const query = window.matchMedia("(max-width: 767px)");
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
 
 type SidebarContextValue = {
   id: string;
@@ -114,13 +97,9 @@ export function IntranetSidebarProvider({
 }: IntranetSidebarProviderProps) {
   const [localOpen, setLocalOpen] = React.useState(defaultOpen);
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isMobile = React.useSyncExternalStore(
-    subscribeMobile,
-    () => window.matchMedia("(max-width: 767px)").matches,
-    () => false,
-  );
+  const isMobile = useSidebarMobile();
   const open = controlledOpen ?? localOpen;
-  const id = React.useId();
+  const id = `factory-intranet-sidebar-${React.useId()}`;
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const sidebarHadFocus = React.useRef(false);
   const toggle = React.useCallback(() => {
@@ -162,7 +141,10 @@ export function IntranetSidebarProvider({
     >
       <div
         data-slot="sidebar-wrapper"
-        className={cn("flex min-h-svh w-full", className)}
+        className={cn(
+          "flex min-h-[calc(100svh-var(--intranet-top-offset,0rem))] w-full",
+          className,
+        )}
         onFocusCapture={(event) => {
           sidebarHadFocus.current = Boolean(
             event.target.closest('[data-slot="sidebar"], [data-sidebar-profile-menu]'),
@@ -188,28 +170,30 @@ export function IntranetSidebarToggle({
 }: IntranetSidebarToggleProps) {
   const { id, isMobile, open, mobileOpen, toggle, triggerRef } = useIntranetSidebar();
   return (
-    <button
-      type="button"
-      data-sidebar="trigger"
-      aria-label={label}
-      aria-controls={id}
-      aria-expanded={isMobile ? mobileOpen : open}
-      className={cn(
-        "inline-flex size-8 shrink-0 items-center justify-center rounded-lg hover:bg-accent print:hidden",
-        focusClassName,
-        className,
-      )}
-      onClick={(event) => {
-        onClick?.(event);
-        if (!event.defaultPrevented) {
-          triggerRef.current = event.currentTarget;
-          toggle();
-        }
-      }}
-      {...props}
-    >
-      {children ?? <PanelLeftIcon className="size-4" aria-hidden="true" />}
-    </button>
+    <IconTooltip label={label}>
+      <button
+        type="button"
+        data-sidebar="trigger"
+        aria-label={label}
+        aria-controls={id}
+        aria-expanded={isMobile ? mobileOpen : open}
+        className={cn(
+          "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg hover:bg-accent disabled:cursor-not-allowed aria-disabled:cursor-not-allowed print:hidden data-disabled:cursor-not-allowed",
+          focusClassName,
+          className,
+        )}
+        onClick={(event) => {
+          onClick?.(event);
+          if (!event.defaultPrevented) {
+            triggerRef.current = event.currentTarget;
+            toggle();
+          }
+        }}
+        {...props}
+      >
+        {children ?? <PanelLeftIcon className="size-4" aria-hidden="true" />}
+      </button>
+    </IconTooltip>
   );
 }
 
@@ -229,129 +213,6 @@ export function IntranetSidebarInset({
   });
 }
 
-function NavigationItem({
-  item,
-  pathname,
-  LinkComponent,
-  closeMobile,
-  labels,
-  nested = false,
-}: {
-  item: IntranetNavItem;
-  pathname: string;
-  LinkComponent: React.ComponentType<IntranetLinkProps>;
-  closeMobile: () => void;
-  labels: Pick<typeof defaultLabels, "expand" | "collapse">;
-  nested?: boolean;
-}) {
-  const active = itemIsActive(item, pathname);
-  const [expansion, setExpansion] = React.useState({ pathname, open: active });
-  if (expansion.pathname !== pathname) setExpansion({ pathname, open: expansion.open || active });
-  const expanded = expansion.open;
-  const itemClasses = cn(
-    nested && "-ml-[9px] w-[calc(100%+9px)] rounded-l-none pl-[17px]",
-    active && activeClassName,
-  );
-  const childList = Boolean(item.items?.length) && (
-    <ul className="ml-4 space-y-0.5 border-l border-sidebar-border px-2 py-1">
-      {item.items?.map((child) => (
-        <NavigationItem
-          key={child.id}
-          item={child}
-          nested
-          pathname={pathname}
-          LinkComponent={LinkComponent}
-          closeMobile={closeMobile}
-          labels={labels}
-        />
-      ))}
-    </ul>
-  );
-  const label = (
-    <>
-      {item.icon && (
-        <span className="shrink-0 [&>svg]:size-4" aria-hidden="true">
-          {item.icon}
-        </span>
-      )}
-      <span className="min-w-0 flex-1 text-left">{item.label}</span>
-    </>
-  );
-  const link = item.href && (
-    <LinkComponent
-      href={item.href}
-      aria-current={
-        (item.items ? itemIsActive({ href: item.href, exact: true }, pathname) : active)
-          ? "page"
-          : undefined
-      }
-      className={cn(navClassName, "min-w-0 flex-1", itemClasses)}
-      onClick={(event) => {
-        if (
-          !event.defaultPrevented &&
-          event.button === 0 &&
-          !event.metaKey &&
-          !event.ctrlKey &&
-          !event.shiftKey &&
-          !event.altKey
-        )
-          closeMobile();
-      }}
-    >
-      {label}
-    </LinkComponent>
-  );
-
-  if (!childList) return link ? <li>{link}</li> : null;
-  if (item.collapsible === false)
-    return (
-      <li>
-        {link || (
-          <p className="px-2 pt-2 text-xs font-medium text-muted-foreground uppercase">
-            {item.label}
-          </p>
-        )}
-        {childList}
-      </li>
-    );
-
-  const chevron = (
-    <ChevronDownIcon
-      className={cn(
-        "size-4 shrink-0 transition-transform motion-reduce:transition-none",
-        expanded && "rotate-180",
-      )}
-      aria-hidden="true"
-    />
-  );
-  return (
-    <li>
-      <Collapsible.Root open={expanded} onOpenChange={(open) => setExpansion({ pathname, open })}>
-        {link ? (
-          <div className="flex items-center">
-            {link}
-            <Collapsible.Trigger
-              aria-label={`${expanded ? labels.collapse : labels.expand} ${item.label}`}
-              className={cn(
-                "flex size-8 shrink-0 items-center justify-center rounded-lg hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                sidebarFocusClassName,
-              )}
-            >
-              {chevron}
-            </Collapsible.Trigger>
-          </div>
-        ) : (
-          <Collapsible.Trigger className={cn(navClassName, itemClasses)}>
-            {label}
-            {chevron}
-          </Collapsible.Trigger>
-        )}
-        <Collapsible.Panel>{childList}</Collapsible.Panel>
-      </Collapsible.Root>
-    </li>
-  );
-}
-
 function UserAvatar({ user }: Pick<IntranetSidebarProps, "user">) {
   const [failedImage, setFailedImage] = React.useState<string>();
   const initials = (user.name.trim() || user.email)
@@ -363,7 +224,6 @@ function UserAvatar({ user }: Pick<IntranetSidebarProps, "user">) {
   return (
     <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted text-xs leading-none font-medium text-foreground">
       {user.image && user.image !== failedImage ? (
-        // oxlint-disable-next-line nextjs/no-img-element -- an unoptimized, consumer-owned profile image
         <img
           src={user.image}
           alt=""
@@ -423,32 +283,14 @@ export function IntranetSidebar({
         </LinkComponent>
       </header>
       <div className="mx-2 border-t border-sidebar-border" />
-      <nav aria-label={labels.navigation} className="min-h-0 flex-1 overflow-y-auto py-2">
-        {groups
-          .filter((group) => group.items.length > 0 || group.footer)
-          .map((group) => (
-            <section key={group.id} aria-label={group.label} className="px-2 py-2">
-              {group.label && (
-                <h2 className="px-2 pb-2 text-xs font-semibold text-muted-foreground">
-                  {group.label}
-                </h2>
-              )}
-              <ul className="space-y-0.5">
-                {group.items.map((item) => (
-                  <NavigationItem
-                    key={item.id}
-                    item={item}
-                    pathname={pathname}
-                    LinkComponent={LinkComponent}
-                    closeMobile={closeMobile}
-                    labels={labels}
-                  />
-                ))}
-              </ul>
-              {group.footer}
-            </section>
-          ))}
-      </nav>
+      <SidebarNavigation
+        groups={groups}
+        pathname={pathname}
+        linkComponent={LinkComponent}
+        onNavigate={closeMobile}
+        label={labels.navigation}
+        labels={labels}
+      />
       {version && <p className="px-2 py-1 text-center text-xs text-muted-foreground">{version}</p>}
       <div className="mx-2 border-t border-sidebar-border" />
       <footer className="shrink-0 p-2">
@@ -461,7 +303,7 @@ export function IntranetSidebar({
           <Menu.Trigger
             aria-label={labels.userMenu}
             className={cn(
-              "flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+              "flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-left hover:bg-sidebar-accent hover:text-sidebar-accent-foreground disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed",
               sidebarFocusClassName,
             )}
           >
@@ -486,7 +328,7 @@ export function IntranetSidebar({
                   render={<LinkComponent href={profileHref} />}
                   onClick={closeMobile}
                   className={cn(
-                    "flex items-center gap-2 rounded-md px-2 py-2 text-sm data-highlighted:bg-accent",
+                    "flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-sm data-highlighted:bg-accent data-disabled:cursor-not-allowed",
                     focusClassName,
                   )}
                 >
@@ -498,7 +340,7 @@ export function IntranetSidebar({
                   disabled={signOutAction.disabled}
                   onClick={() => void signOutAction.run(onSignOut)}
                   className={cn(
-                    "flex items-center gap-2 rounded-md px-2 py-2 text-sm data-highlighted:bg-accent data-disabled:opacity-50",
+                    "flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-sm data-highlighted:bg-accent data-disabled:cursor-not-allowed data-disabled:opacity-50",
                     focusClassName,
                   )}
                 >
@@ -520,7 +362,7 @@ export function IntranetSidebar({
         <IntranetSidebarToggle
           aria-label={labels.toggle}
           className={cn(
-            "fixed top-2 left-2 z-30 border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-sidebar-ring",
+            "fixed top-[calc(var(--intranet-top-offset,0rem)+0.5rem)] left-2 z-30 border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-sidebar-ring",
             !isMobile && open && "left-[13.5rem]",
           )}
         />
@@ -545,15 +387,17 @@ export function IntranetSidebar({
               )}
             >
               <Dialog.Title className="sr-only">{labels.navigation}</Dialog.Title>
-              <Dialog.Close
-                aria-label={labels.close}
-                className={cn(
-                  "absolute top-2 right-2 flex size-8 items-center justify-center rounded-lg hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                  sidebarFocusClassName,
-                )}
-              >
-                <PanelLeftIcon className="size-4" aria-hidden="true" />
-              </Dialog.Close>
+              <IconTooltip label={labels.close}>
+                <Dialog.Close
+                  aria-label={labels.close}
+                  className={cn(
+                    "absolute top-2 right-2 flex size-8 cursor-pointer items-center justify-center rounded-lg hover:bg-sidebar-accent hover:text-sidebar-accent-foreground disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed",
+                    sidebarFocusClassName,
+                  )}
+                >
+                  <XIcon className="size-4" aria-hidden="true" />
+                </Dialog.Close>
+              </IconTooltip>
               {content}
             </Dialog.Popup>
           </Dialog.Portal>
@@ -572,7 +416,7 @@ export function IntranetSidebar({
             data-slot="sidebar"
             data-state={open ? "expanded" : "collapsed"}
             className={cn(
-              "fixed inset-y-0 left-0 z-20 flex h-svh w-64 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-transform duration-200 motion-reduce:transition-none",
+              "fixed top-[var(--intranet-top-offset,0rem)] bottom-0 left-0 z-20 flex h-[calc(100svh-var(--intranet-top-offset,0rem))] w-64 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-transform duration-200 motion-reduce:transition-none",
               !open && "invisible -translate-x-full",
               className,
             )}

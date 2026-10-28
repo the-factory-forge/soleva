@@ -7,15 +7,17 @@ import {
   EyeOffIcon,
   LoaderCircleIcon,
 } from "lucide-react";
-import { useState, type ComponentType } from "react";
+import { useEffect, useId, useRef, useState, type ComponentType } from "react";
 
+import { IconTooltip } from "#/components/forge/icon-tooltip.tsx";
 import { Link, type LinkProps } from "#/components/ui/link";
+import { ActionToastProvider, useActionToast } from "#/intranet/components/forge/action-toast.tsx";
 import {
   GoogleSignInButton,
   useAuthAction,
-} from "#/intranet/components/forge/plugins/auth/auth-controls";
-import { loginLabels, type LoginLabels } from "#/intranet/components/forge/plugins/auth/labels";
-import { cn } from "#/intranet/forge/utils";
+} from "#/intranet/components/forge/plugins/auth/auth-controls.tsx";
+import { loginLabels, type LoginLabels } from "#/intranet/components/forge/plugins/auth/labels.ts";
+import { cn } from "#/intranet/forge/utils.ts";
 
 export {
   GoogleSignInButton,
@@ -46,6 +48,30 @@ export {
   type AccessDeniedPageProps,
   type AccessDeniedLabels,
 } from "#/intranet/components/forge/plugins/auth/access-denied-page";
+export {
+  AccountEmailChange,
+  emailChangeLabels,
+  type AccountEmailChangeProps,
+} from "#/intranet/components/forge/plugins/auth/account-email-change";
+export {
+  AccountPage,
+  type AccountPageProps,
+  type AccountTab,
+} from "#/intranet/components/forge/plugins/auth/account-page";
+export {
+  AccountSecurity,
+  type AccountSecurityData,
+  type AccountSecurityProps,
+} from "#/intranet/components/forge/plugins/auth/account-security";
+export {
+  AgentKeys,
+  type AgentKey,
+  type AgentKeysProps,
+} from "#/intranet/components/forge/plugins/auth/agent-keys";
+export type {
+  AccountLabels,
+  SecurityLabels,
+} from "#/intranet/components/forge/plugins/auth/account-labels";
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -53,6 +79,8 @@ export interface LoginCredentials {
 }
 export interface LoginFormProps {
   onSignIn: (credentials: LoginCredentials) => Promise<void>;
+  defaultEmail?: string;
+  verificationStatus?: "success" | "error";
   enabled?: boolean;
   forgotPasswordHref?: string;
   onGoogleSignIn?: () => Promise<void>;
@@ -63,10 +91,20 @@ export interface LoginFormProps {
 const inputClass =
   "h-12 w-full rounded-lg border border-input bg-transparent px-3 text-base shadow-xs outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 md:text-sm";
 const buttonClass =
-  "inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4";
+  "inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 cursor-pointer disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed";
 
-export function LoginForm({
+export function LoginForm(props: LoginFormProps) {
+  return (
+    <ActionToastProvider>
+      <LoginFormContent {...props} />
+    </ActionToastProvider>
+  );
+}
+
+function LoginFormContent({
   onSignIn,
+  defaultEmail,
+  verificationStatus,
   enabled = true,
   forgotPasswordHref,
   onGoogleSignIn,
@@ -75,6 +113,14 @@ export function LoginForm({
   linkComponent: LoginLink = Link,
 }: LoginFormProps) {
   const labels = { ...loginLabels, ...overrides };
+  const toast = useActionToast();
+  const verificationNotified = useRef(false);
+  useEffect(() => {
+    if (verificationStatus !== "success" || verificationNotified.current) return;
+    verificationNotified.current = true;
+    toast(labels.emailVerified);
+  }, [verificationStatus, labels.emailVerified, toast]);
+  const id = `factory-login-${useId()}`;
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(false);
   const action = useAuthAction();
@@ -101,8 +147,13 @@ export function LoginForm({
         </output>
       )}
 
+      {verificationStatus === "error" && (
+        <p role="alert" className="text-sm text-destructive">
+          {labels.verificationError}
+        </p>
+      )}
       {failed && (
-        <p id="login-error" role="alert" className="text-sm text-destructive">
+        <p id={`${id}-error`} role="alert" className="text-sm text-destructive">
           {method === "google" ? labels.googleError : labels.loginError}
         </p>
       )}
@@ -122,17 +173,19 @@ export function LoginForm({
               password,
               rememberMe: data.get("rememberMe") === "on",
             });
+            setShowPassword(false);
           });
         }}
         className="grid gap-5"
         aria-busy={pending}
       >
         <div className="grid gap-2">
-          <label htmlFor="email">{labels.email}</label>
+          <label htmlFor={`${id}-email`}>{labels.email}</label>
           <input
-            id="email"
+            id={`${id}-email`}
             name="email"
             type="email"
+            defaultValue={defaultEmail}
             autoComplete="username"
             autoCapitalize="none"
             spellCheck={false}
@@ -140,18 +193,20 @@ export function LoginForm({
             className={inputClass}
             readOnly={action.disabled}
             disabled={!enabled}
-            aria-describedby={failed ? "login-error" : undefined}
+            aria-describedby={failed ? `${id}-error` : undefined}
             required
           />
         </div>
         <div className="grid gap-2">
-          <label htmlFor="password">{labels.password}</label>
+          <label htmlFor={`${id}-password`}>{labels.password}</label>
           <div className="relative">
             <input
-              id="password"
+              id={`${id}-password`}
               name="password"
               type={showPassword ? "text" : "password"}
               autoComplete="current-password"
+              autoCapitalize="none"
+              spellCheck={false}
               className={cn(inputClass, capsLock ? "pr-20" : "pr-12")}
               onKeyDown={(event) => setCapsLock(event.getModifierState("CapsLock"))}
               onKeyUp={(event) => setCapsLock(event.getModifierState("CapsLock"))}
@@ -160,15 +215,15 @@ export function LoginForm({
               readOnly={action.disabled}
               disabled={!enabled}
               aria-describedby={
-                [failed && "login-error", capsLock && "password-caps-lock"]
+                [failed && `${id}-error`, capsLock && `${id}-caps-lock`]
                   .filter(Boolean)
                   .join(" ") || undefined
               }
               required
             />
             <output
-              id="password-caps-lock"
-              htmlFor="password"
+              id={`${id}-caps-lock`}
+              htmlFor={`${id}-password`}
               title={capsLock ? labels.capsLockOn : undefined}
               className="absolute inset-y-0 right-12 flex items-center text-primary"
             >
@@ -179,16 +234,23 @@ export function LoginForm({
                 </>
               )}
             </output>
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? labels.hidePassword : labels.showPassword}
-              aria-controls="password"
-              aria-pressed={showPassword}
-              className="absolute inset-y-0 right-0 flex w-12 items-center justify-center rounded-lg text-muted-foreground! hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
-            >
-              {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
-            </button>
+            <IconTooltip label={showPassword ? labels.hidePassword : labels.showPassword}>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                disabled={action.disabled || !enabled}
+                aria-label={showPassword ? labels.hidePassword : labels.showPassword}
+                aria-controls={`${id}-password`}
+                aria-pressed={showPassword}
+                className="absolute inset-y-0 right-0 flex w-12 cursor-pointer items-center justify-center rounded-lg text-muted-foreground! hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed"
+              >
+                {showPassword ? (
+                  <EyeOffIcon className="size-4" aria-hidden="true" />
+                ) : (
+                  <EyeIcon className="size-4" aria-hidden="true" />
+                )}
+              </button>
+            </IconTooltip>
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
@@ -196,6 +258,7 @@ export function LoginForm({
             <input
               type="checkbox"
               name="rememberMe"
+              defaultChecked
               className="size-4 accent-primary"
               disabled={action.disabled || !enabled}
             />
@@ -249,22 +312,3 @@ export function LoginForm({
     </div>
   );
 }
-
-export {
-  AccountPage,
-  type AccountPageProps,
-} from "#/intranet/components/forge/plugins/auth/account-page";
-export {
-  AccountSecurity,
-  type AccountSecurityData,
-  type AccountSecurityProps,
-} from "#/intranet/components/forge/plugins/auth/account-security";
-export {
-  AgentKeys,
-  type AgentKey,
-  type AgentKeysProps,
-} from "#/intranet/components/forge/plugins/auth/agent-keys";
-export type {
-  AccountLabels,
-  SecurityLabels,
-} from "#/intranet/components/forge/plugins/auth/account-labels";

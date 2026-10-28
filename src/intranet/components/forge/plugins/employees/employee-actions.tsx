@@ -1,8 +1,20 @@
 "use client";
 import { Dialog } from "@base-ui/react/dialog";
-import { PencilIcon, SendHorizontalIcon, Trash2Icon } from "lucide-react";
-import { useRef, useState } from "react";
+import { XIcon, PencilIcon, SendHorizontalIcon, Trash2Icon } from "lucide-react";
+import { useId, useState } from "react";
 
+import { IconTooltip } from "#/components/forge/icon-tooltip.tsx";
+import { useActionToast, ActionToastProvider } from "#/intranet/components/forge/action-toast.tsx";
+import { NativeSelect } from "#/intranet/components/forge/native-select.tsx";
+import {
+  EmployeeDeleteDialog,
+  type EmployeeDeletionAdapter,
+} from "#/intranet/components/forge/plugins/employees/employee-delete-dialog.tsx";
+import {
+  EmployeePhotoField,
+  type EmployeePhotoFieldProps,
+} from "#/intranet/components/forge/plugins/employees/employee-photo-field.tsx";
+import { EmployeeWebsiteStatus } from "#/intranet/components/forge/plugins/employees/employee-website-status.tsx";
 import {
   employeeLabels,
   type EmployeeLabels,
@@ -22,9 +34,17 @@ import {
   inputClass,
   dialogClass,
 } from "#/intranet/components/forge/plugins/employees/styles.ts";
+import { submitDialogOnShortcut } from "#/intranet/components/forge/utils/dialog-submit.ts";
+import { tableActionsClass } from "#/intranet/components/forge/utils/table-styles.ts";
+import { useMutationAction } from "#/intranet/components/forge/utils/use-optimistic-action.ts";
 import { cn } from "#/intranet/forge/utils.ts";
 export interface EmployeeActionCallbacks {
+  deletion?: EmployeeDeletionAdapter;
+  onUploadPhoto?: (id: string, file: File) => Promise<void>;
+  photoOptions?: Pick<EmployeePhotoFieldProps, "dimensions" | "labels" | "cropLabels">;
   onUpdate: (values: UpdateEmployee) => Promise<void>;
+  /** Persist public-profile visibility and refresh the host's employee data. */
+  onSetWebsitePublished?: (id: string, published: boolean) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
   /** @deprecated The employee list no longer provides an access toggle. */
   onSetBan?: (id: string, banned: boolean) => Promise<void>;
@@ -35,72 +55,82 @@ export interface EmployeeActionsProps extends EmployeeActionCallbacks {
   currentUserId: string;
   labels?: Partial<EmployeeLabels>;
   className?: string;
+  disabled?: boolean;
 }
-export function EmployeeActions({
+function EmployeeActionsContent({
   employee,
   currentUserId,
   onUpdate,
+  onSetWebsitePublished,
   onDelete,
+  deletion,
+  onUploadPhoto,
+  photoOptions,
   onSendVerification,
   labels: overrides,
   className,
+  disabled = false,
 }: EmployeeActionsProps) {
   const labels = { ...employeeLabels, ...overrides };
+  const id = `factory-employee-edit-${useId()}`;
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [pending, setPending] = useState(false);
-  const [failedAction, setFailedAction] = useState<string | null>(null);
+  const mutation = useMutationAction(`${currentUserId}:${employee.id}`);
+  const pending = mutation.pending;
+  const [actionKind, setFailedAction] = useState<string | null>(null);
+  const failedAction = mutation.error ? actionKind : null;
   const [feedback, setFeedback] = useState<{ error: boolean; message: string } | null>(null);
-  const lock = useRef(false);
+  const notify = useActionToast();
   const isSelf = employee.id === currentUserId;
-  async function run(kind: "edit" | "remove" | "send", action: () => Promise<void>) {
-    if (lock.current) return;
-    lock.current = true;
-    setPending(true);
-    setFailedAction(null);
+  const emailAction = employee.mustChangePassword ? labels.sendInvitation : labels.sendEmail;
+  function run<T>(
+    kind: "edit" | "remove" | "send" | "website",
+    action: () => Promise<T>,
+    accept?: (result: T) => void,
+  ) {
+    if (disabled || pending) return;
+    setFailedAction(kind);
     setFeedback(null);
-    try {
-      await action();
-    } catch {
-      setFailedAction(kind);
-      if (kind === "send")
-        setFeedback({
-          error: true,
-          message: labels.emailError,
-        });
-    } finally {
-      lock.current = false;
-      setPending(false);
-    }
+    return mutation.run(action, accept);
   }
   return (
     <div className={cn("flex flex-col items-end gap-1", className)}>
-      <div className="flex items-center justify-end gap-1">
-        {!employee.emailVerified && (
+      <div className={tableActionsClass}>
+        <IconTooltip label={`${emailAction} ${employee.name}`}>
           <button
             type="button"
             className={iconButtonClass}
 
-            disabled={pending}
-            aria-label={`${labels.sendEmail} ${employee.name}`}
+            disabled={
+              disabled ||
+              pending ||
+              employee.banned ||
+              (!employee.mustChangePassword && employee.emailVerified)
+            }
+            aria-label={`${emailAction} ${employee.name}`}
             onClick={() =>
-              void run("send", async () => {
-                const { status } = await onSendVerification(employee.id);
-                setFeedback({
-                  error: status === "unavailable",
-                  message:
-                    status === "unavailable"
-                      ? labels.emailUnavailable
-                      : status === "verified"
+              void run(
+                "send",
+                () => onSendVerification(employee.id),
+                ({ status }) => {
+                  if (status === "unavailable") {
+                    setFeedback({ error: true, message: labels.emailUnavailable });
+                  } else {
+                    notify(
+                      status === "verified"
                         ? labels.verified
-                        : labels.emailSent,
-                });
-              })
+                        : employee.mustChangePassword
+                          ? labels.invitationSent
+                          : labels.emailSent,
+                    );
+                  }
+                },
+              )
             }
           >
             <SendHorizontalIcon aria-hidden="true" />
           </button>
-        )}
+        </IconTooltip>
         <Dialog.Root
           open={editing}
           onOpenChange={(open) => {
@@ -110,45 +140,118 @@ export function EmployeeActions({
             }
           }}
         >
-          <Dialog.Trigger
-            disabled={pending}
-            className={iconButtonClass}
+          <IconTooltip label={`${labels.edit} ${employee.name}`}>
+            <Dialog.Trigger
+              disabled={disabled || pending}
+              className={iconButtonClass}
 
-            aria-label={`${labels.edit} ${employee.name}`}
-          >
-            <PencilIcon aria-hidden="true" />
-          </Dialog.Trigger>
+              aria-label={`${labels.edit} ${employee.name}`}
+            >
+              <PencilIcon className="size-4 shrink-0" aria-hidden="true" />
+            </Dialog.Trigger>
+          </IconTooltip>
           <Dialog.Portal>
             <Dialog.Backdrop className="fixed inset-0 z-50 bg-foreground/30" />
-            <Dialog.Popup className={dialogClass}>
-              <div className="space-y-2">
-                <Dialog.Title className="text-lg font-semibold">{labels.editTitle}</Dialog.Title>
+            <Dialog.Popup
+              className={cn(dialogClass, "max-h-[90dvh]")}
+              onKeyDownCapture={submitDialogOnShortcut}
+            >
+              <div
+                data-dialog-header
+                className="sticky top-0 z-20 -mx-6 space-y-2 bg-background px-6 pt-5 pb-0"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex min-w-0 flex-1 flex-wrap items-start justify-between gap-3">
+                    <Dialog.Title className="text-lg font-semibold">
+                      {labels.editTitle}
+                    </Dialog.Title>
+                    {employee.websitePublished !== undefined &&
+                      (onSetWebsitePublished ? (
+                        <button
+                          type="button"
+                          aria-label={labels.website}
+                          aria-pressed={employee.websitePublished}
+                          disabled={disabled || pending}
+                          className="ml-auto inline-flex min-h-10 cursor-pointer items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 md:min-h-8"
+                          onClick={() =>
+                            void run(
+                              "website",
+                              () => onSetWebsitePublished(employee.id, !employee.websitePublished),
+                              () => notify(labels.websiteUpdated),
+                            )
+                          }
+                        >
+                          <EmployeeWebsiteStatus
+                            published={employee.websitePublished}
+                            labels={labels}
+                          />
+                        </button>
+                      ) : (
+                        <EmployeeWebsiteStatus
+                          published={employee.websitePublished}
+                          labels={labels}
+                          className="ml-auto"
+                        />
+                      ))}
+                  </div>
+                  <IconTooltip label={labels.close}>
+                    <Dialog.Close
+                      type="button"
+                      aria-label={labels.close}
+                      disabled={pending}
+                      className={iconButtonClass}
+                    >
+                      <XIcon className="size-4 shrink-0" aria-hidden="true" />
+                    </Dialog.Close>
+                  </IconTooltip>
+                </div>
                 <Dialog.Description className="text-sm text-muted-foreground">
                   {labels.editDescription}
                 </Dialog.Description>
+                {failedAction === "website" && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {labels.websiteError}
+                  </p>
+                )}
               </div>
               <form
-                className="space-y-4"
+                className="contents space-y-4"
                 onSubmit={(event) => {
                   event.preventDefault();
                   const data = new FormData(event.currentTarget);
-                  void run("edit", async () => {
-                    await onUpdate(
-                      updateEmployeeSchema.parse({
-                        ...Object.fromEntries(data),
-                        id: employee.id,
-                        role: isSelf ? "admin" : data.get("role"),
-                      }),
-                    );
-                    setEditing(false);
-                  });
+                  void run(
+                    "edit",
+                    async () => {
+                      await onUpdate(
+                        updateEmployeeSchema.parse({
+                          ...Object.fromEntries(data),
+                          id: employee.id,
+                          role: isSelf ? "admin" : data.get("role"),
+                        }),
+                      );
+                    },
+                    () => {
+                      notify(labels.updated);
+                      setEditing(false);
+                    },
+                  );
                 }}
               >
+                {onUploadPhoto && (
+                  <EmployeePhotoField
+                    {...photoOptions}
+                    src={employee.image}
+                    disabled={disabled || pending}
+                    onUpload={(file) => onUploadPhoto(employee.id, file)}
+                  />
+                )}
                 <div className="grid gap-2">
-                  <label htmlFor={`name-${employee.id}`}>{labels.name}</label>
+                  <label htmlFor={`${id}-name`}>
+                    {labels.name} <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     className={inputClass}
-                    id={`name-${employee.id}`}
+                    id={`${id}-name`}
                     name="name"
                     defaultValue={employee.name}
                     maxLength={200}
@@ -157,10 +260,12 @@ export function EmployeeActions({
                   />
                 </div>
                 <div className="grid gap-2">
-                  <label htmlFor={`email-${employee.id}`}>{labels.email}</label>
+                  <label htmlFor={`${id}-email`}>
+                    {labels.email} <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     className={inputClass}
-                    id={`email-${employee.id}`}
+                    id={`${id}-email`}
                     name="email"
                     type="email"
                     defaultValue={employee.email}
@@ -169,24 +274,27 @@ export function EmployeeActions({
                   />
                 </div>
                 <div className="grid gap-2">
-                  <label htmlFor={`role-${employee.id}`}>{labels.role}</label>
-                  <select
-                    id={`role-${employee.id}`}
+                  <label htmlFor={`${id}-role`}>{labels.role}</label>
+                  <NativeSelect
+                    id={`${id}-role`}
                     name="role"
                     defaultValue={isEmployeeAdmin(employee.role) ? "admin" : "user"}
                     disabled={pending || isSelf}
-                    className="h-9 rounded-lg border bg-background px-3 text-sm"
+                    className={inputClass}
                   >
                     <option value="user">{labels.roleUser}</option>
                     <option value="admin">{labels.roleAdmin}</option>
-                  </select>
+                  </NativeSelect>
                 </div>
                 {failedAction === "edit" && (
                   <p role="alert" className="text-destructive">
                     {labels.editError}
                   </p>
                 )}
-                <div className="flex justify-end gap-3">
+                <div
+                  data-dialog-footer
+                  className="sticky bottom-0 z-10 -mx-6 flex flex-wrap justify-end gap-3 bg-background px-6 pt-0 pb-5"
+                >
                   <button
                     type="button"
                     className={outlineButtonClass}
@@ -195,7 +303,11 @@ export function EmployeeActions({
                   >
                     {labels.cancel}
                   </button>
-                  <button type="submit" className={primaryButtonClass} disabled={pending}>
+                  <button
+                    type="submit"
+                    className={primaryButtonClass}
+                    disabled={disabled || pending}
+                  >
                     {pending ? labels.saving : labels.saveChanges}
                   </button>
                 </div>
@@ -203,7 +315,14 @@ export function EmployeeActions({
             </Dialog.Popup>
           </Dialog.Portal>
         </Dialog.Root>
-        {!isSelf && (
+        {deletion ? (
+          <EmployeeDeleteDialog
+            employees={[employee]}
+            adapter={deletion}
+            labels={labels}
+            disabled={disabled || pending || isSelf}
+          />
+        ) : (
           <Dialog.Root
             open={deleting}
             onOpenChange={(open) => {
@@ -213,20 +332,40 @@ export function EmployeeActions({
               }
             }}
           >
-            <Dialog.Trigger
-              disabled={pending}
-              className={cn(iconButtonClass, "text-destructive hover:text-destructive")}
-              aria-label={`${labels.delete} ${employee.name}`}
-            >
-              <Trash2Icon aria-hidden="true" />
-            </Dialog.Trigger>
+            <IconTooltip label={`${labels.delete} ${employee.name}`}>
+              <Dialog.Trigger
+                disabled={disabled || pending || isSelf}
+                className={cn(
+                  iconButtonClass,
+                  "bg-destructive/10 text-destructive hover:bg-destructive/20 hover:text-destructive focus-visible:ring-destructive/30 dark:bg-destructive/20 dark:hover:bg-destructive/30",
+                )}
+                aria-label={`${labels.delete} ${employee.name}`}
+              >
+                <Trash2Icon className="size-4 shrink-0" aria-hidden="true" />
+              </Dialog.Trigger>
+            </IconTooltip>
             <Dialog.Portal>
               <Dialog.Backdrop className="fixed inset-0 z-50 bg-foreground/30" />
               <Dialog.Popup className={dialogClass}>
-                <div className="space-y-2">
-                  <Dialog.Title className="text-lg font-semibold">
-                    {labels.deleteTitle}
-                  </Dialog.Title>
+                <div
+                  data-dialog-header
+                  className="sticky top-0 z-20 -mx-6 space-y-2 bg-background px-6 pt-5 pb-0"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <Dialog.Title className="min-w-0 flex-1 text-lg font-semibold break-words">
+                      {labels.deleteTitle}
+                    </Dialog.Title>
+                    <IconTooltip label={labels.close}>
+                      <Dialog.Close
+                        type="button"
+                        aria-label={labels.close}
+                        disabled={pending}
+                        className={iconButtonClass}
+                      >
+                        <XIcon className="size-4 shrink-0" aria-hidden="true" />
+                      </Dialog.Close>
+                    </IconTooltip>
+                  </div>
                   <Dialog.Description className="text-sm text-muted-foreground">
                     {labels.deleteDescription.replace("{name}", employee.name)}
                   </Dialog.Description>
@@ -236,7 +375,10 @@ export function EmployeeActions({
                     {labels.deleteError}
                   </p>
                 )}
-                <div className="flex justify-end gap-3">
+                <div
+                  data-dialog-footer
+                  className="sticky bottom-0 z-10 -mx-6 flex flex-wrap justify-end gap-3 bg-background px-6 pt-0 pb-5"
+                >
                   <button
                     type="button"
                     className={outlineButtonClass}
@@ -249,14 +391,15 @@ export function EmployeeActions({
                     type="button"
                     className={cn(
                       buttonClass,
-                      "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+                      "bg-destructive/10 text-destructive hover:bg-destructive/20 hover:text-destructive focus-visible:ring-destructive/30 dark:bg-destructive/20 dark:hover:bg-destructive/30",
                     )}
-                    disabled={pending}
+                    disabled={disabled || pending || isSelf}
                     onClick={() =>
-                      void run("remove", async () => {
-                        await onDelete(employee.id);
-                        setDeleting(false);
-                      })
+                      void run(
+                        "remove",
+                        () => onDelete(employee.id),
+                        () => setDeleting(false),
+                      )
                     }
                   >
                     {pending ? labels.deleting : labels.delete}
@@ -267,6 +410,11 @@ export function EmployeeActions({
           </Dialog.Root>
         )}
       </div>
+      {failedAction === "send" && (
+        <p role="alert" className="text-xs text-destructive">
+          {labels.emailError}
+        </p>
+      )}
       {feedback && (
         <p
           role={feedback.error ? "alert" : "status"}
@@ -279,5 +427,13 @@ export function EmployeeActions({
         </p>
       )}
     </div>
+  );
+}
+
+export function EmployeeActions(props: EmployeeActionsProps) {
+  return (
+    <ActionToastProvider>
+      <EmployeeActionsContent key={`${props.currentUserId}:${props.employee.id}`} {...props} />
+    </ActionToastProvider>
   );
 }

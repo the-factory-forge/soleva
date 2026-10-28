@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-28",
+  "start": "1c4732ce4ab14565b6c0bc3d4feb0baeb43d1ad1",
+  "branch": "codex/soleva-registry-rc6",
+  "target": "0b47bb77c2f88154eb62a26ce6e08b841bde5e16",
+  "publicBaseline": "8846c1ad6ee36b6c5dfaf613ac59184491c8745b",
+  "cli": "shadcn@4.21.4",
+  "items": [
+    "auth",
+    "employees",
+    "employees-server",
+    "intranet-shell",
+    "cookie-banner",
+    "newsletter"
+  ],
+  "intranetBaseline": "Mixed installed sources inherited through template e43657ee3023805b9f7afb50fa39c28e980476e6; no pristine registry post-install receipt proved. Manually reconciled bounded current/incoming trees.",
+  "dependencyDecisions": {
+    "@tanstack/react-query": "Keep destination5.104.1; incoming resolution5.104.5 satisfies same API and item requirement, no gratuitous refresh.",
+    "zod": "Keep pinned4.5.4; satisfies item ^4.5.4."
+  }
+}

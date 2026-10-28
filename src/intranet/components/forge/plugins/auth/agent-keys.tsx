@@ -1,15 +1,16 @@
 "use client";
 
 import { Dialog } from "@base-ui/react/dialog";
-import { CopyIcon, PlusIcon, RefreshCwIcon, Trash2Icon } from "lucide-react";
+import { XIcon, CopyIcon, PlusIcon, RefreshCwIcon, Trash2Icon } from "lucide-react";
 import { useId, useRef, useState, type ReactNode } from "react";
 
-import { ActionToastProvider, useActionToast } from "#/intranet/components/forge/action-toast";
-import { IconTooltip } from "#/intranet/components/forge/icon-tooltip";
+import { IconTooltip } from "#/components/forge/icon-tooltip.tsx";
+import { ActionToastProvider, useActionToast } from "#/intranet/components/forge/action-toast.tsx";
+import { useLoadingActivity } from "#/intranet/components/forge/loading-indicator.tsx";
 import {
   securityLabels,
   type SecurityLabels,
-} from "#/intranet/components/forge/plugins/auth/account-labels";
+} from "#/intranet/components/forge/plugins/auth/account-labels.ts";
 import {
   accountButtonClass,
   accountPrimaryClass,
@@ -17,8 +18,16 @@ import {
   accountInputClass,
   accountDialogClass,
   accountDate,
-} from "#/intranet/components/forge/plugins/auth/account-styles";
-import { cn } from "#/intranet/forge/utils";
+} from "#/intranet/components/forge/plugins/auth/account-styles.ts";
+import {
+  useTableSelection,
+  type TableDeletionOptions,
+} from "#/intranet/components/forge/table-selection.tsx";
+import {
+  tableActionCellClass,
+  tableActionHeaderClass,
+} from "#/intranet/components/forge/utils/table-styles.ts";
+import { cn } from "#/intranet/forge/utils.ts";
 
 export interface AgentKey {
   id: string;
@@ -27,13 +36,14 @@ export interface AgentKey {
   lastUsedAt: Date | string | null;
   expiresAt: Date | string;
   expired: boolean;
+  revoked?: boolean;
 }
 export interface AgentKeysProps {
   keys?: AgentKey[];
   loading?: boolean;
   error?: boolean;
   onRetry: () => void;
-  onCreate: (input: { name: string; expiresAt: Date }) => Promise<{ token: string }>;
+  onCreate?: (input: { name: string; expiresAt: Date }) => Promise<{ token: string }>;
   onDelete: (id: string) => Promise<void>;
   labels?: Partial<SecurityLabels>;
   locale?: string;
@@ -52,22 +62,45 @@ function KeyDialog({
   title,
   description,
   children,
+  closeLabel,
+  busy = false,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
   description: ReactNode;
   children: ReactNode;
+  closeLabel: string;
+  busy?: boolean;
 }) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-dark/50" />
         <Dialog.Popup className={accountDialogClass}>
-          <Dialog.Title className="text-lg font-semibold">{title}</Dialog.Title>
-          <Dialog.Description className="text-sm text-muted-foreground">
-            {description}
-          </Dialog.Description>
+          <div
+            data-dialog-header
+            className="sticky top-0 z-20 -mx-6 space-y-2 bg-popover px-6 pt-5 pb-0"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <Dialog.Title className="min-w-0 flex-1 text-lg font-semibold break-words">
+                {title}
+              </Dialog.Title>
+              <IconTooltip label={closeLabel}>
+                <Dialog.Close
+                  type="button"
+                  aria-label={closeLabel}
+                  disabled={busy}
+                  className="inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-md text-foreground hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 md:size-8"
+                >
+                  <XIcon className="size-4 shrink-0" aria-hidden="true" />
+                </Dialog.Close>
+              </IconTooltip>
+            </div>
+            <Dialog.Description className="text-sm text-muted-foreground">
+              {description}
+            </Dialog.Description>
+          </div>
           {children}
         </Dialog.Popup>
       </Dialog.Portal>
@@ -85,17 +118,28 @@ function AgentKeysContent({
   locale,
   className,
 }: AgentKeysProps) {
+  useLoadingActivity(loading);
   const labels = { ...securityLabels, ...overrides };
   const id = `factory-agent-key-${useId()}`;
   const [creating, setCreating] = useState(false);
   const [name, setName] = useState("");
   const [expiry, setExpiry] = useState("");
+  const [maxExpiry, setMaxExpiry] = useState("");
   const [failure, setFailure] = useState("");
   const [secret, setSecret] = useState("");
-  const [deleting, setDeleting] = useState<AgentKey | null>(null);
-  const [pending, setPending] = useState(false);
+  const selection = useTableSelection(keys ?? []);
+  const selectedKeys = selection.selected;
+  const { deletion } = selection;
+  const deleting = deletion.items;
+  const [createPending, setCreatePending] = useState(false);
+  const pending = createPending || selection.pending;
+  const bulkDisabled = error || loading || pending || selectedKeys.length === 0;
   const lock = useRef(false);
   const notify = useActionToast();
+  const deletionOptions: TableDeletionOptions<AgentKey> = {
+    onDelete: (key) => onDelete(key.id),
+    onComplete: (count) => notify(count > 1 ? labels.keysDeleted : labels.deleted),
+  };
   const closeSecret = () => {
     setSecret("");
     setFailure("");
@@ -107,22 +151,28 @@ function AgentKeysContent({
           <h2 className="font-semibold">{labels.keys}</h2>
           <p className="text-sm text-muted-foreground">{labels.keysDescription}</p>
         </div>
-        <button
-          type="button"
-          className={cn(accountButtonClass, accountPrimaryClass)}
-          disabled={!keys || error || pending}
-          onClick={() => {
-            const date = new Date(Date.now() + 30 * 86400000);
-            date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-            setExpiry(date.toISOString().slice(0, 16));
-            setName("");
-            setFailure("");
-            setCreating(true);
-          }}
-        >
-          <PlusIcon className="size-4 shrink-0" aria-hidden="true" />
-          {labels.createKey}
-        </button>
+        {onCreate && (
+          <button
+            type="button"
+            className={cn(accountButtonClass, accountPrimaryClass)}
+            disabled={!keys || error || pending}
+            onClick={() => {
+              const now = Date.now();
+              const date = new Date(now + 30 * 86400000);
+              date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+              setExpiry(date.toISOString().slice(0, 16));
+              const maxDate = new Date(now + 90 * 86400000);
+              maxDate.setMinutes(maxDate.getMinutes() - maxDate.getTimezoneOffset());
+              setMaxExpiry(maxDate.toISOString().slice(0, 16));
+              setName("");
+              setFailure("");
+              setCreating(true);
+            }}
+          >
+            <PlusIcon className="size-4 shrink-0" aria-hidden="true" />
+            {labels.createKey}
+          </button>
+        )}
       </div>
       <div className="mt-5 min-h-24 min-w-0" aria-busy={loading}>
         {error && (
@@ -148,6 +198,23 @@ function AgentKeysContent({
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
+                  <th scope="col" className="w-10">
+                    <label className="inline-flex size-10 items-center justify-center">
+                      <input
+                        type="checkbox"
+                        aria-label={labels.selectAllKeys}
+                        className="size-4 cursor-pointer accent-primary focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed"
+                        checked={selection.all}
+                        ref={(input) => {
+                          if (input) {
+                            input.indeterminate = selection.mixed;
+                          }
+                        }}
+                        disabled={error || loading || pending}
+                        onChange={(event) => selection.toggleAll(event.target.checked)}
+                      />
+                    </label>
+                  </th>
                   {(["name", "status", "created", "lastUsed", "expires"] as const).map((column) => (
                     <th
                       key={column}
@@ -157,25 +224,62 @@ function AgentKeysContent({
                       {labels[column]}
                     </th>
                   ))}
-                  <th scope="col">
+                  <th scope="col" className={cn(tableActionHeaderClass, "w-14")}>
                     <span className="sr-only">{labels.actions}</span>
+                    <div className="h-10">
+                      <IconTooltip label={`${labels.deleteSelectedKeys} (${selectedKeys.length})`}>
+                        <button
+                          type="button"
+                          className={cn(
+                            accountButtonClass,
+                            "size-10 p-0",
+                            bulkDisabled
+                              ? "bg-background text-foreground disabled:hover:bg-background"
+                              : "border-transparent",
+                          )}
+                          aria-label={`${labels.deleteSelectedKeys} (${selectedKeys.length})`}
+                          disabled={bulkDisabled}
+                          onClick={() => {
+                            deletion.open(deletionOptions);
+                          }}
+                        >
+                          <Trash2Icon className="size-4 shrink-0" aria-hidden="true" />
+                        </button>
+                      </IconTooltip>
+                    </div>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {keys.map((key) => (
                   <tr key={key.id} className="border-b border-border last:border-0">
+                    <td>
+                      <label className="inline-flex size-10 items-center justify-center">
+                        <input
+                          type="checkbox"
+                          aria-label={`${labels.selectKey} ${key.name}`}
+                          className="size-4 cursor-pointer accent-primary focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed"
+                          checked={selectedKeys.some((selected) => selected.id === key.id)}
+                          disabled={error || loading || pending}
+                          onChange={(event) => selection.toggle(key.id, event.target.checked)}
+                        />
+                      </label>
+                    </td>
                     <td className="max-w-56 truncate p-2 font-medium">{key.name}</td>
                     <td className="p-2">
                       <span
                         className={cn(
                           "rounded-full px-2 py-1 text-xs",
-                          key.expired
+                          key.expired || key.revoked
                             ? "bg-status-canceled text-status-canceled-foreground"
                             : "bg-status-success text-status-success-foreground",
                         )}
                       >
-                        {key.expired ? labels.expired : labels.active}
+                        {key.revoked
+                          ? labels.revoked
+                          : key.expired
+                            ? labels.expired
+                            : labels.active}
                       </span>
                     </td>
                     <td className="p-2 whitespace-nowrap tabular-nums">
@@ -187,16 +291,15 @@ function AgentKeysContent({
                     <td className="p-2 whitespace-nowrap tabular-nums">
                       {accountDate(key.expiresAt, locale)}
                     </td>
-                    <td className="p-2 text-right">
+                    <td className={tableActionCellClass}>
                       <IconTooltip label={`${labels.delete} ${key.name}`}>
                         <button
                           type="button"
                           className={cn(accountButtonClass, "size-10 border-transparent p-0")}
                           aria-label={`${labels.delete} ${key.name}`}
-                          disabled={error || pending}
+                          disabled={error || loading || pending}
                           onClick={() => {
-                            setFailure("");
-                            setDeleting(key);
+                            deletion.open(deletionOptions, [key]);
                           }}
                         >
                           <Trash2Icon className="size-4 shrink-0" aria-hidden="true" />
@@ -211,6 +314,8 @@ function AgentKeysContent({
         )}
       </div>
       <KeyDialog
+        closeLabel={labels.close ?? labels.cancel}
+        busy={pending}
         open={creating}
         onOpenChange={(open) => {
           if (!lock.current) setCreating(open);
@@ -219,11 +324,11 @@ function AgentKeysContent({
         description={labels.createDescription}
       >
         <form
-          className="grid gap-4"
+          className="contents"
           aria-busy={pending}
           onSubmit={async (event) => {
             event.preventDefault();
-            if (lock.current || error) return;
+            if (lock.current || error || !onCreate) return;
             const expiresAt = new Date(expiry);
             const now = Date.now();
             if (
@@ -237,7 +342,7 @@ function AgentKeysContent({
               return;
             }
             lock.current = true;
-            setPending(true);
+            setCreatePending(true);
             setFailure("");
             try {
               const { token } = await onCreate({ name: name.trim(), expiresAt });
@@ -247,7 +352,7 @@ function AgentKeysContent({
               setFailure(labels.createError);
             } finally {
               lock.current = false;
-              setPending(false);
+              setCreatePending(false);
             }
           }}
         >
@@ -269,6 +374,7 @@ function AgentKeysContent({
             <input
               id={`${id}-expiry`}
               type="datetime-local"
+              max={maxExpiry}
               value={expiry}
               onChange={(e) => setExpiry(e.target.value)}
               required
@@ -279,7 +385,10 @@ function AgentKeysContent({
           <div className="min-h-5 text-sm text-destructive">
             {failure && <p role="alert">{failure}</p>}
           </div>
-          <div className="flex flex-wrap justify-end gap-2">
+          <div
+            data-dialog-footer
+            className="sticky bottom-0 z-10 -mx-6 flex flex-wrap justify-end gap-2 bg-popover px-6 pt-0 pb-5"
+          >
             <button
               type="button"
               className={accountButtonClass}
@@ -299,6 +408,7 @@ function AgentKeysContent({
         </form>
       </KeyDialog>
       <KeyDialog
+        closeLabel={labels.close ?? labels.cancel}
         open={Boolean(secret)}
         onOpenChange={(open) => {
           if (!open) closeSecret();
@@ -316,7 +426,10 @@ function AgentKeysContent({
         <div className="min-h-5 text-sm text-destructive">
           {failure && <p role="alert">{failure}</p>}
         </div>
-        <div className="flex flex-wrap justify-end gap-2">
+        <div
+          data-dialog-footer
+          className="sticky bottom-0 z-10 -mx-6 flex flex-wrap justify-end gap-2 bg-popover px-6 pt-0 pb-5"
+        >
           <button type="button" className={accountButtonClass} onClick={closeSecret}>
             {labels.done}
           </button>
@@ -338,26 +451,36 @@ function AgentKeysContent({
         </div>
       </KeyDialog>
       <KeyDialog
-        open={Boolean(deleting)}
+        closeLabel={labels.close ?? labels.cancel}
+        busy={pending}
+        open={deleting.length > 0}
         onOpenChange={(open) => {
-          if (!open && !lock.current) setDeleting(null);
+          if (!open) deletion.close();
         }}
-        title={labels.deleteKey}
+        title={deleting.length > 1 ? labels.deleteKeys : labels.deleteKey}
         description={
           <>
-            {labels.deleteDescription} <strong>{deleting?.name}</strong>
+            {deleting.length > 1 ? labels.deleteKeysDescription : labels.deleteDescription}{" "}
+            <strong>{deleting.map((key) => key.name).join(", ")}</strong>
           </>
         }
       >
         <div className="min-h-5 text-sm text-destructive">
-          {failure && <p role="alert">{failure}</p>}
+          {deletion.failure && (
+            <p role="alert">
+              {deletion.attempted > 1 ? labels.deleteKeysError : labels.deleteError}
+            </p>
+          )}
         </div>
-        <div className="flex flex-wrap justify-end gap-2">
+        <div
+          data-dialog-footer
+          className="sticky bottom-0 z-10 -mx-6 flex flex-wrap justify-end gap-2 bg-popover px-6 pt-0 pb-5"
+        >
           <button
             type="button"
             className={accountButtonClass}
             disabled={pending}
-            onClick={() => setDeleting(null)}
+            onClick={() => deletion.close()}
           >
             {labels.cancel}
           </button>
@@ -367,22 +490,9 @@ function AgentKeysContent({
               accountButtonClass,
               "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/90",
             )}
-            disabled={pending || error}
-            onClick={async () => {
-              if (!deleting || lock.current) return;
-              lock.current = true;
-              setPending(true);
-              setFailure("");
-              try {
-                await onDelete(deleting.id);
-                setDeleting(null);
-                notify(labels.deleted);
-              } catch {
-                setFailure(labels.deleteError);
-              } finally {
-                lock.current = false;
-                setPending(false);
-              }
+            disabled={pending || loading || error}
+            onClick={() => {
+              if (!pending && !loading && !error) void deletion.confirm(deletionOptions);
             }}
           >
             {pending ? labels.deleting : labels.delete}

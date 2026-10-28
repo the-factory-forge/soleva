@@ -3,20 +3,21 @@
 import { LogOutIcon, RefreshCwIcon } from "lucide-react";
 import { useRef, useState, type ReactNode } from "react";
 
+import { useLoadingActivity } from "#/intranet/components/forge/loading-indicator.tsx";
 import {
   securityLabels,
   type SecurityLabels,
-} from "#/intranet/components/forge/plugins/auth/account-labels";
+} from "#/intranet/components/forge/plugins/auth/account-labels.ts";
 import {
   accountButtonClass,
   accountCardClass,
   accountDate,
-} from "#/intranet/components/forge/plugins/auth/account-styles";
+} from "#/intranet/components/forge/plugins/auth/account-styles.ts";
 import {
   passwordLabels,
   type PasswordLabels,
-} from "#/intranet/components/forge/plugins/auth/password-labels";
-import { cn } from "#/intranet/forge/utils";
+} from "#/intranet/components/forge/plugins/auth/password-labels.ts";
+import { cn } from "#/intranet/forge/utils.ts";
 
 export interface AccountSecurityData {
   signInMethod: string | null;
@@ -61,6 +62,7 @@ export function AccountSecurity({
   locale,
   className,
 }: AccountSecurityProps) {
+  useLoadingActivity(loading);
   const labels = { ...securityLabels, ...overrides };
   const passwords = { ...passwordLabels, ...passwordOverrides };
   const [reset, setReset] = useState<"idle" | "pending" | "success" | "error">("idle");

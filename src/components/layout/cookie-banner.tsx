@@ -25,6 +25,7 @@ export function CookieBanner({
       acceptAllLabel={dict.cookies.acceptAll}
       acceptSelectionLabel={dict.cookies.customize}
       cancelLabel={dict.cookies.cancel}
+      closeLabel={dict.nav.close}
       confirmLabel={dict.cookies.acceptSelection}
       policyLabel={dict.cookies.privacyLink}
       privacyHref={withLocale(locale, "/confidentialite")}

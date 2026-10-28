@@ -8,8 +8,24 @@ import {
   IntranetSidebarProvider,
   IntranetSidebarToggle,
   type IntranetSidebarProps,
+  useIntranetSidebar,
 } from "#/intranet/components/forge/navigation/intranet-sidebar.tsx";
 import { cn } from "#/intranet/forge/utils.ts";
+
+function ShellSidebarToggle({ label }: { label?: string }) {
+  const { isMobile, open } = useIntranetSidebar();
+
+  return (
+    <IntranetSidebarToggle
+      aria-label={label}
+      className={cn(
+        !isMobile &&
+          open &&
+          "fixed top-[calc(var(--intranet-top-offset,0rem)+0.5rem)] left-[13.5rem] z-30 border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-sidebar-ring",
+      )}
+    />
+  );
+}
 
 export interface IntranetShellProps extends Omit<
   IntranetSidebarProps,
@@ -18,7 +34,7 @@ export interface IntranetShellProps extends Omit<
   /** Full banner content; the host owns its colors and spacing. */
   banner?: ReactNode;
   topbar?: ReactNode;
-  /** Replace the complete topbar, placing the supplied toggle in your navbar. */
+  /** Place the supplied toggle in your navbar; it moves beside the brand when expanded. */
   renderTopbar?: (toggle: ReactNode) => ReactNode;
   controls?: ReactNode;
   children?: ReactNode;
@@ -47,13 +63,13 @@ export function IntranetShell({
   wrapContent = true,
   ...sidebarProps
 }: IntranetShellProps) {
-  const toggle = <IntranetSidebarToggle aria-label={sidebarProps.labels?.toggle} />;
+  const toggle = <ShellSidebarToggle label={sidebarProps.labels?.toggle} />;
 
   return (
     <IntranetSidebarProvider>
       <IntranetSidebar
         {...sidebarProps}
-        className={sidebarClassName}
+        className={cn(showTopbar && "[&>header]:pr-12", sidebarClassName)}
         togglePlacement={showTopbar ? "external" : "sidebar"}
       />
       <IntranetSidebarInset

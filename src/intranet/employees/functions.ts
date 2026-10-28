@@ -1,13 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
+import { asc, count, eq, ilike, or } from "drizzle-orm";
 import { ENV } from "varlock/env";
 
 import { auth } from "#/intranet/auth/auth";
 import { adminMiddleware } from "#/intranet/auth/middleware";
+import { sendEmployeeInvitation } from "#/intranet/auth/verification-email";
 import {
-  createEmployeeSchema,
   employeeIdSchema,
-  listEmployeesSchema,
   setEmployeeBanSchema,
   updateEmployeeSchema,
 } from "#/intranet/components/forge/plugins/employees/schema";
@@ -15,12 +15,39 @@ import {
   createEmployeeService,
   type EmployeeActor,
 } from "#/intranet/components/forge/plugins/employees/server/employees.server";
+import { db } from "#/intranet/db";
+import { user } from "#/intranet/db/schema/auth.schema";
 
-import { sendEmployeeVerificationSchema } from "./employees.schema";
+import {
+  createEmployeeInvitationSchema,
+  listEmployeeDirectorySchema,
+  sendEmployeeVerificationSchema,
+} from "./employees.schema";
 
-function employeeService(actor: EmployeeActor) {
+function employeeService(actor: EmployeeActor, search = "") {
   return createEmployeeService({
     api: auth.api,
+    sendInvitation: sendEmployeeInvitation,
+    directory: {
+      async contains(id) {
+        return Boolean((await db.select({ id: user.id }).from(user).where(eq(user.id, id)))[0]);
+      },
+      async list(offset, limit) {
+        const pattern = `%${search.replace(/[\\%_]/g, "\\$&")}%`;
+        const where = or(ilike(user.name, pattern), ilike(user.email, pattern));
+        const [users, totals] = await Promise.all([
+          db
+            .select()
+            .from(user)
+            .where(where)
+            .orderBy(asc(user.name), asc(user.id))
+            .limit(limit)
+            .offset(offset),
+          db.select({ count: count() }).from(user).where(where),
+        ]);
+        return { users, total: totals[0].count };
+      },
+    },
     headers: getRequest().headers,
     actor,
     verificationEnabled: Boolean(ENV.EMAIL_API_KEY && ENV.EMAIL_FROM),
@@ -28,12 +55,17 @@ function employeeService(actor: EmployeeActor) {
 }
 export const $listEmployees = createServerFn({ method: "GET" })
   .middleware([adminMiddleware])
-  .validator(listEmployeesSchema)
-  .handler(({ data, context }) => employeeService(context.user).list(data));
+  .validator(listEmployeeDirectorySchema)
+  .handler(({ data, context }) => employeeService(context.user, data.search).list(data));
 export const $createEmployee = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .validator(createEmployeeSchema)
-  .handler(({ data, context }) => employeeService(context.user).create(data));
+  .validator(createEmployeeInvitationSchema)
+  .handler(({ data, context }) =>
+    employeeService(context.user).create(
+      data,
+      new URL(`/${data.locale}/reset-password?invitation=true`, ENV.VITE_BASE_URL).toString(),
+    ),
+  );
 export const $setEmployeeBan = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
   .validator(setEmployeeBanSchema)
@@ -53,5 +85,6 @@ export const $sendEmployeeVerification = createServerFn({ method: "POST" })
     employeeService(context.user).sendVerification(
       data,
       new URL(`/${data.locale}/login`, ENV.VITE_BASE_URL).toString(),
+      new URL(`/${data.locale}/reset-password?invitation=true`, ENV.VITE_BASE_URL).toString(),
     ),
   );
