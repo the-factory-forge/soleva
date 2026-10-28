@@ -77,6 +77,23 @@ with maximum P2, and Spec 2 with maximum P2. Parent review remains separate.
 that optional issue-tracker workflow. No originating external issue is required
 to identify the supplied sync contract.
 
+## Independent coordinator review
+
+Two further read-only reviewers compared the fixed base with
+`ef9eb05d9c3fdf5d7eb09dcbee49f0744060fdfe` after the implementation review.
+Standards found one P3: the verification status was a focusable button without an
+action, contrary to the shared UI status contract. It now renders as a
+non-interactive image status with a translated accessible name and title. Its
+semantic colors and verification value are unchanged; the unused tooltip import
+was removed. Lint/types pass after this markup correction. No additional browser
+run was needed for the native element replacement.
+
+Spec found zero actionable issues. The connected invitation, mutation and URL
+flows were reviewed independently; all 222 retained text hashes and 100 original
+customer entries match their recorded inputs and starting commit. Both axes have
+zero unresolved findings. The same published RC6 status issue is recorded as an
+upstream follow-up; the Registry working tree was not changed.
+
 ## Review focus
 
 1. Host invitation transport and auth reset hooks.

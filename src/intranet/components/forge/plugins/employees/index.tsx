@@ -3,7 +3,6 @@ import { Avatar } from "@base-ui/react/avatar";
 import { ShieldCheckIcon, ShieldOffIcon } from "lucide-react";
 import { useState } from "react";
 
-import { IconTooltip } from "#/components/forge/icon-tooltip.tsx";
 import { ActionToastProvider } from "#/intranet/components/forge/action-toast.tsx";
 import { useLoadingActivity } from "#/intranet/components/forge/loading-indicator.tsx";
 import {
@@ -272,28 +271,23 @@ function EmployeesPageContent({
                       aria-label={employee.email}
                     >
                       <div className="flex items-center gap-3">
-                        <IconTooltip
-                          label={employee.emailVerified ? labels.verified : labels.unverified}
+                        <span
+                          role="img"
+                          title={employee.emailVerified ? labels.verified : labels.unverified}
+                          aria-label={employee.emailVerified ? labels.verified : labels.unverified}
+                          className={cn(
+                            "inline-flex size-10 shrink-0 items-center justify-center rounded-full md:size-8",
+                            employee.emailVerified
+                              ? "bg-status-success text-status-success-foreground"
+                              : "bg-status-pending text-status-pending-foreground",
+                          )}
                         >
-                          <button
-                            type="button"
-                            aria-label={
-                              employee.emailVerified ? labels.verified : labels.unverified
-                            }
-                            className={cn(
-                              "inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring md:size-8",
-                              employee.emailVerified
-                                ? "bg-status-success text-status-success-foreground"
-                                : "bg-status-pending text-status-pending-foreground",
-                            )}
-                          >
-                            {employee.emailVerified ? (
-                              <ShieldCheckIcon className="size-4 shrink-0" aria-hidden="true" />
-                            ) : (
-                              <ShieldOffIcon className="size-4 shrink-0" aria-hidden="true" />
-                            )}
-                          </button>
-                        </IconTooltip>
+                          {employee.emailVerified ? (
+                            <ShieldCheckIcon className="size-4 shrink-0" aria-hidden="true" />
+                          ) : (
+                            <ShieldOffIcon className="size-4 shrink-0" aria-hidden="true" />
+                          )}
+                        </span>
                         <span className="max-w-72 truncate" title={employee.email}>
                           {employee.email}
                         </span>
