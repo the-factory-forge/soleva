@@ -384,6 +384,26 @@ migrations/snapshots, provider release notes, installation archives and starter
 content are not copied. No database reset, live migration, object move, provider
 change, secret-file read, publication or deployment is authorized by this update.
 
+### Drizzle RC5 metadata compatibility
+
+The old format-8 snapshots are rejected by Drizzle Kit RC5 before migration.
+The official `vp run db up` converted this site's 2 existing snapshots to
+format 9. No Template snapshot was copied. All migration SQL files remain byte-identical,
+including their SHA-256 hashes. Folder order, snapshot IDs and parent chains are
+also unchanged. The official
+`drizzle-kit/api-postgres` reconstruction API verified every complete nested DDL
+state against the original snapshots; a second `up` changed no bytes. Later
+snapshots now store incremental metadata, which explains the large generated
+diff. This conversion neither changes the schema nor resets the database.
+See the [snapshot conversion proof](template-sync/2026-10-29-rc4/snapshot-format-proof.json).
+
+Fresh migration and explicit journal preflight passed against the site's dedicated
+disposable PostgreSQL database. Tests also verified existing accounts, changed
+password hashes and sessions across incremental migration, idempotence, and
+startup refusal with pending or altered journal entries. Keep the committed
+Drizzle RC5 toolchain and converted metadata together; an older CLI cannot use
+the new snapshot format.
+
 ### VPS environment migration
 
 No environment variable is added, renamed or removed by this Template delta.
@@ -402,13 +422,11 @@ Deployed values were not read or verified.
 - Exact manifest installation and frozen/offline lockfile verification passed with
   pnpm 12.15.0.
 - Lint/type checks passed with 19 pre-existing warnings.
-- Unit tests: 15 passed; 2 opt-in dependency tests skipped without disposable
-  services. Runtime fixtures will exercise the applicable skipped checks.
+- Unit and disposable-DB tests: 17 passed, with no skipped checks.
 - Agent-safe Varlock validation passed with explicit synthetic DB/auth values.
 - Changed files are formatted; `git diff --check` passed.
 - Customer assets, content dictionaries and styles are byte-identical to the site
   starting commit; Registry RC6 source and the existing review are preserved.
 
-Production-build/browser tests, Drizzle RC5 snapshot compatibility on the site's
-own history and both review axes are still pending. No production behavior has
+Production-build/browser tests and both review axes are still pending. No production behavior has
 been certified.

@@ -1,0 +1,35 @@
+{
+  "start": "38d12fae8e623f911883620b7686b39a494cae3b",
+  "source": "soleva",
+  "officialApi": "drizzle-kit/api-postgres",
+  "snapshots": [
+    {
+      "path": "drizzle/20260926103351_baseline/snapshot.json",
+      "id": "5bdfb767-be8b-4875-b301-6a72cab86f76",
+      "prevIds": ["00000000-0000-0000-0000-000000000000"],
+      "completeNestedDdlEqual": true
+    },
+    {
+      "path": "drizzle/20261013131127_profile_security/snapshot.json",
+      "id": "0a9c52f9-62a8-4328-8026-65b1df8e0d85",
+      "prevIds": ["5bdfb767-be8b-4875-b301-6a72cab86f76"],
+      "completeNestedDdlEqual": true
+    }
+  ],
+  "sql": [
+    {
+      "path": "drizzle/20260926103351_baseline/migration.sql",
+      "sha256": "cdba9adb07118b0098989e30b27ca10c83e9e345698e3b7c373009bb8fcdda42"
+    },
+    {
+      "path": "drizzle/20261013131127_profile_security/migration.sql",
+      "sha256": "7e65294d675db725d54b0118be910257c7496c20c81fdc54f02b605426c7bf52"
+    }
+  ],
+  "converter": "drizzle-kit up 1.0.0-rc.5",
+  "format": {
+    "before": "8",
+    "after": "9"
+  },
+  "conversionRerunByteIdentical": true
+}
