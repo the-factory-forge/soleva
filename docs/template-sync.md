@@ -428,5 +428,12 @@ Deployed values were not read or verified.
 - Customer assets, content dictionaries and styles are byte-identical to the site
   starting commit; Registry RC6 source and the existing review are preserved.
 
-Production-build/browser tests and both review axes are still pending. No production behavior has
-been certified.
+The first intranet production-browser run passed 14 of 16 cases. One profile
+assertion still assumed a URL without the new Security tab search state; it now
+checks that state and its persistence after reload. The remembered-session case
+received HTTP 429: the employees suite derived the same synthetic IP from its
+source line as the login test, sharing Better Auth’s native three-attempt/ten-second
+bucket. The employees suite now uses a separate documentation IP range. Auth
+rate limits and the session-cookie assertions are unchanged. Their browser rerun,
+public browser checks and both review axes remain pending. No production behavior
+is certified.

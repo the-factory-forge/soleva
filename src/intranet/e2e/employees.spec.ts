@@ -68,7 +68,10 @@ test.afterAll(async () => {
 });
 
 test.beforeEach(async ({ context }, testInfo) => {
-  await context.setExtraHTTPHeaders({ "x-forwarded-for": `192.0.2.${(testInfo.line % 200) + 1}` });
+  // This suite must not share the login tests' per-IP rate-limit bucket.
+  await context.setExtraHTTPHeaders({
+    "x-forwarded-for": `198.51.100.${(testInfo.line % 200) + 1}`,
+  });
   await context.route(
     /^https?:\/\/(?!(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?(?:[/?#]|$))/,
     (route) => route.abort(),
