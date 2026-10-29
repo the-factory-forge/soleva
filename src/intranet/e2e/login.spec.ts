@@ -21,7 +21,7 @@ const mailPath = `.cache/e2e-emails/${createHash("sha256").update(resetEmail).di
 async function resetURL() {
   const message: { subject: string; text: string } = JSON.parse(await readFile(mailPath, "utf8"));
   expect(message.subject).toBe("Reset your password");
-  return message.text.split("\n\n").at(-1)!;
+  return message.text.match(/https?:\/\/[^\s]+/)![0];
 }
 
 test.beforeAll(async () => {
