@@ -327,7 +327,7 @@ No live OAuth callback, production email/storage integration, production Docker 
 
 ## Reconciliation — 2026-10-29 (Template RC4)
 
-Status: **source integrated; runtime validation and reviews pending**. This is not a deployment claim.
+Status: **source integrated; intranet validated; public rerun and reviews pending**. This is not a deployment claim.
 
 - Source: <https://github.com/the-factory-forge/forge-template>, remotely verified
   `v0.0.0-rc.4`, commit `f0301be5069c8eb69155ce726f22358677f0c35c`.
@@ -428,12 +428,14 @@ Deployed values were not read or verified.
 - Customer assets, content dictionaries and styles are byte-identical to the site
   starting commit; Registry RC6 source and the existing review are preserved.
 
-The first intranet production-browser run passed 14 of 16 cases. One profile
-assertion still assumed a URL without the new Security tab search state; it now
-checks that state and its persistence after reload. The remembered-session case
-received HTTP 429: the employees suite derived the same synthetic IP from its
-source line as the login test, sharing Better Auth’s native three-attempt/ten-second
-bucket. The employees suite now uses a separate documentation IP range. Auth
-rate limits and the session-cookie assertions are unchanged. Their browser rerun,
-public browser checks and both review axes remain pending. No production behavior
-is certified.
+- The coordinator's complete intranet production-browser rerun passed all 16 cases,
+  including invitation sessions/fallback, verification, profile tab persistence,
+  forced-password onboarding, session cookies, permissions and stored keys.
+- The first public run passed 8 of 10 cases. The desktop/mobile photo-viewer
+  checks assumed one Escape would dismiss both the focused Close tooltip and
+  its dialog. They now verify Base UI's nested-layer behavior: first Escape
+  dismisses the tooltip while keeping the dialog; the second closes the dialog
+  and restores focus. Focus-trap assertions remain intact; product code is unchanged.
+
+The public browser rerun and both review axes remain pending. No production
+deployment or external provider behavior is certified.
