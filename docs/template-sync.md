@@ -327,7 +327,7 @@ No live OAuth callback, production email/storage integration, production Docker 
 
 ## Reconciliation — 2026-10-29 (Template RC4)
 
-Status: **source integrated; intranet validated; public rerun and reviews pending**. This is not a deployment claim.
+Status: **locally verified; worker review passed; coordinator review pending**. This is not a deployment claim.
 
 - Source: <https://github.com/the-factory-forge/forge-template>, remotely verified
   `v0.0.0-rc.4`, commit `f0301be5069c8eb69155ce726f22358677f0c35c`.
@@ -431,11 +431,11 @@ Deployed values were not read or verified.
 - The coordinator's complete intranet production-browser rerun passed all 16 cases,
   including invitation sessions/fallback, verification, profile tab persistence,
   forced-password onboarding, session cookies, permissions and stored keys.
-- The first public run passed 8 of 10 cases. The desktop/mobile photo-viewer
-  checks assumed one Escape would dismiss both the focused Close tooltip and
-  its dialog. They now verify Base UI's nested-layer behavior: first Escape
-  dismisses the tooltip while keeping the dialog; the second closes the dialog
-  and restores focus. Focus-trap assertions remain intact; product code is unchanged.
+- The coordinator’s public production-browser rerun passed all 10 desktop/mobile
+  cases, including video reduced motion, layered tooltip/dialog dismissal and
+  focus restoration, consent, four-language navigation, assets and intranet entry.
 
-The public browser rerun and both review axes remain pending. No production
-deployment or external provider behavior is certified.
+Worker Standards and Spec review passed with zero actionable findings on each
+axis; see the [dated review](template-sync/2026-10-29-rc4/review.md). The coordinator’s
+independent review remains pending. No production deployment or external provider
+behavior is certified.
