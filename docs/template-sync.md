@@ -327,7 +327,7 @@ No live OAuth callback, production email/storage integration, production Docker 
 
 ## Reconciliation — 2026-10-29 (Template RC4)
 
-Status: **locally verified; worker review passed; coordinator review pending**. This is not a deployment claim.
+Status: **completed local reconciliation; human review and merge pending**. No deployment is claimed.
 
 - Source: <https://github.com/the-factory-forge/forge-template>, remotely verified
   `v0.0.0-rc.4`, commit `f0301be5069c8eb69155ce726f22358677f0c35c`.
@@ -437,5 +437,17 @@ Deployed values were not read or verified.
 
 Worker Standards and Spec review passed with zero actionable findings on each
 axis; see the [dated review](template-sync/2026-10-29-rc4/review.md). The coordinator’s
-independent review remains pending. No production deployment or external provider
+independent review passed. No production deployment or external provider
 behavior is certified.
+
+### Final local verification
+
+17 unit/DB checks and 26 browser journeys passed, including 16 intranet cases and ten public desktop/mobile cases.
+
+Test IP isolation prevents false rate-limit collisions. Profile search-state and nested tooltip/dialog assertions match the intended behavior; native auth limits remain unchanged.
+
+Worker and independent coordinator Standards and Spec reviews have no open findings. The reviewed source checkpoint is `1406f0077949673bd795050ea9e5afa8e7a26a1b`; later completion commits change documentation only. See the [dated review](template-sync/2026-10-29-rc4/review.md).
+
+Official Drizzle metadata conversion preserves all applied SQL, IDs, parent chains and reconstructed DDL. Keep the committed RC5 toolchain and snapshots together. Production rollout must follow the site-specific migration table; no reset or object deletion is part of this update.
+
+No push, merge, deployment, real provider delivery or production data/storage operation was performed.
