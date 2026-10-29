@@ -3,7 +3,7 @@
 ## October 2026 template foundation
 
 This site follows the verified Forge template revision and retained differences in
-[docs/template-sync.md](docs/template-sync.md). The installed intranet now requires
+[the sync report](.sync-template/report.html#history). The installed intranet now requires
 `DATABASE_URL` and `BETTER_AUTH_SECRET`; empty values no longer select showcase mode.
 Keep the real PostgreSQL URL and signing secret configured in Dokploy before deployment.
 Build-only placeholders in Docker do not configure runtime credentials.
@@ -19,7 +19,7 @@ VPS reset is part of this update.
 ## September 2026 template sync
 
 The project is reconciled with template `b81b90ec0c58d5dc6cd57d383864cb811464f4b4`.
-See [the sync record and VPS environment actions](docs/template-sync.md#2026-09-26-bulk-sync).
+See [the sync record and VPS environment actions](.sync-template/report.html#history).
 Use `vp install` and `vpr dev` with the pinned toolchain. Leave `VITE_BASE_URL`
 unset locally so Portless supplies it; set the actual public HTTPS origin explicitly
 at build time and runtime on the VPS. Do not set `PORTLESS_URL` on the VPS.
@@ -74,7 +74,7 @@ Keep public `VITE_*` values consistent at build and runtime; `vpr start` and the
 Docker entrypoint load server settings through Varlock at startup.
 
 The latest template reconciliation, preserved adaptations, and validation results
-are recorded in [docs/template-sync.md](docs/template-sync.md).
+are recorded in [the sync report](.sync-template/report.html#history).
 
 ## Registry components
 
@@ -134,8 +134,8 @@ Status of the SEO/perf adaptation (branch `seo-adaptation`).
 
 ## Foundation maintenance
 
-Template reconciliation and deployment actions are recorded in [the sync history](docs/template-sync.md).
-Use [sync-forge-template](.agents/skills/sync-forge-template/SKILL.md) for foundation changes,
+Template reconciliation and deployment actions are recorded in [the sync history](.sync-template/report.html#history).
+Use [sync-template](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md) for foundation changes,
 [the registry-owned sync procedure](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md) for selected registry items,
 and [forge-skills dependency maintenance](https://github.com/the-factory-forge/forge-skills/blob/main/skills/update-dependencies/SKILL.md) for package updates.
 
@@ -160,4 +160,4 @@ schema. The chained `auth:migrate` shortcut is removed; use the explicit
 Production startup checks the project migration journal before serving requests.
 Docker applies pending reviewed migrations first; `vp run start` expects migrations
 to have been applied explicitly. Preserve the existing database and stable auth
-secret. See [the Template sync record](docs/template-sync.md) for validation and rollout.
+secret. See [the Template sync record](.sync-template/report.html#history) for validation and rollout.
