@@ -25,7 +25,7 @@ async function invitationURL(email: string) {
   const key = createHash("sha256").update(email).digest("hex");
   const message = JSON.parse(await readFile(`.cache/e2e-emails/${key}.json`, "utf8"));
   expect(message.to).toEqual([email]);
-  return message.text.split("\n\n").at(-1);
+  return message.text.match(/https?:\/\/[^\s]+/)![0];
 }
 
 async function invite(page: Page, email: string, name = "Invited employee") {

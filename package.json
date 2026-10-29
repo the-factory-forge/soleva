@@ -46,7 +46,8 @@
     "prepare": "vp config && vp run env:codegen",
     "auth:admin": "varlock run -- vpx auth@1.7.12 create-admin --config ./src/intranet/auth/auth.ts",
     "test:e2e:intranet": "playwright test --config src/intranet/playwright.config.ts",
-    "db:preflight": "varlock run -- node src/intranet/db/preflight.ts"
+    "db:preflight": "varlock run -- node src/intranet/db/preflight.ts",
+    "preview:mailing": "DATABASE_URL=postgresql://preview:preview@127.0.0.1:1/mailing_preview BETTER_AUTH_SECRET=mailing-preview-only-not-a-runtime-secret VITE_BASE_URL=http://127.0.0.1:3100 MAILING_PREVIEW=1 vp test --run src/intranet/mailing/template.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",
@@ -70,6 +71,7 @@
     "postgres": "3.4.9",
     "react": "19.3.1",
     "react-dom": "19.3.1",
+    "react-email": "6.11.3",
     "shadcn": "4.22.1",
     "varlock": "1.23.0",
     "zod": "4.5.4"

@@ -98,3 +98,23 @@ Validation and independent review results are recorded in
 All browser tests use production output, a disposable loopback PostgreSQL database,
 blocked external requests and a local mail-provider fake. Google and production
 delivery/storage remain unverified. Local adoption does not establish deployment.
+
+## 2026-10-29: Account mailing
+
+Added only `@forge/mailing` from RC6 `0b47bb77c2f88154eb62a26ce6e08b841bde5e16`
+on `agent/brand-transactional-emails`, over the completed Registry/Template sync.
+Pinned shadcn 4.21.4 installed the named item into a disposable consumer. Its three
+incoming files are retained with destination mappings in
+[the installation receipt](registry-sync/2026-10-29-mailing/inputs.json).
+They are installed unchanged under `src/intranet/components/forge/plugins/mailing`.
+The declared `react-email@6.11.3` dependency and its required peer contexts are
+locked; pre-existing package versions and integrity hashes remain unchanged.
+
+Host integration supplies the existing identity and four-locale account copy,
+and sends both HTML and plain text through the shared Resend transport. Existing
+account/token rules and delivery failure handling remain. The former text-only
+mailing exclusion is superseded for this module. No other plugin, environment key,
+applied migration, S3 key, production data or public page changes.
+See [account email previews](mailing.md). No real mail or deployment was performed.
+
+Fixed point: `d6c5546f0bf90e9f1a098007371279267815fabc`. 29 unit checks passed, including fourteen mailing checks; two unrelated opt-in integration checks skipped. Three built-server invitation/verification/recovery journeys passed. Full `vp check` passed with existing warnings. `vp run preview:mailing` passed and generated all twelve previews without delivery.

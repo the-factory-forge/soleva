@@ -3,10 +3,12 @@ import { randomBytes, randomUUID } from "node:crypto";
 import { and, eq, like } from "drizzle-orm";
 import { ENV } from "varlock/env";
 
+import { sendResendEmail } from "#/intranet/components/forge/plugins/mailing/resend.server";
 import { db } from "#/intranet/db";
 import "@tanstack/react-start/server-only";
 
 import { user as userTable, verification } from "#/intranet/db/schema";
+import { renderAuthEmail, type AuthEmailKind } from "#/intranet/mailing/template";
 import { localeFromPathname } from "#/lib/i18n/pathname";
 
 import { verificationLoginCallback } from "./verification-callback";
@@ -19,14 +21,13 @@ interface AuthEmail {
 export function sendVerificationEmail(data: AuthEmail) {
   return sendAuthEmail(
     { ...data, url: verificationLoginCallback(data.url, data.user.email, ENV.VITE_BASE_URL) },
-    "employees.verificationSubject",
-    "employees.verificationBody",
+    "verification",
   );
 }
 
 export async function sendPasswordResetEmail(data: AuthEmail) {
   try {
-    await sendAuthEmail(data, "auth.resetEmailSubject", "auth.resetEmailBody");
+    await sendAuthEmail(data, "reset-password");
   } catch {
     // Keep the same public response for unknown accounts and delivery failures.
     console.error("Password reset email delivery failed.");
@@ -59,33 +60,16 @@ export async function sendEmployeeInvitation(user: AuthEmail["user"], invitation
   const url = new URL(`/api/auth/reset-password/${token}`, ENV.VITE_BASE_URL);
   url.searchParams.set("callbackURL", invitationURL);
   // Public recovery masks delivery failures; administrators need the actual outcome.
-  await sendAuthEmail(
-    { user, url: url.toString() },
-    "employees.invitationSubject",
-    "employees.invitationBody",
-  );
+  await sendAuthEmail({ user, url: url.toString() }, "invitation");
 }
 
-async function sendAuthEmail({ user, url }: AuthEmail, subjectKey: string, bodyKey: string) {
+async function sendAuthEmail({ user, url }: AuthEmail, kind: AuthEmailKind) {
   if (!ENV.EMAIL_API_KEY || !ENV.EMAIL_FROM) throw new Error("Email delivery is not configured.");
-  // The auth CLI loads this module without Vite's import.meta.glob transform.
-  const { getDictionary, t } = await import("#/lib/i18n");
   const callback = new URL(url).searchParams.get("callbackURL") ?? "/";
   const locale = localeFromPathname(new URL(callback, ENV.VITE_BASE_URL).pathname);
-  const dict = await getDictionary(locale);
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${ENV.EMAIL_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: ENV.EMAIL_FROM,
-      to: [user.email],
-      subject: t(dict, subjectKey),
-      text: `${t(dict, bodyKey)}\n\n${url}`,
-    }),
-    signal: AbortSignal.timeout(10_000),
-  });
-  if (!response.ok) throw new Error("Could not send the authentication email.");
+  const content = await renderAuthEmail({ kind, locale, url, baseUrl: ENV.VITE_BASE_URL });
+  await sendResendEmail(
+    { apiKey: ENV.EMAIL_API_KEY, from: ENV.EMAIL_FROM },
+    { to: user.email, ...content },
+  );
 }
