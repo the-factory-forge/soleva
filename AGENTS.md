@@ -11,31 +11,20 @@ Forge Template's product brief, default theme or sample page composition here.
 
 ## Verified template updates
 
-The canonical remote is `https://github.com/the-factory-forge/forge-template.git`.
-Use `template/HEAD` to inspect its default branch and [the sync record](docs/template-sync.md)
-for this site's last reconciled immutable SHA and intentional differences.
-Git remotes are local configuration: on a fresh clone, add `template` if absent,
-then fetch and refresh its HEAD before selecting the next target:
-
-```sh
-git remote add template https://github.com/the-factory-forge/forge-template.git
-git fetch template
-git remote set-head template --auto
-git rev-parse template/HEAD
-```
-
-Skip `remote add` when the verified remote already exists. Follow
-[the site sync skill](.agents/skills/sync-forge-template/SKILL.md), use a dedicated
-branch and reconcile the recorded delta. Do not merge TanStarter or fabricate
-ancestry for a generated site. Keep customer migrations and data intact.
+Read [the tracking config](.sync-template/config.json) for this project's direct
+parent, verified baseline and intentional departures, and
+[the comparison report](.sync-template/report.html) for differences and history.
+Use the shared [sync-template skill](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md) from `forge-skills`.
+Resolve an available shared checkout or installed plugin; keep the procedure in
+that library and project decisions here. Preserve customer migrations and data.
 
 ## Template foundation updates
 
-Use the current Forge template toolchain and auth flow. Older local implementations
-must be migrated, while customer content, styles, integrations and migration history
-remain site-owned. Public-only sites keep authentication absent.
+Reconcile compatible Forge toolchain and auth updates while honoring confirmed
+departures in `.sync-template/config.json`. Preserve customer content, styles,
+integrations and migration history. Public-only sites keep authentication absent.
 Read `../forge-spec/AGENTS.md` and its `the-forge`, `template-stack` and `site-template`
-specs before implementation. See `docs/template-sync.md` for this site's history.
+specs before implementation. See `.sync-template/report.html#history` for this site's history.
 
 - Run `vpr dev` through Portless; keep the unique customer package name and use its printed URL.
 - Leave local `VITE_BASE_URL` overrides unset so `PORTLESS_URL` supplies the development origin.
@@ -48,7 +37,7 @@ specs before implementation. See `docs/template-sync.md` for this site's history
 
 ## Provider-owned maintenance
 
-For template updates, follow [the template sync procedure](.agents/skills/sync-forge-template/SKILL.md).
+For template updates, follow [the template sync procedure](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md).
 For selected registry updates, use [sync-from-forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md).
 For dependency maintenance, use [update-dependencies](https://github.com/the-factory-forge/forge-skills/blob/main/skills/update-dependencies/SKILL.md).
 Read [.agents/copywriting.md](.agents/copywriting.md) before changing copy or translations.
@@ -82,7 +71,7 @@ For filters and view state, read [ADR-0008](https://github.com/the-factory-forge
 - [Workflow](.agents/workflow.md) - Workflow commands, validation approach
 - [Testing](.agents/testing.md) - Focused unit, integration, and production browser checks
 - [Database](.agents/database.md) - Schema and migration conventions
-- [Template sync](.agents/skills/sync-forge-template/SKILL.md) - Preserve Soleva when updating its foundation
+- [Template sync](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md) - Preserve Soleva when updating its foundation
 
 <!-- intent-skills:start -->
 
@@ -165,7 +154,7 @@ light-only public shell and inline dictionaries; use the template auth/session f
 - Preserve per-action Ads conversion labels, deferred consent loading, site-owned registry skips, and all four locales.
 - Keep `prepare` (Vite+ hooks and Varlock codegen). Docker installs with `--ignore-scripts`, includes `.env.schema`, and builds with `pnpm_config_ignore_scripts=true`. The entrypoint adds local executables to PATH before running Varlock. Keep the Vite integration in `init-only` mode: `resolved-env` overrides runtime auth/DB values with build-time values.
 - The September 2026 sync uses a fresh database baseline by explicit owner instruction. The owner resets local and VPS databases before applying it; never apply it over the previous schema. Subsequent releases preserve applied migrations.
-- Record template reconciliation decisions and verified revisions in `docs/template-sync.md`.
+- Record template reconciliation decisions and verified revisions in `.sync-template/report.html#history`.
 
 ## Current intranet configuration
 
