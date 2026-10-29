@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "projectRepository": "https://github.com/the-factory-forge/soleva",
+  "template": {
+    "url": "https://github.com/the-factory-forge/forge-template",
+    "ref": "refs/heads/main"
+  },
+  "lastReconciled": {
+    "commit": "e43657ee3023805b9f7afb50fa39c28e980476e6",
+    "version": "v0.0.0-rc.2",
+    "date": "2026-10-13",
+    "evidence": "Historical project reconciliation in https://github.com/the-factory-forge/soleva/blob/6d7c83f1fbae9a429c83b318b76b5ec33c0ddcbc/docs/template-sync.md; source tag verified remotely on 2026-10-29. Project-specific changes and omissions retained; this migration does not re-run historical application tests."
+  },
+  "lastCompared": {
+    "commit": "4b8ee3007a1ffe041a40f4838379961780e0cd7d",
+    "version": null,
+    "date": "2026-10-29",
+    "evidence": "Remote default branch verified with git ls-remote; comparison uses the exact committed source tree and the destination working tree.",
+    "remoteVerified": true
+  },
+  "deviations": [
+    {
+      "area": "Customer identity and presentation",
+      "paths": [
+        "PRODUCT.md",
+        "DESIGN.md",
+        "src/lib/site/",
+        "src/lib/data/",
+        "src/lib/i18n/",
+        "src/routes/",
+        "src/components/",
+        "src/styles.css",
+        "public/"
+      ],
+      "decision": "Preserve this customer’s content, design, routes, locales, assets and conversion destinations.",
+      "reason": "These are customer-owned product choices; merge shared infrastructure fixes without restoring template demos.",
+      "evidence": "PRODUCT.md, DESIGN.md, AGENTS.md and inspected public source."
+    },
+    {
+      "area": "Customer persistence and installed integrations",
+      "paths": [
+        "src/intranet/db/",
+        "src/intranet/auth/",
+        "src/intranet/components/forge/",
+        "drizzle/",
+        ".env.schema"
+      ],
+      "decision": "Preserve customer schema, applied migrations, installed registry integrations and newer security corrections.",
+      "reason": "A template foundation update must not replace site data or downgrade independently installed registry source. Adapt applicable template fixes to these boundaries.",
+      "evidence": "Current intranet schema/auth source; historical project-specific reconciliation and separate registry records."
+    },
+    {
+      "area": "Soleva presentation and integration choices",
+      "paths": [
+        "src/styles.css",
+        "src/lib/i18n/",
+        "src/intranet/employees/",
+        "src/intranet/auth/"
+      ],
+      "decision": "Keep the light-only Montserrat design, inline dictionary delivery, four intranet locales and employee integration. Preserve ongoing invitation work separately.",
+      "reason": "Confirmed project behavior differs from the template defaults.",
+      "evidence": "AGENTS.md records measured presentation/data-flow choices; current employee/auth source and dirty-tree inventory."
+    }
+  ]
+}

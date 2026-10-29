@@ -58,4 +58,4 @@ metadata after authoritative middleware. It never sends session tokens to the
 browser and never disables Better Auth's global freshness checks. Revocation
 resolves an owned session ID on the server and calls Better Auth with its token.
 
-See [the sync record](template-sync.md) for this site’s exact migration and validation.
+See [the sync record](../.sync-template/report.html#history) for this site’s exact migration and validation.
