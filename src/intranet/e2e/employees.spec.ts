@@ -166,6 +166,7 @@ test("delivery failure keeps the account for retry; editing, verification and de
     await activate(recipient, await invitationURL(email));
     await page.reload();
     await expect(row.getByRole("img", { name: "Email verified", exact: true })).toBeVisible();
+    await expect(row.getByRole("button", { name: "Email verified", exact: true })).toHaveCount(0);
     await expect(
       row.getByRole("button", { name: "Send verification email to Managed employee", exact: true }),
     ).toBeDisabled();
@@ -186,7 +187,12 @@ test("delivery failure keeps the account for retry; editing, verification and de
     await expect(page.getByText("Verification email sent.", { exact: true })).toBeVisible();
     await context.clearCookies();
     await recipient.goto(await invitationURL(changedEmail));
-    await expect(recipient).toHaveURL(/\/en\/login\?/);
+    await expect(recipient).toHaveURL(
+      (url) =>
+        url.pathname === "/en/login" &&
+        url.searchParams.get("email") === changedEmail &&
+        url.searchParams.get("verified") === "true",
+    );
     await expect(recipient.getByLabel("Email", { exact: true })).toHaveValue(changedEmail);
     await expect(
       recipient.getByText("Your email address has been verified.", { exact: true }),
