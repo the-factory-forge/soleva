@@ -24,3 +24,7 @@ Frozen installation, safe environment validation, lint/types and changed-file fo
 ## Human review
 
 Review the adoption/environment table and the site-specific auth/module or public-adapter changes, then test the final combined branch before merging. No publication or deployment is implied by this local completion.
+
+## Formatting follow-up
+
+The separate 2026-10-29 formatting follow-up applies the configured formatter to previously reported files. Full `vp check` passes with zero errors and 19 existing warnings. Migration SQL, snapshot metadata, dependencies and customer data are unchanged.
