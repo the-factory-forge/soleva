@@ -3,19 +3,19 @@
   "projectRepository": "https://github.com/the-factory-forge/soleva",
   "template": {
     "url": "https://github.com/the-factory-forge/forge-template",
-    "ref": "refs/heads/main"
+    "ref": "refs/tags/v0.0.0-rc.4"
   },
   "lastReconciled": {
-    "commit": "e43657ee3023805b9f7afb50fa39c28e980476e6",
-    "version": "v0.0.0-rc.2",
-    "date": "2026-10-13",
-    "evidence": "Historical project reconciliation in https://github.com/the-factory-forge/soleva/blob/6d7c83f1fbae9a429c83b318b76b5ec33c0ddcbc/docs/template-sync.md; source tag verified remotely on 2026-10-29. Project-specific changes and omissions retained; this migration does not re-run historical application tests."
+    "commit": "f0301be5069c8eb69155ce726f22358677f0c35c",
+    "version": "v0.0.0-rc.4",
+    "date": "2026-10-29",
+    "evidence": "Completed local RC4 reconciliation at https://github.com/the-factory-forge/soleva/commit/d6c5546f0bf90e9f1a098007371279267815fabc; exact docs/template-sync.md is preserved in report.html history under the archive label docs/template-sync/2026-10-29-rc4/reconciliation.md, SHA-256 c7e98c024e4f97d7bd703f66f3b00f26842c9c2d3fcb9793b1376fd6779e43ff. The report carries the original local checks and preserved departures. Reconciliation of current main changes only guidance/tracking; production remains unverified."
   },
   "lastCompared": {
-    "commit": "4b8ee3007a1ffe041a40f4838379961780e0cd7d",
-    "version": null,
+    "commit": "f0301be5069c8eb69155ce726f22358677f0c35c",
+    "version": "v0.0.0-rc.4",
     "date": "2026-10-29",
-    "evidence": "Remote default branch verified with git ls-remote; comparison uses the exact committed source tree and the destination working tree.",
+    "evidence": "Pinned batch target; the canonical remote tag was reverified with git ls-remote on 2026-10-29. This is intentionally Template RC4, not the latest default branch.",
     "remoteVerified": true
   },
   "deviations": [
@@ -51,15 +51,10 @@
     },
     {
       "area": "Soleva presentation and integration choices",
-      "paths": [
-        "src/styles.css",
-        "src/lib/i18n/",
-        "src/intranet/employees/",
-        "src/intranet/auth/"
-      ],
-      "decision": "Keep the light-only Montserrat design, inline dictionary delivery, four intranet locales and employee integration. Preserve ongoing invitation work separately.",
+      "paths": ["src/styles.css", "src/lib/i18n/", "src/intranet/employees/", "src/intranet/auth/"],
+      "decision": "Keep the light-only Montserrat design, inline dictionary delivery, four intranet locales and employee integration. Preserve the invitation/account behavior reconciled on Registry RC6.",
       "reason": "Confirmed project behavior differs from the template defaults.",
-      "evidence": "AGENTS.md records measured presentation/data-flow choices; current employee/auth source and dirty-tree inventory."
+      "evidence": "AGENTS.md records measured presentation/data-flow choices; current employee/auth source and dirty-tree inventory. The formerly uncommitted invitation work is retained in the reviewed Registry RC6 layer."
     }
   ]
 }

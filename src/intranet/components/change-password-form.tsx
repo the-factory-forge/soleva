@@ -5,7 +5,6 @@ import { $changePassword } from "#/intranet/auth/functions";
 import { authQueryOptions } from "#/intranet/auth/queries";
 import {
   ChangePasswordForm as SharedChangePasswordForm,
-  ChangePasswordPage,
   type ChangePasswordValues,
 } from "#/intranet/components/forge/plugins/auth";
 import type { Dictionary } from "#/lib/i18n";
@@ -14,11 +13,9 @@ import type { Dictionary } from "#/lib/i18n";
 export function ChangePasswordForm({
   dict,
   onSuccess,
-  asPage = false,
 }: {
   dict: Dictionary;
   onSuccess?: () => Promise<void>;
-  asPage?: boolean;
 }) {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -30,9 +27,8 @@ export function ChangePasswordForm({
       await onSuccess?.();
     },
   });
-  const Form = asPage ? ChangePasswordPage : SharedChangePasswordForm;
   return (
-    <Form
+    <SharedChangePasswordForm
       labels={dict.auth}
       onChangePassword={async (values) => {
         await mutation.mutateAsync(values);

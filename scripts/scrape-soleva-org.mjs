@@ -39,15 +39,39 @@ const UA_BROWSER =
 // Liste de secours si le sitemap ne répond pas (routes principales du site source).
 const FALLBACK_PAGES = {
   en: [
-    "/", "/about-soleva", "/agb", "/blog", "/contact-us", "/crowdfunding",
-    "/electric-conversion-van", "/environmental-impact", "/events", "/habitat",
-    "/journey", "/news", "/partners", "/solar-van", "/sponsoring", "/team",
-    "/search", "/sitemap",
+    "/",
+    "/about-soleva",
+    "/agb",
+    "/blog",
+    "/contact-us",
+    "/crowdfunding",
+    "/electric-conversion-van",
+    "/environmental-impact",
+    "/events",
+    "/habitat",
+    "/journey",
+    "/news",
+    "/partners",
+    "/solar-van",
+    "/sponsoring",
+    "/team",
+    "/search",
+    "/sitemap",
   ],
   fr: [
-    "/", "/agb", "/contact-us", "/crowdfunding", "/electric-conversion-van",
-    "/environmental-impact", "/events", "/habitat", "/journey", "/partners",
-    "/solar-van", "/sponsoring", "/team",
+    "/",
+    "/agb",
+    "/contact-us",
+    "/crowdfunding",
+    "/electric-conversion-van",
+    "/environmental-impact",
+    "/events",
+    "/habitat",
+    "/journey",
+    "/partners",
+    "/solar-van",
+    "/sponsoring",
+    "/team",
   ],
 };
 
@@ -82,9 +106,24 @@ const CHECK_SKIP_HOSTS = new Set([
 ]);
 
 function parseArgs(argv) {
-  const args = { langs: ["en"], out: "content-export/soleva.org", checkLinks: false, media: false, all: false, noApi: false, limit: 0, concurrency: 3, maxMediaMb: 25 };
+  const args = {
+    langs: ["en"],
+    out: "content-export/soleva.org",
+    checkLinks: false,
+    media: false,
+    all: false,
+    noApi: false,
+    limit: 0,
+    concurrency: 3,
+    maxMediaMb: 25,
+  };
   for (const a of argv) {
-    if (a.startsWith("--langs=")) args.langs = a.slice(8).split(",").map((s) => s.trim()).filter(Boolean);
+    if (a.startsWith("--langs="))
+      args.langs = a
+        .slice(8)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
     else if (a.startsWith("--out=")) args.out = a.slice(6);
     else if (a.startsWith("--limit=")) args.limit = Number(a.slice(8));
     else if (a.startsWith("--concurrency=")) args.concurrency = Number(a.slice(14));
@@ -101,9 +140,21 @@ function parseArgs(argv) {
 // ---------- helpers HTML ----------
 
 const ENTITIES = {
-  "&amp;": "&", "&nbsp;": " ", "&quot;": '"', "&#39;": "'", "&apos;": "'",
-  "&lt;": "<", "&gt;": ">", "&eacute;": "é", "&egrave;": "è", "&ccedil;": "ç",
-  "&agrave;": "à", "&ucirc;": "û", "&icirc;": "î", "&ocirc;": "ô", "&ecirc;": "ê",
+  "&amp;": "&",
+  "&nbsp;": " ",
+  "&quot;": '"',
+  "&#39;": "'",
+  "&apos;": "'",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&eacute;": "é",
+  "&egrave;": "è",
+  "&ccedil;": "ç",
+  "&agrave;": "à",
+  "&ucirc;": "û",
+  "&icirc;": "î",
+  "&ocirc;": "ô",
+  "&ecirc;": "ê",
 };
 
 function clean(html) {
@@ -117,7 +168,10 @@ function stripChrome(body) {
   // Retire les composants chrome du SSR Angular (nav/footer/quicklinks) quand ils
   // existent, pour limiter le bruit dans le texte extrait.
   let s = body;
-  s = s.replace(/<megacms-(?:navbar|footer|quicklinks)[^>]*>[\s\S]*?<\/megacms-(?:navbar|footer|quicklinks)-component>/gi, " ");
+  s = s.replace(
+    /<megacms-(?:navbar|footer|quicklinks)[^>]*>[\s\S]*?<\/megacms-(?:navbar|footer|quicklinks)-component>/gi,
+    " ",
+  );
   s = s.replace(/<([a-z0-9-]*?(?:nav|footer)[a-z0-9-]*)[^>]*>[\s\S]*?<\/\1>/gi, " ");
   return s;
 }
@@ -127,7 +181,9 @@ function scopeOf(html) {
   if (main) return main[1];
   const body = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   const raw = body ? body[1] : html;
-  return stripChrome(raw).replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ");
+  return stripChrome(raw)
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ");
 }
 
 function extract(html) {
@@ -147,9 +203,10 @@ function extract(html) {
     mailto: [...new Set(anchors.filter((l) => l.href.startsWith("mailto:")).map((l) => l.href))],
     tel: [...new Set(anchors.filter((l) => l.href.startsWith("tel:")).map((l) => l.href))],
   };
-  const images = [...new Set([...scope.matchAll(/<img[^>]*src=["']([^"']+)["']/gi)].map((m) => m[1]))]
-    .filter((u) => /^https?:\/\//i.test(u));
-  const title = clean(((html.match(/<title>([\s\S]*?)<\/title>/i) || [])[1]) || "");
+  const images = [
+    ...new Set([...scope.matchAll(/<img[^>]*src=["']([^"']+)["']/gi)].map((m) => m[1])),
+  ].filter((u) => /^https?:\/\//i.test(u));
+  const title = clean((html.match(/<title>([\s\S]*?)<\/title>/i) || [])[1] || "");
   return { title, h1, h2, h3, paragraphs, listItems, links, images };
 }
 
@@ -202,7 +259,12 @@ async function checkUrl(url) {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 20000);
     try {
-      const res = await fetch(url, { method: "GET", headers: { "user-agent": ua }, redirect: "follow", signal: ctrl.signal });
+      const res = await fetch(url, {
+        method: "GET",
+        headers: { "user-agent": ua },
+        redirect: "follow",
+        signal: ctrl.signal,
+      });
       await res.body?.cancel();
       return { status: res.status };
     } finally {
@@ -218,7 +280,13 @@ async function checkUrl(url) {
     try {
       r = await attempt(UA_BROWSER);
     } catch {
-      return { url, status: 0, ok: false, blocked: true, error: "injoignable depuis le sandbox (à vérifier dans un navigateur)" };
+      return {
+        url,
+        status: 0,
+        ok: false,
+        blocked: true,
+        error: "injoignable depuis le sandbox (à vérifier dans un navigateur)",
+      };
     }
   }
   // 403/429/451/999 = blocage anti-bot (souvent OK dans un navigateur) => "blocked", pas "broken"
@@ -232,7 +300,8 @@ function normUrl(u) {
   try {
     const x = new URL(u);
     x.hash = "";
-    for (const k of ["utm_source", "utm_medium", "utm_campaign", "fbclid", "gclid"]) x.searchParams.delete(k);
+    for (const k of ["utm_source", "utm_medium", "utm_campaign", "fbclid", "gclid"])
+      x.searchParams.delete(k);
     return (x.origin + x.pathname).replace(/\/+$/, "").toLowerCase();
   } catch {
     return u.toLowerCase();
@@ -293,10 +362,12 @@ function main() {
 
   const start = Date.now();
   const outRoot = path.resolve(args.out);
-  const apiPromise = args.noApi ? Promise.resolve(null) : fetchApiPages().catch((e) => {
-    console.warn(`[warn] API Megaphone indisponible (${e.message}) — export sans SEO/médias`);
-    return null;
-  });
+  const apiPromise = args.noApi
+    ? Promise.resolve(null)
+    : fetchApiPages().catch((e) => {
+        console.warn(`[warn] API Megaphone indisponible (${e.message}) — export sans SEO/médias`);
+        return null;
+      });
 
   (async () => {
     await mkdir(outRoot, { recursive: true });
@@ -315,7 +386,9 @@ function main() {
         }
         if (!args.langs.some((l) => loc.includes(`/${l}/`) || loc.endsWith(`/${l}`))) {
           // URL racine sans langue : on l'attribue à chaque langue cible
-          for (const lang of args.langs) if (loc === ORIGIN + "/" || rel === "/") pagePaths.set(lang, [...(pagePaths.get(lang) || []), "/"]);
+          for (const lang of args.langs)
+            if (loc === ORIGIN + "/" || rel === "/")
+              pagePaths.set(lang, [...(pagePaths.get(lang) || []), "/"]);
         }
       }
       console.log(`[sitemap] ${locs.length} URLs trouvées`);
@@ -327,7 +400,10 @@ function main() {
       const fb = FALLBACK_PAGES[lang] || [];
       for (const p of fb) if (!list.includes(p)) list.push(p);
       if (!args.all) {
-        pagePaths.set(lang, list.filter((p) => !UTILITY.has(p)));
+        pagePaths.set(
+          lang,
+          list.filter((p) => !UTILITY.has(p)),
+        );
       } else {
         pagePaths.set(lang, list);
       }
@@ -337,7 +413,13 @@ function main() {
     // 2. crawl SSR + API par page
     const allLinksToCheck = [];
     const seenCheckKeys = new Set();
-    const index = { generatedAt: new Date().toISOString(), source: ORIGIN, websiteId: WEBSITE_ID, langs: args.langs, pages: [] };
+    const index = {
+      generatedAt: new Date().toISOString(),
+      source: ORIGIN,
+      websiteId: WEBSITE_ID,
+      langs: args.langs,
+      pages: [],
+    };
     let done = 0;
     const total = args.langs.reduce((n, l) => n + (pagePaths.get(l) || []).length, 0);
 
@@ -358,7 +440,11 @@ function main() {
               if (meta) entry.cmsMeta = meta;
               if (args.checkLinks) {
                 const candidates = (extracted.links.external || []).filter((u) => {
-                  try { return !CHECK_SKIP_HOSTS.has(new URL(u).hostname.toLowerCase()); } catch { return false; }
+                  try {
+                    return !CHECK_SKIP_HOSTS.has(new URL(u).hostname.toLowerCase());
+                  } catch {
+                    return false;
+                  }
                 });
                 // dédup par URL normalisée (garde la 1re occurrence)
                 for (const c of candidates) {
@@ -371,7 +457,11 @@ function main() {
               }
               if (args.media && meta) {
                 await mkdir(path.join(outRoot, "media"), { recursive: true });
-                entry.downloadedMedia = await downloadMedia(meta.attachments, path.join(outRoot, "media"), args.maxMediaMb);
+                entry.downloadedMedia = await downloadMedia(
+                  meta.attachments,
+                  path.join(outRoot, "media"),
+                  args.maxMediaMb,
+                );
               }
               entry.ok = true;
             } catch (e) {
@@ -379,14 +469,41 @@ function main() {
               entry.error = e.message;
             }
             done += 1;
-            console.log(`[${done}/${total}] ${lang}${p} ${entry.ok ? "OK" : "ERR " + (entry.error || "")}`);
+            console.log(
+              `[${done}/${total}] ${lang}${p} ${entry.ok ? "OK" : "ERR " + (entry.error || "")}`,
+            );
             const file = path.join(outRoot, lang, `${entry.slug}.json`);
             const { paragraphs, listItems, h1, h2, h3, images, links, title } = entry;
             await writeFile(
               file,
-              JSON.stringify({ lang, slug: entry.slug, url, title, h1, h2, h3, paragraphs, listItems, links, images, cmsMeta: entry.cmsMeta || null, ok: entry.ok, error: entry.error || null }, null, 2),
+              JSON.stringify(
+                {
+                  lang,
+                  slug: entry.slug,
+                  url,
+                  title,
+                  h1,
+                  h2,
+                  h3,
+                  paragraphs,
+                  listItems,
+                  links,
+                  images,
+                  cmsMeta: entry.cmsMeta || null,
+                  ok: entry.ok,
+                  error: entry.error || null,
+                },
+                null,
+                2,
+              ),
             );
-            index.pages.push({ lang, slug: entry.slug, url, ok: entry.ok, title: entry.title || "" });
+            index.pages.push({
+              lang,
+              slug: entry.slug,
+              url,
+              ok: entry.ok,
+              title: entry.title || "",
+            });
           }),
         );
       }
@@ -401,7 +518,8 @@ function main() {
       broken = results.filter((r) => !r.ok && !r.blocked);
       blocked = results.filter((r) => r.blocked);
       for (const r of results) {
-        if (!r.ok && !r.blocked) console.log(`  🔴 ${r.status || "ERR"} ${r.url}${r.error ? " (" + r.error + ")" : ""}`);
+        if (!r.ok && !r.blocked)
+          console.log(`  🔴 ${r.status || "ERR"} ${r.url}${r.error ? " (" + r.error + ")" : ""}`);
         else if (r.blocked) console.log(`  ⚠️ ${r.status} (anti-bot) ${r.url}`);
       }
     }
@@ -409,11 +527,19 @@ function main() {
     // 4. rapport markdown
     const report = buildReport({ index, broken, blocked });
     await writeFile(path.join(outRoot, "report.md"), report);
-    await writeFile(path.join(outRoot, "index.json"), JSON.stringify({ ...index, brokenLinks: broken, blockedLinks: blocked }, null, 2));
+    await writeFile(
+      path.join(outRoot, "index.json"),
+      JSON.stringify({ ...index, brokenLinks: broken, blockedLinks: blocked }, null, 2),
+    );
 
-    console.log(`\nTerminé en ${((Date.now() - start) / 1000).toFixed(1)}s — ${done} pages → ${outRoot}`);
+    console.log(
+      `\nTerminé en ${((Date.now() - start) / 1000).toFixed(1)}s — ${done} pages → ${outRoot}`,
+    );
     if (broken.length) console.log(`🔴 ${broken.length} lien(s) cassé(s) : voir report.md`);
-    if (blocked.length) console.log(`⚠️ ${blocked.length} lien(s) bloqué(s) anti-bot (à vérifier dans un navigateur)`);
+    if (blocked.length)
+      console.log(
+        `⚠️ ${blocked.length} lien(s) bloqué(s) anti-bot (à vérifier dans un navigateur)`,
+      );
   })().catch((e) => {
     console.error(e);
     process.exitCode = 1;
@@ -424,12 +550,15 @@ function buildReport({ index, broken, blocked }) {
   const lines = [];
   lines.push(`# Export soleva.org — ${new Date(index.generatedAt).toISOString().slice(0, 10)}`);
   lines.push("");
-  lines.push(`Source : ${index.source} (websiteId ${index.websiteId}) · ${index.pages.length} pages · langues : ${index.langs.join(", ")}`);
+  lines.push(
+    `Source : ${index.source} (websiteId ${index.websiteId}) · ${index.pages.length} pages · langues : ${index.langs.join(", ")}`,
+  );
   lines.push("");
   lines.push("## Liens cassés (🔴)");
   lines.push("");
   if (!broken.length) lines.push("_Aucun lien cassé détecté._");
-  for (const b of broken) lines.push(`- 🔴 \`${b.status || "ERR"}\` ${b.url}${b.error ? ` — ${b.error}` : ""}`);
+  for (const b of broken)
+    lines.push(`- 🔴 \`${b.status || "ERR"}\` ${b.url}${b.error ? ` — ${b.error}` : ""}`);
   lines.push("");
   lines.push("## Liens bloqués anti-bot (⚠️ — à vérifier dans un navigateur)");
   lines.push("");

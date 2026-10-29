@@ -148,3 +148,16 @@ Local `vpr db:start` and the `DATABASE_URL=exec("node scripts/local-database.mjs
 resolver apply pending migrations before returning the local connection URL. Explicit
 `DATABASE_URL` values bypass the resolver and still require `vpr db:migrate`.
 The resolver is development-only; production retains its real database URL.
+
+## Auth schema maintenance
+
+`vp run auth:generate` writes `.cache/auth.schema.generated.ts` as a review candidate.
+Reconcile the candidate with the active auth schema and host additions before
+generating and reviewing any project migration. It does not overwrite the active
+schema. The chained `auth:migrate` shortcut is removed; use the explicit
+`db:generate` and `db:migrate` steps after review.
+
+Production startup checks the project migration journal before serving requests.
+Docker applies pending reviewed migrations first; `vp run start` expects migrations
+to have been applied explicitly. Preserve the existing database and stable auth
+secret. See [the Template sync record](.sync-template/report.html#history) for validation and rollout.

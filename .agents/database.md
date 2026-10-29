@@ -15,8 +15,8 @@ visibility: text().$type<ProductVisibility>().notNull().default("public");
 
 ## Generated Better Auth Schema
 
-- `src/intranet/db/schema/auth.schema.ts` is generated from `src/intranet/auth/auth.ts` by `vpr auth:generate`.
-- Do not directly edit the generated auth schema.
-- Add or change Better Auth-owned fields through the Better Auth config, then regenerate the schema and verify the resulting diff.
+- `vpr auth:generate` writes `.cache/auth.schema.generated.ts` from the Better Auth config.
+- Review that candidate against `src/intranet/db/schema/auth.schema.ts`; preserve host additions, relations and applied migration history. Never replace the active schema wholesale.
+- Add or change Better Auth-owned fields through the Better Auth config, then reconcile the candidate before generating and reviewing a project migration.
 - When the generator leaves a JSON field as `unknown`, validate and narrow it at the first application read boundary, then let that inferred type flow downstream. Do not add an application type annotation to the generated schema.
 - If Better Auth's config cannot express a compound index, partial index, check, or cross-table invariant, do not patch it into `auth.schema.ts`. Keep the enforceable structure in another schema file where practical, and enforce the remaining relationship in the relevant auth hook or transactional operation.

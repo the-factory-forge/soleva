@@ -7,7 +7,11 @@ import { useSignOut, type useAuth } from "#/intranet/auth/hooks";
 import { isAdmin } from "#/intranet/auth/permissions";
 import { ActionToastProvider } from "#/intranet/components/forge/action-toast";
 import { IntranetShell } from "#/intranet/components/forge/intranet/intranet-shell";
-import { LoadingProvider, LoadingIndicator } from "#/intranet/components/forge/loading-indicator";
+import {
+  LoadingProvider,
+  LoadingIndicator,
+  useLoadingActivity,
+} from "#/intranet/components/forge/loading-indicator";
 import type {
   IntranetLinkProps,
   IntranetNavGroup,
@@ -30,8 +34,10 @@ interface AppShellProps {
 }
 
 /** Host integration for the shared registry shell. Add installed modules to the groups here. */
-export function AppShell({ siteName, locale, dict, user, controls, children }: AppShellProps) {
+function AppShellContent({ siteName, locale, dict, user, controls, children }: AppShellProps) {
   const signOut = useSignOut();
+  const navigating = useRouterState({ select: (state) => state.isLoading });
+  useLoadingActivity(navigating);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const groups: IntranetNavGroup[] = [
     {
@@ -59,46 +65,54 @@ export function AppShell({ siteName, locale, dict, user, controls, children }: A
   ];
 
   return (
-    <LoadingProvider>
-      <ActionToastProvider closeLabel={t(dict, "common.close")}>
-        <LoadingIndicator label={t(dict, "employees.loading")} className="top-16! md:top-20!" />
-        <IntranetShell
-          brand={{
-            name: siteName,
-            href: `/${locale}`,
-            logo: <img src={SITE_LOGO_MARK} alt="" width={28} height={28} />,
-          }}
-          user={user}
-          pathname={pathname}
-          groups={groups}
-          linkComponent={SidebarLink}
-          profileHref={`/${locale}/intranet`}
-          onSignOut={signOut}
-          labels={{
-            navigation: t(dict, "auth.sideNavigation"),
-            toggle: t(dict, "auth.toggleNavigation"),
-            close: t(dict, "common.close"),
-            expand: t(dict, "auth.expand"),
-            collapse: t(dict, "auth.collapse"),
-            profile: t(dict, "profile.title"),
-            userMenu: t(dict, "auth.accountMenu"),
-            signOut: t(dict, "auth.signOut"),
-            signingOut: t(dict, "auth.signingOut"),
-            signOutError: t(dict, "auth.signOutError"),
-          }}
-          insetAs="div"
-          wrapContent={false}
-          renderTopbar={(toggle) => (
-            <div className="flex items-center gap-2 bg-background px-2 print:hidden">
-              {toggle}
-              <div className="min-w-0 flex-1">
-                <Navbar locale={locale} dict={dict} embedded />
-              </div>
+    <>
+      <LoadingIndicator label={t(dict, "employees.loading")} className="top-16! md:top-20!" />
+      <IntranetShell
+        brand={{
+          name: siteName,
+          href: `/${locale}`,
+          logo: <img src={SITE_LOGO_MARK} alt="" width={28} height={28} />,
+        }}
+        user={user}
+        pathname={pathname}
+        groups={user.mustChangePassword ? [] : groups}
+        linkComponent={SidebarLink}
+        profileHref={`/${locale}/intranet`}
+        onSignOut={signOut}
+        labels={{
+          navigation: t(dict, "auth.sideNavigation"),
+          toggle: t(dict, "auth.toggleNavigation"),
+          close: t(dict, "common.close"),
+          expand: t(dict, "auth.expand"),
+          collapse: t(dict, "auth.collapse"),
+          profile: t(dict, "profile.title"),
+          userMenu: t(dict, "auth.accountMenu"),
+          signOut: t(dict, "auth.signOut"),
+          signingOut: t(dict, "auth.signingOut"),
+          signOutError: t(dict, "auth.signOutError"),
+        }}
+        insetAs="div"
+        wrapContent={false}
+        renderTopbar={(toggle) => (
+          <div className="flex items-center gap-2 bg-background px-2 print:hidden">
+            {toggle}
+            <div className="min-w-0 flex-1">
+              <Navbar locale={locale} dict={dict} embedded />
             </div>
-          )}
-        >
-          {children}
-        </IntranetShell>
+          </div>
+        )}
+      >
+        {children}
+      </IntranetShell>
+    </>
+  );
+}
+
+export function AppShell(props: AppShellProps) {
+  return (
+    <LoadingProvider>
+      <ActionToastProvider closeLabel={t(props.dict, "common.close")}>
+        <AppShellContent {...props} />
       </ActionToastProvider>
     </LoadingProvider>
   );

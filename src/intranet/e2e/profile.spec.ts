@@ -88,7 +88,14 @@ test("profile settings saves the current user's name and changes their password"
   await page.getByRole("button", { name: "Change password", exact: true }).click();
   await expect(page.getByText("Password changed successfully.")).toBeVisible();
   await expect(page.getByLabel("Current password", { exact: true })).toHaveValue("");
-  await expect(page).toHaveURL(/\/en\/intranet\/?$/);
+  await expect(page).toHaveURL(
+    (url) => url.pathname === "/en/intranet" && url.searchParams.get("tab") === "security",
+  );
+  await page.reload();
+  await expect(page.getByRole("tab", { name: "Security", exact: true })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
 
   const login = await request.post("/api/auth/sign-in/email", {
     headers: { "x-forwarded-for": "192.0.2.6" },
@@ -121,7 +128,7 @@ test("employees can still replace their temporary password before entering profi
     await page.getByLabel("Email", { exact: true }).fill(employeeEmail);
     await page.getByLabel("Password", { exact: true }).fill(password);
     await page.getByRole("button", { name: "Sign in", exact: true }).click();
-    await expect(page).toHaveURL(/\/en\/change-password$/);
+    await expect(page).toHaveURL(/\/en\/intranet\/?$/);
     await page.getByLabel("Current password", { exact: true }).fill(password);
     await page.getByLabel("New password", { exact: true }).fill(replacementPassword);
     await page.getByRole("button", { name: "Change password", exact: true }).click();

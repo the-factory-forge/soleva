@@ -23,8 +23,10 @@ that library and project decisions here. Preserve customer migrations and data.
 Reconcile compatible Forge toolchain and auth updates while honoring confirmed
 departures in `.sync-template/config.json`. Preserve customer content, styles,
 integrations and migration history. Public-only sites keep authentication absent.
-Read `../forge-spec/AGENTS.md` and its `the-forge`, `template-stack` and `site-template`
-specs before implementation. See `.sync-template/report.html#history` for this site's history.
+Read `../forge-spec/AGENTS.md` and its `the-forge` and `host-integration` specs,
+then the template-owned [stack](https://github.com/the-factory-forge/forge-template/blob/main/openspec/specs/template-stack/spec.md)
+and [application](https://github.com/the-factory-forge/forge-template/blob/main/openspec/specs/site-template/spec.md) contracts before implementation.
+See `.sync-template/report.html#history` for this site's history.
 
 - Run `vpr dev` through Portless; keep the unique customer package name and use its printed URL.
 - Leave local `VITE_BASE_URL` overrides unset so `PORTLESS_URL` supplies the development origin.
@@ -41,7 +43,7 @@ For template updates, follow [the template sync procedure](https://github.com/th
 For selected registry updates, use [sync-from-forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md).
 For dependency maintenance, use [update-dependencies](https://github.com/the-factory-forge/forge-skills/blob/main/skills/update-dependencies/SKILL.md).
 Read [.agents/copywriting.md](.agents/copywriting.md) before changing copy or translations.
-For filters and view state, read [ADR-0008](https://github.com/the-factory-forge/forge-spec/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md).
+For filters and view state, read [ADR-0008](https://github.com/the-factory-forge/forge-specs/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md).
 
 ## Essentials
 
@@ -117,7 +119,7 @@ release. Add a tool name to select part of the graph. For example, run
 
 ## Database convention
 
-One Postgres service, one database per site: databases are named `factory_<site>`
+Each application has its own Postgres service, database and owning role: databases are named `factory_<site>`
 (e.g. `factory_soleva`), each owned by a role `factory_<site>`. A site's
 `DATABASE_URL` always points to its own database - never share a database
 between sites. See README.md "Database" for the full pattern.

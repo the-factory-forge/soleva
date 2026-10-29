@@ -1,10 +1,9 @@
-/* eslint-disable @next/next/no-img-element -- img brut volontaire (registry framework-agnostic) */
 "use client";
 
+import { Dialog } from "@base-ui/react/dialog";
 import { X } from "lucide-react";
-import { useState, useCallback, useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
 
+import { IconTooltip } from "#/components/icon-tooltip";
 import { Image } from "#/components/ui/image";
 import { cn } from "#/lib/utils";
 import { srcSetFor } from "@/lib/constants";
@@ -34,35 +33,11 @@ export function Lightbox({
   closeLabel = "Close",
   children,
 }: LightboxProps) {
-  const [open, setOpen] = useState(false);
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const openModal = useCallback(() => setOpen(true), []);
-  const closeModal = useCallback(() => {
-    // Close while still mounted so the browser restores focus to the opener.
-    dialogRef.current?.close();
-    setOpen(false);
-  }, []);
-
-  useEffect(() => {
-    if (!open) return;
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const previousOverflow = document.body.style.overflow;
-    dialog.showModal();
-    document.body.style.overflow = "hidden";
-    return () => {
-      dialog.close();
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [open, closeModal]);
-
   return (
-    <>
-      <button
-        type="button"
-        onClick={openModal}
+    <Dialog.Root>
+      <Dialog.Trigger
         className={cn(
-          "group/lightbox relative block w-full cursor-zoom-in overflow-hidden border-0 bg-transparent p-0",
+          "group/lightbox relative block w-full cursor-pointer overflow-hidden border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed",
           className,
         )}
         aria-label={alt ? `${enlargeLabel} : ${alt}` : enlargeLabel}
@@ -76,7 +51,7 @@ export function Lightbox({
             height={!fill ? height : undefined}
             sizes={sizes}
             srcSet={srcSetFor(src)}
-            className="object-cover transition-transform duration-500 group-hover/lightbox:scale-105"
+            className="object-cover transition-transform duration-500 group-hover/lightbox:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
           />
         )}
         <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-foreground/0 transition-colors group-hover/lightbox:bg-foreground/10">
@@ -84,36 +59,29 @@ export function Lightbox({
             {enlargeLabel}
           </span>
         </span>
-      </button>
+      </Dialog.Trigger>
 
-      {open &&
-        createPortal(
-          <dialog
-            ref={dialogRef}
-            className="fixed inset-0 m-0 h-full max-h-none w-full max-w-none items-center justify-center bg-black/90 p-4 backdrop-blur-sm open:flex"
-            aria-label={alt || enlargeLabel}
-            onCancel={closeModal}
-            onClose={closeModal}
-            onClick={(event) => {
-              if (event.target === event.currentTarget) closeModal();
-            }}
-          >
-            <button
-              type="button"
-              onClick={closeModal}
-              className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-              aria-label={closeLabel}
-            >
-              <X className="h-5 w-5" />
-            </button>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 z-[100] bg-dark/90 backdrop-blur-sm" />
+        <Dialog.Viewport className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <Dialog.Popup className="outline-none">
+            <Dialog.Title className="sr-only">{alt || enlargeLabel}</Dialog.Title>
+            <IconTooltip label={closeLabel}>
+              <Dialog.Close
+                className="fixed top-4 right-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-dark-foreground/10 text-dark-foreground backdrop-blur-sm transition-colors hover:bg-dark-foreground/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-foreground disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed"
+                aria-label={closeLabel}
+              >
+                <X className="h-5 w-5" aria-hidden="true" />
+              </Dialog.Close>
+            </IconTooltip>
             <img
               src={src}
               alt={alt}
-              className="max-h-[90vh] max-w-[90vw] rounded-lg bg-white object-contain"
+              className="max-h-[90vh] max-w-[90vw] rounded-lg bg-background object-contain"
             />
-          </dialog>,
-          document.body,
-        )}
-    </>
+          </Dialog.Popup>
+        </Dialog.Viewport>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }

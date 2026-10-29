@@ -24,6 +24,7 @@
 ## 2. Architecture de l'information (proposition)
 
 ### 2.1 Problème
+
 Top-level actuels : Accueil, Le van ▾ (3 enfants), À propos, Le voyage, Soutenir, FAQ, Contact (8 items, logo cliquable = home). Ajouter naïvement 7 items → 15 : barre saturée, hiérarchie illisible, mobile noyé.
 
 ### 2.2 Arborescence cible (recommandée)
@@ -39,6 +40,7 @@ Accueil (logo)
 ```
 
 Justification :
+
 - **≤ 6 items** au lieu de 8+7 → la barre respire, aucun débordement desktop.
 - Calque le **regroupement du site source** (« Solar electric van » regroupe conversion/solaire/habitat/impact ; « Support Soleva » regroupe sponsoring/crowdfunding).
 - **Impact sous « Le van »** : même famille sémantique que sur la source, et libère un slot.
@@ -47,22 +49,23 @@ Justification :
 
 ### 2.3 Correspondance route → label (nav, breadcrumb, dict)
 
-| Route | Nav FR | Breadcrumb | meta |
-|---|---|---|---|
-| `/le-van` (existant) | Le van ▾ | Le van | meta.van |
-| `/le-van/impact` → garder `/impact` (existant) | Impact | Impact | meta.impact |
-| `/equipe` (nouveau) | L'équipe | L'équipe | meta.team |
-| `/partenaires` (nouveau) | Partenaires | Partenaires | meta.partners |
-| `/blog` (nouveau) | Blog | Blog | meta.blog |
-| `/presse` (nouveau) | Presse & médias | Presse & médias | meta.press |
-| `/evenements` (nouveau) | Événements | Événements | meta.events |
-| `/sponsoring` (nouveau) | Sponsoring | Sponsoring | meta.sponsoring |
-| `/crowdfunding` (nouveau) | Crowdfunding | Crowdfunding | meta.crowdfunding |
-| `/soutenir` (existant) | Faire un don | Soutenir | meta.support |
+| Route                                          | Nav FR          | Breadcrumb      | meta              |
+| ---------------------------------------------- | --------------- | --------------- | ----------------- |
+| `/le-van` (existant)                           | Le van ▾        | Le van          | meta.van          |
+| `/le-van/impact` → garder `/impact` (existant) | Impact          | Impact          | meta.impact       |
+| `/equipe` (nouveau)                            | L'équipe        | L'équipe        | meta.team         |
+| `/partenaires` (nouveau)                       | Partenaires     | Partenaires     | meta.partners     |
+| `/blog` (nouveau)                              | Blog            | Blog            | meta.blog         |
+| `/presse` (nouveau)                            | Presse & médias | Presse & médias | meta.press        |
+| `/evenements` (nouveau)                        | Événements      | Événements      | meta.events       |
+| `/sponsoring` (nouveau)                        | Sponsoring      | Sponsoring      | meta.sponsoring   |
+| `/crowdfunding` (nouveau)                      | Crowdfunding    | Crowdfunding    | meta.crowdfunding |
+| `/soutenir` (existant)                         | Faire un don    | Soutenir        | meta.support      |
 
 > Alternative : garder les URLs en anglais (`/team`, `/news`, `/events`…) pour un SEO international cohérent avec l'EN ; le site est en `/fr` par défaut → **URLs françaises recommandées** (déjà le cas pour `/a-propos`, `/voyage`, `/soutenir`). Uniformiser.
 
 ### 2.4 Options écartées (documentées)
+
 - **Option A — « enrichir plutôt que créer »** (pas de nouvelles pages pour presse/équipe/événements ; tout dans des sections existantes) : rejetée — le client compare à son site de 20 pages ; des pages dédiées = meilleur SEO par intention (crowdfunding, sponsoring, presse sont des recherches réelles) et des pages moins longues.
 - **Option B — « Le voyage » top-level + « Actualités » sans lui** : acceptable si le client veut garder le voyage en vitrine ; la barre passe à 7 items (budget actuel). À trancher avec le client.
 - **Pages `/sponsoring` + `/crowdfunding` séparées de `/soutenir`** : retenues (parité source, SEO), avec **`/soutenir` conservé comme hub don/bénévolat** et le bloc IBAN qui reste l'unique mécanique de don (`/soutenir#donation`). Pas de duplication : `/soutenir` garde les 3 formules de sponsoring ; `/sponsoring` affiche **les sponsors actifs** (logos + liens, nouveau contenu de la source) ; `/crowdfunding` raconte la campagne + vidéo + wemakeit.
@@ -72,6 +75,7 @@ Justification :
 ## 3. Ce que dit l'audit du code (conventions à respecter impérativement)
 
 ### 3.1 Anatomie d'une page simple (template à copier — ex. `impact.tsx`, `faq.tsx`)
+
 1. `createFileRoute("/_site/$lang/<page>")`
 2. `loader` : `const locale = localeFromPathname(location.pathname); const dict = await getDictionary(locale); return { locale, dict };`
    → **Ne jamais lire `params.lang`** (bug connu de cette version TanStack : les params ne sont pas parsés sur les routes à paramètre initial — workaround commenté dans `_site/$lang.tsx` et `src/lib/i18n/pathname.ts`).
@@ -81,19 +85,21 @@ Justification :
 5. Not found : si la page dépend d'un slug inconnu → `throw notFound()` (le layout a déjà `notFoundComponent`).
 
 ### 3.2 Composants à utiliser (app-first — **pas** les `sections/*` du registry, inutilisés par les routes)
-| Rôle | Composant | Import |
-|---|---|---|
-| Héro + breadcrumb (JSON-LD BreadcrumbList auto) | `PageHero` | `@/components/layout/page-hero` |
-| Breadcrumb seul (héros custom) | `Breadcrumb` | `@/components/layout/breadcrumb` |
-| Bandeau CTA de fin | `CtaBand` | `@/components/ui/cta-band` |
-| Titre de section | `SectionHeading` | `@/components/ui/section-heading` |
-| Image (shim lazy/srcset) | `Image` | `@/components/ui/image` |
-| Scroll reveal | `FadeUp` (alias `Reveal`) | `@/components/animations-lazy` |
-| Liens CTA | `CtaLink`/`CtaExternal` | `@/components/ui/cta-button` |
-| FAQ | `Accordion`/`FaqList` app | `@/components/faq/faq-list` ou `ui/accordion` |
-| JSON-LD FAQ | `FaqJsonLd` | `@/components/seo/json-ld` |
+
+| Rôle                                            | Composant                 | Import                                        |
+| ----------------------------------------------- | ------------------------- | --------------------------------------------- |
+| Héro + breadcrumb (JSON-LD BreadcrumbList auto) | `PageHero`                | `@/components/layout/page-hero`               |
+| Breadcrumb seul (héros custom)                  | `Breadcrumb`              | `@/components/layout/breadcrumb`              |
+| Bandeau CTA de fin                              | `CtaBand`                 | `@/components/ui/cta-band`                    |
+| Titre de section                                | `SectionHeading`          | `@/components/ui/section-heading`             |
+| Image (shim lazy/srcset)                        | `Image`                   | `@/components/ui/image`                       |
+| Scroll reveal                                   | `FadeUp` (alias `Reveal`) | `@/components/animations-lazy`                |
+| Liens CTA                                       | `CtaLink`/`CtaExternal`   | `@/components/ui/cta-button`                  |
+| FAQ                                             | `Accordion`/`FaqList` app | `@/components/faq/faq-list` ou `ui/accordion` |
+| JSON-LD FAQ                                     | `FaqJsonLd`               | `@/components/seo/json-ld`                    |
 
 ### 3.3 Rythme visuel des sections (identité à respecter)
+
 - Conteneur : `container-premium` (`mx-auto max-w-7xl px-5 sm:px-8 lg:px-12`) ; padding : `section-padding` (`py-20 md:py-28 lg:py-36`).
 - Chaque section : `[contain-intrinsicsize:auto_800px] [content-visibility:auto]` (perf, pattern existant sur les 37 sections).
 - Grids type : `grid gap-6 md:grid-cols-2`, `lg:grid-cols-3/4` ; logos `object-contain` dans des wrappers fixes (`h-10 w-20`, `h-16 w-28`) ; photos `object-cover` + ratios `aspect-[16/10]`, `aspect-video`…
@@ -106,6 +112,7 @@ Justification :
   - Carte tier sponsor : `/soutenir.tsx` (pill + prix + features).
 
 ### 3.4 i18n (dicts JSON imbriqués, par page)
+
 - Ajouter **aux 4 fichiers** `src/lib/i18n/{fr,en,de,it}.json`, pour chaque nouvelle page :
   - `meta.<page>.title` + `meta.<page>.description`
   - `nav.<page>` + `breadcrumb.<page>`
@@ -114,6 +121,7 @@ Justification :
 - Pour les contenus longs (bios, posts), préférer des **modules de données** `Record<Locale, T>` (`src/lib/data/*.ts`) plutôt que des dicts — pattern `services.ts`/`events.ts`.
 
 ### 3.5 Registrations SEO (les 3 surfaces — audit `sitemap[.]xml.ts`, `paths.ts`, `build-metadata.ts`)
+
 1. `src/lib/site/paths.ts` → ajouter les chemins à `STATIC_PATHS` : alimente `sitemap.xml` (×4 langues + hreflang) **et** `llms.txt` automatiquement. `robots.txt` : rien à faire (statique).
 2. `head()` de chaque route via `buildMetadata` (cf. §3.1) → title/desc/OG/canonical/hreflang.
 3. Optionnel : `llms.txt` (nouvelle section `## Presse/Blog/…` si utile pour l'IA) et `api/data.json` (nouveau nœud `@graph` pour exposer les collections en JSON-LD). Pas requis pour le SEO classique.
@@ -121,6 +129,7 @@ Justification :
 5. `routeTree.gen.ts` : **auto-régénéré** par le plugin TanStack au `vp dev`/`vp build` — ne jamais l'éditer à la main.
 
 ### 3.6 Pièges connus (appliqués aux nouvelles pages)
+
 - **Seroval/loaderData** : ne jamais mettre de composants React (icônes Lucide) dans un loader → crash. Résoudre icônes/contenu dans le composant (`getServiceBySlug`-style lookups), pas dans le loader.
 - Locale et slugs : toujours dérivés du `pathname`, jamais des params.
 - `loaderData!` dans `head` (nullable).
@@ -130,18 +139,19 @@ Justification :
 
 ## 4. Modèle de données (une seule source de vérité)
 
-| Module | Champ à ajouter | Pages consommatrices |
-|---|---|---|
-| `src/lib/data/team.ts` | `bio?: Record<Locale,string>` (9 membres + 4 mentors) | `/a-propos` (aperçu) + `/equipe` (détail) |
-| `src/lib/data/press.ts` | `url?: string`, `linkStatus?: "ok"\|"broken"\|"unverified"` | home/a-propos (compact) + `/presse` (complet) |
-| `src/lib/data/events.ts` | séparer PVinMotion / Swiss PV meeting ; `description?`, `upcoming?: boolean` | `/voyage` (past) + `/evenements` (tous) |
-| `src/lib/data/partners.ts` | `url?: string` (7 partenaires) | home + `/partenaires` |
-| nouveau `src/lib/data/sponsors.ts` | 22 sponsors : `name, category, logo, url` | `/sponsoring` (+ badge catégorie) |
-| nouveau `src/lib/data/blog.ts` | 5 posts : `slug, title, date, excerpt, body` (Record<Locale>) | `/blog` |
-| `src/lib/constants.ts` | `YOUTUBE` (docu `6ScnYhFPv5w`, crowdfunding `ZGMaSStYKDw`), `LINKEDIN`, `POLAR_STEPS_URL` complet, `WEMAKEIT_URL` | home, `/crowdfunding`, footer |
-| `src/lib/i18n/*.json` | blocs dict des 7 pages (FR à fournir, EN/DE/IT à produire) | toutes |
+| Module                             | Champ à ajouter                                                                                                   | Pages consommatrices                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `src/lib/data/team.ts`             | `bio?: Record<Locale,string>` (9 membres + 4 mentors)                                                             | `/a-propos` (aperçu) + `/equipe` (détail)     |
+| `src/lib/data/press.ts`            | `url?: string`, `linkStatus?: "ok"\|"broken"\|"unverified"`                                                       | home/a-propos (compact) + `/presse` (complet) |
+| `src/lib/data/events.ts`           | séparer PVinMotion / Swiss PV meeting ; `description?`, `upcoming?: boolean`                                      | `/voyage` (past) + `/evenements` (tous)       |
+| `src/lib/data/partners.ts`         | `url?: string` (7 partenaires)                                                                                    | home + `/partenaires`                         |
+| nouveau `src/lib/data/sponsors.ts` | 22 sponsors : `name, category, logo, url`                                                                         | `/sponsoring` (+ badge catégorie)             |
+| nouveau `src/lib/data/blog.ts`     | 5 posts : `slug, title, date, excerpt, body` (Record<Locale>)                                                     | `/blog`                                       |
+| `src/lib/constants.ts`             | `YOUTUBE` (docu `6ScnYhFPv5w`, crowdfunding `ZGMaSStYKDw`), `LINKEDIN`, `POLAR_STEPS_URL` complet, `WEMAKEIT_URL` | home, `/crowdfunding`, footer                 |
+| `src/lib/i18n/*.json`              | blocs dict des 7 pages (FR à fournir, EN/DE/IT à produire)                                                        | toutes                                        |
 
 Règles :
+
 - Les sections existantes (home partenaires, a-propos équipe/presse, voyage events) **basculent sur les mêmes modules** → zéro duplication, mise à jour centralisée.
 - Politique **liens presse/sponsors cassés** : `linkStatus: "broken"` → la carte affiche le titre sans lien cliquable + pastille discrète ; le `--check-links` du scraper alimente ce statut (sortie `🔴`).
 
@@ -180,15 +190,15 @@ Règles :
 
 ## 8. Ordre de livraison recommandé (phases)
 
-| Phase | Contenu | Risque | Justification |
-|---|---|---|---|
-| 0 | Squelettes : modules `data/*.ts` étendus + blocs dict ×4 (à blanc) + `STATIC_PATHS` + routes vides avec PageHero + registrations SEO | — | Socle commun, testable immédiatement |
-| 1 | `/presse` + `/evenements` (réutilisent `press.ts`/`events.ts` existants) | Faible | Données déjà présentes, ajout `url`/descriptions |
-| 2 | `/equipe` (bios depuis la source) + `/partenaires` (URLs) | Moyen | Contenu client à relire (bios) |
-| 3 | `/sponsoring` (22 logos) + `/crowdfunding` (vidéo/wemakeit) | Moyen | Logos/liens à valider |
-| 4 | `/blog` (5 posts traduits) + enrichissements (home valeurs, conversion 4 charges + galerie, solaire SolarImpulse, impact 81 % + OFEV, voyage dates + awareness) | Moyen | Gros volume de copy ×4 langues |
-| 5 | Nav restructurée (dropdowns) + footer 4 colonnes + liens croisés (home → presse/equipe/partenaires, a-propos → equipe/presse) | Moyen | Touche au global → en dernier, une fois les pages stables |
-| 6 | QA finale : `vpr check`, crawl sitemap, revue mobile, perf Lighthouse | — | — |
+| Phase | Contenu                                                                                                                                                         | Risque | Justification                                             |
+| ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------------------------------------------------------- |
+| 0     | Squelettes : modules `data/*.ts` étendus + blocs dict ×4 (à blanc) + `STATIC_PATHS` + routes vides avec PageHero + registrations SEO                            | —      | Socle commun, testable immédiatement                      |
+| 1     | `/presse` + `/evenements` (réutilisent `press.ts`/`events.ts` existants)                                                                                        | Faible | Données déjà présentes, ajout `url`/descriptions          |
+| 2     | `/equipe` (bios depuis la source) + `/partenaires` (URLs)                                                                                                       | Moyen  | Contenu client à relire (bios)                            |
+| 3     | `/sponsoring` (22 logos) + `/crowdfunding` (vidéo/wemakeit)                                                                                                     | Moyen  | Logos/liens à valider                                     |
+| 4     | `/blog` (5 posts traduits) + enrichissements (home valeurs, conversion 4 charges + galerie, solaire SolarImpulse, impact 81 % + OFEV, voyage dates + awareness) | Moyen  | Gros volume de copy ×4 langues                            |
+| 5     | Nav restructurée (dropdowns) + footer 4 colonnes + liens croisés (home → presse/equipe/partenaires, a-propos → equipe/presse)                                   | Moyen  | Touche au global → en dernier, une fois les pages stables |
+| 6     | QA finale : `vpr check`, crawl sitemap, revue mobile, perf Lighthouse                                                                                           | —      | —                                                         |
 
 Estimation : ~4-6 jours de dev, hors validation client et fourniture/traduction de contenu (voir `content-recovery-plan.md` §8).
 
@@ -213,15 +223,17 @@ Audit croisé du `content-recovery-plan.md` contre le code et le site source :
 L'audit de fidélité (`content-recovery-plan.md` §10, verdict ~3/10) impose une règle de travail stricte : **on modernise le UI/UX, on ne réécrit pas les textes du client**. Conséquences sur le code et le process :
 
 ### 10.1 Stratégie de langue (par bloc de contenu)
-| Locale | Source | Règle |
-|---|---|---|
-| `fr` (défaut) | page FR source quand elle existe (14 pages) | **copier verbatim** |
-| `fr` (pages sans FR) | source EN (about-soleva, blog, news, search…) | traduire depuis l'EN — marqué « traduction » |
-| `en` | source EN (20 pages) | **copier verbatim** |
-| `de`, `it` | aucune source | traduire depuis FR/EN — **à relire client** |
-| UI (labels nav, CTA, meta SEO) | libre | modernisation OK (non éditorial) |
+
+| Locale                         | Source                                        | Règle                                        |
+| ------------------------------ | --------------------------------------------- | -------------------------------------------- |
+| `fr` (défaut)                  | page FR source quand elle existe (14 pages)   | **copier verbatim**                          |
+| `fr` (pages sans FR)           | source EN (about-soleva, blog, news, search…) | traduire depuis l'EN — marqué « traduction » |
+| `en`                           | source EN (20 pages)                          | **copier verbatim**                          |
+| `de`, `it`                     | aucune source                                 | traduire depuis FR/EN — **à relire client**  |
+| UI (labels nav, CTA, meta SEO) | libre                                         | modernisation OK (non éditorial)             |
 
 ### 10.2 Conséquences sur les modules de données existants
+
 - `src/lib/data/services.ts` : `fullDescription`/`features`/`process`/`faqs` actuels = réécriture/invention → **remplacer par le texte source** (process source = 5 étapes-images, pas nos 4 ; FAQ source inexistante → FAQ à valider client ou retirer).
 - `src/lib/constants.ts` `KEY_FIGURES` : chiffres non sourcés (250 km, 55 kWh, 1 350 W…) → **retirer du rendu public tant que non validés** ; garder les valeurs sourcées (81 %, 29'000+ CHF, 130 contributeurs, 30'000 km/an).
 - `sponsor-tiers.ts` : formules inventées (CHF 500/1 500/5 000+) → remplacer par les catégories de partenaires de la source (logos) ou passer en validation client.
@@ -230,10 +242,12 @@ L'audit de fidélité (`content-recovery-plan.md` §10, verdict ~3/10) impose un
 - `faqs` / dict `faq` : page sans source → conserver mais chaque Q/R passe en validation client.
 
 ### 10.3 Impact sur les phases (§8)
+
 - **Phases 1-4 (contenu)** : chaque bloc est **copié-collé** depuis `content-export/soleva.org/<lang>/<slug>.json` (sortie du script) — pas de rédaction maison ; les valeurs non sourcées sont exclues du rendu tant que le client n'a pas validé.
 - **Phase 5 (nav)** : inchangée — les labels de nav restent les nôtres (UI).
 - **Phase 6 (QA)** : ajouter un contrôle « fidélité » : diff texte source ↔ texte livré, par bloc ; vérifier l'absence de chiffres non sourcés ; vérifier la matrice FR (§10.6 du plan de récupération).
 
 ### 10.4 Contenus « maison » tolérés (marqués, pas inventés)
+
 - Blocs **sans équivalent source** (FAQ, hero/vision/timeline de `/a-propos`, détails habitat/comfort) : conservés mais **chacun étiqueté `contenu-maison → validation client`** dans le code (TODO) pour ne pas les confondre avec du texte source.
 - Legal/privacy : remplacer par le texte AGB source (déclarations réelles du client), en laissant l'adresse en backlog (source incohérente, §10.4-17 du plan de récupération).

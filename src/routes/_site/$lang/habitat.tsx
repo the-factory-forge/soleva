@@ -145,7 +145,7 @@ function HabitatPage() {
                   title={c.sustainability.title}
                   subtitle={c.sustainability.body}
                   align="left"
-                  inverted
+                  variant="secondary"
                 />
                 <ul className="mt-8 grid gap-3 sm:grid-cols-2">
                   {c.sustainability.items.map((item, i) => (

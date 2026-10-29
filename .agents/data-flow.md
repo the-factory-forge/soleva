@@ -119,7 +119,7 @@ Never use cached route data as a security decision. Authorization and destructiv
 
 ## URL-owned filters and view state
 
-Follow [ADR-0008](https://github.com/the-factory-forge/forge-spec/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md)
+Follow [ADR-0008](https://github.com/the-factory-forge/forge-specs/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md)
 when adding or changing filterable pages.
 
 - Define `validateSearch` on the host route with defaults and invalid-value fallbacks. Read it through `Route.useSearch()` or `getRouteApi()`.
