@@ -118,3 +118,32 @@ applied migration, S3 key, production data or public page changes.
 See [account email previews](mailing.md). No real mail or deployment was performed.
 
 Fixed point: `d6c5546f0bf90e9f1a098007371279267815fabc`. 29 unit checks passed, including fourteen mailing checks; two unrelated opt-in integration checks skipped. Three built-server invitation/verification/recovery journeys passed. Full `vp check` passed with existing warnings. `vp run preview:mailing` passed and generated all twelve previews without delivery.
+
+## 2026-10-30: RC6 host integration recheck after Template and Mailing
+
+Reviewed `8d3697fa76eb42b51857a48e9fd19bd4520154f1`, the final Mailing stack,
+against Registry RC6 `0b47bb77c2f88154eb62a26ce6e08b841bde5e16`.
+The Template layer retains all 48 previously installed Forge files byte-for-byte.
+The three Mailing files still match their retained incoming installation exactly.
+Both migration SQL files remain unchanged. Existing installer inputs cover the
+selected items; no reinstall or application change is needed.
+
+| Capability                                               | Host integration                                                                                                                                                                   | Verification and limits                                                                                                         |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Account profile and security                             | The live intranet route supplies `AccountPage` with URL-owned tabs, profile updates/cache invalidation and the host security panel.                                                | Source trace through `routes/_auth/$lang/intranet/index.tsx`; fresh callback and key-schema tests pass.                         |
+| Employee administration and invitations                  | The live directory supplies list/search, creation, updates, bans, deletion and resend callbacks. Server functions retain administrator middleware and the shared employee service. | Fresh employee-service tests pass, including non-admin refusal, delivery failure and self-deletion protection.                  |
+| Branded invitation, verification and password-reset mail | Auth delivery calls the host formatter and RC6 Resend transport.                                                                                                                   | All 14 mailing checks pass, including the 12 locale/message combinations, unsafe links and provider failure. No email was sent. |
+
+This layer changes documentation only. Optional account email changes and employee
+photo/public-profile callbacks remain unconnected, not verified features. Blogs,
+Drive and other uninstalled plugins are not activated by this recheck. The selected
+scope follows the existing staff access product in `PRODUCT.md`; this receipt does
+not claim every optional Registry capability is adopted.
+
+Fresh `vp test --run`: **29 passed, 2 skipped**. Database-gated key storage and
+migration checks were not rerun in this documentation-only layer. Runtime,
+migrations, assets and dependency files are unchanged from the reviewed SHA;
+the built-server journeys recorded above remain prior evidence, not a new
+end-to-end run. Production providers and deployment remain unverified.
+
+Fresh `vp check` passes with zero errors and 19 existing warnings.
