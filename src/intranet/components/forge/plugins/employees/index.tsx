@@ -1,12 +1,25 @@
 "use client";
 import { Avatar } from "@base-ui/react/avatar";
-import { ChevronLeftIcon, ChevronRightIcon, ShieldCheckIcon, ShieldOffIcon } from "lucide-react";
+import { ShieldCheckIcon, ShieldOffIcon } from "lucide-react";
+import { useState } from "react";
 
+import { ActionToastProvider } from "#/intranet/components/forge/action-toast.tsx";
+import { useLoadingActivity } from "#/intranet/components/forge/loading-indicator.tsx";
 import {
   EmployeeActions,
   type EmployeeActionCallbacks,
 } from "#/intranet/components/forge/plugins/employees/employee-actions.tsx";
 import { EmployeeCreateDialog } from "#/intranet/components/forge/plugins/employees/employee-create-dialog.tsx";
+import { EmployeeDeleteDialog } from "#/intranet/components/forge/plugins/employees/employee-delete-dialog.tsx";
+import { EmployeeWebsiteStatus } from "#/intranet/components/forge/plugins/employees/employee-website-status.tsx";
+export { EmployeeDeleteDialog } from "#/intranet/components/forge/plugins/employees/employee-delete-dialog";
+export type {
+  EmployeeDeletionAdapter,
+  EmployeeDeletionGroup,
+  EmployeeDeletionPreview,
+  EmployeeDeletionDecisions,
+  EmployeeDeleteDialogProps,
+} from "#/intranet/components/forge/plugins/employees/employee-delete-dialog";
 import {
   employeeLabels,
   type EmployeeLabels,
@@ -15,34 +28,62 @@ import {
   EMPLOYEE_PAGE_SIZE,
   isEmployeeAdmin,
   type CreateEmployee,
+  type InvitationResult,
   type Employee,
 } from "#/intranet/components/forge/plugins/employees/schema.ts";
-import { outlineButtonClass } from "#/intranet/components/forge/plugins/employees/styles.ts";
+import { TablePagination } from "#/intranet/components/forge/table-pagination.tsx";
+import { matchesTableSearch, TableSearch } from "#/intranet/components/forge/table-search.tsx";
+import {
+  TableBulkDelete,
+  TableSelectionCheckbox,
+  useTableSelection,
+} from "#/intranet/components/forge/table-selection.tsx";
+import {
+  tableActionCellClass,
+  tableActionHeaderClass,
+  tableCellClass,
+  tableClass,
+  tableHeaderClass,
+  tablePanelClass,
+  tableRowClass,
+} from "#/intranet/components/forge/utils/table-styles.ts";
+import {
+  retainRemovedItems,
+  useOptimisticAction,
+} from "#/intranet/components/forge/utils/use-optimistic-action.ts";
 import { cn } from "#/intranet/forge/utils.ts";
-export { EmployeeCreateDialog } from "#/intranet/components/forge/plugins/employees/employee-create-dialog.tsx";
+export { EmployeeCreateDialog } from "#/intranet/components/forge/plugins/employees/employee-create-dialog";
+export { EmployeePhotoField } from "#/intranet/components/forge/plugins/employees/employee-photo-field";
+export type { EmployeePhotoFieldProps } from "#/intranet/components/forge/plugins/employees/employee-photo-field";
 export type {
   Employee,
   CreateEmployee,
   UpdateEmployee,
   VerificationResult,
-} from "#/intranet/components/forge/plugins/employees/schema.ts";
-export type { EmployeeLabels } from "#/intranet/components/forge/plugins/employees/labels.ts";
+  InvitationResult,
+} from "#/intranet/components/forge/plugins/employees/schema";
+export type { EmployeeLabels } from "#/intranet/components/forge/plugins/employees/labels";
 export interface EmployeesPageProps extends EmployeeActionCallbacks {
   employees: readonly Employee[];
+  /** For server pagination, filter the full directory before supplying this page. */
+  search?: string;
+  onSearchChange?: (search: string) => void;
   currentUserId: string;
   /** Role from the host's authenticated session. Missing or non-admin roles render nothing. */
   currentUserRole: string | null | undefined;
   total: number;
   offset: number;
   onOffsetChange: (offset: number) => void;
-  onCreate: (values: CreateEmployee) => Promise<void>;
+  onCreate: (values: CreateEmployee) => Promise<InvitationResult>;
   loading?: boolean;
   error?: boolean;
   labels?: Partial<EmployeeLabels>;
   className?: string;
 }
-export function EmployeesPage({
-  employees,
+function EmployeesPageContent({
+  employees: suppliedEmployees,
+  search: controlledSearch,
+  onSearchChange,
   currentUserId,
   currentUserRole,
   total,
@@ -52,183 +93,302 @@ export function EmployeesPage({
   loading = false,
   error = false,
   onUpdate,
+  onSetWebsitePublished,
   onDelete,
+  deletion,
+  onUploadPhoto,
+  photoOptions,
   onSendVerification,
   labels: overrides,
   className,
 }: EmployeesPageProps) {
-  if (!isEmployeeAdmin(currentUserRole)) return null;
+  useLoadingActivity(loading);
+  const [localSearch, setLocalSearch] = useState("");
+  const search = controlledSearch ?? localSearch;
+  const optimistic = useOptimisticAction(suppliedEmployees, `${currentUserId}:${offset}:${search}`);
+  const employees = optimistic.value;
+  const visibleTotal = Math.max(0, total + employees.length - suppliedEmployees.length);
   const labels = { ...employeeLabels, ...overrides };
+  // ponytail: fallback searches supplied rows; use onSearchChange for server pagination.
+  const filteredEmployees = onSearchChange
+    ? employees
+    : employees.filter((employee) =>
+        matchesTableSearch(
+          search,
+          employee.name,
+          employee.email,
+          isEmployeeAdmin(employee.role) ? labels.roleAdmin : labels.roleUser,
+          employee.banned ? labels.disabled : labels.active,
+          employee.emailVerified ? labels.verified : labels.unverified,
+        ),
+      );
+  const selectable = isEmployeeAdmin(currentUserRole)
+    ? filteredEmployees.filter(
+        (employee) => employee.id !== currentUserId && !employee.id.startsWith("pending-"),
+      )
+    : [];
+  const selection = useTableSelection(
+    selectable,
+    `${currentUserId}:${currentUserRole}:${offset}:${search}`,
+  );
+  const selectionDisabled = loading || error || optimistic.pending || selection.pending;
+  if (!isEmployeeAdmin(currentUserRole)) return null;
   return (
     <section
-      className={cn(
-        "mx-auto w-full max-w-7xl min-w-0 rounded-xl border border-border bg-card py-6 text-card-foreground",
-        className,
-      )}
+      className={cn(tablePanelClass, "mx-auto w-full max-w-7xl px-0", className)}
       aria-label={labels.title}
     >
       <header className="flex flex-wrap items-center justify-between gap-4 px-6 pb-6">
         <h1 className="font-sans text-base font-semibold">{labels.title}</h1>
-        <EmployeeCreateDialog
-          currentUserRole={currentUserRole}
-          onCreate={onCreate}
-          labels={labels}
-        />
+        <div className="ml-auto flex max-w-full flex-wrap items-center justify-end gap-2">
+          <TableSearch
+            value={search}
+            label={labels.search}
+            clearLabel={labels.clearSearch}
+            onValueChange={(value) => {
+              setLocalSearch(value);
+              onSearchChange?.(value);
+            }}
+          />
+          <EmployeeCreateDialog
+            currentUserRole={currentUserRole}
+            disabled={selectionDisabled}
+            onCreate={onCreate}
+            labels={labels}
+          />
+        </div>
       </header>
       <div className="px-6">
-        {loading ? (
-          <output>{labels.loading}</output>
-        ) : error ? (
-          <p role="alert" className="text-destructive">
-            {labels.error}
-          </p>
-        ) : (
-          <>
-            <div className="min-w-0 overflow-x-auto">
-              <table className="w-full caption-bottom text-sm">
-                <thead className="[&_tr]:border-b">
-                  <tr className="border-b border-border transition-colors hover:bg-muted/50">
-                    <th
-                      scope="col"
-                      className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap"
+        <div className="min-w-0 overflow-x-auto">
+          <table className={tableClass} aria-busy={loading}>
+            {loading && filteredEmployees.length > 0 && (
+              <caption className="sr-only">
+                <output>{labels.loading}</output>
+              </caption>
+            )}
+            <thead className="[&_tr]:border-b">
+              <tr className={tableRowClass}>
+                <th scope="col" className="w-10 p-2">
+                  <TableSelectionCheckbox
+                    label={labels.selectAllRows}
+                    checked={selection.all}
+                    mixed={selection.mixed}
+                    onChange={selection.toggleAll}
+                    disabled={selectionDisabled || !selectable.length}
+                  />
+                </th>
+                <th scope="col" className={tableHeaderClass}>
+                  {labels.name}
+                </th>
+                <th scope="col" className={tableHeaderClass}>
+                  {labels.email}
+                </th>
+                <th scope="col" className={tableHeaderClass}>
+                  {labels.role}
+                </th>
+                <th scope="col" className={tableHeaderClass}>
+                  {labels.status}
+                </th>
+                <th scope="col" className={tableHeaderClass}>
+                  {labels.website}
+                </th>
+                <th scope="col" className={tableActionHeaderClass}>
+                  <div className="flex items-center justify-end gap-2">
+                    {labels.actions}
+                    {deletion ? (
+                      <EmployeeDeleteDialog
+                        bulk
+                        employees={selection.selected}
+                        adapter={deletion}
+                        labels={labels}
+                        disabled={selectionDisabled}
+                      />
+                    ) : (
+                      <TableBulkDelete
+                        selection={selection}
+                        getName={(employee) => employee.name}
+                        onDelete={(employee) => onDelete(employee.id)}
+                        labels={labels}
+                        disabled={selectionDisabled}
+                        description={labels.deleteDescription.replace(
+                          "{name}",
+                          selection.selected.map((row) => row.name).join(", "),
+                        )}
+                      />
+                    )}
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody className="[&_tr:last-child]:border-0">
+              {retainRemovedItems(filteredEmployees, suppliedEmployees, optimistic.pending).map(
+                (employee) => (
+                  <tr
+                    key={employee.id}
+                    hidden={!filteredEmployees.some((row) => row.id === employee.id)}
+                    className={tableRowClass}
+                  >
+                    <td className="w-10 p-2">
+                      <TableSelectionCheckbox
+                        label={`${labels.selectRow}: ${employee.name}`}
+                        checked={selection.selected.some((row) => row.id === employee.id)}
+                        mixed={false}
+                        onChange={(checked) => selection.toggle(employee.id, checked)}
+                        disabled={
+                          selectionDisabled ||
+                          !(employee.id !== currentUserId && !employee.id.startsWith("pending-"))
+                        }
+                      />
+                    </td>
+                    <td
+                      aria-label={employee.name}
+                      className={cn(tableCellClass, "whitespace-nowrap")}
                     >
-                      {labels.name}
-                    </th>
-                    <th
-                      scope="col"
-                      className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap"
+                      <div className="flex items-center gap-3">
+                        <Avatar.Root className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border">
+                          <Avatar.Image
+                            className="size-full object-cover"
+                            src={employee.image ?? undefined}
+                            alt=""
+                          />
+                          <Avatar.Fallback>
+                            {employee.name
+                              .trim()
+                              .split(/\s+/)
+                              .slice(0, 2)
+                              .map((part) => part.charAt(0))
+                              .join("")
+                              .toUpperCase()}
+                          </Avatar.Fallback>
+                        </Avatar.Root>
+                        <span className="max-w-48 truncate font-medium" title={employee.name}>
+                          {employee.name}
+                        </span>
+                      </div>
+                    </td>
+                    <td
+                      className={cn(tableCellClass, "whitespace-nowrap")}
+                      aria-label={employee.email}
                     >
-                      {labels.email}
-                    </th>
-                    <th
-                      scope="col"
-                      className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap"
-                    >
-                      {labels.role}
-                    </th>
-                    <th
-                      scope="col"
-                      className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap"
-                    >
-                      {labels.status}
-                    </th>
-                    <th
-                      scope="col"
-                      className="sticky right-0 z-10 bg-card p-2 text-right align-middle whitespace-nowrap"
-                    >
-                      {labels.actions}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="[&_tr:last-child]:border-0">
-                  {employees.map((employee) => (
-                    <tr key={employee.id} className="border-b border-border hover:bg-muted/50">
-                      <td aria-label={employee.name} className="p-2 align-middle whitespace-nowrap">
-                        <div className="flex items-center gap-3">
-                          <Avatar.Root className="relative flex size-8 shrink-0 overflow-hidden rounded-full bg-muted">
-                            <Avatar.Image
-                              className="size-full object-cover"
-                              src={employee.image ?? undefined}
-                              alt=""
-                            />
-                            <Avatar.Fallback className="flex size-full items-center justify-center text-xs">
-                              {employee.name
-                                .trim()
-                                .split(/\s+/)
-                                .slice(0, 2)
-                                .map((part) => part.charAt(0))
-                                .join("")
-                                .toUpperCase()}
-                            </Avatar.Fallback>
-                          </Avatar.Root>
-                          <span className="max-w-48 truncate font-medium" title={employee.name}>
-                            {employee.name}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="p-2 align-middle whitespace-nowrap">
-                        <div className="flex items-center gap-3">
-                          <span
-                            role="img"
-                            aria-label={
-                              employee.emailVerified ? labels.verified : labels.unverified
-                            }
-                            title={employee.emailVerified ? labels.verified : labels.unverified}
-                            className={
-                              employee.emailVerified
-                                ? "text-green-600 dark:text-green-400"
-                                : "text-muted-foreground"
-                            }
-                          >
-                            {employee.emailVerified ? (
-                              <ShieldCheckIcon className="size-4" aria-hidden="true" />
-                            ) : (
-                              <ShieldOffIcon className="size-4" aria-hidden="true" />
-                            )}
-                          </span>
-                          <span className="max-w-72 truncate" title={employee.email}>
-                            {employee.email}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="p-2 align-middle whitespace-nowrap">
-                        {isEmployeeAdmin(employee.role) ? labels.roleAdmin : labels.roleUser}
-                      </td>
-                      <td className="p-2 align-middle whitespace-nowrap">
+                      <div className="flex items-center gap-3">
+                        <span
+                          role="img"
+                          title={employee.emailVerified ? labels.verified : labels.unverified}
+                          aria-label={employee.emailVerified ? labels.verified : labels.unverified}
+                          className={cn(
+                            "inline-flex size-10 shrink-0 items-center justify-center rounded-full md:size-8",
+                            employee.emailVerified
+                              ? "bg-status-success text-status-success-foreground"
+                              : "bg-status-pending text-status-pending-foreground",
+                          )}
+                        >
+                          {employee.emailVerified ? (
+                            <ShieldCheckIcon className="size-4 shrink-0" aria-hidden="true" />
+                          ) : (
+                            <ShieldOffIcon className="size-4 shrink-0" aria-hidden="true" />
+                          )}
+                        </span>
+                        <span className="max-w-72 truncate" title={employee.email}>
+                          {employee.email}
+                        </span>
+                      </div>
+                    </td>
+                    <td className={cn(tableCellClass, "whitespace-nowrap")}>
+                      {isEmployeeAdmin(employee.role) ? labels.roleAdmin : labels.roleUser}
+                    </td>
+                    <td className={cn(tableCellClass, "whitespace-nowrap")}>
+                      <span
+                        className={cn(
+                          "inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium before:size-1.5 before:shrink-0 before:rounded-full before:bg-current",
+                          employee.banned
+                            ? "bg-status-canceled text-status-canceled-foreground"
+                            : "bg-status-success text-status-success-foreground",
+                        )}
+                      >
                         {employee.banned ? labels.disabled : labels.active}
-                      </td>
-                      <td className="sticky right-0 z-10 bg-card p-2 text-right align-middle whitespace-nowrap">
-                        <EmployeeActions
-                          employee={employee}
-                          currentUserId={currentUserId}
-                          labels={labels}
-                          onUpdate={onUpdate}
-                          onDelete={onDelete}
-                          onSendVerification={onSendVerification}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                  {employees.length === 0 && (
-                    <tr className="border-b border-border transition-colors hover:bg-muted/50">
-                      <td colSpan={5} className="p-2">
-                        {labels.empty}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-            <footer className="mt-5 flex flex-wrap items-center justify-end gap-3">
-              <span className="text-sm text-muted-foreground">
-                {total} {labels.total}
-              </span>
-              <button
-                type="button"
-                className={outlineButtonClass}
-                disabled={offset === 0}
-                onClick={() => onOffsetChange(offset - EMPLOYEE_PAGE_SIZE)}
-                aria-label={labels.previous}
-              >
-                <ChevronLeftIcon aria-hidden="true" />
-              </button>
-              <span className="min-w-9 text-center text-sm text-muted-foreground tabular-nums">
-                {offset / EMPLOYEE_PAGE_SIZE + 1}/
-                {Math.max(1, Math.ceil(total / EMPLOYEE_PAGE_SIZE))}
-              </span>
-              <button
-                type="button"
-                className={outlineButtonClass}
-                disabled={offset + EMPLOYEE_PAGE_SIZE >= total}
-                onClick={() => onOffsetChange(offset + EMPLOYEE_PAGE_SIZE)}
-                aria-label={labels.next}
-              >
-                <ChevronRightIcon aria-hidden="true" />
-              </button>
-            </footer>
-          </>
-        )}
+                      </span>
+                    </td>
+                    <td className={cn(tableCellClass, "whitespace-nowrap")}>
+                      <EmployeeWebsiteStatus
+                        published={employee.websitePublished}
+                        labels={labels}
+                      />
+                    </td>
+                    <td className={tableActionCellClass}>
+                      <EmployeeActions
+                        deletion={deletion}
+                        onUploadPhoto={onUploadPhoto}
+                        photoOptions={photoOptions}
+                        employee={employee}
+                        disabled={
+                          loading ||
+                          error ||
+                          optimistic.pending ||
+                          selection.pending ||
+                          employee.id.startsWith("pending-")
+                        }
+                        currentUserId={currentUserId}
+                        labels={labels}
+                        onSetWebsitePublished={
+                          onSetWebsitePublished
+                            ? (id, published) =>
+                                optimistic.run(
+                                  (rows) =>
+                                    rows.map((row) =>
+                                      row.id === id ? { ...row, websitePublished: published } : row,
+                                    ),
+                                  () => onSetWebsitePublished(id, published),
+                                )
+                            : undefined
+                        }
+                        onUpdate={onUpdate}
+                        onDelete={onDelete}
+                        onSendVerification={onSendVerification}
+                      />
+                    </td>
+                  </tr>
+                ),
+              )}
+              {((error && !loading) || optimistic.error || filteredEmployees.length === 0) && (
+                <tr>
+                  <td colSpan={7} className={cn(tableCellClass, "py-8")}>
+                    {(error && !loading) || optimistic.error ? (
+                      <p role="alert" className="text-destructive">
+                        {error ? labels.error : labels.updateError}
+                      </p>
+                    ) : (
+                      <output className="text-muted-foreground">
+                        {loading ? labels.loading : search.trim() ? labels.noMatches : labels.empty}
+                      </output>
+                    )}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <TablePagination
+          disabled={selectionDisabled}
+          summary={`${visibleTotal} ${labels.total}`}
+          page={Math.floor(offset / EMPLOYEE_PAGE_SIZE) + 1}
+          pageCount={Math.max(1, Math.ceil(total / EMPLOYEE_PAGE_SIZE))}
+          label={labels.title}
+          previousLabel={labels.previous}
+          nextLabel={labels.next}
+          previousDisabled={offset <= 0}
+          nextDisabled={offset + EMPLOYEE_PAGE_SIZE >= total}
+          onPrevious={() => onOffsetChange(Math.max(0, offset - EMPLOYEE_PAGE_SIZE))}
+          onNext={() => onOffsetChange(offset + EMPLOYEE_PAGE_SIZE)}
+        />
       </div>
     </section>
+  );
+}
+
+export function EmployeesPage(props: EmployeesPageProps) {
+  return (
+    <ActionToastProvider>
+      <EmployeesPageContent {...props} />
+    </ActionToastProvider>
   );
 }

@@ -30,10 +30,12 @@ export const securityLabels = {
   expires: "Expires",
   actions: "Actions",
   expired: "Expired",
+  revoked: "Revoked",
   active: "Active",
   never: "Never",
   delete: "Delete",
   cancel: "Cancel",
+  close: "Close",
   done: "Done",
   createDescription:
     "Choose a name and an expiry within 90 days. Times use your device’s time zone.",
@@ -49,6 +51,13 @@ export const securityLabels = {
   copied: "Key copied",
   copyError: "Select the key and copy it manually.",
   deleteKey: "Delete key?",
+  selectKey: "Select key",
+  selectAllKeys: "Select all keys",
+  deleteSelectedKeys: "Delete selected keys",
+  deleteKeys: "Delete selected keys?",
+  deleteKeysDescription: "This immediately stops access for these keys:",
+  keysDeleted: "Keys deleted",
+  deleteKeysError: "Could not delete all keys. Only the keys shown here remain to retry.",
   deleteDescription: "This immediately stops access for this key:",
   deleting: "Deleting…",
   deleted: "Key deleted",
@@ -75,4 +84,4 @@ export const securityLabels = {
   signingOut: "Signing out…",
   revokeError: "Could not sign out this session. Refresh and try again.",
 };
-export type SecurityLabels = typeof securityLabels;
+export type SecurityLabels = Omit<typeof securityLabels, "close"> & { close?: string };

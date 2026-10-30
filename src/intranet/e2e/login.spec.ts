@@ -81,10 +81,10 @@ test("login is responsive, accessible in all languages, and remembers a session 
       "noindex, nofollow",
     );
     await expect(page.locator("#main-content")).toBeVisible();
-    const passwordField = page.locator("#password");
+    const passwordField = page.locator('input[name="password"]');
     await passwordField.focus();
     await passwordField.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
-    await expect(page.locator("#password-caps-lock svg")).toBeVisible();
+    await expect(page.locator('output[for$="-password"] svg')).toBeVisible();
     await expect(passwordField).toHaveAccessibleDescription(capsLockLabel);
     await page.setViewportSize({ width: 390, height: 844 });
     expect(
@@ -113,7 +113,7 @@ test("login is responsive, accessible in all languages, and remembers a session 
   await page.getByLabel("Email", { exact: true }).fill(email);
   const passwordInput = page.getByLabel("Password", { exact: true });
   await passwordInput.fill("Incorrect-password");
-  const capsLockIcon = page.locator("#password-caps-lock svg");
+  const capsLockIcon = page.locator('output[for$="-password"] svg');
   await passwordInput.dispatchEvent("keydown", { key: "A", shiftKey: true });
   await expect(capsLockIcon).toHaveCount(0);
   await passwordInput.dispatchEvent("keydown", { key: "CapsLock", modifierCapsLock: true });
@@ -138,7 +138,8 @@ test("login is responsive, accessible in all languages, and remembers a session 
   await passwordInput.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
   await expect(passwordInput).toHaveAccessibleDescription(/Unable to sign in.*Caps Lock is on/);
   await expect(page).toHaveURL(/\/en\/login$/);
-  await expect(page.getByLabel("Remember me", { exact: true })).not.toBeChecked();
+  await expect(page.getByLabel("Remember me", { exact: true })).toBeChecked();
+  await page.getByLabel("Remember me", { exact: true }).uncheck();
   await passwordInput.fill(password);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(/\/en\/intranet\/?$/);
@@ -222,10 +223,7 @@ test("password recovery uses single-use expiring links, preserves locale and rev
   await page.getByRole("button", { name: /^Sprache/ }).click();
   await page.getByRole("menuitem", { name: "English", exact: true }).click();
   await page.getByLabel("New password", { exact: true }).fill(newPassword);
-  await page.getByLabel("Confirm password", { exact: true }).fill("Different-password");
-  await page.getByRole("button", { name: "Save new password", exact: true }).click();
-  await expect(page.getByRole("alert")).toContainText("Passwords do not match.");
-  await page.getByLabel("Confirm password", { exact: true }).fill(newPassword);
+  await expect(page.getByLabel("Confirm password", { exact: true })).toHaveCount(0);
   await page.getByRole("button", { name: "Save new password", exact: true }).click();
   await expect(
     page.getByRole("status").filter({ hasText: "Your password has been reset." }),

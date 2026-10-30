@@ -78,6 +78,10 @@ are recorded in [the sync report](.sync-template/report.html#history).
 
 ## Registry components
 
+The 2026-10-28 selected Registry RC6 reconciliation, including the installed
+Auth/Employees modules, is recorded in [docs/registry-sync.md](docs/registry-sync.md).
+The older component-install revision below is historical provenance.
+
 Install individual Forge components with `vpr ui add @forge/<name>`.
 The `@forge` namespace in `components.json` uses the current `public/r` registry;
 the retired aggregate `registry:pull` script has been removed.

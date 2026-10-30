@@ -4,7 +4,7 @@ import { APIError, createAuthMiddleware, getAuthoritativeSessionFromCtx } from "
 import { betterAuth } from "better-auth/minimal";
 import { admin as adminPlugin } from "better-auth/plugins";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
-import { eq } from "drizzle-orm";
+import { and, eq, like } from "drizzle-orm";
 import { ENV } from "varlock/env";
 
 import { db } from "#/intranet/db";
@@ -37,6 +37,23 @@ export const auth = betterAuth({
     },
   },
   databaseHooks: {
+    user: {
+      update: {
+        after: async (user, context) => {
+          // Admin changes invalidate links issued for the previous account details.
+          if (context?.path?.startsWith("/admin/")) {
+            await db
+              .delete(schema.verification)
+              .where(
+                and(
+                  eq(schema.verification.value, user.id),
+                  like(schema.verification.identifier, "reset-password:%"),
+                ),
+              );
+          }
+        },
+      },
+    },
     session: {
       create: {
         before: async (session, context) => ({
@@ -99,11 +116,20 @@ export const auth = betterAuth({
     // provisioned by an admin. Migrations bootstrap an empty user table.
     disableSignUp: true,
     ...(ENV.EMAIL_API_KEY && ENV.EMAIL_FROM ? { sendResetPassword: sendPasswordResetEmail } : {}),
+    resetPasswordTokenExpiresIn: 3600,
     revokeSessionsOnPasswordReset: true,
     onPasswordReset: async ({ user }) => {
       await db
+        .delete(schema.verification)
+        .where(
+          and(
+            eq(schema.verification.value, user.id),
+            like(schema.verification.identifier, "reset-password:%"),
+          ),
+        );
+      await db
         .update(schema.user)
-        .set({ mustChangePassword: false })
+        .set({ mustChangePassword: false, emailVerified: true })
         .where(eq(schema.user.id, user.id));
     },
   },

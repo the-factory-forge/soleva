@@ -80,7 +80,6 @@ test("profile settings saves the current user's name and changes their password"
   await page.getByRole("tab", { name: "Security", exact: true }).click();
   await page.getByLabel("Current password", { exact: true }).fill("Incorrect-password-123");
   await page.getByLabel("New password", { exact: true }).fill(replacementPassword);
-  await page.getByLabel("Confirm password", { exact: true }).fill(replacementPassword);
   await page.getByRole("button", { name: "Change password", exact: true }).click();
   await expect(
     page.getByText("Could not change the password. Check your current password."),
@@ -125,7 +124,6 @@ test("employees can still replace their temporary password before entering profi
     await expect(page).toHaveURL(/\/en\/change-password$/);
     await page.getByLabel("Current password", { exact: true }).fill(password);
     await page.getByLabel("New password", { exact: true }).fill(replacementPassword);
-    await page.getByLabel("Confirm password", { exact: true }).fill(replacementPassword);
     await page.getByRole("button", { name: "Change password", exact: true }).click();
     await expect(
       page.getByRole("heading", { name: "Profile settings", exact: true }),

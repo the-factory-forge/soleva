@@ -1,15 +1,32 @@
-import "@tanstack/react-start/server-only";
+import { randomBytes, randomUUID } from "node:crypto";
+
+import { and, eq, like } from "drizzle-orm";
 import { ENV } from "varlock/env";
 
+import { db } from "#/intranet/db";
+import "@tanstack/react-start/server-only";
+
+import { user as userTable, verification } from "#/intranet/db/schema";
 import { localeFromPathname } from "#/lib/i18n/pathname";
 
 interface AuthEmail {
-  user: { email: string };
+  user: { id: string; email: string };
   url: string;
 }
 
 export function sendVerificationEmail(data: AuthEmail) {
-  return sendAuthEmail(data, "employees.verificationSubject", "employees.verificationBody");
+  const link = new URL(data.url);
+  const previous = link.searchParams.get("callbackURL") ?? "/";
+  const locale = localeFromPathname(new URL(previous, ENV.VITE_BASE_URL).pathname);
+  const callback = new URL(`/${locale}/login`, ENV.VITE_BASE_URL);
+  callback.searchParams.set("email", data.user.email);
+  callback.searchParams.set("verified", "success");
+  link.searchParams.set("callbackURL", callback.toString());
+  return sendAuthEmail(
+    { ...data, url: link.toString() },
+    "employees.verificationSubject",
+    "employees.verificationBody",
+  );
 }
 
 export async function sendPasswordResetEmail(data: AuthEmail) {
@@ -19,6 +36,39 @@ export async function sendPasswordResetEmail(data: AuthEmail) {
     // Keep the same public response for unknown accounts and delivery failures.
     console.error("Password reset email delivery failed.");
   }
+}
+
+export async function sendEmployeeInvitation(user: AuthEmail["user"], invitationURL: string) {
+  const token = randomBytes(32).toString("base64url");
+  await db.transaction(async (transaction) => {
+    const [current] = await transaction
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, user.id))
+      .for("update")
+      .limit(1);
+    if (!current || current.email !== user.email || current.banned || !current.mustChangePassword)
+      throw new Error("This account cannot be invited.");
+    await transaction
+      .delete(verification)
+      .where(
+        and(eq(verification.value, user.id), like(verification.identifier, "reset-password:%")),
+      );
+    await transaction.insert(verification).values({
+      id: randomUUID(),
+      identifier: `reset-password:${token}`,
+      value: user.id,
+      expiresAt: new Date(Date.now() + 60 * 60 * 1000),
+    });
+  });
+  const url = new URL(`/api/auth/reset-password/${token}`, ENV.VITE_BASE_URL);
+  url.searchParams.set("callbackURL", invitationURL);
+  // Public recovery masks delivery failures; administrators need the actual outcome.
+  await sendAuthEmail(
+    { user, url: url.toString() },
+    "employees.invitationSubject",
+    "employees.invitationBody",
+  );
 }
 
 async function sendAuthEmail({ user, url }: AuthEmail, subjectKey: string, bodyKey: string) {

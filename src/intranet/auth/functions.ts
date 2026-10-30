@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
-import { eq } from "drizzle-orm";
+import { and, eq, gt } from "drizzle-orm";
 import { ENV } from "varlock/env";
 import { z } from "zod";
 
@@ -8,7 +8,7 @@ import { auth } from "#/intranet/auth/auth";
 import { authMiddleware, freshAuthMiddleware } from "#/intranet/auth/middleware";
 import { _getUser } from "#/intranet/auth/session";
 import { db } from "#/intranet/db";
-import { user as userTable } from "#/intranet/db/schema";
+import { user as userTable, verification } from "#/intranet/db/schema";
 
 /**
  * Public login capabilities, without exposing any credentials.
@@ -29,6 +29,25 @@ export const $getUser = createServerFn({ method: "GET" }).handler(async () => {
   const user = await _getUser();
   return user;
 });
+
+// Only an eligible, unexpired invitation token authorizes the recipient lookup.
+export const $getInvitationEmail = createServerFn({ method: "POST" })
+  .validator(z.object({ token: z.string().min(1).max(256) }))
+  .handler(async ({ data }) => {
+    const [recipient] = await db
+      .select({ email: userTable.email, banned: userTable.banned })
+      .from(verification)
+      .innerJoin(userTable, eq(userTable.id, verification.value))
+      .where(
+        and(
+          eq(verification.identifier, `reset-password:${data.token}`),
+          gt(verification.expiresAt, new Date()),
+          eq(userTable.mustChangePassword, true),
+        ),
+      )
+      .limit(1);
+    return recipient && !recipient.banned ? recipient.email : null;
+  });
 
 export const $updateProfile = createServerFn({ method: "POST" })
   .middleware([authMiddleware])

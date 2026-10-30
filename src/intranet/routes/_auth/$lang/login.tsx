@@ -1,5 +1,6 @@
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect, useNavigate, useRouter } from "@tanstack/react-router";
+import { z } from "zod";
 
 import { authClient } from "#/intranet/auth/auth-client";
 import { authQueryOptions, loginOptionsQueryOptions } from "#/intranet/auth/queries";
@@ -10,6 +11,11 @@ import { localeFromPathname } from "#/lib/i18n/pathname";
 import { SITE_NAME } from "#/lib/site/constants";
 
 export const Route = createFileRoute("/_auth/$lang/login")({
+  validateSearch: z.object({
+    email: z.email().optional().catch(undefined),
+    verified: z.literal("success").optional().catch(undefined),
+    error: z.string().optional().catch(undefined),
+  }),
   beforeLoad: async ({ context, location }) => {
     const user = await context.queryClient.query(authQueryOptions());
     if (user) {
@@ -35,6 +41,7 @@ export const Route = createFileRoute("/_auth/$lang/login")({
 
 function LoginPage() {
   const { locale } = Route.useLoaderData();
+  const { email, verified, error } = Route.useSearch();
   const dict = useDictionary(locale);
   const { data: options } = useSuspenseQuery(loginOptionsQueryOptions());
   const queryClient = useQueryClient();
@@ -43,6 +50,9 @@ function LoginPage() {
   return (
     <AuthScreen locale={locale} dict={dict} siteName={SITE_NAME}>
       <LoginForm
+        key={email ?? "login"}
+        defaultEmail={email}
+        verificationStatus={error ? "error" : verified}
         labels={dict.auth}
         forgotPasswordHref={`/${locale}/forgot-password`}
         onSignIn={async (credentials) => {
