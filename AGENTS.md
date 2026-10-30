@@ -1,151 +1,8 @@
-# Agent Guidelines
+# Agent guidelines
 
-## Product and design context
-
-Read [PRODUCT.md](PRODUCT.md) and [DESIGN.md](DESIGN.md) before product or UI work.
-They describe this customer's existing website. Impeccable uses the code-first
-workflow in `.impeccable/config.json`; preserve the site's identity, content,
-fonts, palette, assets and routes during refinements and template migrations.
-Update these records only when product or design decisions change. Do not copy
-Forge Template's product brief, default theme or sample page composition here.
-
-## Verified template updates
-
-Read [the tracking config](.sync-template/config.json) for this project's direct
-parent, verified baseline and intentional departures, and
-[the comparison report](.sync-template/report.html) for differences and history.
-Use the shared [sync-template skill](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md) from `forge-skills`.
-Resolve an available shared checkout or installed plugin; keep the procedure in
-that library and project decisions here. Preserve customer migrations and data.
-
-## Template foundation updates
-
-Reconcile compatible Forge toolchain and auth updates while honoring confirmed
-departures in `.sync-template/config.json`. Preserve customer content, styles,
-integrations and migration history. Public-only sites keep authentication absent.
-Read `../forge-spec/AGENTS.md` and its `the-forge`, `template-stack` and `site-template`
-specs before implementation. See `.sync-template/report.html#history` for this site's history.
-
-- Run `vpr dev` through Portless; keep the unique customer package name and use its printed URL.
-- Leave local `VITE_BASE_URL` overrides unset so `PORTLESS_URL` supplies the development origin.
-  Deployment still sets the confirmed public origin. Never read local env files;
-  validate with `vp exec varlock load --agent`.
-- Runtime tests keep port 3100. Direct checks use
-  `VITE_BASE_URL=http://localhost:3100 PORTLESS=0 vpr dev --port 3100 --strictPort`.
-  Never stop another site's server or proxy or occupy port 3000.
-- `ENV.SITE_NAME` is an infrastructure slug; public display-name constants stay customer-owned.
-
-## Provider-owned maintenance
-
-For template updates, follow [the template sync procedure](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md).
-For selected registry updates, use [sync-from-forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md).
-For dependency maintenance, use [update-dependencies](https://github.com/the-factory-forge/forge-skills/blob/main/skills/update-dependencies/SKILL.md).
-Read [.agents/copywriting.md](.agents/copywriting.md) before changing copy or translations.
-For filters and view state, read [ADR-0008](https://github.com/the-factory-forge/forge-spec/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md).
-
-## Essentials
-
-- Stack: TypeScript + React (TanStack Start), with Drizzle ORM, shadcn/ui, and Better Auth.
-- Use shadcn CLI (`vpr ui add <component>`) for adding new UI components & primitives.
-- Class merging: use `cn` from `src/lib/utils.ts` (the `cn` package).
-- Treat `.env.schema` as the environment source of truth. Import `ENV` from `varlock/env`; never read local secret-bearing env files. Validate with `vp exec varlock load --agent`.
-- Use `lucide-react` for UI icons (use `Icon` suffix, e.g. `import { Loader2Icon } from "lucide-react"`); for brand icons use `@icons-pack/react-simple-icons` (e.g. `SiGithub`).
-- Don't build after every little change. If `vpr lint` passes; assume changes work.
-- For running scripts, use `vpr`, which is a shorthand for `vp run`.
-
-## Session learnings (28.08.2026 - validated)
-
-- **Never put React components in loaderData**: the le-van services carry Lucide icons -> Seroval crashes on `Symbol(react.forward_ref)` and the page breaks. LoaderData must be POJO-serializable (reload services via `getServiceBySlug(slug)` in head + component).
-- **Positioned elements paint over static ones**: the hero <video> (static) was invisible under the poster <img> (`absolute inset-0`). For a media stack, make ALL layers positioned (the later sibling wins). CSS painting order, not DOM order.
-- **Video + Lighthouse**: any video that paints during a run becomes the LCP (Chrome counts video frames). The only reliable gate is a user gesture (scroll/tap) - simulated runs never gesture. Here the choice was made to accept the video LCP (autoplay, ~54-73 mobile score).
-- **Range support is mandatory for video**: the local nitro server answers 200 (full body) to Range requests - Chrome tolerates it, Safari/Firefox commonly refuse. Verify `Accept-Ranges: bytes` on the prod server (nginx/CDN).
-- **Dict in the RSC stream**: the L1 pattern (dict out of stream via useDictionary) was tried and REVERTED here - it caused a double hydration (empty dict render, then re-render after the dict chunk) costing TTI. The smaller dict + faster fetch made the inline stream cheaper. Validate per site (worked on cafe, not here).
-- **Lazy menu chunks on first open**: lang-switcher + mobile-nav mount on first click (fallback button opens them) - keeps Base UI out of the initial graph.
-- **Font preloads**: only 400 + 800 (body + LCP h1); 500/600/700 load on demand (font-display swap).
-
-## Topic-specific Guidelines
-
-- [Data flow](.agents/data-flow.md) - Routing, queries, mutations, and server boundaries
-- [Auth patterns](.agents/auth.md) - Route guards, middleware, auth utilities
-- [TypeScript conventions](.agents/typescript.md) - Casting rules, prefer type inference
-- [Workflow](.agents/workflow.md) - Workflow commands, validation approach
-- [Testing](.agents/testing.md) - Focused unit, integration, and production browser checks
-- [Database](.agents/database.md) - Schema and migration conventions
-- [Template sync](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md) - Preserve Soleva when updating its foundation
-
-<!-- intent-skills:start -->
-
-## Skill Loading
-
-Before editing files for a substantial task:
-
-- Run `vpx @tanstack/intent@latest list` from the workspace root to see available local skills.
-- If a listed skill matches the task, run `vpx @tanstack/intent@latest load <package>#<skill>` before changing files.
-- Use the loaded `SKILL.md` guidance while making the change.
-- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.
-- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
-
-<!-- intent-skills:end -->
-
-<!--VITE PLUS START-->
-
-# Using Vite+, the Unified Toolchain for the Web
-
-This project is using Vite+, a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task. Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`. Vite+ is distinct from Vite, and it invokes Vite through `vp dev` and `vp build`. Run `vp help` to print a list of commands and `vp <command> --help` for information about a specific command.
-
-Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.dev/guide/.
-
-## Built-in Commands vs Scripts
-
-`vp <name>` runs a built-in command. `vp run <name>` runs a `package.json` script or a `vite.config.ts` task. Scripts cannot overwrite built-ins, so `vp dev` and `vp run dev` may do different things. Check `package.json` and `vite.config.ts` first, and run `vp run <name>` when the project defines a script or task with that name.
-
-## Tool Versions
-
-Run `vp toolchain` to show versions and relationships in the active Vite+
-release. Add a tool name to select part of the graph. For example, run
-`vp toolchain vite`. Use `--global` to ignore the local `vite-plus` package. Use
-`vp why <package>` to show the package-manager dependency graph.
-
-## Review Checklist
-
-- [ ] Run `vp install` after pulling remote changes and before getting started.
-- [ ] Run `vp check` and `vp test` to format, lint, type check and test changes.
-- [ ] Check if there are `vite.config.ts` tasks or `package.json` scripts necessary for validation, run via `vp run <script>`.
-- [ ] If setup, runtime, or package-manager behavior looks wrong, run `vp env doctor` and include its output when asking for help.
-
-<!--VITE PLUS END-->
-
-## Database convention
-
-One Postgres service, one database per site: databases are named `factory_<site>`
-(e.g. `factory_soleva`), each owned by a role `factory_<site>`. A site's
-`DATABASE_URL` always points to its own database - never share a database
-between sites. See README.md "Database" for the full pattern.
-
-## TanStack Query patterns
-
-TanStack Query is the data layer (same approach as tc-website). The QueryClient
-is created in `src/router.tsx` with `setupRouterSsrQueryIntegration` - loaders
-share it via `context.queryClient`, components via hooks.
-
-Rules:
-
-- **queryOptions factory per domain**: one `src/lib/<domain>/queries.ts` exporting
-  `queryOptions` factories (e.g. `authQueryOptions()` in `src/intranet/auth/queries.ts`).
-  Server data comes from server functions (`src/lib/<domain>/functions.ts`).
-- **Read navigation-critical data in loaders** (SSR + client): `await context.queryClient.query(options())`.
-- **Read in components**: `useQuery` / `useSuspenseQuery` with the same options object
-  (dedupes against the loader prefetch - same queryKey).
-- **Invalidate after mutations**: set the query data (or invalidate) then
-  `router.invalidate()` to re-run loaders (see `sign-out-button.tsx`).
-- Never fetch data in components directly - always through the domain queries file.
-
-## Auth routes are localized
-
-The shared intranet lives under `src/intranet`: `/{locale}/login`, password recovery
-and `/{locale}/intranet`. Public signup is disabled; administrators manage employees.
-The public footer links to the intranet only when configured. Preserve Soleva's
-light-only public shell and inline dictionaries; use the template auth/session flow.
+This is a customer website. Read [README.md](README.md) for setup; use this
+project's scripts and configuration. Preserve local rules and recorded departures
+when consulting provider guidance.
 
 ## Template adaptations to preserve
 
@@ -164,3 +21,81 @@ intranet through its documented boundary; empty credentials no longer disable it
 Authentication entry is in the localized footer, with no header login button.
 Production uses Varlock `init-only` injection; retain dynamic mail/OAuth/storage
 fields and site-owned modules. Never run deployment migrations as a test.
+
+## Product and design context
+
+Before product/UI work, read [PRODUCT.md](PRODUCT.md), [DESIGN.md](DESIGN.md) and
+`.impeccable/config.json`. Keep the customer's identity, content, fonts, palette,
+assets and routes; update these records only for intentional product/design changes.
+The inherited Impeccable workflow is code-first. Keep the customer's chosen workflow.
+
+## Shared Forge specifications
+
+Resolve the actual `forge-specs` (sometimes named `forge-spec`), `forge-template`,
+`forge-registry` and `forge-skills` checkouts from the workspace or Git remotes.
+Use the canonical links when a checkout is unavailable; report inaccessible context.
+Read [the shared entrypoint](https://github.com/the-factory-forge/forge-specs/blob/main/AGENTS.md) and its task-specific contracts before implementation.
+Template stack, application and website-creation specs belong to
+[forge-template](https://github.com/the-factory-forge/forge-template/blob/main/openspec/specs/); plugin behavior belongs to
+[forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/openspec/specs/). Only contracts constraining both
+providers belong to `forge-specs`. Keep customer specs and decisions in the site.
+References provide context; they do not authorize unrelated changes or deployments.
+
+## Shared color contract
+
+For UI/CSS/Tailwind changes, read [Shared UI](https://github.com/the-factory-forge/forge-specs/blob/main/openspec/specs/shared-ui/spec.md).
+Preserve the site's palette, typography and theme choices; shared token names stay stable.
+
+## Essentials
+
+Before application edits, read the application conventions linked below. Use
+`vpr` (`vp run`) for project scripts. Keep local secret-bearing env files unread;
+use the project's schema and sanitized validation. Preserve existing data and migrations.
+
+## Task guides
+
+Read the applicable sections before editing. Resolve provider links to local
+checkouts when available; keep site-specific integration and design choices local.
+
+| Task                                                    | Read                                                                                                                                                |
+| ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Development server, local origins or runtime test ports | [Local runtime](docs/agent-reference.md#local-runtime)                                                                                              |
+| Application code, environment or local servers          | [Application conventions](docs/agent-reference.md#application-conventions)                                                                          |
+| Video, dictionaries, fonts or lazy navigation           | [Measured site behavior](docs/agent-reference.md#measured-site-behavior)                                                                            |
+| Database configuration, hosting or migrations           | [Database](docs/agent-reference.md#database)                                                                                                        |
+| Queries, loaders, cache updates or mutations            | [Query layout](docs/agent-reference.md#query-layout)                                                                                                |
+| Auth routes, redirects or login navigation              | [Localized auth](docs/agent-reference.md#localized-auth)                                                                                            |
+| Public copy, UI messages, translations or metadata      | [Copywriting](.agents/copywriting.md)                                                                                                               |
+| Routing, server boundaries, queries or mutations        | [Data flow](.agents/data-flow.md)                                                                                                                   |
+| Authentication, middleware or route guards              | [Auth](.agents/auth.md)                                                                                                                             |
+| Server logs or request errors                           | [Observability](.agents/observability.md)                                                                                                           |
+| Schema definitions or migrations                        | [Database conventions](.agents/database.md)                                                                                                         |
+| TypeScript changes                                      | [TypeScript](.agents/typescript.md)                                                                                                                 |
+| Commands and validation                                 | [Workflow](.agents/workflow.md)                                                                                                                     |
+| Test selection or test changes                          | [Testing](.agents/testing.md)                                                                                                                       |
+| Filters, search, sorting, pagination or calendar state  | [ADR-0008](https://github.com/the-factory-forge/forge-specs/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md)                        |
+| Vite+ commands, versions, setup or validation           | [Tooling](https://github.com/the-factory-forge/forge-template/blob/main/docs/agent-reference.md#tooling), local `package.json` and `vite.config.ts` |
+
+## Maintenance
+
+- Template updates: [sync-template](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md), using
+  [local tracking](.sync-template/config.json) and [history](.sync-template/report.html#history).
+  Preserve recorded departures, content, branding, configuration and migration history.
+- Registry adoption: [sync-from-forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md).
+  Promote requested upstream improvements with [sync-to-forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-to-forge-registry/SKILL.md).
+- Dependencies: [update-dependencies](https://github.com/the-factory-forge/forge-skills/blob/main/skills/update-dependencies/SKILL.md).
+  Keep procedures with their provider; use the actual checkout or installed plugin.
+
+<!-- intent-skills:start -->
+
+## Skill Loading
+
+Before editing files for a substantial task:
+
+- Run `vpx @tanstack/intent@latest list` from the workspace root to see available local skills.
+- If a listed skill matches the task, run `vpx @tanstack/intent@latest load <package>#<skill>` before changing files.
+- Use the loaded `SKILL.md` guidance while making the change.
+- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.
+- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
+
+<!-- intent-skills:end -->
