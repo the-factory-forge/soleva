@@ -11,7 +11,7 @@ when consulting provider guidance.
 - Preserve per-action Ads conversion labels, deferred consent loading, site-owned registry skips, and all four locales.
 - Keep `prepare` (Vite+ hooks and Varlock codegen). Docker installs with `--ignore-scripts`, includes `.env.schema`, and builds with `pnpm_config_ignore_scripts=true`. The entrypoint adds local executables to PATH before running Varlock. Keep the Vite integration in `init-only` mode: `resolved-env` overrides runtime auth/DB values with build-time values.
 - The September 2026 sync uses a fresh database baseline by explicit owner instruction. The owner resets local and VPS databases before applying it; never apply it over the previous schema. Subsequent releases preserve applied migrations.
-- Record template reconciliation decisions and verified revisions in `.sync-template/report.html#history`.
+- Record template reconciliation decisions and verified revisions in `.agents/configs/.sync-template/report.html#history`.
 
 ## Current intranet configuration
 
@@ -79,7 +79,7 @@ checkouts when available; keep site-specific integration and design choices loca
 ## Maintenance
 
 - Template updates: [sync-template](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md), using
-  [local tracking](.sync-template/config.json) and [history](.sync-template/report.html#history).
+  [local tracking](.agents/configs/.sync-template/config.json) and [history](.agents/configs/.sync-template/report.html#history).
   Preserve recorded departures, content, branding, configuration and migration history.
 - Registry adoption: [sync-from-forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md).
   Promote requested upstream improvements with [sync-to-forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-to-forge-registry/SKILL.md).

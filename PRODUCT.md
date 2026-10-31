@@ -37,4 +37,4 @@ Never submit real enquiries or emit production analytics during verification.
 
 No new audience, offer, visual identity or content changes are authorized by this migration.
 Confirm missing business facts when a future task needs them; do not fill gaps with template samples.
-Technical reconciliation and deployment actions are recorded in [the sync history](.sync-template/report.html#history).
+Technical reconciliation and deployment actions are recorded in [the sync history](.agents/configs/.sync-template/report.html#history).
