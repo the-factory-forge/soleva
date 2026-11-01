@@ -38,6 +38,12 @@ test("localized navigation, consent and brand survive the template update", asyn
       const cookies = page.getByRole("dialog", { name: "Cookies" });
       await expect(cookies).toBeVisible();
       expect(tags).toEqual([]);
+      await cookies.getByRole("button", { name: dict.nav.close, exact: true }).click();
+      await expect(cookies).toBeHidden();
+      expect(await page.evaluate(() => localStorage.getItem("soleva-cookie-consent"))).toBeNull();
+      expect(tags).toEqual([]);
+      await page.getByRole("button", { name: dict.footer.manage_cookies, exact: true }).click();
+      await expect(cookies).toBeVisible();
       await expect(cookies.getByRole("checkbox")).toHaveCount(0);
       await cookies.getByRole("button", { name: dict.cookies.customize, exact: true }).click();
       await cookies

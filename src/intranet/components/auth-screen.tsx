@@ -1,6 +1,7 @@
 import { useLocation } from "@tanstack/react-router";
 
 import { LanguageSwitcher } from "#/components/navigation/language-switcher";
+import { ActionToastProvider } from "#/intranet/components/forge/action-toast";
 import { AuthLayout } from "#/intranet/components/forge/plugins/auth/auth-layout";
 import { t, type Dictionary } from "#/lib/i18n";
 import { locales, localeNames, localeShort, type Locale } from "#/lib/i18n/config";
@@ -32,7 +33,7 @@ export function AuthScreen({ locale, dict, children, siteName }: AuthScreenProps
         />
       }
     >
-      {children}
+      <ActionToastProvider closeLabel={t(dict, "common.close")}>{children}</ActionToastProvider>
     </AuthLayout>
   );
 }

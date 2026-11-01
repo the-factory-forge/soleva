@@ -1,10 +1,19 @@
 "use client";
 
-import { useHydrated } from "@tanstack/react-router";
 import { LoaderCircleIcon, LogOutIcon } from "lucide-react";
-import { useRef, useState, type ComponentProps } from "react";
+import { useRef, useState, useSyncExternalStore, type ComponentProps } from "react";
 
 import { cn } from "#/intranet/forge/utils";
+
+const emptySubscribe = () => () => {};
+
+export function useHydrated() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+}
 
 /** Share one action across mutually exclusive controls, such as password and Google sign-in. */
 export function useAuthAction() {
@@ -12,7 +21,7 @@ export function useAuthAction() {
   const lock = useRef(false);
   const [status, setStatus] = useState<"idle" | "pending" | "success" | "error">("idle");
   async function run(action: () => Promise<void>) {
-    if (lock.current) return;
+    if (!hydrated || lock.current) return;
     lock.current = true;
     setStatus("pending");
     try {
@@ -39,7 +48,7 @@ export interface AuthControlProps extends Omit<ComponentProps<"button">, "childr
 }
 
 const buttonClass =
-  "inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 text-sm font-medium text-foreground hover:bg-muted outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4";
+  "inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 text-sm font-medium text-foreground hover:bg-muted outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 cursor-pointer disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed";
 
 // Monochrome Google mark follows the host's semantic foreground color.
 function GoogleIcon() {
@@ -59,11 +68,12 @@ export function GoogleSignInButton({
   className,
   ...props
 }: AuthControlProps) {
+  const hydrated = useHydrated();
   return (
     <button
       {...props}
       type="button"
-      disabled={disabled || pending}
+      disabled={!hydrated || disabled || pending}
       aria-busy={pending}
       className={cn(buttonClass, className)}
     >
@@ -82,11 +92,12 @@ export function SignOutButton({
   className,
   ...props
 }: AuthControlProps) {
+  const hydrated = useHydrated();
   return (
     <button
       {...props}
       type="button"
-      disabled={disabled || pending}
+      disabled={!hydrated || disabled || pending}
       aria-busy={pending}
       className={cn(buttonClass, className)}
     >

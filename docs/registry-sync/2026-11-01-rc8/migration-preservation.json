@@ -1,0 +1,22 @@
+[
+  {
+    "folder": "20260926103351_baseline",
+    "sqlSha256": "cdba9adb07118b0098989e30b27ca10c83e9e345698e3b7c373009bb8fcdda42",
+    "originalSnapshotVersion": "8",
+    "currentSnapshotVersion": "9",
+    "id": "5bdfb767-be8b-4875-b301-6a72cab86f76",
+    "prevIds": [
+      "00000000-0000-0000-0000-000000000000"
+    ]
+  },
+  {
+    "folder": "20261013131127_profile_security",
+    "sqlSha256": "7e65294d675db725d54b0118be910257c7496c20c81fdc54f02b605426c7bf52",
+    "originalSnapshotVersion": "8",
+    "currentSnapshotVersion": "9",
+    "id": "0a9c52f9-62a8-4328-8026-65b1df8e0d85",
+    "prevIds": [
+      "5bdfb767-be8b-4875-b301-6a72cab86f76"
+    ]
+  }
+]

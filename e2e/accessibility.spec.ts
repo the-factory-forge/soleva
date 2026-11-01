@@ -61,6 +61,10 @@ test("image preview keeps keyboard focus inside and restores it on Escape", asyn
   await page.keyboard.press("Shift+Tab");
   await page.keyboard.press("Tab");
   await expect(close).toBeFocused();
+  const tooltip = page.getByRole("tooltip", { name: "Close", exact: true });
+  await expect(tooltip).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(tooltip).toBeHidden();
   await page.keyboard.press("Escape");
   await expect(preview).toBeHidden();
   await expect(trigger).toBeFocused();

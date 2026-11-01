@@ -6,16 +6,16 @@
     "ref": "refs/heads/main"
   },
   "lastReconciled": {
-    "commit": "e43657ee3023805b9f7afb50fa39c28e980476e6",
-    "version": "v0.0.0-rc.2",
-    "date": "2026-10-13",
-    "evidence": "Historical project reconciliation in https://github.com/the-factory-forge/soleva/blob/6d7c83f1fbae9a429c83b318b76b5ec33c0ddcbc/docs/template-sync.md; source tag verified remotely on 2026-10-29. Project-specific changes and omissions retained; this migration does not re-run historical application tests."
+    "commit": "174808be9038b3d14a61634c86509f45074bbb94",
+    "version": "v0.0.0-rc.6",
+    "date": "2026-11-01",
+    "evidence": "Published annotated tag verified against remote main. Reconciled independently from RC2; Template stage passed lint, 13 unit/integration, 10 public browser and 22 intranet tests (one Google-only skip). After actual RC8 Registry install/review final checks passed 13 unit/integration, 10 public and all 23 intranet browser tests including fake Google. Customer design, migrations/data, four locales and custom integrations preserved. No deployment or customer DB access."
   },
   "lastCompared": {
-    "commit": "4b8ee3007a1ffe041a40f4838379961780e0cd7d",
-    "version": null,
-    "date": "2026-10-29",
-    "evidence": "Remote default branch verified with git ls-remote; comparison uses the exact committed source tree and the destination working tree.",
+    "commit": "174808be9038b3d14a61634c86509f45074bbb94",
+    "version": "v0.0.0-rc.6",
+    "date": "2026-11-01",
+    "evidence": "Canonical published RC6 tag and remote main verified by batch coordinator; exact committed provider tree compared with each host baseline and current working source.",
     "remoteVerified": true
   },
   "deviations": [
@@ -60,6 +60,22 @@
       "decision": "Keep the light-only Montserrat design, inline dictionary delivery, four intranet locales and employee integration. Preserve ongoing invitation work separately.",
       "reason": "Confirmed project behavior differs from the template defaults.",
       "evidence": "AGENTS.md records measured presentation/data-flow choices; current employee/auth source and dirty-tree inventory."
+    },
+    {
+      "area": "Safe startup, lazy public UI and installed Registry scope",
+      "paths": [
+        "docker-entrypoint.sh",
+        "src/intranet/",
+        "drizzle/",
+        "src/components/navigation/",
+        "src/components/layout/cookie-banner.tsx",
+        "src/components/layout/newsletter-dialog.tsx",
+        "vite.config.ts",
+        "components.json"
+      ],
+      "decision": "Keep existing database/migration SQL, light-only embedded customer Navbar and private login placement; use post-migration preflight, lazy public Base UI, deferred consent, disabled newsletter and only installed Auth/Employees plus public Registry scope.",
+      "reason": "Existing customer persistence and measured loading/UI decisions remain authoritative; historical reset advice must not become a current action.",
+      "evidence": "docs/registry-sync.md, retained source archive, migration SQL hashes, current host callers and separate Template/final test evidence."
     }
   ]
 }

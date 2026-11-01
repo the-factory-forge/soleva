@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "#/components/ui/accordion";
 import { SectionHeading } from "#/components/ui/section-heading";
 import { type SectionVariant, sectionVariantClasses } from "#/lib/section-variants";
 import { cn } from "#/lib/utils";
@@ -18,6 +24,8 @@ export interface FaqListProps {
   subtitle?: string;
   items: FaqItem[];
   allLabel?: string;
+  filterLabel?: string;
+  emptyMessage?: string;
   variant?: SectionVariant;
   className?: string;
 }
@@ -28,16 +36,25 @@ export function FaqList({
   subtitle,
   items,
   allLabel = "All",
+  filterLabel = "Filter questions",
+  emptyMessage = "No questions yet.",
   variant = "default",
   className,
 }: FaqListProps) {
   const categories = Array.from(new Set(items.map((f) => f.category).filter(Boolean))) as string[];
   const hasCategories = categories.length > 1;
   const [active, setActive] = useState<string | null>(null);
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openItem, setOpenItem] = useState("");
+  function selectCategory(category: string | null) {
+    setActive(category);
+    setOpenItem("");
+  }
 
   const colors = sectionVariantClasses[variant];
-  const filtered = active ? items.filter((f) => f.category === active) : items;
+  const activeCategory = hasCategories && categories.includes(active ?? "") ? active : null;
+  const filtered = items
+    .map((faq, index) => ({ faq, index }))
+    .filter(({ faq }) => !activeCategory || faq.category === activeCategory);
 
   return (
     <section
@@ -52,75 +69,61 @@ export function FaqList({
         <SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} variant={variant} />
 
         {hasCategories && (
-          <div className="mt-8 flex flex-wrap justify-center gap-2">
-            <button
-              type="button"
-              onClick={() => setActive(null)}
-              className={cn(
-                "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                active === null
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80",
-              )}
-            >
-              {allLabel}
-            </button>
-            {categories.map((cat) => (
+          <fieldset className="mt-8 min-w-0">
+            <legend className="sr-only">{filterLabel}</legend>
+            <div className="flex justify-center-safe gap-2 overflow-x-auto p-1">
               <button
-                key={cat}
                 type="button"
-                onClick={() => setActive(cat)}
+                onClick={() => selectCategory(null)}
+                aria-pressed={activeCategory === null}
                 className={cn(
-                  "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  active === cat
+                  "shrink-0 cursor-pointer rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed",
+                  activeCategory === null
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground hover:bg-muted/80",
                 )}
               >
-                {cat}
+                {allLabel}
               </button>
-            ))}
-          </div>
-        )}
-
-        <div className="mx-auto mt-10 max-w-3xl divide-y divide-border">
-          {filtered.map((faq, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <div key={faq.question} className="py-4">
+              {categories.map((cat) => (
                 <button
+                  key={cat}
                   type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-expanded={isOpen}
-                >
-                  <span className="font-medium text-foreground">{faq.question}</span>
-                  <span
-                    className={cn(
-                      "shrink-0 text-xl transition-transform",
-                      isOpen ? "text-secondary" : "text-muted-foreground",
-                    )}
-                    aria-hidden="true"
-                  >
-                    {isOpen ? "−" : "+"}
-                  </span>
-                </button>
-                <div
+                  onClick={() => selectCategory(cat)}
+                  aria-pressed={activeCategory === cat}
                   className={cn(
-                    "grid transition-[grid-template-rows] duration-300 ease-in-out",
-                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                    "shrink-0 cursor-pointer rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed",
+                    activeCategory === cat
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80",
                   )}
                 >
-                  <div className="overflow-hidden">
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      {faq.answer}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        )}
+
+        <Accordion
+          className="mt-10"
+          value={openItem}
+          onValueChange={(value) => setOpenItem(typeof value === "string" ? value : "")}
+        >
+          {filtered.map(({ faq, index }) => (
+            <AccordionItem key={index} value={String(index)} className={colors.cardBorder}>
+              <AccordionTrigger className={cn("text-base", colors.heading)}>
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent keepMounted className={colors.body}>
+                <p className="leading-relaxed">{faq.answer}</p>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+          {items.length === 0 && (
+            <p className={cn("text-center text-sm", colors.body)}>{emptyMessage}</p>
+          )}
+        </Accordion>
       </div>
     </section>
   );

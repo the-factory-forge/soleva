@@ -1,4 +1,4 @@
-import { Breadcrumb, type Crumb } from "#/components/ui/breadcrumb";
+import { Breadcrumb, type Crumb, type BreadcrumbProps } from "#/components/ui/breadcrumb";
 import { Image } from "#/components/ui/image";
 import { cn } from "#/lib/utils";
 
@@ -9,6 +9,9 @@ export interface PageHeroProps {
   backgroundImage?: string;
   overlayClass?: string;
   homeLabel: string;
+  homeHref?: string;
+  breadcrumbLabel?: string;
+  linkComponent?: BreadcrumbProps["linkComponent"];
   breadcrumbs: Crumb[];
   className?: string;
 }
@@ -20,6 +23,9 @@ export function PageHero({
   backgroundImage,
   overlayClass,
   homeLabel,
+  homeHref,
+  breadcrumbLabel,
+  linkComponent,
   breadcrumbs,
   className,
 }: PageHeroProps) {
@@ -45,6 +51,9 @@ export function PageHero({
       <div className="relative z-10">
         <Breadcrumb
           homeLabel={homeLabel}
+          homeHref={homeHref}
+          label={breadcrumbLabel}
+          linkComponent={linkComponent}
           items={breadcrumbs}
           className={
             hasImage

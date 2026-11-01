@@ -3,6 +3,7 @@
 import { LogOutIcon, RefreshCwIcon } from "lucide-react";
 import { useRef, useState, type ReactNode } from "react";
 
+import { useLoadingActivity } from "#/intranet/components/forge/loading-indicator";
 import {
   securityLabels,
   type SecurityLabels,
@@ -61,6 +62,7 @@ export function AccountSecurity({
   locale,
   className,
 }: AccountSecurityProps) {
+  useLoadingActivity(loading);
   const labels = { ...securityLabels, ...overrides };
   const passwords = { ...passwordLabels, ...passwordOverrides };
   const [reset, setReset] = useState<"idle" | "pending" | "success" | "error">("idle");

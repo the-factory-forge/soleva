@@ -191,7 +191,7 @@ function SupportPage() {
 
       <section className="bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
-          <SectionHeading inverted title={cf.title} subtitle={cf.body} />
+          <SectionHeading variant="secondary" title={cf.title} subtitle={cf.body} />
           <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
             {[
               { label: cf.raised, value: KEY_FIGURES.crowdfundingAmount },

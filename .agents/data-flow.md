@@ -53,7 +53,7 @@ Treat non-blocking route warming as a limited performance budget. Use it only wh
 
 The component hook still owns pending, error, and rendered states. A warming failure must not fail navigation; the hook may retry according to its normal policy.
 
-`beforeLoad` is primarily for data that affects routing, such as an auth redirect. If the rare warming exception above must begin there, kick off the query without awaiting it. `beforeLoad` runs serially before matched loaders, while loaders can run in parallel. Follow `src/routes/_auth/$lang/app/route.tsx` for the protected-layout pattern; keep cached user data in Query rather than Router context.
+`beforeLoad` is primarily for data that affects routing, such as an auth redirect. If the rare warming exception above must begin there, kick off the query without awaiting it. `beforeLoad` runs serially before matched loaders, while loaders can run in parallel. Follow `src/intranet/routes/_auth/$lang/app/route.tsx` for the protected-layout pattern; keep cached user data in Query rather than Router context.
 
 Route loaders are isomorphic. Keep database, filesystem, secrets, and other server-only work behind a Start server function, and forward the Query `signal` to it.
 
@@ -101,6 +101,17 @@ This is the `queryClient.query` equivalent of the deprecated `ensureQueryData({ 
 
 Never use cached route data as a security decision. Authorization and destructive-operation checks belong in the server function or its middleware.
 
+## URL-owned filters and view state
+
+Follow [ADR-0008](https://github.com/the-factory-forge/forge-specs/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md)
+when adding or changing filterable pages.
+
+- Define `validateSearch` on the host route with defaults and invalid-value fallbacks. Read it through `Route.useSearch()` or `getRouteApi()`.
+- Pass validated values and change callbacks to installed UI. Use router navigation with a functional `search` update, `hash: true` and `resetScroll: false` to preserve unrelated state.
+- Remove a cleared filter with `undefined`. Use history entries for discrete selections; use `replace: true` for live typing when needed. Restore from the URL without pushing it back into history.
+- Include filter inputs in domain query keys and only the search values a loader uses in `loaderDeps`.
+- Check controls and results after reload, direct links, Back/Forward, cleared filters and invalid parameters.
+
 ## Mutations
 
 - Use `useMutation` with Start server functions. Prefer one round trip: return canonical affected data and write it to every exact cache that can be updated safely instead of issuing a follow-up read.
@@ -116,14 +127,3 @@ Never use cached route data as a security decision. Authorization and destructiv
 - Guard server-only logic with a server-function handler, `createServerOnlyFn`, a `*.server.*` file, or `import "@tanstack/react-start/server-only";`.
 - Read secrets and server environment variables inside a per-request server boundary, never in a loader or at isomorphic module scope.
 - Do not use relative `fetch("/api/...")` calls in isomorphic loaders. Call a Start server function, or construct an absolute URL inside an explicit server boundary when the HTTP boundary is required.
-
-## URL-owned filters and view state
-
-Follow [ADR-0008](https://github.com/the-factory-forge/forge-spec/blob/main/concepts/adr/0008-url-owned-filters-and-view-state.md)
-when adding or changing filterable pages.
-
-- Define `validateSearch` on the host route with defaults and invalid-value fallbacks. Read it through `Route.useSearch()` or `getRouteApi()`.
-- Pass validated values and change callbacks to installed UI. Use router navigation with a functional `search` update, `hash: true` and `resetScroll: false` to preserve unrelated state.
-- Remove a cleared filter with `undefined`. Use history entries for discrete selections; use `replace: true` for live typing when needed. Restore from the URL without pushing it back into history.
-- Include filter inputs in domain query keys and only the search values a loader uses in `loaderDeps`.
-- Check controls and results after reload, direct links, Back/Forward, cleared filters and invalid parameters.

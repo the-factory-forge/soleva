@@ -2,8 +2,8 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { $listEmployees } from "./functions";
 
-export const employeesQueryOptions = (offset = 0) =>
+export const employeesQueryOptions = (offset = 0, search = "") =>
   queryOptions({
-    queryKey: ["employees", offset],
-    queryFn: ({ signal }) => $listEmployees({ data: { offset }, signal }),
+    queryKey: ["employees", offset, search],
+    queryFn: ({ signal }) => $listEmployees({ data: { offset, search }, signal }),
   });

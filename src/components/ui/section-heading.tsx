@@ -8,8 +8,6 @@ export interface SectionHeadingProps {
   align?: "center" | "left";
   as?: "h1" | "h2" | "h3";
   variant?: SectionVariant;
-  /** @deprecated Use variant="secondary" instead */
-  inverted?: boolean;
   className?: string;
 }
 
@@ -19,11 +17,9 @@ export function SectionHeading({
   subtitle,
   align = "center",
   as: Tag = "h2",
-  variant: variantProp,
-  inverted = false,
+  variant = "default",
   className,
 }: SectionHeadingProps) {
-  const variant = variantProp ?? (inverted ? "secondary" : "default");
   const colors = sectionVariantClasses[variant];
   const isDark = variant === "primary" || variant === "secondary";
 

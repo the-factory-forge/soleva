@@ -16,7 +16,7 @@ const sql = postgres(testDatabaseURL, { max: 1 });
 
 async function login(page: Page, email: string, value = password) {
   await page.goto("/en/login");
-  await page.getByLabel("Email", { exact: true }).fill(email);
+  await page.getByRole("textbox", { name: "Email", exact: true }).fill(email);
   await page.getByLabel("Password", { exact: true }).fill(value);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
 }
@@ -51,7 +51,7 @@ test("login is localized and public registration is disabled", async ({ page, re
   expect(list.status()).toBe(401);
 });
 
-test("admins add employees; onboarding and disabling access are enforced", async ({
+test("admins invite employees; onboarding and disabling access are enforced", async ({
   page,
   browser,
   baseURL,
@@ -64,10 +64,10 @@ test("admins add employees; onboarding and disabling access are enforced", async
   await expect(page.getByRole("table")).toBeVisible();
   await page.goto("/en/intranet/employees/new");
   await expect(page).toHaveURL(/\/en\/intranet\/employees\/?$/);
-  const create = page.getByRole("button", { name: "Create User", exact: true });
+  const create = page.getByRole("button", { name: "Invite user", exact: true });
   await create.click();
   await page
-    .getByRole("dialog", { name: "Create User", exact: true })
+    .getByRole("dialog", { name: "Invite user", exact: true })
     .getByRole("button", { name: "Cancel", exact: true })
     .click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
@@ -76,27 +76,25 @@ test("admins add employees; onboarding and disabling access are enforced", async
   for (const role of ["user", "admin"]) {
     const email = `${role}-employee-${id}@example.test`;
     const name = `New ${role}`;
-    await page.getByRole("button", { name: "Create User", exact: true }).click();
-    await page.getByLabel("Name", { exact: true }).fill(name);
-    await page.getByLabel("Email", { exact: true }).fill(email);
-    await page.getByLabel("Temporary password").fill(password);
+    await page.getByRole("button", { name: "Invite user", exact: true }).click();
+    await page.getByRole("textbox", { name: "Name", exact: true }).fill(name);
+    await page.getByRole("textbox", { name: "Email", exact: true }).fill(email);
     if (role === "user") {
-      const creation = page.getByRole("dialog", { name: "Create User", exact: true });
-      await creation.getByLabel("Email", { exact: true }).fill(adminEmail);
-      await creation.getByRole("button", { name: "Create User", exact: true }).click();
+      const creation = page.getByRole("dialog", { name: "Invite user", exact: true });
+      await creation.getByRole("textbox", { name: "Email", exact: true }).fill(adminEmail);
+      await creation.getByRole("button", { name: "Send invitation", exact: true }).click();
       await expect(creation.getByRole("alert")).toContainText("Could not add this employee.");
-      await expect(creation.getByLabel("Name", { exact: true })).toHaveValue(name);
-      await expect(creation.getByLabel("Temporary password")).toHaveValue(password);
-      await creation.getByLabel("Email", { exact: true }).fill(email);
+      await expect(creation.getByRole("textbox", { name: "Name", exact: true })).toHaveValue(name);
+      await creation.getByRole("textbox", { name: "Email", exact: true }).fill(email);
     }
     // The ordinary employee role is selected without any extra action.
     await expect(page.getByLabel("Role", { exact: true })).toHaveValue("user");
     if (role === "admin") await page.getByLabel("Role", { exact: true }).selectOption("admin");
     await page
-      .getByRole("dialog", { name: "Create User", exact: true })
-      .getByRole("button", { name: "Create User", exact: true })
+      .getByRole("dialog", { name: "Invite user", exact: true })
+      .getByRole("button", { name: "Send invitation", exact: true })
       .click();
-    await expect(page.getByRole("dialog", { name: "Create User", exact: true })).toHaveCount(0);
+    await expect(page.getByRole("dialog", { name: "Invite user", exact: true })).toHaveCount(0);
     const row = page.getByRole("row").filter({ hasText: email });
     await expect(row).toBeVisible();
     await expect(
@@ -111,17 +109,38 @@ test("admins add employees; onboarding and disabling access are enforced", async
       },
     });
     const employeePage = await employee.newPage();
-    await login(employeePage, email);
-    await expect(employeePage).toHaveURL(/\/en\/change-password$/);
-    // Even a newly created admin cannot bypass onboarding through the native API.
-    expect((await employee.request.get("/api/auth/admin/list-users")).status()).toBe(403);
-    await employeePage.getByLabel("Current password", { exact: true }).fill(password);
+    const message: { text: string } = JSON.parse(
+      await readFile(
+        `.cache/e2e-emails/${createHash("sha256").update(email).digest("hex")}.json`,
+        "utf8",
+      ),
+    );
+    const invitationURL = message.text.match(
+      /https?:\/\/[^\s]*\/api\/auth\/reset-password\/[^\s]+/,
+    )![0];
+    const [invited] = await sql`select id from "user" where email = ${email}`;
+    expect(await sql`select id from account where user_id = ${invited.id}`).toHaveLength(0);
+    expect((await employee.request.get("/api/auth/admin/list-users")).status()).toBe(401);
+    await employeePage.goto(invitationURL);
+    await expect(employeePage.locator('input[type="password"]')).toHaveCount(1);
     await employeePage.getByLabel("New password", { exact: true }).fill(newPassword);
-    await employeePage.getByLabel("Confirm password", { exact: true }).fill(newPassword);
-    await employeePage.getByRole("button", { name: "Change password", exact: true }).click();
+    await employeePage.getByRole("button", { name: "Activate account", exact: true }).click();
     await expect(employeePage).toHaveURL(/\/en\/intranet\/?$/);
+    await expect
+      .poll(
+        async () =>
+          (await sql`SELECT must_change_password FROM "user" WHERE email = ${email}`)[0]
+            ?.must_change_password,
+      )
+      .toBe(false);
     await employeePage.reload();
     await expect(employeePage).toHaveURL(/\/en\/intranet\/?$/);
+
+    expect((await (await employee.request.get("/api/auth/get-session")).json()).user).toMatchObject(
+      { id: invited.id, emailVerified: true },
+    );
+    await page.reload();
+    await expect(row.getByRole("button", { name: "Email verified", exact: true })).toBeVisible();
 
     const list = await employee.request.get("/api/auth/admin/list-users");
     expect(list.status()).toBe(role === "admin" ? 200 : 403);
@@ -186,8 +205,8 @@ test("admins edit, verify and delete users without losing verification on unrela
   await expect(page).toHaveURL(/\/en\/intranet\/?$/);
   await page.goto("/en/intranet/employees");
   const self = page.getByRole("row").filter({ hasText: adminEmail });
-  await expect(self.getByRole("img", { name: "Email verified", exact: true })).toBeVisible();
-  await expect(self.getByRole("button", { name: "Delete Test administrator" })).toHaveCount(0);
+  await expect(self.getByRole("button", { name: "Email verified", exact: true })).toBeVisible();
+  await expect(self.getByRole("button", { name: "Delete Test administrator" })).toBeDisabled();
   await self.getByRole("button", { name: "Edit Test administrator", exact: true }).click();
   await expect(
     page
@@ -196,19 +215,12 @@ test("admins edit, verify and delete users without losing verification on unrela
   ).toBeDisabled();
   await page.getByRole("button", { name: "Cancel", exact: true }).click();
 
-  const create = page.getByRole("button", { name: "Create User", exact: true });
-  await expect(create.locator("svg")).toBeVisible();
-  await create.click();
-  await page.getByLabel("Name", { exact: true }).fill("Managed user");
-  await page.getByLabel("Email", { exact: true }).fill(`delivery-failure-${id}@example.test`);
-  await page.getByLabel("Temporary password").fill(password);
-  await page
-    .getByRole("dialog", { name: "Create User", exact: true })
-    .getByRole("button", { name: "Create User", exact: true })
-    .click();
-  await expect(page.getByRole("dialog", { name: "Create User", exact: true })).toHaveCount(0);
+  const managedId = randomUUID();
+  await sql`insert into "user" (id, name, email, email_verified, role) values (${managedId}, 'Managed user', ${`delivery-failure-${id}@example.test`}, false, 'user')`;
+  await sql`insert into account (id, account_id, provider_id, user_id, password, updated_at) values (${randomUUID()}, ${managedId}, 'credential', ${managedId}, ${await hashPassword(password)}, now())`;
+  await page.reload();
   let row = page.getByRole("row").filter({ hasText: `delivery-failure-${id}@example.test` });
-  await expect(row.getByRole("img", { name: "Email not verified", exact: true })).toBeVisible();
+  await expect(row.getByRole("button", { name: "Email not verified", exact: true })).toBeVisible();
   await row.getByRole("button", { name: "Send verification email to Managed user" }).click();
   await expect(
     page.getByText("Could not send the email. Please try again.", { exact: true }),
@@ -216,8 +228,8 @@ test("admins edit, verify and delete users without losing verification on unrela
 
   await row.getByRole("button", { name: "Edit Managed user", exact: true }).click();
   let dialog = page.getByRole("dialog", { name: "Edit user", exact: true });
-  await dialog.getByLabel("Name", { exact: true }).fill("Updated user");
-  await dialog.getByLabel("Email", { exact: true }).fill(email);
+  await dialog.getByRole("textbox", { name: "Name", exact: true }).fill("Updated user");
+  await dialog.getByRole("textbox", { name: "Email", exact: true }).fill(email);
   await dialog.getByRole("button", { name: "Save changes" }).click();
   await expect(dialog).toHaveCount(0);
   await page.reload();
@@ -239,31 +251,39 @@ test("admins edit, verify and delete users without losing verification on unrela
   try {
     const recipientPage = await recipient.newPage();
     await recipientPage.goto(verificationURL);
-    await expect(recipientPage).toHaveURL(/\/en\/login$/);
+    await expect(recipientPage).toHaveURL(/\/en\/login\?/);
+    await expect(recipientPage.getByRole("textbox", { name: "Email", exact: true })).toHaveValue(
+      email,
+    );
+    await expect(
+      recipientPage.getByText("Your email address has been verified.", { exact: true }),
+    ).toBeVisible();
     await page.reload();
-    await expect(row.getByRole("img", { name: "Email verified", exact: true })).toBeVisible();
-    await expect(row.getByRole("button", { name: /Send verification email/ })).toHaveCount(0);
+    await expect(row.getByRole("button", { name: "Email verified", exact: true })).toBeVisible();
+    await expect(row.getByRole("button", { name: /Send verification email/ })).toBeDisabled();
 
     await row.getByRole("button", { name: "Edit Updated user", exact: true }).click();
     dialog = page.getByRole("dialog", { name: "Edit user", exact: true });
-    await dialog.getByLabel("Name", { exact: true }).fill("Renamed user");
+    await dialog.getByRole("textbox", { name: "Name", exact: true }).fill("Renamed user");
     await dialog.getByLabel("Role", { exact: true }).selectOption("admin");
     await dialog.getByRole("button", { name: "Save changes" }).click();
     await expect(dialog).toHaveCount(0);
     await expect(row.getByRole("cell", { name: "Admin", exact: true })).toBeVisible();
-    await expect(row.getByRole("img", { name: "Email verified", exact: true })).toBeVisible();
+    await expect(row.getByRole("button", { name: "Email verified", exact: true })).toBeVisible();
 
     await row.getByRole("button", { name: "Edit Renamed user", exact: true }).click();
     dialog = page.getByRole("dialog", { name: "Edit user", exact: true });
-    await dialog.getByLabel("Email", { exact: true }).fill(adminEmail);
+    await dialog.getByRole("textbox", { name: "Email", exact: true }).fill(adminEmail);
     await dialog.getByRole("button", { name: "Save changes" }).click();
     await expect(dialog.getByRole("alert")).toContainText("Could not save changes.");
-    await dialog.getByLabel("Email", { exact: true }).fill(changedEmail);
+    await dialog.getByRole("textbox", { name: "Email", exact: true }).fill(changedEmail);
     await dialog.getByLabel("Role", { exact: true }).selectOption("user");
     await dialog.getByRole("button", { name: "Save changes" }).click();
     await expect(dialog).toHaveCount(0);
     row = page.getByRole("row").filter({ hasText: changedEmail });
-    await expect(row.getByRole("img", { name: "Email not verified", exact: true })).toBeVisible();
+    await expect(
+      row.getByRole("button", { name: "Email not verified", exact: true }),
+    ).toBeVisible();
     await expect(row.getByRole("button", { name: /Send verification email/ })).toBeVisible();
 
     const signedIn = await recipient.request.post("/api/auth/sign-in/email", {
@@ -318,5 +338,94 @@ test("admins edit, verify and delete users without losing verification on unrela
   } finally {
     await recipient.close();
     await unlink(mailPath).catch(() => {});
+  }
+});
+
+test("directory search spans pages and bulk deletion retries only failed rows", async ({
+  page,
+  request,
+}) => {
+  const group = `sync-${id}`;
+  const records = Array.from({ length: 27 }, (_, index) => ({
+    id: randomUUID(),
+    name: `${group} ${String(index).padStart(2, "0")}`,
+    email: `sync-${index}-${id}@example.test`,
+    email_verified: true,
+    role: "user",
+  }));
+  await sql`insert into "user" ${sql(records)}`;
+  try {
+    await login(page, adminEmail);
+    await expect(page).toHaveURL(/\/en\/intranet\/?$/);
+    const directoryResponse = page.waitForResponse(
+      (response) =>
+        response.request().method() === "GET" &&
+        response.url().includes("/_serverFn/") &&
+        response.url().includes(group),
+    );
+    await page.goto(`/en/intranet/employees?q=${group}`);
+    const directory = await directoryResponse;
+    expect(
+      (
+        await request.get(directory.url(), {
+          headers: {
+            "x-tsr-serverFn": "true",
+            "sec-fetch-site": "same-origin",
+            origin: new URL(directory.url()).origin,
+          },
+        })
+      ).status(),
+    ).toBe(401);
+    await expect(page.getByRole("cell", { name: records[0].name, exact: true })).toBeVisible();
+    await expect(page.getByRole("cell", { name: records[26].name, exact: true })).toHaveCount(0);
+    await page.getByRole("button", { name: "Next", exact: true }).click();
+    await expect(page).toHaveURL(/offset=25/);
+    await page.reload();
+    await expect(page.getByRole("cell", { name: records[26].name, exact: true })).toBeVisible();
+    await page.goBack();
+    await expect(page.getByRole("cell", { name: records[0].name, exact: true })).toBeVisible();
+    await page.goForward();
+    await expect(page.getByRole("cell", { name: records[26].name, exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "Search employees", exact: true }).click();
+    const search = page.getByRole("searchbox", { name: "Search employees", exact: true });
+    await search.fill(records[26].email);
+    await expect(page).not.toHaveURL(/offset=/);
+    await expect(page.getByRole("cell", { name: records[26].name, exact: true })).toBeVisible();
+    await expect(page.getByRole("row")).toHaveCount(2);
+    await search.fill("%");
+    await expect(page.getByText("No employees match your search.", { exact: true })).toBeVisible();
+    await search.fill(group);
+    await expect(page.getByRole("cell", { name: records[0].name, exact: true })).toBeVisible();
+    for (const record of records.slice(0, 2))
+      await page.getByRole("checkbox", { name: `Select row: ${record.name}`, exact: true }).check();
+    const attempts: string[] = [];
+    let fail = true;
+    await page.route("**/_serverFn/**", async (route) => {
+      const request = route.request();
+      const record = records.slice(0, 2).find((row) => request.postData()?.includes(row.id));
+      if (request.method() === "POST" && record) {
+        attempts.push(record.id);
+        if (record.id === records[1].id && fail) {
+          fail = false;
+          await route.abort();
+          return;
+        }
+      }
+      await route.continue();
+    });
+    await page.getByRole("button", { name: "Delete selected items (2)", exact: true }).click();
+    const dialog = page.getByRole("dialog", { name: "Delete selected items?", exact: true });
+    await dialog.getByRole("button", { name: "Delete", exact: true }).click();
+    await expect(dialog.getByRole("alert")).toBeVisible();
+    expect(await sql`select id from "user" where id = ${records[0].id}`).toHaveLength(0);
+    expect(await sql`select id from "user" where id = ${records[1].id}`).toHaveLength(1);
+    await dialog.getByRole("button", { name: "Delete", exact: true }).click();
+    await expect(dialog).toHaveCount(0);
+    expect(attempts).toEqual([records[0].id, records[1].id, records[1].id]);
+    expect(
+      await sql`select id from "user" where id in ${sql(records.slice(0, 2).map((row) => row.id))}`,
+    ).toHaveLength(0);
+  } finally {
+    await sql`delete from "user" where id in ${sql(records.map((row) => row.id))}`;
   }
 });

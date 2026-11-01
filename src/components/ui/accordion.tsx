@@ -64,7 +64,7 @@ function AccordionTrigger({ className, children, ...props }: AccordionPrimitive.
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&[data-panel-open]>svg]:rotate-180",
+          "flex flex-1 cursor-pointer items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed data-disabled:cursor-not-allowed [&[data-panel-open]>svg]:rotate-180",
           className,
         )}
         {...props}
@@ -88,7 +88,7 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
     <AccordionPrimitive.Panel
       data-slot="accordion-content"
       className={cn(
-        "overflow-hidden text-sm data-closed:animate-[accordion-up_0.2s_ease-out] data-open:animate-[accordion-down_0.2s_ease-out]",
+        "overflow-hidden text-sm data-open:animate-[accordion-down_0.2s_ease-out] data-closed:animate-[accordion-up_0.2s_ease-out]",
         className,
       )}
       {...props}

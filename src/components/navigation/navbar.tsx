@@ -80,6 +80,7 @@ export function Navbar({
         onLight ? "text-foreground" : "text-white hover:bg-white/10 hover:text-white",
       )}
       aria-label={dict.nav.menu}
+      title={dict.nav.menu}
       onClick={() => setOpen(true)}
     >
       <MenuIcon className="h-6 w-6" aria-hidden="true" />

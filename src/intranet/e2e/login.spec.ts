@@ -49,6 +49,41 @@ test.beforeEach(async ({ context }) => {
   );
 });
 
+test("login waits for hydration before accepting credentials", async ({ page, context }) => {
+  await context.setExtraHTTPHeaders({ "x-forwarded-for": clientIP("192.0.2.23") });
+  let releaseScripts = () => {};
+  const scriptsReady = new Promise<void>((resolve) => {
+    releaseScripts = resolve;
+  });
+  await page.route("**/*", async (route) => {
+    if (route.request().resourceType() === "script") await scriptsReady;
+    await route.fallback();
+  });
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  try {
+    await page.goto("/en/login", { waitUntil: "commit" });
+    const form = page.locator("form");
+    const emailField = page.getByLabel("Email", { exact: true });
+    const passwordField = page.getByLabel("Password", { exact: true });
+    const submit = page.getByRole("button", { name: "Sign in", exact: true });
+    await expect(form).toHaveAttribute("method", "post");
+    await expect(emailField).toBeDisabled();
+    await expect(passwordField).toBeDisabled();
+    await expect(submit).toBeDisabled();
+    await submit.evaluate((button: HTMLButtonElement) => button.click());
+    await expect(page).toHaveURL(/\/en\/login$/);
+    releaseScripts();
+    await emailField.fill(email);
+    await passwordField.fill(password);
+    await submit.click();
+    await expect(page).toHaveURL(/\/en\/intranet\/?$/);
+    expect(errors).toEqual([]);
+  } finally {
+    releaseScripts();
+  }
+});
+
 test("login is responsive, accessible in all languages, and remembers a session only when requested", async ({
   page,
   context,
@@ -78,10 +113,10 @@ test("login is responsive, accessible in all languages, and remembers a session 
       "noindex, nofollow",
     );
     await expect(page.locator("#main-content")).toBeVisible();
-    const passwordField = page.locator("#password");
+    const passwordField = page.locator('input[name="password"]');
     await passwordField.focus();
     await passwordField.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
-    await expect(page.locator("#password-caps-lock svg")).toBeVisible();
+    await expect(page.locator('output[id$="-caps-lock"] svg')).toBeVisible();
     await expect(passwordField).toHaveAccessibleDescription(capsLockLabel);
     await page.setViewportSize({ width: 390, height: 844 });
     expect(
@@ -110,7 +145,7 @@ test("login is responsive, accessible in all languages, and remembers a session 
   await page.getByLabel("Email", { exact: true }).fill(email);
   const passwordInput = page.getByLabel("Password", { exact: true });
   await passwordInput.fill("Incorrect-password");
-  const capsLockIcon = page.locator("#password-caps-lock svg");
+  const capsLockIcon = page.locator('output[id$="-caps-lock"] svg');
   await passwordInput.dispatchEvent("keydown", { key: "A", shiftKey: true });
   await expect(capsLockIcon).toHaveCount(0);
   await passwordInput.dispatchEvent("keydown", { key: "CapsLock", modifierCapsLock: true });
@@ -135,7 +170,8 @@ test("login is responsive, accessible in all languages, and remembers a session 
   await passwordInput.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
   await expect(passwordInput).toHaveAccessibleDescription(/Unable to sign in.*Caps Lock is on/);
   await expect(page).toHaveURL(/\/en\/login$/);
-  await expect(page.getByLabel("Remember me", { exact: true })).not.toBeChecked();
+  await expect(page.getByLabel("Remember me", { exact: true })).toBeChecked();
+  await page.getByLabel("Remember me", { exact: true }).uncheck();
   await passwordInput.fill(password);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(/\/en\/intranet\/?$/);
@@ -219,18 +255,20 @@ test("password recovery uses single-use expiring links, preserves locale and rev
   await page.getByRole("button", { name: /^Sprache/ }).click();
   await page.getByRole("menuitem", { name: "English", exact: true }).click();
   await page.getByLabel("New password", { exact: true }).fill(newPassword);
-  await page.getByLabel("Confirm password", { exact: true }).fill("Different-password");
-  await page.getByRole("button", { name: "Save new password", exact: true }).click();
-  await expect(page.getByRole("alert")).toContainText("Passwords do not match.");
-  await page.getByLabel("Confirm password", { exact: true }).fill(newPassword);
+  await expect(page.getByLabel("Current password", { exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Confirm password", { exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: "Show password", exact: true }).click();
+  await expect(page.getByLabel("New password", { exact: true })).toHaveAttribute("type", "text");
+  await expect(page.getByLabel("New password", { exact: true })).toHaveValue(newPassword);
+  await page.getByRole("button", { name: "Hide password", exact: true }).click();
   await page.getByRole("button", { name: "Save new password", exact: true }).click();
   await expect(
     page.getByRole("status").filter({ hasText: "Your password has been reset." }),
   ).toBeVisible();
   expect(await (await request.get("/api/auth/get-session", { headers })).json()).toBeNull();
-  expect(await sql`SELECT must_change_password FROM "user" WHERE id = ${resetId}`).toEqual([
-    { must_change_password: false },
-  ]);
+  expect(
+    await sql`SELECT must_change_password, email_verified FROM "user" WHERE id = ${resetId}`,
+  ).toEqual([{ must_change_password: false, email_verified: true }]);
   expect(await sql`SELECT id FROM verification WHERE identifier = ${identifier}`).toHaveLength(0);
   expect(
     (

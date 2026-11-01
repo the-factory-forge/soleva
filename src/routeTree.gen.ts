@@ -24,7 +24,6 @@ import { Route as SiteLangRouteImport } from './routes/_site/$lang'
 import { Route as ApiDataChar91DotChar93jsonRouteImport } from './routes/api/data[.]json'
 import { Route as AuthLangAccessDeniedRouteImport } from './intranet/routes/_auth/$lang/access-denied'
 import { Route as AuthLangAppRouteImport } from './intranet/routes/_auth/$lang/app'
-import { Route as AuthLangChangePasswordRouteImport } from './intranet/routes/_auth/$lang/change-password'
 import { Route as AuthLangForgotPasswordRouteImport } from './intranet/routes/_auth/$lang/forgot-password'
 import { Route as AuthLangIntranetRouteRouteImport } from './intranet/routes/_auth/$lang/intranet/route'
 import { Route as AuthLangLoginRouteImport } from './intranet/routes/_auth/$lang/login'
@@ -128,11 +127,6 @@ const AuthLangAccessDeniedRoute = AuthLangAccessDeniedRouteImport.update({
 const AuthLangAppRoute = AuthLangAppRouteImport.update({
   id: '/app',
   path: '/app',
-  getParentRoute: () => AuthLangRoute,
-} as any)
-const AuthLangChangePasswordRoute = AuthLangChangePasswordRouteImport.update({
-  id: '/change-password',
-  path: '/change-password',
   getParentRoute: () => AuthLangRoute,
 } as any)
 const AuthLangForgotPasswordRoute = AuthLangForgotPasswordRouteImport.update({
@@ -296,7 +290,6 @@ export interface FileRoutesByFullPath {
   '/$lang/intranet': typeof AuthLangIntranetRouteRouteWithChildren
   '/$lang/access-denied': typeof AuthLangAccessDeniedRoute
   '/$lang/app': typeof AuthLangAppRoute
-  '/$lang/change-password': typeof AuthLangChangePasswordRoute
   '/$lang/forgot-password': typeof AuthLangForgotPasswordRoute
   '/$lang/login': typeof AuthLangLoginRoute
   '/$lang/reset-password': typeof AuthLangResetPasswordRoute
@@ -338,7 +331,6 @@ export interface FileRoutesByTo {
   '/api/data.json': typeof ApiDataChar91DotChar93jsonRoute
   '/$lang/access-denied': typeof AuthLangAccessDeniedRoute
   '/$lang/app': typeof AuthLangAppRoute
-  '/$lang/change-password': typeof AuthLangChangePasswordRoute
   '/$lang/forgot-password': typeof AuthLangForgotPasswordRoute
   '/$lang/login': typeof AuthLangLoginRoute
   '/$lang/reset-password': typeof AuthLangResetPasswordRoute
@@ -385,7 +377,6 @@ export interface FileRoutesById {
   '/_auth/$lang/intranet': typeof AuthLangIntranetRouteRouteWithChildren
   '/_auth/$lang/access-denied': typeof AuthLangAccessDeniedRoute
   '/_auth/$lang/app': typeof AuthLangAppRoute
-  '/_auth/$lang/change-password': typeof AuthLangChangePasswordRoute
   '/_auth/$lang/forgot-password': typeof AuthLangForgotPasswordRoute
   '/_auth/$lang/login': typeof AuthLangLoginRoute
   '/_auth/$lang/reset-password': typeof AuthLangResetPasswordRoute
@@ -430,7 +421,6 @@ export interface FileRouteTypes {
     | '/$lang/intranet'
     | '/$lang/access-denied'
     | '/$lang/app'
-    | '/$lang/change-password'
     | '/$lang/forgot-password'
     | '/$lang/login'
     | '/$lang/reset-password'
@@ -472,7 +462,6 @@ export interface FileRouteTypes {
     | '/api/data.json'
     | '/$lang/access-denied'
     | '/$lang/app'
-    | '/$lang/change-password'
     | '/$lang/forgot-password'
     | '/$lang/login'
     | '/$lang/reset-password'
@@ -518,7 +507,6 @@ export interface FileRouteTypes {
     | '/_auth/$lang/intranet'
     | '/_auth/$lang/access-denied'
     | '/_auth/$lang/app'
-    | '/_auth/$lang/change-password'
     | '/_auth/$lang/forgot-password'
     | '/_auth/$lang/login'
     | '/_auth/$lang/reset-password'
@@ -666,13 +654,6 @@ declare module '@tanstack/react-router' {
       path: '/app'
       fullPath: '/$lang/app'
       preLoaderRoute: typeof AuthLangAppRouteImport
-      parentRoute: typeof AuthLangRoute
-    }
-    '/_auth/$lang/change-password': {
-      id: '/_auth/$lang/change-password'
-      path: '/change-password'
-      fullPath: '/$lang/change-password'
-      preLoaderRoute: typeof AuthLangChangePasswordRouteImport
       parentRoute: typeof AuthLangRoute
     }
     '/_auth/$lang/forgot-password': {
@@ -902,7 +883,6 @@ interface AuthLangRouteChildren {
   AuthLangIntranetRouteRoute: typeof AuthLangIntranetRouteRouteWithChildren
   AuthLangAccessDeniedRoute: typeof AuthLangAccessDeniedRoute
   AuthLangAppRoute: typeof AuthLangAppRoute
-  AuthLangChangePasswordRoute: typeof AuthLangChangePasswordRoute
   AuthLangForgotPasswordRoute: typeof AuthLangForgotPasswordRoute
   AuthLangLoginRoute: typeof AuthLangLoginRoute
   AuthLangResetPasswordRoute: typeof AuthLangResetPasswordRoute
@@ -912,7 +892,6 @@ const AuthLangRouteChildren: AuthLangRouteChildren = {
   AuthLangIntranetRouteRoute: AuthLangIntranetRouteRouteWithChildren,
   AuthLangAccessDeniedRoute: AuthLangAccessDeniedRoute,
   AuthLangAppRoute: AuthLangAppRoute,
-  AuthLangChangePasswordRoute: AuthLangChangePasswordRoute,
   AuthLangForgotPasswordRoute: AuthLangForgotPasswordRoute,
   AuthLangLoginRoute: AuthLangLoginRoute,
   AuthLangResetPasswordRoute: AuthLangResetPasswordRoute,

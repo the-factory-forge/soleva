@@ -49,6 +49,11 @@ test("profile settings saves the current user's name and changes their password"
 
   await expect(page.getByRole("link", { name: "Dashboard", exact: true })).toHaveCount(0);
   await expect(page.getByLabel("Email", { exact: true })).toHaveAttribute("readonly", "");
+  await page.getByLabel("Full name", { exact: true }).fill("Retained name draft");
+  await page.getByRole("tab", { name: "Security", exact: true }).click();
+  await expect(page).toHaveURL(/tab=security/);
+  await page.goBack();
+  await expect(page.getByLabel("Full name", { exact: true })).toHaveValue("Retained name draft");
 
   await page.getByLabel("Full name", { exact: true }).fill("  Updated profile  ");
   const savedResponse = page.waitForResponse(
@@ -77,18 +82,41 @@ test("profile settings saves the current user's name and changes their password"
   expect(anonymousSave.status()).toBe(401);
 
   await page.getByRole("tab", { name: "Security", exact: true }).click();
+  await expect(page.getByLabel("Confirm password", { exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Current password", { exact: true })).toHaveAttribute(
+    "required",
+    "",
+  );
+  expect(
+    await page
+      .getByLabel("Current password", { exact: true })
+      .evaluate((input: HTMLInputElement) => input.validity.valueMissing),
+  ).toBe(true);
   await page.getByLabel("Current password", { exact: true }).fill("Incorrect-password-123");
+  await page.getByRole("button", { name: "Show password", exact: true }).first().click();
+  await expect(page.getByLabel("Current password", { exact: true })).toHaveAttribute(
+    "type",
+    "text",
+  );
+  await expect(page.getByLabel("New password", { exact: true })).toHaveAttribute(
+    "type",
+    "password",
+  );
+  await page.getByRole("button", { name: "Hide password", exact: true }).click();
   await page.getByLabel("New password", { exact: true }).fill(replacementPassword);
-  await page.getByLabel("Confirm password", { exact: true }).fill(replacementPassword);
   await page.getByRole("button", { name: "Change password", exact: true }).click();
   await expect(
     page.getByText("Could not change the password. Check your current password."),
   ).toBeVisible();
+  await expect(page.getByLabel("Current password", { exact: true })).toHaveValue(
+    "Incorrect-password-123",
+  );
+  await expect(page.getByLabel("New password", { exact: true })).toHaveValue(replacementPassword);
   await page.getByLabel("Current password", { exact: true }).fill(password);
   await page.getByRole("button", { name: "Change password", exact: true }).click();
   await expect(page.getByText("Password changed successfully.")).toBeVisible();
   await expect(page.getByLabel("Current password", { exact: true })).toHaveValue("");
-  await expect(page).toHaveURL(/\/en\/intranet\/?$/);
+  await expect(page).toHaveURL(/\/en\/intranet\?tab=security$/);
 
   const login = await request.post("/api/auth/sign-in/email", {
     headers: { "x-forwarded-for": clientIP("192.0.2.6") },
@@ -121,14 +149,20 @@ test("employees can still replace their temporary password before entering profi
     await page.getByLabel("Email", { exact: true }).fill(employeeEmail);
     await page.getByLabel("Password", { exact: true }).fill(password);
     await page.getByRole("button", { name: "Sign in", exact: true }).click();
-    await expect(page).toHaveURL(/\/en\/change-password$/);
+    await expect(page).toHaveURL(/\/en\/intranet\/?$/);
     await page.getByLabel("Current password", { exact: true }).fill(password);
     await page.getByLabel("New password", { exact: true }).fill(replacementPassword);
-    await page.getByLabel("Confirm password", { exact: true }).fill(replacementPassword);
     await page.getByRole("button", { name: "Change password", exact: true }).click();
     await expect(
       page.getByRole("heading", { name: "Profile settings", exact: true }),
     ).toBeVisible();
+    await expect
+      .poll(
+        async () =>
+          (await sql`SELECT must_change_password FROM "user" WHERE id = ${employeeId}`)[0]
+            ?.must_change_password,
+      )
+      .toBe(false);
     await page.reload();
     await expect(page).toHaveURL(/\/en\/intranet\/?$/);
   } finally {

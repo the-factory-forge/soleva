@@ -1,6 +1,7 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
+import type { ComponentType } from "react";
 
-import { Link } from "#/components/ui/link";
+import { Link, type LinkProps } from "#/components/ui/link";
 import { cn } from "#/lib/utils";
 
 export interface Crumb {
@@ -10,15 +11,25 @@ export interface Crumb {
 
 export interface BreadcrumbProps {
   homeLabel: string;
+  homeHref?: string;
+  label?: string;
+  linkComponent?: ComponentType<LinkProps>;
   items: Crumb[];
   className?: string;
 }
 
-export function Breadcrumb({ homeLabel, items, className }: BreadcrumbProps) {
-  const all: Crumb[] = [{ label: homeLabel, href: "/" }, ...items];
+export function Breadcrumb({
+  homeLabel,
+  homeHref = "/",
+  label = "Breadcrumb",
+  linkComponent: LinkComponent = Link,
+  items,
+  className,
+}: BreadcrumbProps) {
+  const all: Crumb[] = [{ label: homeLabel, href: homeHref }, ...items];
 
   return (
-    <nav aria-label="Breadcrumb" className={cn("container-premium pt-24 md:pt-28", className)}>
+    <nav aria-label={label} className={cn("container-premium pt-24 md:pt-28", className)}>
       <ol className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
         {all.map((crumb, i) => {
           const isLast = i === all.length - 1;
@@ -30,10 +41,13 @@ export function Breadcrumb({ homeLabel, items, className }: BreadcrumbProps) {
                 </span>
               ) : (
                 <>
-                  <Link href={crumb.href} className="transition-colors hover:text-secondary">
+                  <LinkComponent
+                    href={crumb.href}
+                    className="rounded-sm transition-colors hover:text-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                  >
                     {crumb.label}
-                  </Link>
-                  <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                  </LinkComponent>
+                  <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
                 </>
               )}
             </li>

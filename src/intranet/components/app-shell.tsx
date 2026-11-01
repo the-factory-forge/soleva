@@ -5,7 +5,13 @@ import type { ReactNode } from "react";
 import { Navbar } from "#/components/navigation/navbar";
 import { useSignOut, type useAuth } from "#/intranet/auth/hooks";
 import { isAdmin } from "#/intranet/auth/permissions";
+import { ActionToastProvider } from "#/intranet/components/forge/action-toast";
 import { IntranetShell } from "#/intranet/components/forge/intranet/intranet-shell";
+import {
+  LoadingIndicator,
+  LoadingProvider,
+  useLoadingActivity,
+} from "#/intranet/components/forge/loading-indicator";
 import type {
   IntranetLinkProps,
   IntranetNavGroup,
@@ -28,8 +34,20 @@ interface AppShellProps {
 }
 
 /** Host integration for the shared registry shell. Add installed modules to the groups here. */
-export function AppShell({ siteName, locale, dict, user, controls, children }: AppShellProps) {
+export function AppShell(props: AppShellProps) {
+  return (
+    <LoadingProvider>
+      <ActionToastProvider closeLabel={t(props.dict, "common.close")}>
+        <AppShellContent {...props} />
+      </ActionToastProvider>
+    </LoadingProvider>
+  );
+}
+
+function AppShellContent({ siteName, locale, dict, user, children }: AppShellProps) {
   const signOut = useSignOut();
+  const loading = useRouterState({ select: (state) => state.isLoading });
+  useLoadingActivity(loading);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const groups: IntranetNavGroup[] = [
     {
@@ -65,7 +83,7 @@ export function AppShell({ siteName, locale, dict, user, controls, children }: A
       }}
       user={user}
       pathname={pathname}
-      groups={groups}
+      groups={user.mustChangePassword ? [] : groups}
       linkComponent={SidebarLink}
       profileHref={`/${locale}/intranet`}
       onSignOut={signOut}
@@ -84,7 +102,11 @@ export function AppShell({ siteName, locale, dict, user, controls, children }: A
       insetAs="div"
       wrapContent={false}
       renderTopbar={(toggle) => (
-        <div className="flex items-center gap-2 bg-background px-2 print:hidden">
+        <div className="relative flex items-center gap-2 bg-background px-2 print:hidden">
+          <LoadingIndicator
+            label={t(dict, "auth.loading")}
+            className="absolute top-auto bottom-0"
+          />
           {toggle}
           <div className="min-w-0 flex-1">
             <Navbar locale={locale} dict={dict} embedded />

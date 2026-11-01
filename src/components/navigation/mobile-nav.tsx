@@ -31,7 +31,7 @@ export function MobileNav({
 }: MobileNavProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-[300px] p-0">
+      <SheetContent closeLabel={dict.nav.close} side="right" className="w-[300px] p-0">
         <SheetTitle className="sr-only">{dict.nav.menu}</SheetTitle>
         <div className="flex max-h-[calc(100dvh-4rem)] flex-col gap-1 overflow-y-auto px-4 pt-16">
           {mainNav.map((item) => (

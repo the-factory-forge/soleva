@@ -117,7 +117,7 @@ function ImpactPage() {
           <div className="absolute inset-0 bg-dark/80" />
         </div>
         <div className="container-premium section-padding">
-          <SectionHeading inverted title={t.hero.title} subtitle={t.hero.subtitle} />
+          <SectionHeading variant="secondary" title={t.hero.title} subtitle={t.hero.subtitle} />
         </div>
       </section>
 

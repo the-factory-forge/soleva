@@ -129,6 +129,19 @@ export default defineConfig(({ mode }) => ({
     include: ["motion", "lucide-react", "@base-ui/react", "leaflet"],
   },
   environments: {
+    client: {
+      build: {
+        rolldownOptions: {
+          output: {
+            codeSplitting: {
+              groups: [
+                { name: "react", test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/ },
+              ],
+            },
+          },
+        },
+      },
+    },
     ssr: {
       optimizeDeps: {
         include: [
@@ -213,6 +226,23 @@ export default defineConfig(({ mode }) => ({
           }),
           // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
           nitro(),
+          {
+            name: "nitro-chunk-labels",
+            apply: "build",
+            configEnvironment(name, config) {
+              if (name !== "nitro") return;
+              // Nitro's generated dependency group predates Rolldown's timing labels.
+              const output = config.build?.rolldownOptions?.output;
+              for (const options of Array.isArray(output) ? output : [output]) {
+                const splitting = options?.codeSplitting;
+                if (splitting && typeof splitting === "object") {
+                  for (const group of splitting.groups ?? []) {
+                    if (typeof group.name === "function") group.debugName ??= "nitro-dependencies";
+                  }
+                }
+              }
+            },
+          },
           viteReact({ compiler: true }),
           tailwindcss(),
         ],

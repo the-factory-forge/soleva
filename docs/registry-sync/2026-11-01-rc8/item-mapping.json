@@ -1,0 +1,1081 @@
+[
+  {
+    "name": "table-styles",
+    "files": [
+      {
+        "source": "registry/components/utils/table-styles.ts",
+        "target": "src/components/utils/table-styles.ts",
+        "host": [
+          "src/intranet/components/forge/utils/table-styles.ts"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "dialog-submit",
+    "files": [
+      {
+        "source": "registry/components/utils/dialog-submit.ts",
+        "target": "src/components/utils/dialog-submit.ts",
+        "host": [
+          "src/intranet/components/forge/utils/dialog-submit.ts"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "loading-indicator",
+    "files": [
+      {
+        "source": "registry/components/loading-indicator.tsx",
+        "target": "src/components/loading-indicator.tsx",
+        "host": [
+          "src/intranet/components/forge/loading-indicator.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/utils/loading-store.ts",
+        "target": "src/components/utils/loading-store.ts",
+        "host": [
+          "src/intranet/components/forge/utils/loading-store.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "icon-tooltip",
+    "files": [
+      {
+        "source": "registry/components/icon-tooltip.tsx",
+        "target": "src/components/icon-tooltip.tsx",
+        "host": [
+          "src/intranet/components/forge/icon-tooltip.tsx"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "native-select",
+    "files": [
+      {
+        "source": "registry/components/native-select.tsx",
+        "target": "src/components/native-select.tsx",
+        "host": [
+          "src/intranet/components/forge/native-select.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "table-pagination",
+    "files": [
+      {
+        "source": "registry/components/table-pagination.tsx",
+        "target": "src/components/table-pagination.tsx",
+        "host": [
+          "src/intranet/components/forge/table-pagination.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/table-styles",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "table-selection",
+    "files": [
+      {
+        "source": "registry/components/table-selection.tsx",
+        "target": "src/components/table-selection.tsx",
+        "host": [
+          "src/intranet/components/forge/table-selection.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/utils/table-selection-labels.ts",
+        "target": "src/components/utils/table-selection-labels.ts",
+        "host": [
+          "src/intranet/components/forge/utils/table-selection-labels.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/icon-tooltip",
+      "@forge/action-toast",
+      "@forge/optimistic-action"
+    ]
+  },
+  {
+    "name": "table-search",
+    "files": [
+      {
+        "source": "registry/components/table-search.tsx",
+        "target": "src/components/table-search.tsx",
+        "host": [
+          "src/intranet/components/forge/table-search.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/utils/table-search.ts",
+        "target": "src/components/utils/table-search.ts",
+        "host": [
+          "src/intranet/components/forge/utils/table-search.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "section-variants",
+    "files": [
+      {
+        "source": "registry/components/utils/section-variants.ts",
+        "target": "src/components/utils/section-variants.ts",
+        "host": [
+          "src/lib/section-variants.ts"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "build-metadata",
+    "files": [
+      {
+        "source": "registry/components/utils/seo/build-metadata.ts",
+        "target": "src/components/utils/seo/build-metadata.ts",
+        "host": [
+          "src/lib/seo/build-metadata.ts"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "json-ld",
+    "files": [
+      {
+        "source": "registry/components/utils/seo/json-ld.tsx",
+        "target": "src/components/utils/seo/json-ld.tsx",
+        "host": [
+          "src/lib/seo/json-ld.tsx"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "social-icons",
+    "files": [
+      {
+        "source": "registry/components/social-icons.tsx",
+        "target": "src/components/social-icons.tsx",
+        "host": [
+          "src/components/ui/social-icons.tsx"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "accordion",
+    "files": [
+      {
+        "source": "registry/components/accordion.tsx",
+        "target": "src/components/accordion.tsx",
+        "host": [
+          "src/components/ui/accordion.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/accordion.css",
+        "target": "src/components/accordion.css",
+        "host": [
+          "src/components/ui/accordion.css"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "animations",
+    "files": [
+      {
+        "source": "registry/components/animations.tsx",
+        "target": "src/components/animations.tsx",
+        "host": [
+          "src/components/ui/animations.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "reveal",
+    "files": [
+      {
+        "source": "registry/components/reveal.tsx",
+        "target": "src/components/reveal.tsx",
+        "host": [
+          "src/components/ui/reveal.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "share-button",
+    "files": [
+      {
+        "source": "registry/components/share-button.tsx",
+        "target": "src/components/share-button.tsx",
+        "host": [
+          "src/components/ui/share-button.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "section-heading",
+    "files": [
+      {
+        "source": "registry/components/section-heading.tsx",
+        "target": "src/components/section-heading.tsx",
+        "host": [
+          "src/components/ui/section-heading.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/section-variants"
+    ]
+  },
+  {
+    "name": "image-with-fallback",
+    "files": [
+      {
+        "source": "registry/components/image-with-fallback.tsx",
+        "target": "src/components/image-with-fallback.tsx",
+        "host": [
+          "src/components/ui/image-with-fallback.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/ui-shims"
+    ]
+  },
+  {
+    "name": "lightbox",
+    "files": [
+      {
+        "source": "registry/components/lightbox.tsx",
+        "target": "src/components/lightbox.tsx",
+        "host": [
+          "src/components/ui/lightbox.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/ui-shims",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "cta-button",
+    "files": [
+      {
+        "source": "registry/components/cta-button.tsx",
+        "target": "src/components/cta-button.tsx",
+        "host": [
+          "src/components/ui/cta-button.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/ui-shims"
+    ]
+  },
+  {
+    "name": "breadcrumb",
+    "files": [
+      {
+        "source": "registry/components/breadcrumb.tsx",
+        "target": "src/components/breadcrumb.tsx",
+        "host": [
+          "src/components/ui/breadcrumb.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/ui-shims"
+    ]
+  },
+  {
+    "name": "dropdown-menu",
+    "files": [
+      {
+        "source": "registry/components/dropdown-menu.tsx",
+        "target": "src/components/dropdown-menu.tsx",
+        "host": [
+          "src/components/ui/dropdown-menu.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "sheet",
+    "files": [
+      {
+        "source": "registry/components/sheet.tsx",
+        "target": "src/components/sheet.tsx",
+        "host": [
+          "src/components/ui/sheet.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "ui-shims",
+    "files": [
+      {
+        "source": "registry/components/link.tsx",
+        "target": "src/components/link.tsx",
+        "host": [
+          "src/components/ui/link.tsx",
+          "src/intranet/components/forge/ui/link.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/image.tsx",
+        "target": "src/components/image.tsx",
+        "host": [
+          "src/components/ui/image.tsx",
+          "src/intranet/components/forge/ui/image.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/script.tsx",
+        "target": "src/components/script.tsx",
+        "host": [
+          "src/components/ui/script.tsx",
+          "src/intranet/components/forge/ui/script.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/utils/use-location.ts",
+        "target": "src/components/utils/use-location.ts",
+        "host": [
+          "src/components/ui/use-location.ts",
+          "src/intranet/components/forge/ui/use-location.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "newsletter",
+    "files": [
+      {
+        "source": "registry/components/newsletter.tsx",
+        "target": "src/components/newsletter.tsx",
+        "host": [
+          "src/components/forge/forms/newsletter.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "cookie-banner",
+    "files": [
+      {
+        "source": "registry/components/cookie-banner.tsx",
+        "target": "src/components/cookie-banner.tsx",
+        "host": [
+          "src/components/forge/layouts/cookie-banner.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/consent-analytics",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "language-switcher",
+    "files": [
+      {
+        "source": "registry/components/language-switcher.tsx",
+        "target": "src/components/language-switcher.tsx",
+        "host": [
+          "src/components/navigation/language-switcher.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/dropdown-menu",
+      "@forge/ui-shims"
+    ]
+  },
+  {
+    "name": "navbar",
+    "files": [
+      {
+        "source": "registry/components/navbar.tsx",
+        "target": "src/components/navbar.tsx",
+        "host": [
+          "src/components/navigation/navbar.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/cta-button",
+      "@forge/language-switcher",
+      "@forge/dropdown-menu",
+      "@forge/sheet",
+      "@forge/ui-shims",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "manage-cookies-button",
+    "files": [
+      {
+        "source": "registry/components/manage-cookies-button.tsx",
+        "target": "src/components/manage-cookies-button.tsx",
+        "host": [
+          "src/components/navigation/manage-cookies-button.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "footer",
+    "files": [
+      {
+        "source": "registry/components/footer.tsx",
+        "target": "src/components/footer.tsx",
+        "host": [
+          "src/components/navigation/footer.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/social-icons",
+      "@forge/manage-cookies-button",
+      "@forge/ui-shims",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "page-home-hero",
+    "files": [
+      {
+        "source": "registry/components/pages/page-home-hero.tsx",
+        "target": "src/components/pages/page-home-hero.tsx",
+        "host": [
+          "src/components/sections/home-hero.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/cta-button",
+      "@forge/animations",
+      "@forge/ui-shims"
+    ]
+  },
+  {
+    "name": "page-hero",
+    "files": [
+      {
+        "source": "registry/components/pages/page-hero.tsx",
+        "target": "src/components/pages/page-hero.tsx",
+        "host": [
+          "src/components/sections/page-hero.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/breadcrumb",
+      "@forge/ui-shims"
+    ]
+  },
+  {
+    "name": "page-cta-band",
+    "files": [
+      {
+        "source": "registry/components/pages/page-cta-band.tsx",
+        "target": "src/components/pages/page-cta-band.tsx",
+        "host": [
+          "src/components/sections/cta-band.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/cta-button",
+      "@forge/section-variants"
+    ]
+  },
+  {
+    "name": "service-card",
+    "files": [
+      {
+        "source": "registry/components/service-card.tsx",
+        "target": "src/components/service-card.tsx",
+        "host": [
+          "src/components/sections/service-card.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/image-with-fallback",
+      "@forge/ui-shims"
+    ]
+  },
+  {
+    "name": "page-services-grid",
+    "files": [
+      {
+        "source": "registry/components/pages/page-services-grid.tsx",
+        "target": "src/components/pages/page-services-grid.tsx",
+        "host": [
+          "src/components/sections/services-grid.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/service-card",
+      "@forge/section-heading",
+      "@forge/section-variants"
+    ]
+  },
+  {
+    "name": "page-faq-list",
+    "files": [
+      {
+        "source": "registry/components/pages/page-faq-list.tsx",
+        "target": "src/components/pages/page-faq-list.tsx",
+        "host": [
+          "src/components/sections/faq-list.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/section-heading",
+      "@forge/section-variants",
+      "@forge/accordion"
+    ]
+  },
+  {
+    "name": "page-pricing-table",
+    "files": [
+      {
+        "source": "registry/components/pages/page-pricing-table.tsx",
+        "target": "src/components/pages/page-pricing-table.tsx",
+        "host": [
+          "src/components/sections/pricing-table.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/section-heading",
+      "@forge/section-variants",
+      "@forge/table-search"
+    ]
+  },
+  {
+    "name": "page-contact-info",
+    "files": [
+      {
+        "source": "registry/components/pages/page-contact-info.tsx",
+        "target": "src/components/pages/page-contact-info.tsx",
+        "host": [
+          "src/components/sections/contact-info.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/social-icons",
+      "@forge/section-variants",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "page-legal",
+    "files": [
+      {
+        "source": "registry/components/pages/page-legal.tsx",
+        "target": "src/components/pages/page-legal.tsx",
+        "host": [
+          "src/components/sections/legal-page.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "page-not-found",
+    "files": [
+      {
+        "source": "registry/components/pages/page-not-found.tsx",
+        "target": "src/components/pages/page-not-found.tsx",
+        "host": [
+          "src/components/layouts/not-found-page.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/cta-button"
+    ]
+  },
+  {
+    "name": "footer-helpers",
+    "files": [
+      {
+        "source": "registry/components/utils/footer-helpers.ts",
+        "target": "src/components/utils/footer-helpers.ts",
+        "host": [
+          "src/lib/footer-helpers.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/footer"
+    ]
+  },
+  {
+    "name": "sidebar-navigation",
+    "files": [
+      {
+        "source": "registry/components/sidebar-navigation.tsx",
+        "target": "src/components/sidebar-navigation.tsx",
+        "host": [
+          "src/intranet/components/forge/sidebar-navigation.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/utils/use-sidebar-mobile.ts",
+        "target": "src/components/utils/use-sidebar-mobile.ts",
+        "host": [
+          "src/intranet/components/forge/utils/use-sidebar-mobile.ts"
+        ]
+      },
+      {
+        "source": "registry/components/utils/intranet-sidebar-active.ts",
+        "target": "src/components/utils/intranet-sidebar-active.ts",
+        "host": [
+          "src/intranet/components/forge/navigation/intranet-sidebar-active.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/ui-shims",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "intranet-sidebar",
+    "files": [
+      {
+        "source": "registry/components/intranet-sidebar.tsx",
+        "target": "src/components/intranet-sidebar.tsx",
+        "host": [
+          "src/intranet/components/forge/navigation/intranet-sidebar.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/utils/plugin-icons.ts",
+        "target": "src/components/utils/plugin-icons.ts",
+        "host": [
+          "src/intranet/components/forge/utils/plugin-icons.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/ui-shims",
+      "@forge/auth",
+      "@forge/icon-tooltip",
+      "@forge/sidebar-navigation"
+    ]
+  },
+  {
+    "name": "auth",
+    "files": [
+      {
+        "source": "registry/components/plugins/auth/index.tsx",
+        "target": "src/components/plugins/auth/index.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/index.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/auth-layout.tsx",
+        "target": "src/components/plugins/auth/auth-layout.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/auth-layout.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/labels.ts",
+        "target": "src/components/plugins/auth/labels.ts",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/labels.ts"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/password-forms.tsx",
+        "target": "src/components/plugins/auth/password-forms.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/password-forms.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/password-labels.ts",
+        "target": "src/components/plugins/auth/password-labels.ts",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/password-labels.ts"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/access-denied-page.tsx",
+        "target": "src/components/plugins/auth/access-denied-page.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/access-denied-page.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/auth-controls.tsx",
+        "target": "src/components/plugins/auth/auth-controls.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/auth-controls.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/account-page.tsx",
+        "target": "src/components/plugins/auth/account-page.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/account-page.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/account-security.tsx",
+        "target": "src/components/plugins/auth/account-security.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/account-security.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/agent-keys.tsx",
+        "target": "src/components/plugins/auth/agent-keys.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/agent-keys.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/account-labels.ts",
+        "target": "src/components/plugins/auth/account-labels.ts",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/account-labels.ts"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/account-styles.ts",
+        "target": "src/components/plugins/auth/account-styles.ts",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/account-styles.ts"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/auth/account-email-change.tsx",
+        "target": "src/components/plugins/auth/account-email-change.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/auth/account-email-change.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/ui-shims",
+      "@forge/action-toast",
+      "@forge/icon-tooltip",
+      "@forge/table-selection",
+      "@forge/loading-indicator",
+      "@forge/table-styles"
+    ]
+  },
+  {
+    "name": "employees",
+    "files": [
+      {
+        "source": "registry/components/plugins/employees/index.tsx",
+        "target": "src/components/plugins/employees/index.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/index.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/employees/employee-create-dialog.tsx",
+        "target": "src/components/plugins/employees/employee-create-dialog.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/employee-create-dialog.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/employees/employee-actions.tsx",
+        "target": "src/components/plugins/employees/employee-actions.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/employee-actions.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/employees/employee-website-status.tsx",
+        "target": "src/components/plugins/employees/employee-website-status.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/employee-website-status.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/employees/labels.ts",
+        "target": "src/components/plugins/employees/labels.ts",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/labels.ts"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/employees/schema.ts",
+        "target": "src/components/plugins/employees/schema.ts",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/schema.ts"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/employees/styles.ts",
+        "target": "src/components/plugins/employees/styles.ts",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/styles.ts"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/employees/employee-delete-dialog.tsx",
+        "target": "src/components/plugins/employees/employee-delete-dialog.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/employee-delete-dialog.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/plugins/employees/employee-photo-field.tsx",
+        "target": "src/components/plugins/employees/employee-photo-field.tsx",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/employee-photo-field.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/utils/storage-filename.ts",
+        "target": "src/components/utils/storage-filename.ts",
+        "host": [
+          "src/intranet/components/forge/utils/storage-filename.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/table-pagination",
+      "@forge/cn",
+      "@forge/ui-shims",
+      "@forge/table-styles",
+      "@forge/table-search",
+      "@forge/dialog-submit",
+      "@forge/native-select",
+      "@forge/action-toast",
+      "@forge/optimistic-action",
+      "@forge/icon-tooltip",
+      "@forge/table-selection",
+      "@forge/image-crop",
+      "@forge/loading-indicator"
+    ]
+  },
+  {
+    "name": "employees-server",
+    "files": [
+      {
+        "source": "registry/components/plugins/employees/server/employees.server.ts",
+        "target": "src/components/plugins/employees/server/employees.server.ts",
+        "host": [
+          "src/intranet/components/forge/plugins/employees/server/employees.server.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/employees"
+    ]
+  },
+  {
+    "name": "consent-analytics",
+    "files": [
+      {
+        "source": "registry/components/utils/consent-analytics.ts",
+        "target": "src/components/utils/consent-analytics.ts",
+        "host": [
+          "src/components/utils/consent-analytics.ts"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "action-toast",
+    "files": [
+      {
+        "source": "registry/components/action-toast.tsx",
+        "target": "src/components/action-toast.tsx",
+        "host": [
+          "src/intranet/components/forge/action-toast.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/icon-tooltip",
+      "@forge/cn"
+    ]
+  },
+  {
+    "name": "optimistic-action",
+    "files": [
+      {
+        "source": "registry/components/utils/use-optimistic-action.ts",
+        "target": "src/components/utils/use-optimistic-action.ts",
+        "host": [
+          "src/intranet/components/forge/utils/use-optimistic-action.ts"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "image-crop",
+    "files": [
+      {
+        "source": "registry/components/image-crop.tsx",
+        "target": "src/components/image-crop.tsx",
+        "host": [
+          "src/intranet/components/forge/image-crop.tsx"
+        ]
+      },
+      {
+        "source": "registry/components/utils/crop-image.ts",
+        "target": "src/components/utils/crop-image.ts",
+        "host": [
+          "src/intranet/components/forge/utils/crop-image.ts"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/cn",
+      "@forge/dialog-submit",
+      "@forge/icon-tooltip"
+    ]
+  },
+  {
+    "name": "database",
+    "files": [
+      {
+        "source": "registry/components/utils/database-migrations.ts",
+        "target": "src/components/utils/database-migrations.ts",
+        "host": [
+          "src/intranet/components/forge/utils/database-migrations.ts"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "cn",
+    "files": [
+      {
+        "source": "registry/components/utils/cn.ts",
+        "target": "src/components/utils/cn.ts",
+        "host": [
+          "src/lib/utils.ts",
+          "src/intranet/forge/utils.ts"
+        ]
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "intranet-shell",
+    "files": [
+      {
+        "source": "registry/components/layouts/intranet-shell.tsx",
+        "target": "src/components/layouts/intranet-shell.tsx",
+        "host": [
+          "src/intranet/components/forge/intranet/intranet-shell.tsx"
+        ]
+      }
+    ],
+    "dependencies": [
+      "@forge/intranet-sidebar",
+      "@forge/cn"
+    ]
+  }
+]

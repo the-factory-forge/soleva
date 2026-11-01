@@ -1,6 +1,6 @@
 "use client";
 
-import { LazyMotion, domAnimation, m, type Variants } from "motion/react";
+import { LazyMotion, domAnimation, m, stagger, type Variants } from "motion/react";
 import { useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 
@@ -111,7 +111,7 @@ export function StaggerContainer({
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={{
-          visible: { transition: { staggerChildren: staggerDelay } },
+          visible: { transition: { delayChildren: stagger(staggerDelay) } },
         }}
         className={cn(className)}
       >

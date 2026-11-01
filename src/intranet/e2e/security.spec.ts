@@ -83,7 +83,7 @@ test("named encrypted keys can be created, expire and be deleted only by their o
   await expect(page.getByLabel("New agent key")).toHaveCount(0);
 
   await sql`UPDATE agent_key SET expires_at = now() - interval '1 day', last_used_at = now() - interval '2 days' WHERE id = ${key.id}`;
-  await page.reload();
+  await page.goto("/en/intranet");
   const keysResponse = page.waitForResponse(
     async (response) =>
       response.request().method() === "GET" &&

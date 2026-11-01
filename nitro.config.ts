@@ -15,6 +15,20 @@ export default defineConfig({
   compressPublicAssets: true,
   // Static images are immutable-ish (hash-less names, but rarely change):
   // 7-day browser cache avoids re-downloads across pages/sessions.
+  // Preserve React dependency module boundaries and shared runtime contexts.
+  traceDeps: [
+    "react",
+    "react-dom",
+    "@tanstack/react-router",
+    "@tanstack/router-core",
+    "@tanstack/history",
+    "@tanstack/react-query",
+    "@tanstack/query-core",
+    "@base-ui/react",
+    "lucide-react*", // Node uses its CJS main; Vite traces its separate ESM entry.
+    "motion",
+    "framer-motion",
+  ],
   routeRules: {
     "/images/**": {
       headers: {

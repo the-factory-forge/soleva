@@ -1,9 +1,8 @@
 # Soleva
 
-## October 2026 template foundation
+## November 2026 foundation sync
 
-This site follows the verified Forge template revision and retained differences in
-[the sync report](.agents/configs/.sync-template/report.html#history). The installed intranet now requires
+This site is reconciled with Template `v0.0.0-rc.6` (`174808be9038b3d14a61634c86509f45074bbb94`) and its installed public, Auth and Employees Registry source with `v0.0.0-rc.8` (`5ffb422ce0034a77837d76e0035567a0f3d38968`). See [the sync report](.agents/configs/.sync-template/report.html) and [Registry record](docs/registry-sync.md). The installed intranet now requires
 `DATABASE_URL` and `BETTER_AUTH_SECRET`; empty values no longer select showcase mode.
 Keep the real PostgreSQL URL and signing secret configured in Dokploy before deployment.
 Build-only placeholders in Docker do not configure runtime credentials.
@@ -16,23 +15,23 @@ the container and database, with volume `postgres_${SITE_NAME}`. Previous volume
 intact but are not reused; migrate any needed local data before switching. No local or
 VPS reset is part of this update.
 
-## September 2026 template sync
+## Historical September 2026 template sync
 
-The project is reconciled with template `b81b90ec0c58d5dc6cd57d383864cb811464f4b4`.
+The September record used template `b81b90ec0c58d5dc6cd57d383864cb811464f4b4`;
+the current target and checks are recorded above.
 See [the sync record and VPS environment actions](.agents/configs/.sync-template/report.html#history).
 Use `vp install` and `vpr dev` with the pinned toolchain. Leave `VITE_BASE_URL`
 unset locally so Portless supplies it; set the actual public HTTPS origin explicitly
 at build time and runtime on the VPS. Do not set `PORTLESS_URL` on the VPS.
 `ENV.SITE_NAME` names infrastructure; the site's public display name remains unchanged.
 
-The owner will reset this site's local and VPS databases. This release replaces
-old migrations with a fresh baseline, including the site's current modules.
-Reset the complete site database and its Drizzle migration history before deploying
-this baseline; do not apply it over the old schema. Then run `vpr db:migrate`
-(or let the Docker entrypoint apply it). The empty database receives
-`admin@example.com` / `admin`; change those credentials during setup.
-The reset has not been performed by the sync agent. This instruction supersedes
-older incremental-migration notes below; future changes preserve applied migrations.
+The September 2026 fresh-baseline reset was a historical owner decision. This
+sync preserves both existing migrations and their SQL, upgrades only Drizzle
+snapshot metadata for the pinned CLI, and does not authorize or perform another
+local or VPS reset. Preserve customer data and applied history. Docker runs
+incremental migrations, then checks that recorded hashes match the checkout
+before starting the app. `vpr start` checks history without applying migrations.
+
 The shared auth flow has Google OAuth, password recovery and administrator-managed
 employees, with no public signup. Private credentials are loaded at runtime through
 Varlock's `init-only` integration, matching the Docker build/start boundary.
@@ -69,7 +68,8 @@ vpr build && vpr start
 
 Environment variables are declared in `.env.schema` and read through `ENV` from
 `varlock/env`. Validate local setup with `vp exec varlock load --agent`.
-Auth stays disabled until both `DATABASE_URL` and `BETTER_AUTH_SECRET` are set.
+The installed intranet requires both `DATABASE_URL` and `BETTER_AUTH_SECRET`;
+empty values are invalid and do not disable authentication.
 Keep public `VITE_*` values consistent at build and runtime; `vpr start` and the
 Docker entrypoint load server settings through Varlock at startup.
 
@@ -79,7 +79,7 @@ are recorded in [the sync report](.agents/configs/.sync-template/report.html#his
 ## Registry components
 
 Install individual Forge components with `vpr ui add @forge/<name>`.
-The `@forge` namespace in `components.json` uses the current `public/r` registry;
+The `@forge` namespace in `components.json` uses the exact reviewed RC8 `public/r` revision;
 the retired aggregate `registry:pull` script has been removed.
 
 Cookie banner and newsletter were installed from registry revision
@@ -104,8 +104,7 @@ with simulated success is not used.
 
 ## Deploy
 
-dockploy (VPS): compose app-only pattern, one database `factory_soleva` if login
-is ever enabled. See the forge-template README "Deployment" for details.
+dockploy (VPS): compose app-only pattern, one database `factory_soleva` for the required installed intranet. See the forge-template README "Deployment" for details.
 
 ## SEO mechanics
 
@@ -144,3 +143,20 @@ Local `vpr db:start` and the `DATABASE_URL=exec("node scripts/local-database.mjs
 resolver apply pending migrations before returning the local connection URL. Explicit
 `DATABASE_URL` values bypass the resolver and still require `vpr db:migrate`.
 The resolver is development-only; production retains its real database URL.
+
+
+## Safe schema generation and startup
+
+`vpr auth:generate` writes `.cache/auth.schema.generated.ts` for review. Compare
+it with the active schema and preserve host fields/relations before adopting changes.
+Generate an incremental migration with `vpr db:generate` only when schema changes
+require one; review it before a separately authorized `vpr db:migrate`. The old
+combined `auth:migrate` command is removed. `vpr db:push` requires strict confirmation
+and is not the production release workflow.
+
+`vpr db:preflight` checks the applied migration names, timestamps and SQL hashes.
+This is also run after Docker's migration step and before normal `vpr start`.
+A mismatch stops startup; investigate the existing database and migration history
+instead of resetting or replaying a baseline. Source rollback does not undo data
+changes. This sync adds no new SQL migration or environment key. Keep the existing
+signing secret unchanged, including for encrypted account API keys.

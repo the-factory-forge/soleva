@@ -91,7 +91,7 @@ function CrowdfundingPage() {
       {/* Campaign facts */}
       <section className="bg-dark text-dark-foreground [contain-intrinsic-size:auto_800px] [content-visibility:auto]">
         <div className="container-premium section-padding">
-          <SectionHeading inverted title={t.facts.title} />
+          <SectionHeading variant="secondary" title={t.facts.title} />
           <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-6 md:grid-cols-4">
             {facts.map((fact, i) => {
               const Icon = fact.icon;

@@ -1,15 +1,26 @@
 import "@tanstack/react-start/server-only";
+import { randomBytes, randomUUID } from "node:crypto";
+
+import { and, eq, like } from "drizzle-orm";
 import { ENV } from "varlock/env";
 
+import { db } from "#/intranet/db";
+import { user as userTable, verification } from "#/intranet/db/schema";
 import { localeFromPathname } from "#/lib/i18n/pathname";
 
+import { verificationLoginCallback } from "./verification-callback";
+
 interface AuthEmail {
-  user: { email: string };
+  user: { id: string; email: string };
   url: string;
 }
 
 export function sendVerificationEmail(data: AuthEmail) {
-  return sendAuthEmail(data, "employees.verificationSubject", "employees.verificationBody");
+  return sendAuthEmail(
+    { ...data, url: verificationLoginCallback(data.url, data.user.email, ENV.VITE_BASE_URL) },
+    "employees.verificationSubject",
+    "employees.verificationBody",
+  );
 }
 
 export async function sendPasswordResetEmail(data: AuthEmail) {
@@ -19,6 +30,40 @@ export async function sendPasswordResetEmail(data: AuthEmail) {
     // Keep the same public response for unknown accounts and delivery failures.
     console.error("Password reset email delivery failed.");
   }
+}
+
+export async function sendEmployeeInvitation(user: AuthEmail["user"], invitationURL: string) {
+  const token = randomBytes(32).toString("base64url");
+  await db.transaction(async (transaction) => {
+    const [current] = await transaction
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, user.id))
+      .for("update")
+      .limit(1);
+    if (!current || current.email !== user.email || current.banned || !current.mustChangePassword) {
+      throw new Error("This account cannot be invited.");
+    }
+    await transaction
+      .delete(verification)
+      .where(
+        and(eq(verification.value, user.id), like(verification.identifier, "reset-password:%")),
+      );
+    await transaction.insert(verification).values({
+      id: randomUUID(),
+      identifier: `reset-password:${token}`,
+      value: user.id,
+      expiresAt: new Date(Date.now() + 60 * 60 * 1000),
+    });
+  });
+  const url = new URL(`/api/auth/reset-password/${token}`, ENV.VITE_BASE_URL);
+  url.searchParams.set("callbackURL", invitationURL);
+  // Await delivery directly: Better Auth's public recovery endpoint masks mail failures.
+  await sendAuthEmail(
+    { user, url: url.toString() },
+    "employees.invitationSubject",
+    "employees.invitationBody",
+  );
 }
 
 async function sendAuthEmail({ user, url }: AuthEmail, subjectKey: string, bodyKey: string) {
