@@ -8,5 +8,13 @@
     "automatic": false,
     "remote": "origin",
     "branch": "main"
+  },
+  "notes": {
+    "storage": "github"
+  },
+  "github": {
+    "mode": "direct",
+    "automatic": true,
+    "latest": "stable"
   }
 }
