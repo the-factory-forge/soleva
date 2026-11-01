@@ -1,11 +1,11 @@
 import { createHash, randomUUID } from "node:crypto";
 import { readFile, unlink } from "node:fs/promises";
 
-import { expect, test } from "@playwright/test";
 import { hashPassword } from "better-auth/crypto";
 import postgres from "postgres";
 
 import { testDatabaseURL } from "./database";
+import { expect, test, clientIP } from "./test";
 
 const sql = postgres(testDatabaseURL, { max: 1 });
 const id = randomUUID();
@@ -42,10 +42,7 @@ test.afterAll(async () => {
   await unlink(mailPath).catch(() => {});
 });
 
-test.beforeEach(async ({ context }, testInfo) => {
-  await context.setExtraHTTPHeaders({
-    "x-forwarded-for": testInfo.title.startsWith("password recovery") ? "192.0.2.22" : "192.0.2.20",
-  });
+test.beforeEach(async ({ context }) => {
   await context.route(
     /^https?:\/\/(?!(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?(?:[/?#]|$))/,
     (route) => route.abort(),
@@ -172,7 +169,7 @@ test("password recovery uses single-use expiring links, preserves locale and rev
 }) => {
   if (!baseURL) throw new Error("Missing test base URL");
   const headers = {
-    "x-forwarded-for": "192.0.2.21",
+    "x-forwarded-for": clientIP("192.0.2.21"),
     origin: baseURL,
     "sec-fetch-site": "same-origin",
   };
@@ -274,7 +271,7 @@ test("password recovery uses single-use expiring links, preserves locale and rev
   expect(expiredReset.status()).toBe(400);
   expect(await expiredReset.json()).toMatchObject({ code: "INVALID_TOKEN" });
   const externalRedirect = await request.post("/api/auth/request-password-reset", {
-    headers: { ...headers, "x-forwarded-for": "192.0.2.23" },
+    headers: { ...headers, "x-forwarded-for": clientIP("192.0.2.23") },
     data: { email: resetEmail, redirectTo: "https://untrusted.example/reset" },
   });
   expect(externalRedirect.status()).toBe(403);
@@ -284,7 +281,7 @@ test("sign-out failure retains the session and a successful retry revokes it", a
   page,
   context,
 }) => {
-  await context.setExtraHTTPHeaders({ "x-forwarded-for": "192.0.2.24" });
+  await context.setExtraHTTPHeaders({ "x-forwarded-for": clientIP("192.0.2.24") });
   await page.goto("/en/login");
   await page.getByLabel("Email", { exact: true }).fill(email);
   await page.getByLabel("Password", { exact: true }).fill(password);
@@ -367,7 +364,11 @@ test("auth forms wait for hydration and keep POST fallbacks without JavaScript",
   browser,
   baseURL,
 }) => {
-  const context = await browser.newContext({ baseURL, javaScriptEnabled: false });
+  const context = await browser.newContext({
+    extraHTTPHeaders: { "x-forwarded-for": clientIP("context") },
+    baseURL,
+    javaScriptEnabled: false,
+  });
   try {
     const page = await context.newPage();
     await page.goto("/fr/login");

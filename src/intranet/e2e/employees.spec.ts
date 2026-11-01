@@ -1,11 +1,12 @@
 import { createHash, randomUUID } from "node:crypto";
 import { readFile, unlink } from "node:fs/promises";
 
-import { expect, test, type Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
 import { hashPassword } from "better-auth/crypto";
 import postgres from "postgres";
 
 import { testDatabaseURL } from "./database";
+import { expect, test, clientIP } from "./test";
 
 const id = randomUUID();
 const adminEmail = `admin-${id}@example.test`;
@@ -31,7 +32,6 @@ test.afterAll(async () => {
 });
 
 test.beforeEach(async ({ context }) => {
-  await context.setExtraHTTPHeaders({ "x-forwarded-for": "192.0.2.1" });
   await context.route(
     /^https?:\/\/(?!(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?(?:[/?#]|$))/,
     (route) => route.abort(),
@@ -106,7 +106,9 @@ test("admins add employees; onboarding and disabling access are enforced", async
     const employee = await browser.newContext({
       baseURL,
       // Model separate clients without sharing Better Auth's per-IP login limit.
-      extraHTTPHeaders: { "x-forwarded-for": role === "admin" ? "192.0.2.2" : "192.0.2.3" },
+      extraHTTPHeaders: {
+        "x-forwarded-for": clientIP(role === "admin" ? "192.0.2.2" : "192.0.2.3"),
+      },
     });
     const employeePage = await employee.newPage();
     await login(employeePage, email);
@@ -232,7 +234,7 @@ test("admins edit, verify and delete users without losing verification on unrela
   expect(new URL(verificationURL).origin).toBe(baseURL);
   const recipient = await browser.newContext({
     baseURL,
-    extraHTTPHeaders: { "x-forwarded-for": "192.0.2.4" },
+    extraHTTPHeaders: { "x-forwarded-for": clientIP("192.0.2.4") },
   });
   try {
     const recipientPage = await recipient.newPage();

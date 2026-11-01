@@ -1,10 +1,10 @@
 import { randomUUID } from "node:crypto";
 
-import { expect, test } from "@playwright/test";
 import { hashPassword } from "better-auth/crypto";
 import postgres from "postgres";
 
 import { testDatabaseURL } from "./database";
+import { expect, test, clientIP } from "./test";
 
 const id = randomUUID();
 const email = `profile-${id}@example.test`;
@@ -23,7 +23,6 @@ test.afterAll(async () => {
 });
 
 test.beforeEach(async ({ context }) => {
-  await context.setExtraHTTPHeaders({ "x-forwarded-for": "192.0.2.5" });
   await context.route(
     /^https?:\/\/(?!(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?(?:[/?#]|$))/,
     (route) => route.abort(),
@@ -92,7 +91,7 @@ test("profile settings saves the current user's name and changes their password"
   await expect(page).toHaveURL(/\/en\/intranet\/?$/);
 
   const login = await request.post("/api/auth/sign-in/email", {
-    headers: { "x-forwarded-for": "192.0.2.6" },
+    headers: { "x-forwarded-for": clientIP("192.0.2.6") },
     data: { email, password: replacementPassword },
   });
   expect(login.ok()).toBe(true);

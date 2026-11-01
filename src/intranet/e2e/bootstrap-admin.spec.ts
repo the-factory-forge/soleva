@@ -1,11 +1,11 @@
 import { randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
-import { expect, test } from "@playwright/test";
 import { hashPassword, verifyPassword } from "better-auth/crypto";
 import postgres from "postgres";
 
 import { testDatabaseURL } from "./database";
+import { expect, test, clientIP } from "./test";
 
 const sql = postgres(testDatabaseURL, { max: 1 });
 const baseline = await readFile(
@@ -112,7 +112,7 @@ test("SQL bootstrap only seeds an empty intranet and is atomic, repeatable, and 
 });
 
 test("initial admin signs in without a forced password change", async ({ page, context }) => {
-  await context.setExtraHTTPHeaders({ "x-forwarded-for": "192.0.2.4" });
+  await context.setExtraHTTPHeaders({ "x-forwarded-for": clientIP("192.0.2.4") });
   await context.route(
     /^https?:\/\/(?!(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?(?:[/?#]|$))/,
     (route) => route.abort(),

@@ -1,10 +1,11 @@
 import { createHash, randomUUID } from "node:crypto";
 
-import { expect, test, type APIRequestContext, type Response } from "@playwright/test";
+import { type APIRequestContext, type Response } from "@playwright/test";
 import { hashPassword } from "better-auth/crypto";
 import postgres from "postgres";
 
 import { testDatabaseURL } from "./database";
+import { expect, test } from "./test";
 
 const sql = postgres(testDatabaseURL, { max: 1 });
 const password = "Security-test-password-123";
@@ -35,7 +36,6 @@ test.afterAll(async () => {
   await sql.end();
 });
 test.beforeEach(async ({ context }) => {
-  await context.setExtraHTTPHeaders({ "x-forwarded-for": "192.0.2.40" });
   await context.route(
     /^https?:\/\/(?!(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?(?:[/?#]|$))/,
     (route) => route.abort(),
