@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "repository": "the-factory-forge/soleva",
+  "versionFiles": [
+    "package.json"
+  ],
+  "push": {
+    "automatic": false,
+    "remote": "origin",
+    "branch": "main"
+  }
+}
