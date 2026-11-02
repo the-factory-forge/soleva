@@ -74,7 +74,8 @@ HTML file directly; only its preview logo uses a local copied PNG.
 
 The fourteen renderer/transport checks pass without network delivery. The complete
 unit suite passes 25 tests with 2 existing database-gated skips. Type-aware lint
-and type checking pass with 18 existing warnings. Built-server
-invitation, verification and password-reset checks are extended to assert actual
-branded HTML and matching usable text links; their final runtime result is pending
-the coordinator's isolated local run. Production delivery remains unverified.
+and type checking pass with 18 existing warnings. On source commit `f5a7753`, all
+three built-server invitation, verification and password-reset browser journeys
+passed using an isolated local database and fake mail transport. They assert
+branded HTML and matching usable text links, alongside the existing account
+restrictions, locale, token and session checks. Production delivery remains unverified.
