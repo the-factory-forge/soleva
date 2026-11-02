@@ -109,12 +109,15 @@ test("admins invite employees; onboarding and disabling access are enforced", as
       },
     });
     const employeePage = await employee.newPage();
-    const message: { text: string } = JSON.parse(
+    const message: { text: string; html: string } = JSON.parse(
       await readFile(
         `.cache/e2e-emails/${createHash("sha256").update(email).digest("hex")}.json`,
         "utf8",
       ),
     );
+    expect(message.html).toContain("Soleva");
+    expect(message.html).toContain("#ff803e");
+    expect(message.html).toContain("/images/soleva-icon.png");
     const invitationURL = message.text.match(
       /https?:\/\/[^\s]*\/api\/auth\/reset-password\/[^\s]+/,
     )![0];
@@ -237,12 +240,15 @@ test("admins edit, verify and delete users without losing verification on unrela
   await expect(row.getByText("Updated user", { exact: true })).toBeVisible();
   await row.getByRole("button", { name: "Send verification email to Updated user" }).click();
   await expect(page.getByText("Verification email sent.", { exact: true })).toBeVisible();
-  const message: { to: string[]; subject: string; text: string } = JSON.parse(
+  const message: { to: string[]; subject: string; text: string; html: string } = JSON.parse(
     await readFile(mailPath, "utf8"),
   );
   expect(message.to).toEqual([email]);
   expect(message.subject).toBe("Verify your email address");
-  const verificationURL = message.text.split("\n\n").at(-1)!;
+  expect(message.html).toContain("Soleva");
+  expect(message.html).toContain("#ff803e");
+  expect(message.html).toContain("/images/soleva-icon.png");
+  const verificationURL = message.text.match(/https?:\/\/[^\s]+/)![0];
   expect(new URL(verificationURL).origin).toBe(baseURL);
   const recipient = await browser.newContext({
     baseURL,
