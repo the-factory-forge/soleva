@@ -7,6 +7,11 @@ This site is reconciled with Template `v0.0.0-rc.6` (`174808be9038b3d14a61634c86
 Keep the real PostgreSQL URL and signing secret configured in Dokploy before deployment.
 Build-only placeholders in Docker do not configure runtime credentials.
 
+Retired `MECHANICS.md` records are preserved byte-for-byte in
+[historical sync records](.agents/configs/.sync-template/report.html#history).
+Use [AGENTS.md](AGENTS.md) and its canonical task guides for current work; archived
+status matrices and migration instructions are historical evidence.
+
 Local setup uses `vpr auth:secret`, the existing site-specific `SITE_NAME`, and
 `DATABASE_URL=exec("node scripts/local-database.mjs")` in `.env.local` to start Docker
 and discover an available loopback port. Existing explicit URLs continue to work.

@@ -94,8 +94,8 @@ export function getFooterProps(locale: Locale, dict: Dictionary) {
     ],
     attribution: {
       text: t(dict, "footer.madeBy"),
-      href: "https://the-corner.io/",
-      logo: "https://assets.the-corner.io/logos/the_corner-icon.png",
+      href: "https://the-corner.swiss/",
+      logo: "https://assets.the-corner.swiss/logos/the_corner-icon.png",
     },
   });
 }

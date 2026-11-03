@@ -23,7 +23,7 @@ integration guidance applies only when the feature is installed or requested.
 - Class merging: use `cn` from `src/lib/utils.ts` (the `cn` package).
 - Treat `.env.schema` as the environment source of truth. Import `ENV` from `varlock/env`; never read local secret-bearing env files. Validate with `vp exec varlock load --agent`.
 - Use `lucide-react` for UI icons (use `Icon` suffix, e.g. `import { Loader2Icon } from "lucide-react"`); for brand icons use `@icons-pack/react-simple-icons` (e.g. `SiGithub`).
-- Don't build after every little change. If `vpr lint` passes; assume changes work.
+- Use `vpr lint` as the baseline and run the narrowest relevant tests from [Workflow](../.agents/workflow.md#testing). Let E2E commands own their production build and server lifecycle.
 - For running scripts, use `vpr`, which is a shorthand for `vp run`.
 
 ## Measured site behavior

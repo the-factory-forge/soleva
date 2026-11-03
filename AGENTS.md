@@ -10,7 +10,7 @@ when consulting provider guidance.
 - Keep inline dictionary loader data: the out-of-stream approach was measured and reverted here.
 - Preserve per-action Ads conversion labels, deferred consent loading, site-owned registry skips, and all four locales.
 - Keep `prepare` (Vite+ hooks and Varlock codegen). Docker installs with `--ignore-scripts`, includes `.env.schema`, and builds with `pnpm_config_ignore_scripts=true`. The entrypoint adds local executables to PATH before running Varlock. Keep the Vite integration in `init-only` mode: `resolved-env` overrides runtime auth/DB values with build-time values.
-- The September 2026 sync uses a fresh database baseline by explicit owner instruction. The owner resets local and VPS databases before applying it; never apply it over the previous schema. Subsequent releases preserve applied migrations.
+- The September 2026 fresh-baseline reset was a historical owner decision. Never apply that baseline over the previous schema; any pending local or VPS cutover remains owner-managed. Current updates preserve customer data and applied migrations and do not authorize another reset.
 - Record template reconciliation decisions and verified revisions in `.agents/configs/.sync-template/report.html#history`.
 
 ## Current intranet configuration
@@ -35,10 +35,15 @@ Resolve the actual `forge-specs` (sometimes named `forge-spec`), `forge-template
 `forge-registry` and `forge-skills` checkouts from the workspace or Git remotes.
 Use the canonical links when a checkout is unavailable; report inaccessible context.
 Read [the shared entrypoint](https://github.com/the-factory-forge/forge-specs/blob/main/AGENTS.md) and its task-specific contracts before implementation.
-Template stack, application and website-creation specs belong to
-[forge-template](https://github.com/the-factory-forge/forge-template/blob/main/openspec/specs/); plugin behavior belongs to
-[forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/openspec/specs/). Only contracts constraining both
-providers belong to `forge-specs`. Keep customer specs and decisions in the site.
+Template stack, application, website-creation and release specs, active changes
+and archives live in [forge-specs](https://github.com/the-factory-forge/forge-specs/blob/main/openspec/specs/),
+alongside shared contracts. Reference them without copying template planning into
+this site. Plugin behavior belongs to
+[forge-registry](https://github.com/the-factory-forge/forge-registry/blob/main/openspec/specs/).
+Keep this customer's own specs, changes and decisions local and preserve them
+during template updates. Run template changes from `forge-specs`; run
+customer-specific changes from this checkout using the central OpenSpec CLI.
+Read [template ADRs](https://github.com/the-factory-forge/forge-template/blob/main/concepts/adr/README.md) before architecture changes.
 References provide context; they do not authorize unrelated changes or deployments.
 
 ## Shared color contract
@@ -61,6 +66,13 @@ checkouts when available; keep site-specific integration and design choices loca
 | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Development server, local origins or runtime test ports | [Local runtime](docs/agent-reference.md#local-runtime)                                                                                              |
 | Application code, environment or local servers          | [Application conventions](docs/agent-reference.md#application-conventions)                                                                          |
+| Code review or design of helpers and modules | [Code style](https://github.com/the-factory-forge/forge-template/blob/main/docs/agent-reference.md#code-style) |
+| Hero images or motion | [Performance and animation](https://github.com/the-factory-forge/forge-template/blob/main/docs/agent-reference.md#performance-and-animation) |
+| Public CSS, fonts, logos or design synchronization | [Public theme, typography, and brand assets](https://github.com/the-factory-forge/forge-template/blob/main/docs/agent-reference.md#public-theme-typography-and-brand-assets) |
+| Docker builds or prepare scripts | [Docker builds](https://github.com/the-factory-forge/forge-template/blob/main/docs/agent-reference.md#docker-builds) |
+| Adding or replacing display images | [Responsive images](https://github.com/the-factory-forge/forge-template/blob/main/docs/agent-reference.md#responsive-images) |
+| Installing or updating registry source | [Registry integration](https://github.com/the-factory-forge/forge-template/blob/main/docs/agent-reference.md#registry-integration) |
+| Uploads, storage adapters or object migrations | [Object storage](https://github.com/the-factory-forge/forge-template/blob/main/docs/agent-reference.md#object-storage) |
 | Video, dictionaries, fonts or lazy navigation           | [Measured site behavior](docs/agent-reference.md#measured-site-behavior)                                                                            |
 | Database configuration, hosting or migrations           | [Database](docs/agent-reference.md#database)                                                                                                        |
 | Queries, loaders, cache updates or mutations            | [Query layout](docs/agent-reference.md#query-layout)                                                                                                |

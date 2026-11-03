@@ -76,6 +76,17 @@
       "decision": "Keep existing database/migration SQL, light-only embedded customer Navbar and private login placement; use post-migration preflight, lazy public Base UI, deferred consent, disabled newsletter and only installed Auth/Employees plus public Registry scope.",
       "reason": "Existing customer persistence and measured loading/UI decisions remain authoritative; historical reset advice must not become a current action.",
       "evidence": "docs/registry-sync.md, retained source archive, migration SQL hashes, current host callers and separate Template/final test evidence."
+    },
+    {
+      "area": "Retired migration and capability documentation",
+      "paths": [
+        "MIGRATION-NEXT-TANSTACK.md",
+        "MECHANICS.template.md",
+        "MECHANICS.md"
+      ],
+      "decision": "Keep these legacy files retired. Preserve their exact working contents in report history; use current agent guides, shared Forge specifications and source verification for maintenance and capability decisions.",
+      "reason": "The owner requested the complete template documentation cleanup. Inherited migration commands and capability status matrices are historical evidence, not current instructions.",
+      "evidence": "User confirmation on 2026-11-02; Forge Template ed9026bca4dd015cc57a2eea0202bcaed45babee; README.md and checksum-verified report history. Existing local edits and customer-specific notes were archived before deletion."
     }
   ]
 }

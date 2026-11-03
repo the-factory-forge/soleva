@@ -32,8 +32,8 @@ export const SOCIALS = {
 } as const;
 
 export const THE_CORNER = {
-  factoriesUrl: "https://the-corner.io/portfolio/forge",
-  logoUrl: "https://assets.the-corner.io/logos/the_corner-icon.png",
+  factoriesUrl: "https://the-corner.swiss/portfolio/forge",
+  logoUrl: "https://assets.the-corner.swiss/logos/the_corner-icon.png",
 } as const;
 
 export const SITE = {

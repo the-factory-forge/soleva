@@ -82,8 +82,8 @@ function buildFooterProps(locale: Locale, dict: Dictionary, authEnabled: boolean
     ],
     attribution: {
       text: dict.footer.produced_by,
-      href: "https://the-corner.io/portfolio/forge",
-      logo: "https://assets.the-corner.io/logos/the_corner-icon.png",
+      href: "https://the-corner.swiss/portfolio/forge",
+      logo: "https://assets.the-corner.swiss/logos/the_corner-icon.png",
     },
     manageCookiesEvent: "soleva:open-cookie-settings",
     variant: "dark",

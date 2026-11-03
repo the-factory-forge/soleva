@@ -7,7 +7,8 @@
 - `vpr dev` runs through Portless; use its printed URL and preserve the unique package name
 - `vpr db` for Drizzle Kit commands (e.g. `vpr db generate` to generate a migration)
 
-Don't build after every change. If lint passes; assume changes work.
+Use `vpr lint` as the baseline and run the narrowest tests for the changed behavior.
+Let E2E commands own their production build and server lifecycle.
 
 ## Testing
 
