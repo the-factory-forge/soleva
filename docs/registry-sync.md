@@ -43,3 +43,39 @@ Frozen pnpm installation, safe auth schema preview generation and Varlock valida
 ### Coordinator localization check
 
 Final coordinator review added only common.close in all four public dictionaries, reusing the existing nav.close translations. Auth and intranet toast dismissal now receives localized text while every existing dictionary value remains unchanged. The real shallow dictionary merge/callers, full type-aware lint (18 existing warnings) and formatting were checked in a separate review worktree.
+
+## Soleva account mailing follow-up
+
+This focused follow-up starts at `45be5d8ed908d0dea2b8c7f3d754a019a6b87c0b`,
+after the Template RC6 and Registry RC8 reconciliation above. It connects the
+existing invitation, verification and password-recovery senders to branded HTML
+and matching plain text. Current recipients, token transaction/expiry/replacement,
+callback locales, fresh account restrictions and neutral public reset errors stay
+host-owned. No auth route, database, migration, environment key or public asset changes.
+
+The three Mailing files match the generated published Registry RC8 item at
+`5ffb422ce0034a77837d76e0035567a0f3d38968` byte-for-byte. The previously reviewed
+Mailing source is unchanged between RC6 and RC8; this follow-up adopts the exact
+RC8 files rather than restoring the older foundation branch. SHA-256:
+
+- `index.ts`: `9e9a9038a6a030275d240c94f085b39f2d1bba47a605fc554f9990cec90a7bd3`
+- `transactional-email.tsx`: `3bf6a431131f4213fb8df320625a247dbe26e82546753c673491e7bbb83c5ddf`
+- `resend.server.ts`: `b47c45dba322365b46a6ee675cc839678b33ca98bee3bd8e4518bd1da8b273d6`
+
+Only its declared `react-email@6.11.3` dependency is added. All 774 pre-existing
+lockfile package records, including their versions and integrity metadata, remain
+unchanged. The site adapter uses its existing PNG logo, light palette, orange
+`#ff803e`, Montserrat with system fallbacks, and current French, English, German
+and Italian copy. Live logos need the configured public HTTPS origin.
+
+`vp run preview:mailing` renders twelve HTML/text pairs to `.cache/mailing/`
+using synthetic URLs and credentials, without delivery or a database. Open an
+HTML file directly; only its preview logo uses a local copied PNG.
+
+The fourteen renderer/transport checks pass without network delivery. The complete
+unit suite passes 25 tests with 2 existing database-gated skips. Type-aware lint
+and type checking pass with 18 existing warnings. On source commit `f5a7753`, all
+three built-server invitation, verification and password-reset browser journeys
+passed using an isolated local database and fake mail transport. They assert
+branded HTML and matching usable text links, alongside the existing account
+restrictions, locale, token and session checks. Production delivery remains unverified.

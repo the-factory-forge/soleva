@@ -19,9 +19,14 @@ const newPassword = "Reset-test-password-456";
 const mailPath = `.cache/e2e-emails/${createHash("sha256").update(resetEmail).digest("hex")}.json`;
 
 async function resetURL() {
-  const message: { subject: string; text: string } = JSON.parse(await readFile(mailPath, "utf8"));
+  const message: { subject: string; text: string; html: string } = JSON.parse(
+    await readFile(mailPath, "utf8"),
+  );
   expect(message.subject).toBe("Reset your password");
-  return message.text.split("\n\n").at(-1)!;
+  expect(message.html).toContain("Soleva");
+  expect(message.html).toContain("#ff803e");
+  expect(message.html).toContain("/images/soleva-icon.png");
+  return message.text.match(/https?:\/\/[^\s]+/)![0];
 }
 
 test.beforeAll(async () => {
