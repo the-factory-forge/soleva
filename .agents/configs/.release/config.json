@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "repository": "the-factory-forge/soleva",
+  "versionFiles": ["package.json"],
+  "push": {
+    "automatic": false,
+    "remote": "origin",
+    "branch": "main"
+  },
+  "notes": {
+    "storage": "github"
+  },
+  "github": {
+    "mode": "direct",
+    "automatic": true,
+    "latest": "stable"
+  },
+  "guides": [
+    "AGENTS.md",
+    "https://github.com/the-factory-forge/forge-skills/blob/main/skills/release/references/child-sites.md"
+  ]
+}
