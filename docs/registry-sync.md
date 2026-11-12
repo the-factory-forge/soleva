@@ -79,3 +79,14 @@ three built-server invitation, verification and password-reset browser journeys
 passed using an isolated local database and fake mail transport. They assert
 branded HTML and matching usable text links, alongside the existing account
 restrictions, locale, token and session checks. Production delivery remains unverified.
+
+
+## Cookie banner refusal, 2026-11-13
+
+Adopted `@forge/cookie-banner` from [Registry main at `3de5e27`](https://github.com/the-factory-forge/forge-registry/commit/3de5e27f4ff03e31bc6cc7cf024531738c524d1b), a commit outside the configured release. The branch `codex/cookie-banner-explicit-refusal` starts at `869690b94ba877a1e6e7cc1a2879ef7a556ff760`.
+
+The comparison used the immediate Registry parent `3c73cc56b167fb2db8ffd32cd8445dd3a2935bab`, the banner at the host starting commit, and the retained shadcn 4.22.1 disposable install. Its banner and both companion files match the [generated artifacts](https://github.com/the-factory-forge/forge-registry/tree/3de5e27f4ff03e31bc6cc7cf024531738c524d1b/public/r) at the selected commit. The disposable install resolved `cn` 0.5.2. The host update reconciles the banner diff at `src/components/forge/layouts/cookie-banner.tsx`, preserving local paths and imports. The existing class helper and analytics companion remain in place. The installed baseline for the rest of the Registry remains unchanged.
+
+The host integration is in `src/components/layout/cookie-banner.tsx`. The local wrapper keeps the privacy link styling, soleva-cookie-consent key, soleva:open-cookie-settings event and conversion adapter. Both desktop and mobile Chromium projects passed.
+
+The public production build, type-aware lint, and 10 Chromium checks passed on the runtime files in this commit. The browser checks used a local server and simulated Google tags and covered the localized banner at 320 px, choice persistence, and reopening settings. Deployment remains unverified.

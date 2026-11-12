@@ -452,6 +452,7 @@
   "cookies": {
     "text": "Utilizziamo i cookie per migliorare la tua esperienza e analizzare il traffico del sito.",
     "acceptAll": "Accetta tutto",
+    "rejectAll": "Rifiuta tutto",
     "acceptSelection": "Accetta selezione",
     "reject": "Rifiuta",
     "privacyLink": "Informativa sulla privacy",
