@@ -90,3 +90,15 @@ The comparison used the immediate Registry parent `3c73cc56b167fb2db8ffd32cd8445
 The host integration is in `src/components/layout/cookie-banner.tsx`. The local wrapper keeps the privacy link styling, soleva-cookie-consent key, soleva:open-cookie-settings event and conversion adapter. Both desktop and mobile Chromium projects passed.
 
 The public production build, type-aware lint, and 10 Chromium checks passed on the runtime files in this commit. The browser checks used a local server and simulated Google tags and covered the localized banner at 320 px, choice persistence, and reopening settings. Deployment remains unverified.
+
+### Follow-up: two compact actions
+
+Reconciled the local Registry correction based on `d43ad6a9e7166874dd0ca5e6e1f4e9bb7845051f`, generated
+`public/r/cookie-banner.json` Git blob `c9fe190cfc4b53aa831858b1da3b7473249a5d0e`. The shadcn 4.22.1 disposable
+install matched the generated banner, and the companion items were unchanged.
+
+The compact banner shows custom selection and acceptance. Saving the custom
+selection with optional categories unchecked keeps them denied. The host retains
+its existing categories, consent key, footer integration and tracking adapter.
+The production build, type-aware lint and 10 focused Chromium checks passed
+on this revision with simulated tracking. Deployment remains unverified.

@@ -38,8 +38,12 @@ test("cookie preferences persist, cancel safely and gate analytics", async ({ pa
   expect(await savedConsent()).toBeNull();
   expect(tags).toEqual([]);
 
-  await expect(cookies.getByRole("button")).toHaveCount(3);
-  await cookies.getByRole("button", { name: fr.cookies.rejectAll, exact: true }).click();
+  await expect(cookies.getByRole("button")).toHaveText([
+    fr.cookies.customize,
+    fr.cookies.acceptAll,
+  ]);
+  await customize();
+  await confirm();
   expect(await savedConsent()).toEqual({ necessary: true, analytics: false, marketing: false });
   await page.reload();
   await expect(cookies).toBeHidden();

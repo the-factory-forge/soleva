@@ -23,7 +23,6 @@ export function CookieBanner({
       manageEvent="soleva:open-cookie-settings"
       text={dict.cookies.text}
       acceptAllLabel={dict.cookies.acceptAll}
-      rejectAllLabel={dict.cookies.rejectAll}
       acceptSelectionLabel={dict.cookies.customize}
       cancelLabel={dict.cookies.cancel}
       confirmLabel={dict.cookies.acceptSelection}
