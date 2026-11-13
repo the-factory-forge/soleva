@@ -102,3 +102,6 @@ selection with optional categories unchecked keeps them denied. The host retains
 its existing categories, consent key, footer integration and tracking adapter.
 The production build, type-aware lint and 10 focused Chromium checks passed
 on this revision with simulated tracking. Deployment remains unverified.
+
+Local Registry follow-up `ea0d6f7bb5a0497f106c75af849a55c626b76c67` removes the unused
+`closeLabel` and `rejectAllLabel` props. Type-aware lint passed after adoption.
