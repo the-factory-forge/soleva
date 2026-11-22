@@ -1,4 +1,13 @@
 {
+  "gallery": {
+    "previous": "Immagine precedente",
+    "next": "Immagine successiva",
+    "error": "Impossibile caricare questa immagine."
+  },
+  "tableSort": {
+    "sortAscending": "Ordina in modo crescente",
+    "sortDescending": "Ordina in modo decrescente"
+  },
   "meta": {
     "home": {
       "title": "Soleva - Il van elettrico solare svizzero",

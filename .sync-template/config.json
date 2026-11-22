@@ -6,16 +6,16 @@
     "ref": "refs/heads/main"
   },
   "lastReconciled": {
-    "commit": "174808be9038b3d14a61634c86509f45074bbb94",
-    "version": "v0.0.0-rc.6",
-    "date": "2026-11-01",
-    "evidence": "Published annotated tag verified against remote main. Reconciled independently from RC2; Template stage passed lint, 13 unit/integration, 10 public browser and 22 intranet tests (one Google-only skip). After actual RC8 Registry install/review final checks passed 13 unit/integration, 10 public and all 23 intranet browser tests including fake Google. Customer design, migrations/data, four locales and custom integrations preserved. No deployment or customer DB access."
+    "commit": "2b90721f6e8278dce911e62a757f9f6e03853bdf",
+    "version": "v0.0.0-rc.8",
+    "date": "2026-11-22",
+    "evidence": "Applicable foundation and installed scope reconciled locally. Docker/startup, production browser and unit/type checks are detailed in this report."
   },
   "lastCompared": {
-    "commit": "174808be9038b3d14a61634c86509f45074bbb94",
-    "version": "v0.0.0-rc.6",
-    "date": "2026-11-01",
-    "evidence": "Canonical published RC6 tag and remote main verified by batch coordinator; exact committed provider tree compared with each host baseline and current working source.",
+    "commit": "2b90721f6e8278dce911e62a757f9f6e03853bdf",
+    "version": "v0.0.0-rc.8",
+    "date": "2026-11-22",
+    "evidence": "Canonical release, remote main and site-specific comparison. See docs/registry-sync.md.",
     "remoteVerified": true
   },
   "deviations": [

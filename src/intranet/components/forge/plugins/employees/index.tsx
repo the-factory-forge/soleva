@@ -3,6 +3,7 @@ import { Avatar } from "@base-ui/react/avatar";
 import { ShieldCheckIcon, ShieldOffIcon } from "lucide-react";
 import { useState } from "react";
 
+import { TableSortHeader, useTableSort, type TableSortProps } from "#/components/table-sort";
 import { ActionToastProvider } from "#/intranet/components/forge/action-toast";
 import { IconTooltip } from "#/intranet/components/forge/icon-tooltip";
 import { useLoadingActivity } from "#/intranet/components/forge/loading-indicator";
@@ -13,6 +14,12 @@ import {
 import { EmployeeCreateDialog } from "#/intranet/components/forge/plugins/employees/employee-create-dialog";
 import { EmployeeDeleteDialog } from "#/intranet/components/forge/plugins/employees/employee-delete-dialog";
 import { EmployeeWebsiteStatus } from "#/intranet/components/forge/plugins/employees/employee-website-status";
+import {
+  EMPLOYEE_SORT_FIELDS,
+  employeeDefaultSort,
+  sortEmployees,
+  type EmployeeSort,
+} from "#/intranet/components/forge/plugins/employees/schema";
 export { EmployeeDeleteDialog } from "#/intranet/components/forge/plugins/employees/employee-delete-dialog";
 export type {
   EmployeeDeletionAdapter,
@@ -44,7 +51,6 @@ import {
   tableActionHeaderClass,
   tableCellClass,
   tableClass,
-  tableHeaderClass,
   tablePanelClass,
   tableRowClass,
 } from "#/intranet/components/forge/utils/table-styles";
@@ -64,7 +70,8 @@ export type {
   InvitationResult,
 } from "#/intranet/components/forge/plugins/employees/schema";
 export type { EmployeeLabels } from "#/intranet/components/forge/plugins/employees/labels";
-export interface EmployeesPageProps extends EmployeeActionCallbacks {
+export interface EmployeesPageProps
+  extends EmployeeActionCallbacks, TableSortProps<EmployeeSort["field"]> {
   employees: readonly Employee[];
   /** For server pagination, filter the full directory before supplying this page. */
   search?: string;
@@ -102,11 +109,27 @@ function EmployeesPageContent({
   onSendVerification,
   labels: overrides,
   className,
+  ...sortProps
 }: EmployeesPageProps) {
   useLoadingActivity(loading);
   const [localSearch, setLocalSearch] = useState("");
   const search = controlledSearch ?? localSearch;
-  const optimistic = useOptimisticAction(suppliedEmployees, `${currentUserId}:${offset}:${search}`);
+  const complete = total <= suppliedEmployees.length;
+  const order = useTableSort<EmployeeSort["field"]>(
+    sortProps,
+    employeeDefaultSort,
+    undefined,
+    complete || sortProps.onSortChange
+      ? {
+          owner: "employees",
+          key: "directory",
+          legacyKey: "employees",
+          fields: EMPLOYEE_SORT_FIELDS,
+        }
+      : undefined,
+  );
+  const scope = JSON.stringify([currentUserId, currentUserRole, offset, search, order.value]);
+  const optimistic = useOptimisticAction(suppliedEmployees, scope);
   const employees = optimistic.value;
   const visibleTotal = Math.max(0, total + employees.length - suppliedEmployees.length);
   const labels = { ...employeeLabels, ...overrides };
@@ -123,15 +146,16 @@ function EmployeesPageContent({
           employee.emailVerified ? labels.verified : labels.unverified,
         ),
       );
+  const orderedEmployees =
+    complete && !sortProps.onSortChange
+      ? sortEmployees(filteredEmployees, order.value)
+      : filteredEmployees;
   const selectable = isEmployeeAdmin(currentUserRole)
     ? filteredEmployees.filter(
         (employee) => employee.id !== currentUserId && !employee.id.startsWith("pending-"),
       )
     : [];
-  const selection = useTableSelection(
-    selectable,
-    `${currentUserId}:${currentUserRole}:${offset}:${search}`,
-  );
+  const selection = useTableSelection(selectable, scope);
   const selectionDisabled = loading || error || optimistic.pending || selection.pending;
   if (!isEmployeeAdmin(currentUserRole)) return null;
   return (
@@ -148,8 +172,8 @@ function EmployeesPageContent({
             clearLabel={labels.clearSearch}
             onValueChange={(value) => {
               setLocalSearch(value);
+              if (onSearchChange && offset) onOffsetChange(0);
               onSearchChange?.(value);
-              if (onSearchChange) onOffsetChange(0);
             }}
           />
           <EmployeeCreateDialog
@@ -191,21 +215,17 @@ function EmployeesPageContent({
                     disabled={selectionDisabled || !selectable.length}
                   />
                 </th>
-                <th scope="col" className={tableHeaderClass}>
-                  {labels.name}
-                </th>
-                <th scope="col" className={tableHeaderClass}>
-                  {labels.email}
-                </th>
-                <th scope="col" className={tableHeaderClass}>
-                  {labels.role}
-                </th>
-                <th scope="col" className={tableHeaderClass}>
-                  {labels.status}
-                </th>
-                <th scope="col" className={tableHeaderClass}>
-                  {labels.website}
-                </th>
+                {EMPLOYEE_SORT_FIELDS.map((field) => (
+                  <TableSortHeader
+                    key={field}
+                    {...order}
+                    onValueChange={
+                      complete || sortProps.onSortChange ? order.onValueChange : undefined
+                    }
+                    field={field}
+                    label={labels[field]}
+                  />
+                ))}
                 <th scope="col" className={tableActionHeaderClass}>
                   <div className="flex items-center justify-end gap-2">
                     {labels.actions}
@@ -235,7 +255,7 @@ function EmployeesPageContent({
               </tr>
             </thead>
             <tbody className="[&_tr:last-child]:border-0">
-              {retainRemovedItems(filteredEmployees, suppliedEmployees, optimistic.pending).map(
+              {retainRemovedItems(orderedEmployees, suppliedEmployees, optimistic.pending).map(
                 (employee) => (
                   <tr
                     key={employee.id}

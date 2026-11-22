@@ -1,4 +1,13 @@
 {
+  "gallery": {
+    "previous": "Previous image",
+    "next": "Next image",
+    "error": "This image could not be loaded."
+  },
+  "tableSort": {
+    "sortAscending": "Sort ascending",
+    "sortDescending": "Sort descending"
+  },
   "meta": {
     "home": {
       "title": "Soleva - The Swiss solar electric van",

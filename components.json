@@ -22,6 +22,6 @@
   "menuColor": "default",
   "menuAccent": "subtle",
   "registries": {
-    "@forge": "https://raw.githubusercontent.com/the-factory-forge/forge-registry/5ffb422ce0034a77837d76e0035567a0f3d38968/public/r/{name}.json"
+    "@forge": "https://raw.githubusercontent.com/the-factory-forge/forge-registry/2811945e83c85c3c87ceb6b0108e2d033bba77f6/public/r/{name}.json"
   }
 }

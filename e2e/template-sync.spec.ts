@@ -31,20 +31,25 @@ test("localized navigation, consent and brand survive the template update", asyn
     await expect(page.locator('main a[href="mailto:info@soleva.org"]').first()).toBeVisible();
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
-      `http://localhost:3100/${locale}/contact`,
+      `${new URL(page.url()).origin}/${locale}/contact`,
     );
 
     if (locale === "fr") {
       const cookies = page.getByRole("dialog", { name: "Cookies" });
       await expect(cookies).toBeVisible();
       expect(tags).toEqual([]);
-      await cookies.getByRole("button", { name: dict.nav.close, exact: true }).click();
-      await expect(cookies).toBeHidden();
+      await expect(cookies.getByRole("button", { name: dict.nav.close, exact: true })).toHaveCount(
+        0,
+      );
       expect(await page.evaluate(() => localStorage.getItem("soleva-cookie-consent"))).toBeNull();
-      expect(tags).toEqual([]);
+      await expect(cookies.getByRole("checkbox")).toHaveCount(0);
+      await cookies.getByRole("button", { name: dict.cookies.customize, exact: true }).click();
+      await cookies
+        .getByRole("button", { name: dict.cookies.acceptSelection, exact: true })
+        .click();
+      await expect(cookies).toBeHidden();
       await page.getByRole("button", { name: dict.footer.manage_cookies, exact: true }).click();
       await expect(cookies).toBeVisible();
-      await expect(cookies.getByRole("checkbox")).toHaveCount(0);
       await cookies.getByRole("button", { name: dict.cookies.customize, exact: true }).click();
       await cookies
         .getByRole("button", { name: dict.cookies.acceptSelection, exact: true })

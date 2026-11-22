@@ -1,3 +1,6 @@
+packages:
+  - docker/runtime
+
 allowBuilds:
   esbuild: true
   sharp: true

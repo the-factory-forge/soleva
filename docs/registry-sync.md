@@ -1,6 +1,21 @@
 # Soleva Registry reconciliation — 2026-11-01
 
-Template `v0.0.0-rc.6` (`174808be9038b3d14a61634c86509f45074bbb94`) was reconciled and verified before the installed Registry source was reviewed against `v0.0.0-rc.8` (`5ffb422ce0034a77837d76e0035567a0f3d38968`). The coordinator verified both published annotated tags against canonical remote main. See [the template report](../.agents/configs/.sync-template/report.html) for customer decisions and preserved historical reports.
+## 2026-11-22 · Registry RC10
+
+Compared [Template RC8](https://github.com/the-factory-forge/forge-template/releases/tag/v0.0.0-rc.8) at `2b90721f6e8278dce911e62a757f9f6e03853bdf` and [Registry RC10](https://github.com/the-factory-forge/forge-registry/releases/tag/v0.0.0-rc.10) at `2811945e83c85c3c87ceb6b0108e2d033bba77f6` with customer commit `4b28594ff7cd57ef7e0e8edf9adc188794a32f05`. The previous Registry comparison used v0.0.0-rc.8 at `5ffb422ce0034a77837d76e0035567a0f3d38968`. Both target tags match their canonical main branches at inspection.
+
+Four-language van project with its existing staff accounts, employee invitation flows and light-only visual design. Employee list ordering reaches the database before pagination. The electric-conversion van gallery was verified with 11 photos, keyboard navigation, wrapping and focus restoration on desktop and mobile.
+
+The pinned shadcn CLI materialized the named roots and transitive dependencies in disposable consumers. [Comparison inputs](registry-sync/2026-11-22-rc10/comparison-inputs.tar.gz) include the source-to-host map, named item definitions, generated source, available previous inputs, affected pre-sync host files, locked comparison manifests and per-file SHA-256 hashes. The map distinguishes copied components from site-specific framework shims and optional, unmounted sections. Previously mixed Registry ancestry remains qualified by the earlier records.
+
+**Reviewed scope** · accordion, action-toast, animations, auth, breadcrumb, build-metadata, cn, consent-analytics, cookie-banner, cta-button, database, dialog-submit, dropdown-menu, employees, employees-server, footer, footer-helpers, icon-tooltip, image-crop, image-with-fallback, intranet-shell, intranet-sidebar, json-ld, language-switcher, lightbox, loading-indicator, manage-cookies-button, native-select, navbar, newsletter, optimistic-action, page-contact-info, page-cta-band, page-faq-list, page-hero, page-home-hero, page-legal, page-not-found, page-pricing-table, page-services-grid, reveal, section-heading, section-variants, service-card, share-button, sheet, sidebar-navigation, social-icons, table-pagination, table-search, table-selection, table-styles, ui-shims.
+
+**Local verification** · Runtime tree `c16259b314affba2f94749470f78edf1c45a57b6307db518952a8689fa1af9db`. The fingerprint uses sorted relative paths and the SHA-256 of each file, as listed in the archive. Type-aware lint — passed. Unit/integration suite — passed (27 passed (27)). Production Playwright suite — passed (12 passed (31.0s)). Staff Playwright suite — passed (23 passed (32.8s)). Production Docker build, startup and HTTP 200 — passed. Offline frozen dependency install — passed.
+
+**Deployment** · Existing deployments need an image rebuild and restart. The existing environment contract and database migrations are sufficient for these changes. Production services and migration data were outside this local sync. See the [template comparison](../.sync-template/report.html).
+<!-- end RC10 run -->
+
+Template `v0.0.0-rc.6` (`174808be9038b3d14a61634c86509f45074bbb94`) was reconciled and verified before the installed Registry source was reviewed against `v0.0.0-rc.8` (`5ffb422ce0034a77837d76e0035567a0f3d38968`). The coordinator verified both published annotated tags against canonical remote main. See [the template report](../.sync-template/report.html) for customer decisions and preserved historical reports.
 
 ## Scope and retained comparison
 

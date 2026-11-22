@@ -1,5 +1,6 @@
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 
 import { Link } from "#/components/ui/link";
 import { authClient } from "#/intranet/auth/auth-client";
@@ -11,6 +12,7 @@ import { localeFromPathname } from "#/lib/i18n/pathname";
 import { SITE_NAME } from "#/lib/site/constants";
 
 export const Route = createFileRoute("/_auth/$lang/forgot-password")({
+  validateSearch: z.object({ email: z.string().max(320).optional().catch(undefined) }),
   loader: async ({ context, location }) => {
     const locale = localeFromPathname(location.pathname);
     await Promise.all([
@@ -29,6 +31,7 @@ export const Route = createFileRoute("/_auth/$lang/forgot-password")({
 
 function ForgotPasswordPage() {
   const { locale } = Route.useLoaderData();
+  const { email } = Route.useSearch();
   const dict = useDictionary(locale);
   const { data: options } = useSuspenseQuery(loginOptionsQueryOptions());
   const requestReset = useMutation({
@@ -43,6 +46,8 @@ function ForgotPasswordPage() {
   return (
     <AuthScreen locale={locale} dict={dict} siteName={SITE_NAME}>
       <ForgotPasswordForm
+        key={email}
+        defaultEmail={email}
         labels={dict.auth}
         enabled={options.passwordReset}
         loginHref={`/${locale}/login`}

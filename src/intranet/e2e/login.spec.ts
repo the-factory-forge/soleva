@@ -119,6 +119,7 @@ test("login is responsive, accessible in all languages, and remembers a session 
     );
     await expect(page.locator("#main-content")).toBeVisible();
     const passwordField = page.locator('input[name="password"]');
+    await expect(passwordField).toBeEnabled();
     await passwordField.focus();
     await passwordField.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
     await expect(page.locator('output[id$="-caps-lock"] svg')).toBeVisible();
@@ -170,7 +171,7 @@ test("login is responsive, accessible in all languages, and remembers a session 
   await page.getByRole("button", { name: "Hide password", exact: true }).click();
   await expect(passwordInput).toHaveAttribute("type", "password");
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
-  await expect(page.getByRole("alert")).toContainText("Unable to sign in.");
+  await expect(page.getByRole("dialog", { name: /Unable to sign in/ })).toBeVisible();
   await passwordInput.focus();
   await passwordInput.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
   await expect(passwordInput).toHaveAccessibleDescription(/Unable to sign in.*Caps Lock is on/);
@@ -224,11 +225,12 @@ test("password recovery uses single-use expiring links, preserves locale and rev
     ).ok(),
   ).toBe(true);
   await page.goto("/en/login");
+  await page.getByLabel("Email", { exact: true }).fill(resetEmail);
   await page.getByRole("link", { name: "Forgot password?", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Forgot your password?", exact: true }),
   ).toBeVisible();
-  await page.getByLabel("Email", { exact: true }).fill(resetEmail);
+  await expect(page.getByLabel("Email", { exact: true })).toHaveValue(resetEmail);
   await page.getByRole("button", { name: "Send reset link", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Check your email", exact: true })).toBeVisible();
   const url = await resetURL();
@@ -291,7 +293,7 @@ test("password recovery uses single-use expiring links, preserves locale and rev
       })
     ).ok(),
   ).toBe(false);
-  await page.getByRole("link", { name: "Back to sign in", exact: true }).click();
+  await page.getByRole("link", { name: "Sign in", exact: true }).click();
   await page.getByLabel("Email", { exact: true }).fill(resetEmail);
   await page.getByLabel("Password", { exact: true }).fill(newPassword);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
@@ -397,7 +399,9 @@ test("Google is the only social provider and a failed request can be retried", a
     });
   });
   await google.click();
-  await expect(page.getByRole("alert")).toContainText("Impossible de vous connecter avec Google");
+  await expect(
+    page.getByRole("dialog", { name: /Impossible de vous connecter avec Google/ }),
+  ).toBeVisible();
   await expect(google).toBeEnabled();
   await google.click();
   await expect(page).toHaveURL(/\/fr\/login\?google=fake$/);

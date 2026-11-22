@@ -357,7 +357,7 @@ test("directory search spans pages and bulk deletion retries only failed rows", 
     name: `${group} ${String(index).padStart(2, "0")}`,
     email: `sync-${index}-${id}@example.test`,
     email_verified: true,
-    role: "user",
+    role: index === 26 ? "user,admin" : "user",
   }));
   await sql`insert into "user" ${sql(records)}`;
   try {
@@ -401,7 +401,20 @@ test("directory search spans pages and bulk deletion retries only failed rows", 
     await search.fill("%");
     await expect(page.getByText("No employees match your search.", { exact: true })).toBeVisible();
     await search.fill(group);
+    const nameHeader = page.getByRole("columnheader", { name: "Name", exact: true });
+    await nameHeader.getByRole("button").click();
+    await expect(nameHeader).toHaveAttribute("aria-sort", "descending");
+    await expect(page.getByRole("cell", { name: records[26].name, exact: true })).toBeVisible();
+    await page.reload();
+    await expect(nameHeader).toHaveAttribute("aria-sort", "descending");
+    await page.goBack();
     await expect(page.getByRole("cell", { name: records[0].name, exact: true })).toBeVisible();
+    const roleHeader = page.getByRole("columnheader", { name: "Role", exact: true });
+    await roleHeader.getByRole("button").click();
+    await expect(roleHeader).toHaveAttribute("aria-sort", "ascending");
+    await expect(page.getByRole("row").nth(1)).toContainText(records[26].name);
+    await page.goBack();
+    await expect(nameHeader).toHaveAttribute("aria-sort", "ascending");
     for (const record of records.slice(0, 2))
       await page.getByRole("checkbox", { name: `Select row: ${record.name}`, exact: true }).check();
     const attempts: string[] = [];

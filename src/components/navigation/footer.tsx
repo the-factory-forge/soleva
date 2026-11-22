@@ -1,9 +1,11 @@
+"use client";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 import { ManageCookiesButton } from "#/components/navigation/manage-cookies-button";
 import { Image } from "#/components/ui/image";
 import { Link } from "#/components/ui/link";
 import { type SocialPlatform, socialIconMap } from "#/components/ui/social-icons";
+import { submitFormOnShortcut } from "#/components/utils/dialog-submit";
 import { cn } from "#/lib/utils";
 
 export interface SocialLink {
@@ -213,7 +215,12 @@ export function Footer({
               </div>
             )}
             {newsletter && (
-              <form action={newsletter.action} method="post" className="pt-2">
+              <form
+                onKeyDownCapture={submitFormOnShortcut}
+                action={newsletter.action}
+                method="post"
+                className="pt-2"
+              >
                 <h3
                   className={cn(
                     "mb-3 font-heading text-sm font-semibold tracking-wide uppercase",

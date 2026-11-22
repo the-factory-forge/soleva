@@ -52,6 +52,11 @@ function ServiceDetailPage() {
   const service = getServiceBySlug(slug);
   if (!service) throw notFound();
   const content = service.content[locale];
+  const galleryImages = service.gallery?.map((src, index) => ({
+    id: src,
+    src,
+    alt: `${content.title} — ${index + 1}`,
+  }));
   const related = service.relatedServices
     .map((relSlug) => {
       const svc = getServiceBySlug(relSlug);
@@ -156,17 +161,26 @@ function ServiceDetailPage() {
               </figcaption>
             </figure>
           ))}
-          {service.gallery && (
+          {galleryImages && (
             <div>
               <h3 className="font-heading text-xl font-semibold">
                 {dict.service_detail.gallery_title}
               </h3>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {service.gallery.map((src, index) => (
-                  <Lightbox key={src} src={src} alt={`${content.title} — ${index + 1}`}>
+                {galleryImages.map(({ src, alt }) => (
+                  <Lightbox
+                    key={src}
+                    src={src}
+                    alt={alt}
+                    images={galleryImages}
+                    previousLabel={dict.gallery.previous}
+                    nextLabel={dict.gallery.next}
+                    imageErrorLabel={dict.gallery.error}
+                    closeLabel={dict.common.close}
+                  >
                     <Image
                       src={src}
-                      alt={`${content.title} — ${index + 1}`}
+                      alt={alt}
                       width={800}
                       height={600}
                       className="aspect-[4/3] w-full rounded-xl object-cover"

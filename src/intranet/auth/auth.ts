@@ -147,6 +147,8 @@ export function createAuth(database: AuthDatabase = db) {
     },
 
     advanced: {
+      // Keep origin validation active in browser fixtures that disable scheduled tasks with TEST.
+      disableOriginCheck: false,
       database: {
         // https://better-auth.com/docs/adapters/drizzle#joins
         joins: true,

@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 
 import { Link, type LinkProps } from "#/components/ui/link";
+import { BackLink } from "#/intranet/components/forge/back-link";
 import { cn } from "#/intranet/forge/utils";
 
 const accessDeniedLabels = {
@@ -35,12 +36,9 @@ export function AccessDeniedPage({
         <h1 className="text-2xl font-bold">{labels.accessDeniedTitle}</h1>
         <p className="mx-auto max-w-md text-muted-foreground">{labels.accessDeniedDescription}</p>
       </div>
-      <PageLink
-        href={homeHref}
-        className="cursor-pointer rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium transition-colors hover:bg-primary/5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-      >
+      <BackLink linkComponent={PageLink} href={homeHref}>
         {labels.accessDeniedCta}
-      </PageLink>
+      </BackLink>
     </main>
   );
 }

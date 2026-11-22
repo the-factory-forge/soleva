@@ -1,5 +1,4 @@
 "use client";
-
 import { Dialog } from "@base-ui/react/dialog";
 import { Menu } from "@base-ui/react/menu";
 import {
@@ -13,6 +12,7 @@ import {
 import * as React from "react";
 
 import { Link } from "#/components/ui/link";
+import { usePanelPreference, viewPreferenceKey } from "#/components/utils/view-preference";
 import { IconTooltip } from "#/intranet/components/forge/icon-tooltip";
 import { useAuthAction } from "#/intranet/components/forge/plugins/auth/auth-controls";
 import {
@@ -32,8 +32,10 @@ export interface IntranetSidebarProps {
   /** Use a compact symbol-only logo; the site name is rendered separately. */
   brand: { name: string; href: string; logo?: React.ReactNode };
   /** Compatible with Better Auth's standard session user fields. */
-  user: { name: string; email: string; image?: string | null };
+  user: { name?: string | null; email: string; image?: string | null };
   groups: IntranetNavGroup[];
+  /** Persistent secondary navigation immediately above the signed-in profile. */
+  footerItems?: IntranetNavItem[];
   pathname: string;
   profileHref: string;
   /** Call Better Auth, throw on result.error, then invalidate the host session. */
@@ -48,6 +50,7 @@ export interface IntranetSidebarProps {
 
 const defaultLabels = {
   navigation: "Side navigation",
+  footerNavigation: "Support navigation",
   toggle: "Toggle side navigation",
   close: "Close side navigation",
   expand: "Expand",
@@ -95,7 +98,10 @@ export function IntranetSidebarProvider({
   onFocusCapture,
   ...props
 }: IntranetSidebarProviderProps) {
-  const [localOpen, setLocalOpen] = React.useState(defaultOpen);
+  const [localOpen, setLocalOpen] = usePanelPreference(
+    viewPreferenceKey("intranet-sidebar", "desktop", "navigation"),
+    defaultOpen,
+  );
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isMobile = useSidebarMobile();
   const open = controlledOpen ?? localOpen;
@@ -108,7 +114,7 @@ export function IntranetSidebarProvider({
       if (controlledOpen === undefined) setLocalOpen(!open);
       onOpenChange?.(!open);
     }
-  }, [isMobile, controlledOpen, open, onOpenChange]);
+  }, [isMobile, controlledOpen, open, onOpenChange, setLocalOpen]);
 
   React.useEffect(() => {
     if (!isMobile && !open && sidebarHadFocus.current) {
@@ -215,7 +221,7 @@ export function IntranetSidebarInset({
 
 function UserAvatar({ user }: Pick<IntranetSidebarProps, "user">) {
   const [failedImage, setFailedImage] = React.useState<string>();
-  const initials = (user.name.trim() || user.email)
+  const initials = (user.name?.trim() || user.email)
     .split(/\s+/)
     .slice(0, 2)
     .map((word) => word[0])
@@ -241,6 +247,7 @@ export function IntranetSidebar({
   brand,
   user,
   groups,
+  footerItems,
   pathname,
   profileHref,
   onSignOut,
@@ -291,6 +298,17 @@ export function IntranetSidebar({
         label={labels.navigation}
         labels={labels}
       />
+      {footerItems?.length ? (
+        <SidebarNavigation
+          groups={[{ id: "footer", items: footerItems }]}
+          pathname={pathname}
+          linkComponent={LinkComponent}
+          onNavigate={closeMobile}
+          label={labels.footerNavigation}
+          labels={labels}
+          className="flex-none shrink-0 py-0"
+        />
+      ) : null}
       {version && <p className="px-2 py-1 text-center text-xs text-muted-foreground">{version}</p>}
       <div className="mx-2 border-t border-sidebar-border" />
       <footer className="shrink-0 p-2">

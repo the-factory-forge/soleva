@@ -69,3 +69,34 @@ test("image preview keeps keyboard focus inside and restores it on Escape", asyn
   await expect(preview).toBeHidden();
   await expect(trigger).toBeFocused();
 });
+
+test("the conversion gallery browses the van photos and returns focus to the selected thumbnail", async ({
+  page,
+}) => {
+  await page.route("**/*", (route) =>
+    new URL(route.request().url()).hostname === "localhost" ? route.continue() : route.abort(),
+  );
+  await page.goto("/fr/le-van/conversion-electrique");
+  const cookies = page.getByRole("dialog", { name: "Cookies" });
+  await cookies.getByRole("button", { name: fr.cookies.customize, exact: true }).click();
+  await cookies.getByRole("button", { name: fr.cookies.acceptSelection, exact: true }).click();
+
+  const thumbnail = page
+    .getByRole("button")
+    .filter({ has: page.locator('img[src*="gallery-10.webp"]') });
+  await thumbnail.click();
+  const preview = page.getByRole("dialog");
+  const photo = preview.getByRole("img");
+  await expect(photo).toHaveAttribute("src", "/images/conversion/gallery-10.webp");
+  await preview.getByRole("button", { name: fr.gallery.next }).click();
+  await expect(photo).toHaveAttribute("src", "/images/conversion/gallery-11.webp");
+  await page.keyboard.press("ArrowLeft");
+  await expect(photo).toHaveAttribute("src", "/images/conversion/gallery-10.webp");
+  await preview.getByRole("button", { name: fr.gallery.previous }).click();
+  await expect(photo).toHaveAttribute("src", "/images/conversion/gallery-9.webp");
+  await page.keyboard.press("ArrowLeft");
+  await expect(photo).toHaveAttribute("src", "/images/conversion/gallery-19.webp");
+  await page.keyboard.press("Escape");
+  await expect(preview).toBeHidden();
+  await expect(thumbnail).toBeFocused();
+});

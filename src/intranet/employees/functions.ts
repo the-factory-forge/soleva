@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
-import { asc, count, ilike, or } from "drizzle-orm";
+import { and, asc, count, desc, eq, ilike, isNotNull, isNull, like, not, or } from "drizzle-orm";
 import { ENV } from "varlock/env";
 
 import { auth } from "#/intranet/auth/auth";
@@ -37,11 +37,25 @@ function employeeService(actor: EmployeeActor) {
 export const $listEmployees = createServerFn({ method: "GET" })
   .middleware([adminMiddleware])
   .validator(employeeDirectorySchema)
-  .handler(async ({ data, context }) => {
-    const service = employeeService(context.user);
-    if (!data.search) return service.list(data);
+  .handler(async ({ data }) => {
     const pattern = `%${data.search.replace(/[\\%_]/g, "\\$&")}%`;
-    const filter = or(ilike(user.name, pattern), ilike(user.email, pattern));
+    const filter = data.search
+      ? or(ilike(user.name, pattern), ilike(user.email, pattern))
+      : undefined;
+    // Better Auth can store several comma-separated roles on one account.
+    const adminRole = or(
+      eq(user.role, "admin"),
+      like(user.role, "admin,%"),
+      like(user.role, "%,admin"),
+      like(user.role, "%,admin,%"),
+    )!;
+    const column = {
+      name: user.name,
+      email: user.email,
+      role: or(isNull(user.role), not(adminRole))!,
+      status: and(isNotNull(user.banned), eq(user.banned, true))!,
+    }[data.sort?.field ?? "name"];
+    const order = data.sort?.direction === "desc" ? desc : asc;
     const [users, [summary]] = await Promise.all([
       db
         .select({
@@ -56,7 +70,7 @@ export const $listEmployees = createServerFn({ method: "GET" })
         })
         .from(user)
         .where(filter)
-        .orderBy(asc(user.name), asc(user.id))
+        .orderBy(order(column), asc(user.id))
         .limit(EMPLOYEE_PAGE_SIZE)
         .offset(data.offset),
       db.select({ total: count() }).from(user).where(filter),

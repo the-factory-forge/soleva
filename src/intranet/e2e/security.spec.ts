@@ -131,7 +131,9 @@ test("named encrypted keys can be created, expire and be deleted only by their o
     ["it", "Sicurezza", "Chiavi agente"],
   ]) {
     await page.goto(`/${locale}/intranet`);
-    await page.getByRole("tab", { name: tab, exact: true }).click();
+    const securityTab = page.getByRole("tab", { name: tab, exact: true });
+    await securityTab.click();
+    await expect(securityTab).toHaveAttribute("aria-selected", "true");
     await expect(page.getByRole("heading", { name: heading, exact: true })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,

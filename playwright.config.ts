@@ -2,13 +2,14 @@ import { randomBytes } from "node:crypto";
 
 import { defineConfig, devices, type PlaywrightTestConfig } from "@playwright/test";
 
-const baseURL = "http://localhost:3100";
+const PORT = Number(process.env.E2E_PORT ?? 3100);
+const baseURL = `http://localhost:${PORT}`;
 
 export const webServer = {
   command: "vp run build && vp run start:e2e",
   env: {
     NODE_ENV: "production",
-    PORT: "3100",
+    PORT: String(PORT),
     VITE_BASE_URL: baseURL,
     DATABASE_URL: process.env.E2E_DATABASE_URL ?? "postgresql://test:test@127.0.0.1:1/public_e2e",
     BETTER_AUTH_SECRET: randomBytes(32).toString("base64url"),

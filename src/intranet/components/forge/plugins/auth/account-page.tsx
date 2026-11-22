@@ -20,6 +20,8 @@ import {
   accountPrimaryClass,
   accountInputClass,
 } from "#/intranet/components/forge/plugins/auth/account-styles";
+import { useHydrated } from "#/intranet/components/forge/plugins/auth/auth-controls";
+import { submitFormOnShortcut } from "#/intranet/components/forge/utils/dialog-submit";
 import { cn } from "#/intranet/forge/utils";
 
 export interface AccountTab {
@@ -120,6 +122,7 @@ function DefaultAccountSections({
 }: Omit<AccountPageProps, "content"> & DefaultAccountProps) {
   const labels = { ...accountLabels, ...overrides };
   const id = `factory-account-${useId()}`;
+  const hydrated = useHydrated();
   const [name, setName] = useState(user.name);
   const [pending, setPending] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -142,6 +145,7 @@ function DefaultAccountSections({
             <Tabs.Tab
               key={tab.id}
               value={tab.id}
+              disabled={!hydrated}
               className="relative min-h-11 cursor-pointer border-b-2 border-transparent px-4 text-sm font-medium text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring data-active:border-primary data-active:text-primary"
             >
               {tab.label}
@@ -151,6 +155,7 @@ function DefaultAccountSections({
       </div>
       <Tabs.Panel value="about" keepMounted className="data-hidden:hidden">
         <form
+          onKeyDownCapture={submitFormOnShortcut}
           className="grid gap-4"
           aria-busy={pending}
           onSubmit={async (event) => {

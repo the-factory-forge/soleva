@@ -1,0 +1,10 @@
+{
+  "name": "soleva-runtime-tools",
+  "private": true,
+  "dependencies": {
+    "drizzle-kit": "1.0.0-rc.5",
+    "drizzle-orm": "1.0.0-rc.5",
+    "postgres": "3.4.9",
+    "varlock": "1.23.0"
+  }
+}

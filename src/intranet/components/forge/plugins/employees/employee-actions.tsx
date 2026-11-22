@@ -15,6 +15,7 @@ import {
   type EmployeePhotoFieldProps,
 } from "#/intranet/components/forge/plugins/employees/employee-photo-field";
 import { EmployeeWebsiteStatus } from "#/intranet/components/forge/plugins/employees/employee-website-status";
+import { employeeWebsiteStatusClass } from "#/intranet/components/forge/plugins/employees/employee-website-status";
 import {
   employeeLabels,
   type EmployeeLabels,
@@ -34,10 +35,12 @@ import {
   inputClass,
   dialogClass,
 } from "#/intranet/components/forge/plugins/employees/styles";
+import { StatusToggle } from "#/intranet/components/forge/status-toggle";
 import { submitDialogOnShortcut } from "#/intranet/components/forge/utils/dialog-submit";
 import { tableActionsClass } from "#/intranet/components/forge/utils/table-styles";
 import { useMutationAction } from "#/intranet/components/forge/utils/use-optimistic-action";
 import { cn } from "#/intranet/forge/utils";
+
 export interface EmployeeActionCallbacks {
   deletion?: EmployeeDeletionAdapter;
   onUploadPhoto?: (id: string, file: File) => Promise<void>;
@@ -167,25 +170,26 @@ function EmployeeActionsContent({
                     </Dialog.Title>
                     {employee.websitePublished !== undefined &&
                       (onSetWebsitePublished ? (
-                        <button
-                          type="button"
-                          aria-label={labels.website}
-                          aria-pressed={employee.websitePublished}
+                        <StatusToggle
+                          label={labels.website}
+                          pressed={employee.websitePublished}
                           disabled={disabled || pending}
-                          className="ml-auto inline-flex min-h-10 cursor-pointer items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 md:min-h-8"
-                          onClick={() =>
+                          className={cn(
+                            "ml-auto min-h-10 md:min-h-8",
+                            employeeWebsiteStatusClass[
+                              employee.websitePublished ? "visible" : "hidden"
+                            ],
+                          )}
+                          onPressedChange={(published) =>
                             void run(
                               "website",
-                              () => onSetWebsitePublished(employee.id, !employee.websitePublished),
+                              () => onSetWebsitePublished(employee.id, published),
                               () => notify(labels.websiteUpdated),
                             )
                           }
                         >
-                          <EmployeeWebsiteStatus
-                            published={employee.websitePublished}
-                            labels={labels}
-                          />
-                        </button>
+                          {employee.websitePublished ? labels.websiteVisible : labels.websiteHidden}
+                        </StatusToggle>
                       ) : (
                         <EmployeeWebsiteStatus
                           published={employee.websitePublished}

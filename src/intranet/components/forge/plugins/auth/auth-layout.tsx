@@ -1,7 +1,8 @@
-import { ArrowLeftIcon, LockKeyholeIcon } from "lucide-react";
+import { LockKeyholeIcon } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 
 import { Link, type LinkProps } from "#/components/ui/link";
+import { BackLink } from "#/intranet/components/forge/back-link";
 import { cn } from "#/intranet/forge/utils";
 
 const authLayoutLabels = {
@@ -9,7 +10,7 @@ const authLayoutLabels = {
   workspaceTitle: "A space for our team.",
   workspaceDescription:
     "Your profile and work tools, together in one place. A private space for your team.",
-  backHome: "Back to home",
+  backHome: "Home",
   privacy: "Privacy policy",
 };
 export type AuthLayoutLabels = typeof authLayoutLabels;
@@ -69,13 +70,9 @@ export function AuthLayout({
 
       <div className="flex min-h-svh min-w-0 flex-col bg-background">
         <header className="flex items-center justify-between gap-2 p-4 sm:px-8 sm:py-6">
-          <LayoutLink
-            href={homeHref}
-            className="inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-lg px-3 text-sm font-medium text-muted-foreground! transition-colors hover:bg-primary/5 hover:text-primary! focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-          >
-            <ArrowLeftIcon className="size-4" aria-hidden="true" />
+          <BackLink linkComponent={LayoutLink} href={homeHref}>
             {labels.backHome}
-          </LayoutLink>
+          </BackLink>
           {languageControl}
         </header>
 

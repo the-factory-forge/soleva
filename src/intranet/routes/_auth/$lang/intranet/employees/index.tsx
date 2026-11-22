@@ -6,7 +6,10 @@ import { useAuthSuspense } from "#/intranet/auth/hooks";
 import { isAdmin } from "#/intranet/auth/permissions";
 import { authQueryOptions } from "#/intranet/auth/queries";
 import { EmployeesPage } from "#/intranet/components/forge/plugins/employees";
-import { EMPLOYEE_PAGE_SIZE } from "#/intranet/components/forge/plugins/employees/schema";
+import {
+  EMPLOYEE_PAGE_SIZE,
+  EMPLOYEE_SORT_FIELDS,
+} from "#/intranet/components/forge/plugins/employees/schema";
 import {
   $createEmployee,
   $deleteEmployee,
@@ -19,6 +22,8 @@ import { localeFromPathname } from "#/lib/i18n/pathname";
 
 export const Route = createFileRoute("/_auth/$lang/intranet/employees/")({
   validateSearch: z.object({
+    sort: z.enum(EMPLOYEE_SORT_FIELDS).exclude(["website"]).optional().catch(undefined),
+    direction: z.enum(["asc", "desc"]).optional().catch(undefined),
     q: z.string().max(200).optional().catch(undefined),
     offset: z.number().int().nonnegative().max(1_000_000).optional().catch(undefined),
   }),
@@ -45,7 +50,8 @@ function Employees() {
   const { locale } = Route.useLoaderData();
   const dict = useDictionary(locale);
   const { user } = useAuthSuspense();
-  const { q = "", offset = 0 } = Route.useSearch();
+  const { q = "", offset = 0, sort: field, direction = "asc" } = Route.useSearch();
+  const sort = field ? { field, direction } : undefined;
   const navigate = Route.useNavigate();
   function setOffset(value: number) {
     void navigate({
@@ -55,9 +61,12 @@ function Employees() {
     });
   }
   const queryClient = useQueryClient();
-  const employees = useQuery(employeesQueryOptions(offset, q));
+  const employees = useQuery(employeesQueryOptions(offset, q, sort));
   async function refreshEmployees() {
-    const result = await queryClient.query({ ...employeesQueryOptions(offset, q), staleTime: 0 });
+    const result = await queryClient.query({
+      ...employeesQueryOptions(offset, q, sort),
+      staleTime: 0,
+    });
     if (offset > 0 && result.users.length === 0)
       setOffset(Math.max(0, offset - EMPLOYEE_PAGE_SIZE));
     await queryClient.invalidateQueries({ queryKey: ["employees"], refetchType: "none" });
@@ -83,6 +92,23 @@ function Employees() {
       currentUserId={user.id}
       currentUserRole={user.role}
       labels={dict.employees}
+      sortLabels={dict.tableSort}
+      sort={sort}
+      onSortChange={(next, source) => {
+        if (next.field === "website") return;
+        const sort = next.field;
+        void navigate({
+          search: (previous) => ({
+            ...previous,
+            sort,
+            direction: next.direction,
+            offset: source === "restore" ? previous.offset : undefined,
+          }),
+          replace: source === "restore",
+          resetScroll: false,
+          hash: true,
+        });
+      }}
       onCreate={async (data) => {
         const result = await $createEmployee({ data: { ...data, locale } });
         setOffset(0);

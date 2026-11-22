@@ -9,6 +9,7 @@ import {
   accountPrimaryClass,
 } from "#/intranet/components/forge/plugins/auth/account-styles";
 import { useHydrated } from "#/intranet/components/forge/plugins/auth/auth-controls";
+import { submitFormOnShortcut } from "#/intranet/components/forge/utils/dialog-submit";
 import { cn } from "#/intranet/forge/utils";
 
 export const emailChangeLabels = {
@@ -42,6 +43,7 @@ export function AccountEmailChange({
   const lock = useRef(false);
   return (
     <form
+      onKeyDownCapture={submitFormOnShortcut}
       method="post"
       className={cn(accountCardClass, "mt-6 grid gap-4", className)}
       aria-busy={status === "pending"}

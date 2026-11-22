@@ -8,12 +8,17 @@ import { isAdmin } from "#/intranet/auth/permissions";
 import { authQueryOptions } from "#/intranet/auth/queries";
 import { ChangePasswordForm } from "#/intranet/components/change-password-form";
 import { AccountPage } from "#/intranet/components/forge/plugins/auth";
+import { AGENT_KEY_SORT_FIELDS } from "#/intranet/components/forge/plugins/auth/agent-keys";
 import { SecuritySettings } from "#/intranet/security/security-settings";
 import { ensureDictionary, useDictionary, t } from "@/lib/i18n";
 import { localeFromPathname } from "@/lib/i18n/pathname";
 
 export const Route = createFileRoute("/_auth/$lang/intranet/")({
-  validateSearch: z.object({ tab: z.enum(["about", "security"]).optional().catch(undefined) }),
+  validateSearch: z.object({
+    keySort: z.enum(AGENT_KEY_SORT_FIELDS).optional().catch(undefined),
+    direction: z.enum(["asc", "desc"]).optional().catch(undefined),
+    tab: z.enum(["about", "security"]).optional().catch(undefined),
+  }),
   loader: async ({ location }) => {
     const locale = localeFromPathname(location.pathname);
     await ensureDictionary(locale);

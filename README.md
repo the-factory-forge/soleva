@@ -2,13 +2,13 @@
 
 ## November 2026 foundation sync
 
-This site is reconciled with Template `v0.0.0-rc.6` (`174808be9038b3d14a61634c86509f45074bbb94`) and its installed public, Auth and Employees Registry source with `v0.0.0-rc.8` (`5ffb422ce0034a77837d76e0035567a0f3d38968`). See [the sync report](.agents/configs/.sync-template/report.html) and [Registry record](docs/registry-sync.md). The installed intranet now requires
+This site is reconciled with Template `v0.0.0-rc.6` (`174808be9038b3d14a61634c86509f45074bbb94`) and its installed public, Auth and Employees Registry source with `v0.0.0-rc.8` (`5ffb422ce0034a77837d76e0035567a0f3d38968`). See [the sync report](.sync-template/report.html) and [Registry record](docs/registry-sync.md). The installed intranet now requires
 `DATABASE_URL` and `BETTER_AUTH_SECRET`; empty values no longer select showcase mode.
 Keep the real PostgreSQL URL and signing secret configured in Dokploy before deployment.
 Build-only placeholders in Docker do not configure runtime credentials.
 
 Retired `MECHANICS.md` records are preserved byte-for-byte in
-[historical sync records](.agents/configs/.sync-template/report.html#history).
+[historical sync records](.sync-template/report.html#history).
 Use [AGENTS.md](AGENTS.md) and its canonical task guides for current work; archived
 status matrices and migration instructions are historical evidence.
 
@@ -24,7 +24,7 @@ VPS reset is part of this update.
 
 The September record used template `b81b90ec0c58d5dc6cd57d383864cb811464f4b4`;
 the current target and checks are recorded above.
-See [the sync record and VPS environment actions](.agents/configs/.sync-template/report.html#history).
+See [the sync record and VPS environment actions](.sync-template/report.html#history).
 Use `vp install` and `vpr dev` with the pinned toolchain. Leave `VITE_BASE_URL`
 unset locally so Portless supplies it; set the actual public HTTPS origin explicitly
 at build time and runtime on the VPS. Do not set `PORTLESS_URL` on the VPS.
@@ -79,7 +79,7 @@ Keep public `VITE_*` values consistent at build and runtime; `vpr start` and the
 Docker entrypoint load server settings through Varlock at startup.
 
 The latest template reconciliation, preserved adaptations, and validation results
-are recorded in [the sync report](.agents/configs/.sync-template/report.html#history).
+are recorded in [the sync report](.sync-template/report.html#history).
 
 ## Registry components
 
@@ -134,7 +134,7 @@ Status of the SEO/perf adaptation (branch `seo-adaptation`).
 
 ## Foundation maintenance
 
-Template reconciliation and deployment actions are recorded in [the sync history](.agents/configs/.sync-template/report.html#history).
+Template reconciliation and deployment actions are recorded in [the sync history](.sync-template/report.html#history).
 Use [sync-template](https://github.com/the-factory-forge/forge-skills/blob/main/skills/sync-template/SKILL.md) for foundation changes,
 [the registry-owned sync procedure](https://github.com/the-factory-forge/forge-registry/blob/main/.agents/skills/sync-from-forge-registry/SKILL.md) for selected registry items,
 and [forge-skills dependency maintenance](https://github.com/the-factory-forge/forge-skills/blob/main/skills/update-dependencies/SKILL.md) for package updates.

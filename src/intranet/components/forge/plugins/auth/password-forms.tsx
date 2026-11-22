@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ArrowLeftIcon,
   CheckCircleIcon,
   EyeIcon,
   EyeOffIcon,
@@ -12,12 +11,14 @@ import { useId, useRef, useState, type ComponentType, type ReactNode } from "rea
 
 import { Link, type LinkProps } from "#/components/ui/link";
 import { ActionToastProvider, useActionToast } from "#/intranet/components/forge/action-toast";
+import { BackLink } from "#/intranet/components/forge/back-link";
 import { IconTooltip } from "#/intranet/components/forge/icon-tooltip";
 import { useHydrated } from "#/intranet/components/forge/plugins/auth/auth-controls";
 import {
   passwordLabels,
   type PasswordLabels,
 } from "#/intranet/components/forge/plugins/auth/password-labels";
+import { submitFormOnShortcut } from "#/intranet/components/forge/utils/dialog-submit";
 import { cn } from "#/intranet/forge/utils";
 
 const inputClass =
@@ -38,6 +39,7 @@ interface RecoveryProps extends FormProps {
 }
 export interface ForgotPasswordFormProps extends RecoveryProps {
   onRequestReset: (email: string) => Promise<void>;
+  defaultEmail?: string;
 }
 export interface ChangePasswordValues {
   currentPassword: string;
@@ -93,6 +95,7 @@ function useSubmission() {
 
 export function ForgotPasswordForm({
   onRequestReset,
+  defaultEmail,
   enabled = true,
   loginHref,
   labels: overrides,
@@ -123,6 +126,7 @@ export function ForgotPasswordForm({
         </output>
       ) : (
         <form
+          onKeyDownCapture={submitFormOnShortcut}
           method="post"
           className="grid gap-5"
           aria-busy={state.pending}
@@ -141,6 +145,7 @@ export function ForgotPasswordForm({
               id={`${id}-email`}
               name="email"
               type="email"
+              defaultValue={defaultEmail}
               autoComplete="email"
               autoCapitalize="none"
               spellCheck={false}
@@ -165,16 +170,9 @@ export function ForgotPasswordForm({
         </form>
       )}
       {loginHref && (
-        <FormLink
-          href={loginHref}
-          className={cn(
-            linkClass,
-            "min-h-10 justify-self-start rounded-lg px-3 hover:bg-primary/5 hover:no-underline",
-          )}
-        >
-          <ArrowLeftIcon className="size-4" aria-hidden="true" />
+        <BackLink linkComponent={FormLink} href={loginHref}>
           {labels.backToLogin}
-        </FormLink>
+        </BackLink>
       )}
     </div>
   );
@@ -209,6 +207,7 @@ function PasswordFormContent({
       )}
       {!(reset && state.succeeded) && (
         <form
+          onKeyDownCapture={submitFormOnShortcut}
           method="post"
           className="grid gap-5"
           aria-busy={state.pending}
@@ -368,16 +367,9 @@ export function ResetPasswordForm({
       )}
       {enabled && !validLink && requestResetLink}
       {loginHref && (
-        <FormLink
-          href={loginHref}
-          className={cn(
-            linkClass,
-            "min-h-10 justify-self-start rounded-lg px-3 hover:bg-primary/5 hover:no-underline",
-          )}
-        >
-          <ArrowLeftIcon className="size-4" aria-hidden="true" />
+        <BackLink linkComponent={FormLink} href={loginHref}>
           {labels.backToLogin}
-        </FormLink>
+        </BackLink>
       )}
     </div>
   );
